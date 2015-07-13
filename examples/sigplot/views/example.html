@@ -1,0 +1,32 @@
+<div class="container-fluid" style="width:95%">
+    <div class="row">
+        <h1>BULKIO Devices in {{user.domain}}</h1>
+    </div>
+    <div class="row"> <!-- Nav bar for Control Device, Bulkio Port, etc.-->
+        <ol class="breadcrumb">
+            <li><select id="bulkioDevices"
+                    ng-model="selectedDevice"
+                    ng-options="bulkioDevice as bulkioDevice.name for bulkioDevice in domain.bulkioDevices | orderBy: 'name'">
+                </select></li>
+            <li ng-show="selectedDevice">
+                <!-- Note, bulkioInterface is in the child scope, not controller scope -->
+                <select id="interfaces"  
+                    ng-model="bulkioInterface"
+                    ng-options="port as port.name for port in selectedDevice.ports | filter: bulkioFilter | orderBy: 'name'"
+                    ng-change="plotInterface(bulkioInterface)">
+                    <option value=""><!--empty option--></option>
+                </select>
+            </li>
+        </ol>
+    </div>
+
+    <div class="row" ng-if="selectedInterfaceSocket">
+        <div class="col-md-8 col-offset-md-4">
+            <div sig-plot-psd ng-controller="SigPlotController"
+                buffer="selectedInterfaceData"
+                sri="selectedInterfaceSRI" 
+                style="height:450px; width=100%">
+            </div>
+        </div>
+    </div>
+</div>

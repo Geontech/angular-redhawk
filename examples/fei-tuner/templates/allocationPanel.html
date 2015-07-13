@@ -1,0 +1,72 @@
+<div class="container-fluid">
+  <div class="row">
+    <div ng-class="{ 'col-sm-6': showStatuses, 'col-sm-12': !showStatuses }">
+        <h3>Allocation Details</h3>
+        <div class="row">
+            <form name="allocationEditor" 
+                role="form" 
+                ng-submit="submit()" 
+                class="form-horizontal">
+
+                <div class="form-group">
+                    <label for="allocationType" 
+                        ng-class="{ 'col-sm-5' :  showStatuses,
+                                    'col-sm-4' : !showStatuses }"
+                        class="control-label">Type</label>
+                    <div ng-class="{ 'col-sm-7' :  showStatuses, 
+                                     'col-sm-6' : !showStatuses}">
+                        <select ng-model="allocationTypeIsTuner" 
+                            ng-options="opt.value as opt.text for opt in TYPES">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-repeat="(id, value) in properties.value | orderBy: id">
+                    <label for="{{ prettyId(id) }}"
+                        ng-class="{ 'col-sm-5' :  showStatuses,
+                                    'col-sm-4' : !showStatuses }"
+                        class="control-label">{{ prettyId(id) }}</label>
+                    <div ng-class="{ 'col-sm-7' :  showStatuses, 
+                                     'col-sm-6' : !showStatuses}">
+
+                        <input class="form-control input-sm"
+                            ng-if="typeForPropId(id) == 'text'"
+                            type="text" 
+                            ng-model="properties.value[id]"
+                            id="{{ id }}">
+
+                        <input class="form-control input-sm"
+                            ng-if="typeForPropId(id) == 'number'"
+                            type="number"
+                            pattern="/^-?\d*\.?\d*$/"
+                            ng-model="properties.value[id]"
+                            id="{{ id }}">
+
+                        <select class="form-control input-sm"
+                            ng-if="typeForPropId(id) == 'enum'"
+                            ng-model="properties.value[id]"
+                            ng-options="enum for enum in enumForPropId(id)"
+                            id="{{ id }}"></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div ng-class="{ 'col-sm-5 col-sm-offset-7':  showStatuses, 
+                                     'col-sm-3 col-sm-offset-7': !showStatuses }">
+                        <button class="btn btn-sm btn-success" type="submit">Allocate</button>
+                        <button class="btn btn-sm btn-warning" ng-click="cancel()">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-sm-6" ng-if="showStatuses">
+        <h3>Tuner Status{{ (info.statuses.length > 1) ? "es" : "" }}</h3>
+        <div ng-repeat="stat in info.statuses track by $index" class="row">
+            <h4 ng-if="info.statuses.length > 1" class="text-info">Number: {{ $index }}</h4>
+            <tuner-status status="stat"></tuner-status>
+        </div>
+    </div>
+  </div>
+</div>

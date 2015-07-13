@@ -1,0 +1,19 @@
+{
+  "name": "google-maps-example",
+  "version": "1.0.0",
+  "authors": [
+    "Thomas Goodwin <btgoodwin@geontech.com>"
+  ],
+  "description": "Angular-REDHAWK Google Maps Integration Example",
+  "main": "index.html",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular-redhawk" : "git@github.com:geontech/angular-redhawk.git",
+    "angular-google-maps": "~2.0.12",
+    "lodash": "~3.0.0"
+  },
+}
