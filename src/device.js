@@ -55,14 +55,14 @@ angular.module('redhawk')
          * Analogous to their names, pass an array of properties (id-value maps)
          * accordingly to set and un-set properties.
          */
-        var configure = function(properties)  { return self._commonSave('configure',  properties); }
-        var allocate = function(properties)   { return self._commonSave('allocate',   properties); }
-        var deallocate = function(properties) { return self._commonSave('deallocate', properties); }
+        function configure (properties)  { return _commonSave('configure',  properties); }
+        function allocate (properties)   { return _commonSave('allocate',   properties); }
+        function deallocate (properties) { return _commonSave('deallocate', properties); }
 
         /*
          * Refresh the REST model
          */
-        var refresh = _reload;
+        function refresh () { _reload; }
 
         //////// Internal //////////
         /**

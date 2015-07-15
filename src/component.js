@@ -35,7 +35,7 @@ angular.module('redhawk')
         self._portConfigUrl = Config.componentPortUrl;
 
 
-        ///////// PUBLIC Interfaces ///////////
+        ///////// PUBLIC Interfaces (immutable) ///////////
         self.configure = configure;
 
 
@@ -44,7 +44,7 @@ angular.module('redhawk')
         /**
          * Configure the list of properties (id-value pairs).
          */
-        var configure = function(properties) {
+        function configure (properties) {
           return REST.component.configure(self._restArgs, { properties: properties },
               function(){ $timeout(self._reload, 1000); }
           );
@@ -57,7 +57,7 @@ angular.module('redhawk')
         /**
          * @see {Domain._load()}
          */
-        self._load = function(id, domainId, applicationId) {
+        var _load = function(id, domainId, applicationId) {
           self._restArgs = {componentId: id, applicationId: applicationId, domainId: domainId };
           self.$promise = REST.component.query(self._restArgs,
             function(data){
@@ -71,9 +71,9 @@ angular.module('redhawk')
         /**
          * @see {Domain._reload()}
          */
-        self._reload = function() { self._load(self.id, self.domainId, self.waveformId); };
+        var _reload = function() { _load(self.id, self.domainId, self.waveformId); };
 
-        self._load(id, domainId, applicationId);
+        _load(id, domainId, applicationId);
       };
 
       Component.prototype = Object.create(RESTPortBearer.prototype);

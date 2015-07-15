@@ -13,31 +13,31 @@ angular.module('ExampleApp', [
         .otherwise({ redirectTo: '/example' });
     }
   ])
+
+
+  /* 
+   * The purpose of this example is to showcase pushed event channel data from
+   * a given REDHAWK domain.  
+   */
   .controller('ExampleController', ['$scope', 'REDHAWK', 
     function($scope, REDHAWK) {
-      // The purpose of this example is to showcase pushed event channel data from
-      // a given REDHAWK domain.  These messages will be stored here:
-      $scope.messages = [];
 
       // Here, we enable the REDHAWK service to get pushed updates
       // and forward them to the callback.
       REDHAWK.addListener( 
         function(msg) {
-          if (msg && msg.domainIds && msg.domainIds.length && !$scope.domain) {
-            // Purpose: Attach to to the first REDHAWK domain ID found, create and assign it to
-            // a property on $scope to make it accessible from the views/example.html
-            $scope.domain = REDHAWK.getDomain(msg.domainIds[0]);
-
-            // Similarly, the resulting factory has its own socket for receiving messages on its
-            // named event channels.  By default, these are the ODM_Channel and IDM_Channel.  
-            // Others can be This callback receives raw message structures as received on the domain's event
-            // channels (by default, ODM and IDM).
-            $scope.domain.on_msg = function(msg) {
-              $scope.messages.unshift(msg);
-              while (10 <= $scope.messages.length) {
-                $scope.messages.pop(); // remove oldest
-              }
-            }
+          if (msg && msg.domains && msg.domains.length && !$scope.domain) {
+            // Purpose: 
+            // If the message is valid and no $scope.domain exists, ttach to to the first 
+            // REDHAWK Domain ID found by using the REDHAK service to create/fetch it, by ID,
+            // using the default Domain factory.  Then assign it to $scope to make it accessible 
+            // from the views/example.html as 'domain'.
+            //
+            // The resulting Domain instance automatically opens a socket and connects to the 
+            // channels: IDM_Channel and ODM_Channel.  It then saves the most recent 500 messages
+            // to its `events` property, which we'll be able to automatically watch since it's
+            // mentioned in example.html.
+            $scope.domain = REDHAWK.getDomain(msg.domains[0]);            
           }
         });
       }

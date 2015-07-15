@@ -61,6 +61,14 @@ module.exports = function(grunt) {
           'bootstrap-css/css/bootstrap.css'        : 'bootstrap-css/css/bootstrap.css',
           'angular-toastr/dist/angular-toastr.css' : 'angular-toastr/dist/angular-toastr.css'
         }
+      },
+      bootstrap: {
+        options: {
+          destPrefix: distDir
+        },
+        files: {
+          'bootstrap.css.map' : 'bootstrap-css/css/bootstrap.css.map'
+        }
       }
     },
     bower: {
@@ -89,7 +97,7 @@ module.exports = function(grunt) {
     // Concatenate JS and CSS files for simpler inclusion
     concat: {
       options: {
-        stripBanners: false,
+        stripBanners: true,
         banner: mainBanner
       },
       dist: {

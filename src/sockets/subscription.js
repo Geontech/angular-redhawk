@@ -27,7 +27,7 @@ angular.module('redhawk.sockets')
     function ($rootScope) {
       var Subscription = function() {
         var self = this;
-        //////// PUBLIC INTERFACES
+        //////// PUBLIC INTERFACES  (immutable) ////////
         self.connect = connect;
         self.send = send;
         self.close = close;
@@ -44,7 +44,7 @@ angular.module('redhawk.sockets')
          * Connect to the websocket at the given path URL.
          * Callback will be called if connected.
          */
-        var connect = function (path_, callback) {
+        function connect (path_, callback) {
           path = path_;
           ws = new WebSocket(path);
 
@@ -79,32 +79,32 @@ angular.module('redhawk.sockets')
          * Add this callback to the JSON listeners
          * Messages received will be JSON structures converted to JS entities.
          */
-        var addJSONListener = function (callback) { callbacks.json.push(callback); }
+        function addJSONListener  (callback) { callbacks.json.push(callback); }
 
         /*
          * Add a callback to the Binary listeners
          * Messages received will be binary character strings
          * (Good for protobufs, BULKIO, etc.)
          */
-        var addBinaryListener = function (callback) { callbacks.binary.push(callback); }
+        function addBinaryListener  (callback) { callbacks.binary.push(callback); }
 
         /* 
          * Remove callback from JSON Listeners
          */
-        var removeJSONListener = function(callback) { remove(callback, callbacks.json); }
+        function removeJSONListener (callback) { remove(callback, callbacks.json); }
 
         /*
          * Remove callback from Binary Listeners
          */
-        var removeBinaryListener = function(callback) { remove(callback, callbacks.binary); }
+        function removeBinaryListener (callback) { remove(callback, callbacks.binary); }
 
         /*
          * Send data on the websocket
          */
-        var send = function (data) {
-          if (undefined == ws)
+        function send  (data) {
+          if (undefined == ws) 
             delayOutQueue.push(data);
-          else
+          else 
             ws.send(data);
         }
 
@@ -114,9 +114,9 @@ angular.module('redhawk.sockets')
          * i.e., a Controller is being destroyed in the UI that 
          * created an instance of this factory.
          */
-        var close = function() {
-          console.log("Socket closed: " + path);
+        function close () {
           ws.close();
+          console.log("Socket closed: " + path);
         }
 
 

@@ -21,17 +21,20 @@
 /* 
  * Angular-REDHAWK Event Channel Listener.
  * 
+ * Constructor requires domainID; the remaining elements are optional.  If you provide
+ * a buffer, the EventChannel will maintain the list up to 500 in length automatically.
+ * 
  * Use addChannel and removeChannel to attach to channel names (e.g., 'IDM_Channel').
  * 
  * Requires a Domain ID to filter incoming messages.
  */
 angular.module('redhawk.sockets')
-  .factory('EventChannel', ['SubscriptionSocket',
-    function(SubscriptionSocket) {
-      return function(domainID, parent_on_msg, parent_on_connect) {
+  .factory('EventChannel', ['Subscription', 'Config',
+    function(Subscription, Config) {
+      return function(domainID, buffer, parent_on_msg, parent_on_connect) {
         var self = this;
 
-        // Public interfaces
+        // Public interfaces (immutable)
         self.addChannel = addChannel;
         self.removeChannel = removeChannel;
         self.getMessages = getMessages;
@@ -45,10 +48,10 @@ angular.module('redhawk.sockets')
          * Connect to a named channel.
          * For example, addChannel('ODM_Channel')
          */
-        var addChannel = function(channel) {
-          if (-1 == self.channels.indexOf(channel)) {
-            eventMessageSocket.send(Msg('ADD', topic));
-            self.channels.push(channel);
+        function addChannel (channel) {
+          if (-1 == channels.indexOf(channel)) {
+            eventMessageSocket.send(Msg('ADD', channel));
+            channels.push(channel);
           }
         }
 
@@ -56,50 +59,51 @@ angular.module('redhawk.sockets')
          * Disconnect from a named channel.
          * For example, addChannel('ODM_Channel')
          */
-        var removeChannel = function(channel) {
-          var chanIdx = self.channels.indexOf(channel)
+        function removeChannel (channel) {
+          var chanIdx = channels.indexOf(channel)
           if (-1 < chanIdx) {
-            eventMessageSocket.send(Msg('REMOVE', topic));
-            self.channels.splice(chanIdx, 1);
+            eventMessageSocket.send(Msg('REMOVE', channel));
+            channels.splice(chanIdx, 1);
           }
         }
 
         /* 
          * Retrieve a copy of the message buffer
          */
-        var getMessages = function() {
+        function getMessages () {
           return angular.copy(messages);
         }
 
         /* 
          * Retrieve a copy of the event channels known to this instance.
          */
-        var getChannelNames = function() {
+        function getChannelNames () {
           return angular.copy(channels);
         }
 
         /*
          * Add an additional listener callback to this EventChannel's various subscriptions.
          */
-        var addListener = function(callback) {
+        function addListener (callback) {
           eventMessageSocket.addJSONListener(callback);
         }
 
         /*
          * Stop listening to this EventChannels' subscriptions.
          */
-        var removeListener = function(callback) {
+        function removeListener (callback) {
           eventMessageSocket.removeListener(callback);
         }
 
         ///////////// INTERNAL ////////////
 
-        var messages = [];
+        // Use the provided buffer or a new list
+        var messages = buffer || [];
         var channels = [];
 
         var on_connect = function() {
           if (parent_on_connect)
-            parent_on_connect(self);
+            parent_on_connect.call(self);
         }
 
         var on_msg = function(obj){
@@ -113,15 +117,15 @@ angular.module('redhawk.sockets')
         }
 
         var Msg = function(command, topic, domainId) {
-          return JSON.stringify({command: command, topic: topic, domainId: domainId});
+          return JSON.stringify({command: command, topic: topic, domainId: domainID});
         }
 
         // Create the subscription socket, connect to the appropriate URL, and wait for connection.
         // Bind a JSON listener to forward incoming events to the local handler.
-        var eventMessageSocket = new SubscriptionSocket();
-        eventMessageSocket.connect(Config.eventSocketUrl, function() { on_connect.call(self); });
-        eventMessageSocket.addJSONListener(function(json) { on_msg.call(self, json); });
-        eventMessageSocket.addBinaryListener(function(data){ console.warn("WARNING Event Channel Binary Data!"); });
+        var eventMessageSocket = new Subscription();
+        eventMessageSocket.connect(Config.eventSocketUrl, function() { on_connect(); });
+        eventMessageSocket.addJSONListener(   on_msg);
+        eventMessageSocket.addBinaryListener( function(data) { console.warn("WARNING Event Channel Binary Data!"); });
       };
   }])
 ;

@@ -35,7 +35,8 @@ angular.module('redhawk')
         // Inherited Setup
         RESTFactory.apply(arguments);
 
-        ///////// PUBLIC Methods //////////
+        ///////// PUBLIC (immutable) //////////
+        
         self.configure = configure;
         self.getFileSystem = getFileSystem;
         // Getting Device Managers and Devices
@@ -48,8 +49,14 @@ angular.module('redhawk')
         self.getComponent = getComponent;
 
         // Event Channel access
+        self.events = []; // buffer
         self.addEventChannel = addEventChannel;
         self.removeEventChannel = removeEventChannel;
+
+        //////// PUBLIC (mutable) /////////
+        // on_msg -- Replace with a function to call when event channel messages are received
+        // on_connect -- Replace with a function to call when the event channel connects
+
 
 
         ///////// Definitions ////////
@@ -58,7 +65,7 @@ angular.module('redhawk')
          * Configure REDHAWK properties for this object.
          * @param properties
          */
-        var configure = function(properties) {
+        function configure (properties) {
           REST.domain.configure(self._restArgs, { properties: properties });
         };
 
@@ -68,7 +75,7 @@ angular.module('redhawk')
          * @param path
          * @returns {*}
          */
-        var getFileSystem = function(path) {
+        function getFileSystem (path) {
           return REST.fileSystem.query({domainId: self.id, path: path});
         };
 
@@ -78,7 +85,7 @@ angular.module('redhawk')
          * @param factoryName
          * @returns {*}
          */
-        var getDeviceManager = function(id, factoryName) {
+        function getDeviceManager (id, factoryName) {
           var storeId = id + ((factoryName) ? factoryName : 'DeviceManager');
           if(!self.deviceManagers[storeId]) {
             var constructor = (factoryName) ? $injector.get(factoryName) : DeviceManager;
@@ -94,7 +101,7 @@ angular.module('redhawk')
          * @param factoryName
          * @returns {*}
          */
-        var getDevice = function(id, deviceManagerId, factoryName) {
+        function getDevice (id, deviceManagerId, factoryName) {
           var storeId = id + ((factoryName) ? factoryName : 'Device');
           if(!self.devices[storeId]){
             var constructor = (factoryName) ? $injector.get(factoryName) : Device;
@@ -108,7 +115,7 @@ angular.module('redhawk')
          * Get a list of Waveforms available for launching.
          * @returns {Array}
          */
-        var getLaunchableWaveforms = function() {
+        function getLaunchableWaveforms () {
           if(!self.availableWaveforms) {
             self.availableWaveforms = [];
             self.availableWaveforms.$promise =
@@ -130,7 +137,7 @@ angular.module('redhawk')
          * @param name
          * @returns {*}
          */
-        var launch = function(name) {
+        function launch (name) {
           return REST.waveform.launch(self._restArgs, {name: name},
             function(data){
               notify.success("Waveform "+data['launched']+" launched");
@@ -148,7 +155,7 @@ angular.module('redhawk')
          * @param factoryName
          * @returns {*}
          */
-        var getWaveform = function(id, factoryName){
+        function getWaveform (id, factoryName){
           var storeId = id + ((factoryName) ? factoryName : 'Waveform');
           if(!self.waveforms[storeId]) {
             var constructor = (factoryName) ? $injector.get(factoryName) : Waveform;
@@ -165,7 +172,7 @@ angular.module('redhawk')
          * @param factoryName
          * @returns {*}
          */
-        var getComponent = function(id, applicationId, factoryName) {
+        function getComponent (id, applicationId, factoryName) {
           var storeId = id + ((factoryName) ? factoryName : 'Component');
           if(!self.components[storeId]) {
             var constructor = (factoryName) ? $injector.get(factoryName) : Component;
@@ -178,14 +185,14 @@ angular.module('redhawk')
         /**
          * Add the named event channel to the list of subscriptions.
          */
-        var addEventChannel = function(name) {
+        function addEventChannel (name) {
           eventChannel.addChannel(name);
         }
 
         /**
          * Remove the named event channel from the list of subscriptions.
          */
-        var removeEventChannel = function(name){
+        function removeEventChannel (name){
           eventChannel.removeChannel(name);
         }
 
@@ -209,7 +216,7 @@ angular.module('redhawk')
 
           // Event socket.
           if (!eventChannel)
-            eventChannel = new EventChannel(id, _on_msg, _on_connect);
+            eventChannel = new EventChannel(id, self.events, _on_msg, _on_connect);
 
           // Local storage maps of spawned factories.
           self.deviceManagers = {};
@@ -232,7 +239,7 @@ angular.module('redhawk')
         /**
          * Internal calback for event channel on_msg
          */
-        var _on_msg = function(msg) {
+        var _on_msg = function (msg) {
           // TODO: Process the message to update the model and spawned factories
           // Forward the message to the spawned factory (if it exists)?
           // Automatically spawn and tear-down factories?
@@ -245,7 +252,7 @@ angular.module('redhawk')
         /**
          * Internal callback for event channel on_connect
          */
-        var _on_connect = function() {
+        var _on_connect = function () {
           eventChannel.addChannel('IDM_Channel');
           eventChannel.addChannel('ODM_Channel');
           // TODO: Add automatic sweep through REST model for device managers and 

@@ -30,7 +30,7 @@ angular.module('redhawk')
         var self = this;
         Device.apply(self, arguments);
 
-        ///////// Additional public interfaces //////////
+        ///////// Additional public interfaces (immutable) //////////
         self.feiQuery = feiQuery;
         self.feiTune = feiTune;
         self.getTunerAllocationProps = getTunerAllocationProps;
@@ -44,7 +44,7 @@ angular.module('redhawk')
         /* 
          * Gets a copy of the REDHAWK Property ID for tuner_allocation
          */
-        var getTunerAllocationProps = function () {
+        function getTunerAllocationProps  () {
           var p = UtilityFunctions.findPropId(self.properties, 'FRONTEND::tuner_allocation');
           return angular.copy(p);
         }
@@ -52,13 +52,13 @@ angular.module('redhawk')
         /* 
          * Gets a copy of the REDHAWK Property ID for listener_allocation
          */
-        var getListenerAllocationProps = function () {
+        function getListenerAllocationProps  () {
           var p = UtilityFunctions.findPropId(self.properties, 'FRONTEND::listener_allocation');
           return angular.copy(p);
         }
 
         // Returns a promise, allocatioNId is optional.
-        var feiQuery = function(portId, allocationId) {
+        function feiQuery (portId, allocationId) {
           return REST.feiTunerDevice.query(
             angular.extend({}, self._restArgs, {allocationId: allocationId, portId: portId}),
             function(data) {
@@ -80,7 +80,7 @@ angular.module('redhawk')
         };
 
         // Returns a promise
-        var feiTune = function(portId, allocationId, properties) {
+        function feiTune (portId, allocationId, properties) {
           return REST.feiTunerDevice.tune(
               angular.extend({}, self._restArgs, { allocationId: allocationId, portId: portId }),
               {properties: properties},

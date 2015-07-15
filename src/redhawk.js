@@ -53,7 +53,7 @@ angular.module('redhawk')
        *
        * @returns {Array.<string>}
        */
-      var getDomainIds = function() {
+      function getDomainIds () {
         if(!domainIds) {
           domainIds.$promise = REST.domain.query()
             .$promise
@@ -76,7 +76,7 @@ angular.module('redhawk')
        * @param factoryName - String name to inject as the constructor rather than RedhawkDomain
        * @returns {Domain}
        */
-      var getDomain = function(id, factoryName) {
+      function getDomain (id, factoryName) {
         var storeId = id + ((factoryName) ? factoryName : 'Domain');
 
         if(!_domains[storeId]) {
@@ -91,21 +91,18 @@ angular.module('redhawk')
        * Add a listener to the system's socket which carries information about Domains 
        * joining and leaving the networked REDHAWK system.
        */
-      var addListener = function(callback) {
+      function addListener (callback) {
         if (!redhawkSocket) 
-          self.enablePush(); // Connect first...otherwise what's the point?
+          redhawk.enablePush(); // Connect first...otherwise what's the point?
 
         // Forward the callback
         redhawkSocket.addJSONListener(callback);
-
-        // Issue a first message
-        callback({domains: redhawk.domainIds, added:[], removed: []});
       }
 
       /**
        * Remove a listener to the system's socket.
        */
-      var removeListener = function(callback) {
+      function removeListener (callback) {
         if (!redhawkSocket) return;
         redhawkSocket.removeJSONListener(callback);
       }
@@ -113,7 +110,7 @@ angular.module('redhawk')
       /**
        * Enable pushed updates (via websocket)
        */
-      var enablePush = function() {
+     function enablePush() {
         if (!redhawkSocket) {
           // Connect to the system-wide socket (domains joining and leaving);
           redhawkSocket = new Subscription();
@@ -133,7 +130,7 @@ angular.module('redhawk')
       /**
        * Disable pushed updates (via websocket);
        */
-      var disablePush = function () {
+      function disablePush () {
         if (!!redhawkSocket)
           redhawkSocket.close();
         redhawkSocket = null;
@@ -150,16 +147,14 @@ angular.module('redhawk')
 
       var on_msg = function(msg) {
         // msg is { domains: [], added: [], removed: [] }
-        console.warn("TODO: Implement REDHAWK.on_msg for status socket");
-        console.warn(msg);
-        redhawk.domainIds = msg.domains;
+        angular.copy(msg.domains, redhawk.domainIds);
 
-        if (0 < msg.added.length) {
-          console.warn("Domains were added"); 
+        if (msg.hasOwnProperty('added') && msg.added && 0 < msg.added.length) {
+          console.debug("TODO: Domains were added");
         }
 
-        if (0 < msg.removed.length) {
-          console.warn("Domains were removed, notify the factory(ies) if one exists");
+        if (msg.hasOwnProperty('removed') && msg.removed && 0 < msg.removed.length) {
+          console.debug("TODO: Domains were removed, notify the factory(ies) if one exists");
         }
       }
 

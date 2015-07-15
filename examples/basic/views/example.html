@@ -1,6 +1,12 @@
 <div class="container">
-    Connected to events on: {{ domain.id }}
-    <ul>
-        <li ng-repeat="msg in messages">{{ msg }}</li>
-    </ul>
+    <div ng-show="domain">
+        <h2>Connected to events on: {{ domain.id }}</h2>
+        <ul>
+            <li ng-repeat="msg in domain.events">{{ msg }}</li>
+        </ul>
+    </div>
+    <div ng-show="!domain">
+        <h2>No domains found</h2>
+        Please start a domain.
+    </div>
 </div>

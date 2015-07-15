@@ -43,7 +43,7 @@ angular.module('redhawk')
 
         //////// Definitions /////////
         // Returns a promise
-        var feiQuery = function(portId) {
+        function feiQuery (portId) {
           return REST.feiDevice.query(
             angular.extend({}, self._restArgs, { portId: portId }),
             function(data) { 

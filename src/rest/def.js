@@ -45,7 +45,7 @@
          * Runs through the updateFinished methods.  Any that return false are removed from the list.
          * TODO: Incorporate this behavior into a base class for all factories.
          */
-        self._runAllUpdatesFinished = function() {
+        var _runAllUpdatesFinished = function() {
           var f = self.updateFinished.length;
           while (f--) {
             if (!self.updateFinished[f]())
@@ -66,6 +66,7 @@
        * Map of arguments used in in the implementation factory's REST callbacks
        */
       RESTFactory.prototype._restArgs = {};
+      RESTFactory.prototype._update = function() {};
 
       return RESTFactory;
     })

@@ -17,7 +17,7 @@
       * You should have received a copy of the GNU Lesser General Public License                   
       * along with this program.  If not, see http://www.gnu.org/licenses/.                        
       *                                                                                            
-      * angular-redhawk - v0.1.0 - 2015-07-13          
+      * angular-redhawk - v0.1.0 - 2015-07-15          
       */                                                                                           
      /*!
  * jQuery JavaScript Library v2.1.4
@@ -11182,11 +11182,6 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
 
 }(jQuery);
 
-/**
- * @license AngularJS v1.4.2
- * (c) 2010-2015 Google, Inc. http://angularjs.org
- * License: MIT
- */
 (function(window, document, undefined) {'use strict';
 
 /**
@@ -39548,11 +39543,6 @@ var minlengthDirective = function() {
 })(window, document);
 
 !window.angular.$$csp() && window.angular.element(document).find('head').prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-/**
- * @license AngularJS v1.3.8
- * (c) 2010-2014 Google, Inc. http://angularjs.org
- * License: MIT
- */
 (function(window, angular, undefined) {'use strict';
 
 /* jshint maxlen: false */
@@ -41687,13 +41677,6 @@ angular.module('ngAnimate', ['ng'])
 
 })(window, window.angular);
 
-/*
- * angular-ui-bootstrap
- * http://angular-ui.github.io/bootstrap/
-
- * Version: 0.12.1 - 2015-02-20
- * License: MIT
- */
 angular.module("ui.bootstrap", ["ui.bootstrap.tpls", "ui.bootstrap.transition","ui.bootstrap.collapse","ui.bootstrap.accordion","ui.bootstrap.alert","ui.bootstrap.bindHtml","ui.bootstrap.buttons","ui.bootstrap.carousel","ui.bootstrap.dateparser","ui.bootstrap.position","ui.bootstrap.datepicker","ui.bootstrap.dropdown","ui.bootstrap.modal","ui.bootstrap.pagination","ui.bootstrap.tooltip","ui.bootstrap.popover","ui.bootstrap.progressbar","ui.bootstrap.rating","ui.bootstrap.tabs","ui.bootstrap.timepicker","ui.bootstrap.typeahead"]);
 angular.module("ui.bootstrap.tpls", ["template/accordion/accordion-group.html","template/accordion/accordion.html","template/alert/alert.html","template/carousel/carousel.html","template/carousel/slide.html","template/datepicker/datepicker.html","template/datepicker/day.html","template/datepicker/month.html","template/datepicker/popup.html","template/datepicker/year.html","template/modal/backdrop.html","template/modal/window.html","template/pagination/pager.html","template/pagination/pagination.html","template/tooltip/tooltip-html-unsafe-popup.html","template/tooltip/tooltip-popup.html","template/popover/popover.html","template/progressbar/bar.html","template/progressbar/progress.html","template/progressbar/progressbar.html","template/rating/rating.html","template/tabs/tab.html","template/tabs/tabset.html","template/timepicker/timepicker.html","template/typeahead/typeahead-match.html","template/typeahead/typeahead-popup.html"]);
 angular.module('ui.bootstrap.transition', [])
@@ -45899,11 +45882,6 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
     "");
 }]);
 
-/* 
- * An Angular service which helps with creating recursive directives.
- * @author Mark Lagendijk
- * @license MIT
- */
 angular.module('RecursionHelper', []).factory('RecursionHelper', ['$compile', function($compile){
 	return {
 		/**
@@ -45945,11 +45923,6 @@ angular.module('RecursionHelper', []).factory('RecursionHelper', ['$compile', fu
 		}
 	};
 }]);
-/**
- * @license AngularJS v1.2.28
- * (c) 2010-2014 Google, Inc. http://angularjs.org
- * License: MIT
- */
 (function(window, angular, undefined) {'use strict';
 
 /**
@@ -46867,11 +46840,6 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 })(window, window.angular);
 
-/**
- * @license AngularJS v1.2.28
- * (c) 2010-2014 Google, Inc. http://angularjs.org
- * License: MIT
- */
 (function(window, angular, undefined) {'use strict';
 
 var $resourceMinErr = angular.$$minErr('$resource');

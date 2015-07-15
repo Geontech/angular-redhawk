@@ -34,7 +34,7 @@ angular.module('redhawk')
         RESTPortBearer.apply(arguments);
         self._portConfigUrl = Config.waveformPortUrl;
 
-        //////// PUBLIC Interfaces /////////
+        //////// PUBLIC Interfaces (immutable) /////////
         // Methods
         self.start = start;
         self.stop = stop;
@@ -48,7 +48,7 @@ angular.module('redhawk')
          * Start the Waveform
          * @returns {*}
          */
-        self.start = function() {
+        function start () {
           return REST.waveform.update(self._restArgs, {started: true},
             function() {
               notify.success("Waveform "+self.REST.name+" started.");
@@ -64,7 +64,7 @@ angular.module('redhawk')
          * Stop the Waveform
          * @returns {*}
          */
-        self.stop = function() {
+        function stop () {
           return REST.waveform.update( self._restArgs, {started: false},
             function() { 
               notify.success("Waveform "+self.name+" stopped.");
@@ -80,7 +80,7 @@ angular.module('redhawk')
          * Release (delete) the Waveform
          * @returns {*}
          */
-        self.release = function() {
+        function release () {
           return REST.waveform.release( self._restArgs, {},
             function() { notify.success("Waveform "+self.name+" released.");        },
             function() { notify.error("Waveform "+self.name+" failed to release."); }
@@ -90,7 +90,7 @@ angular.module('redhawk')
         /**
          * @see {Domain.configure()}
          */
-        self.configure = function(properties) {
+        function configure (properties) {
           return REST.waveform.configure(self._restArgs, {properties: properties});
         }
 
@@ -103,7 +103,7 @@ angular.module('redhawk')
         /**
          * @see {Domain._load()}
          */
-        var _load = function(id, domainId) {
+        function _load (id, domainId) {
           self._restArgs = { applicationId: id, domainId: domainId };
           self.$promise = REST.waveform.query(self._restArgs, 
             function(data){
@@ -116,7 +116,7 @@ angular.module('redhawk')
         /**
          * @see {Domain._reload()}
          */
-        var _reload = function() { _load(self.id, self.domainId); }
+        function _reload () { _load(self.id, self.domainId); }
 
         _load(id, domainId);
       };

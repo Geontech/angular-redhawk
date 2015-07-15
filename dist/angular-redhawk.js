@@ -17,28 +17,9 @@
       * You should have received a copy of the GNU Lesser General Public License                   
       * along with this program.  If not, see http://www.gnu.org/licenses/.                        
       *                                                                                            
-      * angular-redhawk - v0.1.0 - 2015-07-13          
+      * angular-redhawk - v0.1.0 - 2015-07-15          
       */                                                                                           
-     /*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
-angular.module('redhawk', ['redhawk.rest', 'redhawk.util', 'redhawk.sockets', 'redhawk.directives'])
+     angular.module('redhawk', ['redhawk.rest', 'redhawk.util', 'redhawk.sockets', 'redhawk.directives'])
   .config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.transformResponse.unshift(function(response, headersGetter) {
       var ctype = headersGetter('content-type');
@@ -52,51 +33,12 @@ angular.module('redhawk', ['redhawk.rest', 'redhawk.util', 'redhawk.sockets', 'r
   }])
 ;
 
-/*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
-
 /**
  * Top-level module definition for redhawk.directives.  Encapsulates all directives,
  * views, and view controllers.
  */
 angular.module('redhawk.directives', ['redhawk.sockets', 'ngRoute']);
-/*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
- angular.module('redhawk.rest', ['ngResource'])
+angular.module('redhawk.rest', ['ngResource'])
   /*
    * Top-level REST factory encapsulating the basic behaviors such as _update and
    * the processing of _runAllUpdatesFinished.  Externally, it provides the updateFinished
@@ -124,7 +66,7 @@ angular.module('redhawk.directives', ['redhawk.sockets', 'ngRoute']);
          * Runs through the updateFinished methods.  Any that return false are removed from the list.
          * TODO: Incorporate this behavior into a base class for all factories.
          */
-        self._runAllUpdatesFinished = function() {
+        var _runAllUpdatesFinished = function() {
           var f = self.updateFinished.length;
           while (f--) {
             if (!self.updateFinished[f]())
@@ -145,6 +87,7 @@ angular.module('redhawk.directives', ['redhawk.sockets', 'ngRoute']);
        * Map of arguments used in in the implementation factory's REST callbacks
        */
       RESTFactory.prototype._restArgs = {};
+      RESTFactory.prototype._update = function() {};
 
       return RESTFactory;
     })
@@ -222,46 +165,7 @@ angular.module('redhawk.directives', ['redhawk.sockets', 'ngRoute']);
       return RESTPortBearer;
     }])
  ;
-/*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
-angular.module('redhawk.sockets', []);
-/*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
-
+angular.module('redhawk.sockets', ['redhawk.rest']);
 // Top-level module definition for redhawk.util.  Encapsulates all utilities
 angular.module('redhawk.util', ['toastr'])
   .config(function(toastrConfig) {
@@ -270,26 +174,6 @@ angular.module('redhawk.util', ['toastr'])
     });
   })
 ;
-/*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
-
 /*
   Extendable Angular-REDHAWK factory represents a single Component instance.
 
@@ -307,7 +191,7 @@ angular.module('redhawk')
         self._portConfigUrl = Config.componentPortUrl;
 
 
-        ///////// PUBLIC Interfaces ///////////
+        ///////// PUBLIC Interfaces (immutable) ///////////
         self.configure = configure;
 
 
@@ -316,7 +200,7 @@ angular.module('redhawk')
         /**
          * Configure the list of properties (id-value pairs).
          */
-        var configure = function(properties) {
+        function configure (properties) {
           return REST.component.configure(self._restArgs, { properties: properties },
               function(){ $timeout(self._reload, 1000); }
           );
@@ -329,7 +213,7 @@ angular.module('redhawk')
         /**
          * @see {Domain._load()}
          */
-        self._load = function(id, domainId, applicationId) {
+        var _load = function(id, domainId, applicationId) {
           self._restArgs = {componentId: id, applicationId: applicationId, domainId: domainId };
           self.$promise = REST.component.query(self._restArgs,
             function(data){
@@ -343,9 +227,9 @@ angular.module('redhawk')
         /**
          * @see {Domain._reload()}
          */
-        self._reload = function() { self._load(self.id, self.domainId, self.waveformId); };
+        var _reload = function() { _load(self.id, self.domainId, self.waveformId); };
 
-        self._load(id, domainId, applicationId);
+        _load(id, domainId, applicationId);
       };
 
       Component.prototype = Object.create(RESTPortBearer.prototype);
@@ -355,27 +239,6 @@ angular.module('redhawk')
   
 
 ;
-/*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
-
- 
 /*
   Extendable Angular-REDHAWK factory represents a single Device instance.
 
@@ -412,14 +275,14 @@ angular.module('redhawk')
          * Analogous to their names, pass an array of properties (id-value maps)
          * accordingly to set and un-set properties.
          */
-        var configure = function(properties)  { return self._commonSave('configure',  properties); }
-        var allocate = function(properties)   { return self._commonSave('allocate',   properties); }
-        var deallocate = function(properties) { return self._commonSave('deallocate', properties); }
+        function configure (properties)  { return _commonSave('configure',  properties); }
+        function allocate (properties)   { return _commonSave('allocate',   properties); }
+        function deallocate (properties) { return _commonSave('deallocate', properties); }
 
         /*
          * Refresh the REST model
          */
-        var refresh = _reload;
+        function refresh () { _reload; }
 
         //////// Internal //////////
         /**
@@ -465,27 +328,6 @@ angular.module('redhawk')
   }])
 ;
 /*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
-
-
-/*
   Extendable Angular-REDHAWK factory represents a single DeviceManager instance.
 
   An instance, or its extension, can be retrieved from a REDHAWK Domain instance
@@ -500,10 +342,14 @@ angular.module('redhawk')
         // Inherited Setup
         RESTFactory.apply(arguments);
 
-        //////// PUBLIC Interfaces ///////////
-        self.refresh = _reload;
+        //////// PUBLIC Interfaces (immutable) ///////////
+        self.refresh = refresh;
 
         //////// Definitions /////////
+        
+
+        function refresh () { _reload(); }
+
 
         //////// Internal /////////
         
@@ -535,26 +381,7 @@ angular.module('redhawk')
   }])
 
 ;
-/*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of REDHAWK admin-console.
- *
- * REDHAWK admin-console is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * REDHAWK admin-console is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
- angular.module('redhawk.directives')
+angular.module('redhawk.directives')
 
   /**
    * Similar to admin-console's version, the controller manages updating
@@ -1041,26 +868,6 @@ angular.module('redhawk')
 //         $scope.port.close();
 //       })
 //     }
-/*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
-
 /* 
   Extendable Angular-REDHAWK factory represents a single Domain instance.
 
@@ -1078,7 +885,8 @@ angular.module('redhawk')
         // Inherited Setup
         RESTFactory.apply(arguments);
 
-        ///////// PUBLIC Methods //////////
+        ///////// PUBLIC (immutable) //////////
+        
         self.configure = configure;
         self.getFileSystem = getFileSystem;
         // Getting Device Managers and Devices
@@ -1091,8 +899,14 @@ angular.module('redhawk')
         self.getComponent = getComponent;
 
         // Event Channel access
+        self.events = []; // buffer
         self.addEventChannel = addEventChannel;
         self.removeEventChannel = removeEventChannel;
+
+        //////// PUBLIC (mutable) /////////
+        // on_msg -- Replace with a function to call when event channel messages are received
+        // on_connect -- Replace with a function to call when the event channel connects
+
 
 
         ///////// Definitions ////////
@@ -1101,7 +915,7 @@ angular.module('redhawk')
          * Configure REDHAWK properties for this object.
          * @param properties
          */
-        var configure = function(properties) {
+        function configure (properties) {
           REST.domain.configure(self._restArgs, { properties: properties });
         };
 
@@ -1111,7 +925,7 @@ angular.module('redhawk')
          * @param path
          * @returns {*}
          */
-        var getFileSystem = function(path) {
+        function getFileSystem (path) {
           return REST.fileSystem.query({domainId: self.id, path: path});
         };
 
@@ -1121,7 +935,7 @@ angular.module('redhawk')
          * @param factoryName
          * @returns {*}
          */
-        var getDeviceManager = function(id, factoryName) {
+        function getDeviceManager (id, factoryName) {
           var storeId = id + ((factoryName) ? factoryName : 'DeviceManager');
           if(!self.deviceManagers[storeId]) {
             var constructor = (factoryName) ? $injector.get(factoryName) : DeviceManager;
@@ -1137,7 +951,7 @@ angular.module('redhawk')
          * @param factoryName
          * @returns {*}
          */
-        var getDevice = function(id, deviceManagerId, factoryName) {
+        function getDevice (id, deviceManagerId, factoryName) {
           var storeId = id + ((factoryName) ? factoryName : 'Device');
           if(!self.devices[storeId]){
             var constructor = (factoryName) ? $injector.get(factoryName) : Device;
@@ -1151,7 +965,7 @@ angular.module('redhawk')
          * Get a list of Waveforms available for launching.
          * @returns {Array}
          */
-        var getLaunchableWaveforms = function() {
+        function getLaunchableWaveforms () {
           if(!self.availableWaveforms) {
             self.availableWaveforms = [];
             self.availableWaveforms.$promise =
@@ -1173,7 +987,7 @@ angular.module('redhawk')
          * @param name
          * @returns {*}
          */
-        var launch = function(name) {
+        function launch (name) {
           return REST.waveform.launch(self._restArgs, {name: name},
             function(data){
               notify.success("Waveform "+data['launched']+" launched");
@@ -1191,7 +1005,7 @@ angular.module('redhawk')
          * @param factoryName
          * @returns {*}
          */
-        var getWaveform = function(id, factoryName){
+        function getWaveform (id, factoryName){
           var storeId = id + ((factoryName) ? factoryName : 'Waveform');
           if(!self.waveforms[storeId]) {
             var constructor = (factoryName) ? $injector.get(factoryName) : Waveform;
@@ -1208,7 +1022,7 @@ angular.module('redhawk')
          * @param factoryName
          * @returns {*}
          */
-        var getComponent = function(id, applicationId, factoryName) {
+        function getComponent (id, applicationId, factoryName) {
           var storeId = id + ((factoryName) ? factoryName : 'Component');
           if(!self.components[storeId]) {
             var constructor = (factoryName) ? $injector.get(factoryName) : Component;
@@ -1221,14 +1035,14 @@ angular.module('redhawk')
         /**
          * Add the named event channel to the list of subscriptions.
          */
-        var addEventChannel = function(name) {
+        function addEventChannel (name) {
           eventChannel.addChannel(name);
         }
 
         /**
          * Remove the named event channel from the list of subscriptions.
          */
-        var removeEventChannel = function(name){
+        function removeEventChannel (name){
           eventChannel.removeChannel(name);
         }
 
@@ -1252,7 +1066,7 @@ angular.module('redhawk')
 
           // Event socket.
           if (!eventChannel)
-            eventChannel = new EventChannel(id, _on_msg, _on_connect);
+            eventChannel = new EventChannel(id, self.events, _on_msg, _on_connect);
 
           // Local storage maps of spawned factories.
           self.deviceManagers = {};
@@ -1275,7 +1089,7 @@ angular.module('redhawk')
         /**
          * Internal calback for event channel on_msg
          */
-        var _on_msg = function(msg) {
+        var _on_msg = function (msg) {
           // TODO: Process the message to update the model and spawned factories
           // Forward the message to the spawned factory (if it exists)?
           // Automatically spawn and tear-down factories?
@@ -1288,7 +1102,7 @@ angular.module('redhawk')
         /**
          * Internal callback for event channel on_connect
          */
-        var _on_connect = function() {
+        var _on_connect = function () {
           eventChannel.addChannel('IDM_Channel');
           eventChannel.addChannel('ODM_Channel');
           // TODO: Add automatic sweep through REST model for device managers and 
@@ -1312,27 +1126,6 @@ angular.module('redhawk')
       return Domain;
   }])
 ;
-/*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
-
- 
 /**
  * Angular-REDHAWK Device extension that is known to have an FEI Provides interface port.
  *
@@ -1357,7 +1150,7 @@ angular.module('redhawk')
 
         //////// Definitions /////////
         // Returns a promise
-        var feiQuery = function(portId) {
+        function feiQuery (portId) {
           return REST.feiDevice.query(
             angular.extend({}, self._restArgs, { portId: portId }),
             function(data) { 
@@ -1376,27 +1169,6 @@ angular.module('redhawk')
       return FEIDevice;
     }])
 ;
-/*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
-
-  
 /**
  * Angular-REDHAWK Device extension specifically useful for Devices that are known to 
  * have an FEI *Tuner Provides interface.
@@ -1408,7 +1180,7 @@ angular.module('redhawk')
         var self = this;
         Device.apply(self, arguments);
 
-        ///////// Additional public interfaces //////////
+        ///////// Additional public interfaces (immutable) //////////
         self.feiQuery = feiQuery;
         self.feiTune = feiTune;
         self.getTunerAllocationProps = getTunerAllocationProps;
@@ -1422,7 +1194,7 @@ angular.module('redhawk')
         /* 
          * Gets a copy of the REDHAWK Property ID for tuner_allocation
          */
-        var getTunerAllocationProps = function () {
+        function getTunerAllocationProps  () {
           var p = UtilityFunctions.findPropId(self.properties, 'FRONTEND::tuner_allocation');
           return angular.copy(p);
         }
@@ -1430,13 +1202,13 @@ angular.module('redhawk')
         /* 
          * Gets a copy of the REDHAWK Property ID for listener_allocation
          */
-        var getListenerAllocationProps = function () {
+        function getListenerAllocationProps  () {
           var p = UtilityFunctions.findPropId(self.properties, 'FRONTEND::listener_allocation');
           return angular.copy(p);
         }
 
         // Returns a promise, allocatioNId is optional.
-        var feiQuery = function(portId, allocationId) {
+        function feiQuery (portId, allocationId) {
           return REST.feiTunerDevice.query(
             angular.extend({}, self._restArgs, {allocationId: allocationId, portId: portId}),
             function(data) {
@@ -1458,7 +1230,7 @@ angular.module('redhawk')
         };
 
         // Returns a promise
-        var feiTune = function(portId, allocationId, properties) {
+        function feiTune (portId, allocationId, properties) {
           return REST.feiTunerDevice.tune(
               angular.extend({}, self._restArgs, { allocationId: allocationId, portId: portId }),
               {properties: properties},
@@ -1473,26 +1245,6 @@ angular.module('redhawk')
       return FEITunerDevice;
     }])
 ;
-
-/*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
 
 /* 
   Extendable Angular-REDHAWK factory represents the REDHAWK infrastructure.
@@ -1529,7 +1281,7 @@ angular.module('redhawk')
        *
        * @returns {Array.<string>}
        */
-      var getDomainIds = function() {
+      function getDomainIds () {
         if(!domainIds) {
           domainIds.$promise = REST.domain.query()
             .$promise
@@ -1552,7 +1304,7 @@ angular.module('redhawk')
        * @param factoryName - String name to inject as the constructor rather than RedhawkDomain
        * @returns {Domain}
        */
-      var getDomain = function(id, factoryName) {
+      function getDomain (id, factoryName) {
         var storeId = id + ((factoryName) ? factoryName : 'Domain');
 
         if(!_domains[storeId]) {
@@ -1567,21 +1319,18 @@ angular.module('redhawk')
        * Add a listener to the system's socket which carries information about Domains 
        * joining and leaving the networked REDHAWK system.
        */
-      var addListener = function(callback) {
+      function addListener (callback) {
         if (!redhawkSocket) 
-          self.enablePush(); // Connect first...otherwise what's the point?
+          redhawk.enablePush(); // Connect first...otherwise what's the point?
 
         // Forward the callback
         redhawkSocket.addJSONListener(callback);
-
-        // Issue a first message
-        callback({domains: redhawk.domainIds, added:[], removed: []});
       }
 
       /**
        * Remove a listener to the system's socket.
        */
-      var removeListener = function(callback) {
+      function removeListener (callback) {
         if (!redhawkSocket) return;
         redhawkSocket.removeJSONListener(callback);
       }
@@ -1589,7 +1338,7 @@ angular.module('redhawk')
       /**
        * Enable pushed updates (via websocket)
        */
-      var enablePush = function() {
+     function enablePush() {
         if (!redhawkSocket) {
           // Connect to the system-wide socket (domains joining and leaving);
           redhawkSocket = new Subscription();
@@ -1609,7 +1358,7 @@ angular.module('redhawk')
       /**
        * Disable pushed updates (via websocket);
        */
-      var disablePush = function () {
+      function disablePush () {
         if (!!redhawkSocket)
           redhawkSocket.close();
         redhawkSocket = null;
@@ -1626,40 +1375,19 @@ angular.module('redhawk')
 
       var on_msg = function(msg) {
         // msg is { domains: [], added: [], removed: [] }
-        console.warn("TODO: Implement REDHAWK.on_msg for status socket");
-        console.warn(msg);
-        redhawk.domainIds = msg.domains;
+        angular.copy(msg.domains, redhawk.domainIds);
 
-        if (0 < msg.added.length) {
-          console.warn("Domains were added"); 
+        if (msg.hasOwnProperty('added') && msg.added && 0 < msg.added.length) {
+          console.debug("TODO: Domains were added");
         }
 
-        if (0 < msg.removed.length) {
-          console.warn("Domains were removed, notify the factory(ies) if one exists");
+        if (msg.hasOwnProperty('removed') && msg.removed && 0 < msg.removed.length) {
+          console.debug("TODO: Domains were removed, notify the factory(ies) if one exists");
         }
       }
 
   }])
  ;
-/*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
 /*
   The REDHAWK REST Config provider encapsulates all of the URL transforms
   that represent the rest-python -exposed API (i.e., its URL Handlers).
@@ -1790,25 +1518,6 @@ angular.module('redhawk.rest')
 ;
 
 /*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
-/*
   The REST service provides all of the basic HTTP request functionality
   distilled into methods that are used by the REDHAWK service and its various
   factories (Domain, Device, etc.).
@@ -1866,40 +1575,23 @@ angular.module('redhawk.rest')
   }])
 ;
 
-/*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
-
 /* 
  * Angular-REDHAWK Event Channel Listener.
+ * 
+ * Constructor requires domainID; the remaining elements are optional.  If you provide
+ * a buffer, the EventChannel will maintain the list up to 500 in length automatically.
  * 
  * Use addChannel and removeChannel to attach to channel names (e.g., 'IDM_Channel').
  * 
  * Requires a Domain ID to filter incoming messages.
  */
 angular.module('redhawk.sockets')
-  .factory('EventChannel', ['SubscriptionSocket',
-    function(SubscriptionSocket) {
-      return function(domainID, parent_on_msg, parent_on_connect) {
+  .factory('EventChannel', ['Subscription', 'Config',
+    function(Subscription, Config) {
+      return function(domainID, buffer, parent_on_msg, parent_on_connect) {
         var self = this;
 
-        // Public interfaces
+        // Public interfaces (immutable)
         self.addChannel = addChannel;
         self.removeChannel = removeChannel;
         self.getMessages = getMessages;
@@ -1913,10 +1605,10 @@ angular.module('redhawk.sockets')
          * Connect to a named channel.
          * For example, addChannel('ODM_Channel')
          */
-        var addChannel = function(channel) {
-          if (-1 == self.channels.indexOf(channel)) {
-            eventMessageSocket.send(Msg('ADD', topic));
-            self.channels.push(channel);
+        function addChannel (channel) {
+          if (-1 == channels.indexOf(channel)) {
+            eventMessageSocket.send(Msg('ADD', channel));
+            channels.push(channel);
           }
         }
 
@@ -1924,50 +1616,51 @@ angular.module('redhawk.sockets')
          * Disconnect from a named channel.
          * For example, addChannel('ODM_Channel')
          */
-        var removeChannel = function(channel) {
-          var chanIdx = self.channels.indexOf(channel)
+        function removeChannel (channel) {
+          var chanIdx = channels.indexOf(channel)
           if (-1 < chanIdx) {
-            eventMessageSocket.send(Msg('REMOVE', topic));
-            self.channels.splice(chanIdx, 1);
+            eventMessageSocket.send(Msg('REMOVE', channel));
+            channels.splice(chanIdx, 1);
           }
         }
 
         /* 
          * Retrieve a copy of the message buffer
          */
-        var getMessages = function() {
+        function getMessages () {
           return angular.copy(messages);
         }
 
         /* 
          * Retrieve a copy of the event channels known to this instance.
          */
-        var getChannelNames = function() {
+        function getChannelNames () {
           return angular.copy(channels);
         }
 
         /*
          * Add an additional listener callback to this EventChannel's various subscriptions.
          */
-        var addListener = function(callback) {
+        function addListener (callback) {
           eventMessageSocket.addJSONListener(callback);
         }
 
         /*
          * Stop listening to this EventChannels' subscriptions.
          */
-        var removeListener = function(callback) {
+        function removeListener (callback) {
           eventMessageSocket.removeListener(callback);
         }
 
         ///////////// INTERNAL ////////////
 
-        var messages = [];
+        // Use the provided buffer or a new list
+        var messages = buffer || [];
         var channels = [];
 
         var on_connect = function() {
           if (parent_on_connect)
-            parent_on_connect(self);
+            parent_on_connect.call(self);
         }
 
         var on_msg = function(obj){
@@ -1981,38 +1674,18 @@ angular.module('redhawk.sockets')
         }
 
         var Msg = function(command, topic, domainId) {
-          return JSON.stringify({command: command, topic: topic, domainId: domainId});
+          return JSON.stringify({command: command, topic: topic, domainId: domainID});
         }
 
         // Create the subscription socket, connect to the appropriate URL, and wait for connection.
         // Bind a JSON listener to forward incoming events to the local handler.
-        var eventMessageSocket = new SubscriptionSocket();
-        eventMessageSocket.connect(Config.eventSocketUrl, function() { on_connect.call(self); });
-        eventMessageSocket.addJSONListener(function(json) { on_msg.call(self, json); });
-        eventMessageSocket.addBinaryListener(function(data){ console.warn("WARNING Event Channel Binary Data!"); });
+        var eventMessageSocket = new Subscription();
+        eventMessageSocket.connect(Config.eventSocketUrl, function() { on_connect(); });
+        eventMessageSocket.addJSONListener(   on_msg);
+        eventMessageSocket.addBinaryListener( function(data) { console.warn("WARNING Event Channel Binary Data!"); });
       };
   }])
 ;
-/*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of REDHAWK admin-console.
- *
- * REDHAWK admin-console is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * REDHAWK admin-console is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
-
 /**
  * Convenience class to add a listener pattern to the standard WebSocket
  *
@@ -2022,7 +1695,7 @@ angular.module('redhawk.sockets')
     function ($rootScope) {
       var Subscription = function() {
         var self = this;
-        //////// PUBLIC INTERFACES
+        //////// PUBLIC INTERFACES  (immutable) ////////
         self.connect = connect;
         self.send = send;
         self.close = close;
@@ -2039,7 +1712,7 @@ angular.module('redhawk.sockets')
          * Connect to the websocket at the given path URL.
          * Callback will be called if connected.
          */
-        var connect = function (path_, callback) {
+        function connect (path_, callback) {
           path = path_;
           ws = new WebSocket(path);
 
@@ -2074,32 +1747,32 @@ angular.module('redhawk.sockets')
          * Add this callback to the JSON listeners
          * Messages received will be JSON structures converted to JS entities.
          */
-        var addJSONListener = function (callback) { callbacks.json.push(callback); }
+        function addJSONListener  (callback) { callbacks.json.push(callback); }
 
         /*
          * Add a callback to the Binary listeners
          * Messages received will be binary character strings
          * (Good for protobufs, BULKIO, etc.)
          */
-        var addBinaryListener = function (callback) { callbacks.binary.push(callback); }
+        function addBinaryListener  (callback) { callbacks.binary.push(callback); }
 
         /* 
          * Remove callback from JSON Listeners
          */
-        var removeJSONListener = function(callback) { remove(callback, callbacks.json); }
+        function removeJSONListener (callback) { remove(callback, callbacks.json); }
 
         /*
          * Remove callback from Binary Listeners
          */
-        var removeBinaryListener = function(callback) { remove(callback, callbacks.binary); }
+        function removeBinaryListener (callback) { remove(callback, callbacks.binary); }
 
         /*
          * Send data on the websocket
          */
-        var send = function (data) {
-          if (undefined == ws)
+        function send  (data) {
+          if (undefined == ws) 
             delayOutQueue.push(data);
-          else
+          else 
             ws.send(data);
         }
 
@@ -2109,9 +1782,9 @@ angular.module('redhawk.sockets')
          * i.e., a Controller is being destroyed in the UI that 
          * created an instance of this factory.
          */
-        var close = function() {
-          console.log("Socket closed: " + path);
+        function close () {
           ws.close();
+          console.log("Socket closed: " + path);
         }
 
 
@@ -2150,27 +1823,6 @@ angular.module('redhawk.sockets')
       return Subscription;
     }])
 ;
-/*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
-
-
 // Global utility functions
 var UtilityFunctions = UtilityFunctions || {
 
@@ -2205,26 +1857,6 @@ var UtilityFunctions = UtilityFunctions || {
     return undefined;
   },
 };
-/*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
-
 /*
   The NotificationService can be used to post simple notifications into the active
   browser UI.  One such example is from the Domain factory launching waveforms.
@@ -2267,26 +1899,6 @@ angular.module('redhawk.util')
 ;
 
 /*
- * This file is protected by Copyright. Please refer to the COPYRIGHT file
- * distributed with this source distribution.
- *
- * This file is part of Angular-REDHAWK.
- *
- * Angular-REDHAWK is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
- * for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see http://www.gnu.org/licenses/.
- */
-
-/*
   Extendable Angular-REDHAWK factory represents a single Waveform instance.
 
   An instance, or its extension, can be retrieved from a REDHAWK Domain instance
@@ -2302,7 +1914,7 @@ angular.module('redhawk')
         RESTPortBearer.apply(arguments);
         self._portConfigUrl = Config.waveformPortUrl;
 
-        //////// PUBLIC Interfaces /////////
+        //////// PUBLIC Interfaces (immutable) /////////
         // Methods
         self.start = start;
         self.stop = stop;
@@ -2316,7 +1928,7 @@ angular.module('redhawk')
          * Start the Waveform
          * @returns {*}
          */
-        self.start = function() {
+        function start () {
           return REST.waveform.update(self._restArgs, {started: true},
             function() {
               notify.success("Waveform "+self.REST.name+" started.");
@@ -2332,7 +1944,7 @@ angular.module('redhawk')
          * Stop the Waveform
          * @returns {*}
          */
-        self.stop = function() {
+        function stop () {
           return REST.waveform.update( self._restArgs, {started: false},
             function() { 
               notify.success("Waveform "+self.name+" stopped.");
@@ -2348,7 +1960,7 @@ angular.module('redhawk')
          * Release (delete) the Waveform
          * @returns {*}
          */
-        self.release = function() {
+        function release () {
           return REST.waveform.release( self._restArgs, {},
             function() { notify.success("Waveform "+self.name+" released.");        },
             function() { notify.error("Waveform "+self.name+" failed to release."); }
@@ -2358,7 +1970,7 @@ angular.module('redhawk')
         /**
          * @see {Domain.configure()}
          */
-        self.configure = function(properties) {
+        function configure (properties) {
           return REST.waveform.configure(self._restArgs, {properties: properties});
         }
 
@@ -2371,7 +1983,7 @@ angular.module('redhawk')
         /**
          * @see {Domain._load()}
          */
-        var _load = function(id, domainId) {
+        function _load (id, domainId) {
           self._restArgs = { applicationId: id, domainId: domainId };
           self.$promise = REST.waveform.query(self._restArgs, 
             function(data){
@@ -2384,7 +1996,7 @@ angular.module('redhawk')
         /**
          * @see {Domain._reload()}
          */
-        var _reload = function() { _load(self.id, self.domainId); }
+        function _reload () { _load(self.id, self.domainId); }
 
         _load(id, domainId);
       };

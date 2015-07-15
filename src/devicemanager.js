@@ -34,10 +34,14 @@ angular.module('redhawk')
         // Inherited Setup
         RESTFactory.apply(arguments);
 
-        //////// PUBLIC Interfaces ///////////
-        self.refresh = _reload;
+        //////// PUBLIC Interfaces (immutable) ///////////
+        self.refresh = refresh;
 
         //////// Definitions /////////
+        
+
+        function refresh () { _reload(); }
+
 
         //////// Internal /////////
         
