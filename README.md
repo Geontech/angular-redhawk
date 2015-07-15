@@ -31,4 +31,10 @@ Should you need to update dependencies for Angular-REDHAWK, clone or copy the re
 
 This should rebuild the `angular-redhawk(.min).js`, `vendor.js`, and `vendor.css` packages.
 
-> NOTE: This process is only required if you `angular-redhawk` has been modified to have newer/different dependencies.  If your web app has dependencies, modify its own `bower.json` instead and include the necessary files in your HTML.
+> NOTE: This process is only required if your `angular-redhawk` has been modified to have newer/different dependencies or if you have modified `angular-redhawk` itself (added directives, etc.). If your web app has dependencies, modify its own `bower.json` instead and include the necessary files in your HTML.
+
+## Adding Functionality
+
+Modifying any of the `js` or `html` files under `src/` requires that you run `grunt` to repackage the distribution files.  
+
+Should you need to define a new AngularJS module and then extend it in additional files, define the module in a `def.js` file.  The `Gruntfile.js` is written to concatenate `def.js` first, and then the remaining scripts to resolve dependency issues while still allowing for a clean directory structure.
