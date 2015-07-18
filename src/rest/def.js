@@ -66,7 +66,6 @@
        * Map of arguments used in in the implementation factory's REST callbacks
        */
       RESTFactory.prototype._restArgs = {};
-      RESTFactory.prototype._update = function() {};
 
       return RESTFactory;
     })
@@ -78,7 +77,7 @@
     function(RESTFactory, Config, InterpolateUrl) {
       var RESTPortBearer = function () {
         var self = this;
-        RESTFactory.apply(arguments);
+        RESTFactory.apply(self, arguments);
 
         // Add the _processPorts method to the list of updateFinished methods.
         self.updateFinished.push(function() { _processPorts.call(self); });

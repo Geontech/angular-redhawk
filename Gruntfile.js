@@ -81,14 +81,17 @@ module.exports = function(grunt) {
       }
     },
 
-    clean: [distDir],
+    // Clean the dist directory and the generated templates file.
+    clean: [distDir, '<%= ngtemplates.directives.dest %>'],
 
-    // Reusable directives
+    // Reusable directives and templates
     ngtemplates: {
       directives: {
-        src: 'src/directives/**/*.html',
-        dest: 'lib/templates.js', // Will be picked up by concat
+        cwd: 'src',
+        src: 'directives/**/*.html',
+        dest: 'scripts/templates.js',
         options: {
+          concat: 'dist',
           module: 'redhawk.directives'
         }
       }
@@ -123,7 +126,10 @@ module.exports = function(grunt) {
         dest: distDir + '/vendor.js'
       },
       vendorCss: {
-        src: ['scripts/vendor/**/*.css'],
+        src: [
+          'scripts/vendor/angular-toastr/dist/angular-toastr.css',
+          'scripts/vendor/bootstrap-css/css/bootstrap.css'
+        ],
         dest: distDir + '/vendor.css'
       }
     },

@@ -1,12 +1,14 @@
 <div class="container">
-    <div ng-show="domain">
-        <h2>Connected to events on: {{ domain.id }}</h2>
-        <ul>
-            <li ng-repeat="msg in domain.events">{{ msg }}</li>
-        </ul>
-    </div>
-    <div ng-show="!domain">
-        <h2>No domains found</h2>
-        Please start a domain.
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div ng-show="domain">
+                <h2>Connected to events on: {{ domain.name }}</h2>
+                <events rh-events="domain.events"></events>
+            </div>
+            <div ng-show="!domain">
+                <h2>No domains found</h2>
+                Please start a domain.
+            </div>
+        </div>
     </div>
 </div>

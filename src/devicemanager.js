@@ -32,7 +32,7 @@ angular.module('redhawk')
         var self = this;
 
         // Inherited Setup
-        RESTFactory.apply(arguments);
+        RESTFactory.apply(self, arguments);
 
         //////// PUBLIC Interfaces (immutable) ///////////
         self.refresh = refresh;

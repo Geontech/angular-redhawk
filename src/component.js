@@ -31,7 +31,7 @@ angular.module('redhawk')
         var self = this;
 
         // Inherited Setup
-        RESTPortBearer.apply(arguments);
+        RESTPortBearer.apply(self, arguments);
         self._portConfigUrl = Config.componentPortUrl;
 
 

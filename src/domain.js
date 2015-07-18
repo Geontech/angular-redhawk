@@ -33,7 +33,7 @@ angular.module('redhawk')
         var self = this;
 
         // Inherited Setup
-        RESTFactory.apply(arguments);
+        RESTFactory.apply(self, arguments);
 
         ///////// PUBLIC (immutable) //////////
         
@@ -212,7 +212,6 @@ angular.module('redhawk')
          */
         var _load = function(id) {
           self._restArgs = { domainId: id };
-          self.id = id;
 
           // Event socket.
           if (!eventChannel)
@@ -234,7 +233,7 @@ angular.module('redhawk')
          * Reloads the data based on existing identifiers.
          * @private
          */
-        var _reload = function() { _load(self.id); };
+        var _reload = function() { _load(self.name); };
 
         /**
          * Internal calback for event channel on_msg

@@ -17,7 +17,7 @@
       * You should have received a copy of the GNU Lesser General Public License                   
       * along with this program.  If not, see http://www.gnu.org/licenses/.                        
       *                                                                                            
-      * angular-redhawk - v0.1.0 - 2015-07-15          
+      * angular-redhawk - v0.1.0 - 2015-07-18          
       */                                                                                           
      angular.module('redhawk', ['redhawk.rest', 'redhawk.util', 'redhawk.sockets', 'redhawk.directives'])
   .config(['$httpProvider', function($httpProvider) {
@@ -35,9 +35,20 @@
 
 /**
  * Top-level module definition for redhawk.directives.  Encapsulates all directives,
- * views, and view controllers.
+ * views, and view controllers as well some filters (here, below).
  */
-angular.module('redhawk.directives', ['redhawk.sockets', 'ngRoute']);
+angular.module('redhawk.directives', ['redhawk.sockets', 'ngRoute'])
+  /*
+   * Splits the given ID by the "::" syntax that is common and yields the last
+   * name of the resulting list.
+   */
+  .filter('cleanPropId', function() {
+    return function (id) {
+      var fields = id.split('::');
+      return fields[fields.length-1];
+    };
+  })
+;
 angular.module('redhawk.rest', ['ngResource'])
   /*
    * Top-level REST factory encapsulating the basic behaviors such as _update and
@@ -87,7 +98,6 @@ angular.module('redhawk.rest', ['ngResource'])
        * Map of arguments used in in the implementation factory's REST callbacks
        */
       RESTFactory.prototype._restArgs = {};
-      RESTFactory.prototype._update = function() {};
 
       return RESTFactory;
     })
@@ -99,7 +109,7 @@ angular.module('redhawk.rest', ['ngResource'])
     function(RESTFactory, Config, InterpolateUrl) {
       var RESTPortBearer = function () {
         var self = this;
-        RESTFactory.apply(arguments);
+        RESTFactory.apply(self, arguments);
 
         // Add the _processPorts method to the list of updateFinished methods.
         self.updateFinished.push(function() { _processPorts.call(self); });
@@ -187,7 +197,7 @@ angular.module('redhawk')
         var self = this;
 
         // Inherited Setup
-        RESTPortBearer.apply(arguments);
+        RESTPortBearer.apply(self, arguments);
         self._portConfigUrl = Config.componentPortUrl;
 
 
@@ -252,7 +262,7 @@ angular.module('redhawk')
         var self = this;
 
         // Inherited setup
-        RESTPortBearer.apply(arguments);
+        RESTPortBearer.apply(self, arguments);
         self._portConfigUrl = Config.devicePortUrl;
 
         ///////// PUBLIC Interfaces /////////
@@ -340,7 +350,7 @@ angular.module('redhawk')
         var self = this;
 
         // Inherited Setup
-        RESTFactory.apply(arguments);
+        RESTFactory.apply(self, arguments);
 
         //////// PUBLIC Interfaces (immutable) ///////////
         self.refresh = refresh;
@@ -381,6 +391,87 @@ angular.module('redhawk')
   }])
 
 ;
+/*
+ * A collection of directives related to viewing events from an event channel.
+ */
+angular.module('redhawk.directives')
+  /*
+   * Provides a list-view of messages and events intermixed
+   * 
+   * @param events - Array of event/message structures
+   * @param max - The maximum number of elements to show (>= 1)
+   */
+  .directive('events', function () {
+    return {
+      templateUrl: 'directives/tmpls/events.html',
+      restrict: 'E',
+      scope: {
+        rhEvents   : '=',
+        max        : '='
+      },
+      controller: function($scope) {
+        // setup defaults.
+        $scope.max = $scope.max || 10;
+
+        /*
+         * Determines the type of the event structure:
+         *    0 = Unknown
+         *    1 = ODM
+         *    2 = IDM
+         *    3 = Prop Event
+         *    4 = Message
+         */
+        $scope.typeOfEvent = function (rhEvent) {
+          var t = 0;
+
+          if (Array.isArray(rhEvent)) {
+            t = 4;
+          }
+          else if (rhEvent.hasOwnProperty('sourceName') && rhEvent.sourceName) {
+            t = 1;
+          }
+          else if (rhEvent.hasOwnProperty('stateChangeCategory') && rhEvent.stateChangeCategory) {
+            t = 2;
+          }
+          else if (rhEvent.hasOwnProperty('properties') && rhEvent.properties) {
+            t = 3;
+          }
+          return t;
+        };
+      }
+    }
+  })
+  
+  .directive('odmEvent', function () {
+    return {
+      templateUrl : 'directives/tmpls/odm-event.html',
+      restrict    : 'E',
+      scope       : { obj : '=rhEvent' }
+    }
+  })
+  .directive('idmEvent', function () {
+    return {
+      templateUrl : 'directives/tmpls/idm-event.html',
+      restrict    : 'E',
+      scope       : { obj : '=rhEvent' }
+    }
+  })
+  .directive('propEvent', function () {
+    return {
+      templateUrl : 'directives/tmpls/prop-event.html',
+      restrict    : 'E',
+      scope       : { obj : '=rhEvent' }
+    }
+  })
+  .directive('messageEvent', function () {
+    return {
+      templateUrl : 'directives/tmpls/message-event.html',
+      restrict    : 'E',
+      scope       : { obj : '=rhEvent' }
+    }
+  })
+;
+
 angular.module('redhawk.directives')
 
   /**
@@ -868,6 +959,54 @@ angular.module('redhawk.directives')
 //         $scope.port.close();
 //       })
 //     }
+/*
+  * The status enum attribute can be applied to buttons or labels.
+  * to simplify putting color-coded enumerations (and text) onto your UI
+  * in with a reusable directive.  
+  * 
+  * @param status - string "value" to select from the enumeration
+  * @param enumeration - Map of string-values to Bootstrap CSS class and display
+  *                 text.  The cssClass will either result in btn-<name> or 
+  *                 label-<name> depending on the other classes in the DOM element.
+  *                 An example enumeration map is:
+  *           { 
+  *             '-1' : { cssClass: 'danger',  text: 'Red' },
+  *             '0'  : { cssClass: 'warning', text: 'Yellow-ish orange' },
+  *             '1'  : { cssClass: 'success', text: 'Green' },
+  *             '2'  : { cssClass: 'info',    text: 'Blue' },
+  *           }
+  *
+  * Usage: <label status-enum class="label-sm" status="mystatus" enumeration="statusenum"></label>
+  *
+  * The resulting label will track mystatus and appropriately change the element class and insert
+  * text to match.
+  */
+angular.module('redhawk.directives')
+  .directive('statusEnum', function () {
+    return {
+        restrict: 'A',
+        scope: { 
+          status: "=",
+          enumeration: "="
+        },
+        replace: false,
+        link: function(scope, elem, attrs) {
+          scope.$watch('status', function(status) {
+            scope.nextClass = (elem.hasClass('btn')) ? 'btn-' : 'label-';
+            scope.nextClass += scope.enumeration[status].cssClass;
+
+            if (scope.lastClass)
+              elem.removeClass(scope.lastClass);
+            elem.addClass(scope.nextClass);
+            scope.lastClass = scope.nextClass;
+
+            elem.html(scope.enumeration[status].text);
+          });
+        }
+      };
+  })
+;
+
 /* 
   Extendable Angular-REDHAWK factory represents a single Domain instance.
 
@@ -883,7 +1022,7 @@ angular.module('redhawk')
         var self = this;
 
         // Inherited Setup
-        RESTFactory.apply(arguments);
+        RESTFactory.apply(self, arguments);
 
         ///////// PUBLIC (immutable) //////////
         
@@ -1062,7 +1201,6 @@ angular.module('redhawk')
          */
         var _load = function(id) {
           self._restArgs = { domainId: id };
-          self.id = id;
 
           // Event socket.
           if (!eventChannel)
@@ -1084,7 +1222,7 @@ angular.module('redhawk')
          * Reloads the data based on existing identifiers.
          * @private
          */
-        var _reload = function() { _load(self.id); };
+        var _reload = function() { _load(self.name); };
 
         /**
          * Internal calback for event channel on_msg
@@ -1609,6 +1747,7 @@ angular.module('redhawk.sockets')
           if (-1 == channels.indexOf(channel)) {
             eventMessageSocket.send(Msg('ADD', channel));
             channels.push(channel);
+            console.debug('Connected to ' + domainID + '-->' + channel);
           }
         }
 
@@ -1621,6 +1760,7 @@ angular.module('redhawk.sockets')
           if (-1 < chanIdx) {
             eventMessageSocket.send(Msg('REMOVE', channel));
             channels.splice(chanIdx, 1);
+            console.debug('Disconnected from ' + domainID + '-->' + channel);
           }
         }
 
@@ -1911,7 +2051,7 @@ angular.module('redhawk')
         var self = this;
 
         // Inherited setup
-        RESTPortBearer.apply(arguments);
+        RESTPortBearer.apply(self, arguments);
         self._portConfigUrl = Config.waveformPortUrl;
 
         //////// PUBLIC Interfaces (immutable) /////////
@@ -1931,11 +2071,11 @@ angular.module('redhawk')
         function start () {
           return REST.waveform.update(self._restArgs, {started: true},
             function() {
-              notify.success("Waveform "+self.REST.name+" started.");
+              notify.success("Waveform "+self.name+" started.");
               _reload();
             },
             function() {
-              notify.error("Waveform "+self.REST.name+" failed to start.")
+              notify.error("Waveform "+self.name+" failed to start.")
             }
           );
         }
@@ -2667,3 +2807,99 @@ c+this.options.lineWidth+1,y:a.t+c+this.options.lineWidth+1}}return{x:null,y:nul
 this.state){var k;b=0.8*g+(e.x-g);a=1.45*g+(e.x-g);k=0.8*g+(e.x-g);d=0.56*g+(e.y-g);c=g+(e.y-g);g=1.45*g+(e.y-g);f.beginPath();f.moveTo(b,d);f.lineTo(a,c);f.lineTo(k,g);f.closePath();f.fillStyle=this.options.strokeStyle||h.fg;f.fill()}else f.lineCap="round",f.lineWidth=Math.floor(Math.min(1,this.options.size/8)),b=0.8*g+(e.x-g),a=0.8*g+(e.x-g),d=g/2+(e.y-g),c=1.5*g+(e.y-g),f.beginPath(),f.moveTo(b,d),f.lineTo(a,c),f.closePath(),f.stroke(),b=g+g/5+(e.x-g),a=g+g/5+(e.x-g),d=g/2+(e.y-g),c=1.5*g+(e.y-
 g),f.beginPath(),f.moveTo(b,d),f.lineTo(a,c),f.closePath(),f.stroke();f.restore()}},dispose:function(){this.boxes=this.plot=d}}})(window.sigplot=window.sigplot||{},mx,m);
 
+angular.module('redhawk.directives').run(['$templateCache', function($templateCache) {
+  'use strict';
+
+  $templateCache.put('directives/tmpls/events.html',
+    "<div ng-repeat=\"rhEvent in rhEvents | limitTo: max\" ng-switch=\"typeOfEvent(rhEvent)\">\n" +
+    "    <odm-event     ng-switch-when=\"1\" rh-event=\"rhEvent\"></odm-event>\n" +
+    "    <idm-event     ng-switch-when=\"2\" rh-event=\"rhEvent\"></idm-event>\n" +
+    "    <prop-event    ng-switch-when=\"3\" rh-event=\"rhEvent\"></prop-event>\n" +
+    "    <message-event ng-switch-when=\"4\" rh-event=\"rhEvent\"></message-event>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('directives/tmpls/idm-event.html',
+    "<div>\n" +
+    "<dl class=\"dl-horizontal\">\n" +
+    "    <dt>IDM Event</dt>\n" +
+    "    \n" +
+    "    <dt>Producer ID</dt>\n" +
+    "    <dd>{{ obj.producerId }}</dd>\n" +
+    "\n" +
+    "    <dt>Source ID</dt>\n" +
+    "    <dd>{{ obj.sourceId }}</dd>\n" +
+    "\n" +
+    "    <dt>State Change Category</dt>\n" +
+    "    <dd>{{ obj.stateChangeCategory.value }}</dd>\n" +
+    "\n" +
+    "    <dt>From - To</dt>\n" +
+    "    <dd>{{ obj.stateChangeFrom.value }}</dd>\n" +
+    "    <dd>{{ obj.stateChangeTo.value   }}</dd>\n" +
+    "</dl>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('directives/tmpls/message-event.html',
+    "<div>\n" +
+    "<dl class=\"dl-horizontal\">\n" +
+    "    <dt>Message</dt>\n" +
+    "    <div ng-repeat=\"prop in obj\">\n" +
+    "        <dt>{{ prop.id | cleanPropId }}</dt>\n" +
+    "        <dd>{{ prop.value }}</dd>\n" +
+    "    </div>\n" +
+    "</dl>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('directives/tmpls/odm-event.html',
+    "<div>\n" +
+    "<dl class=\"dl-horizontal\">\n" +
+    "    <dt>ODM Event</dt>\n" +
+    "    \n" +
+    "    <dt>{{ (obj.hasOwnProperty('sourceIOR') ? 'Added' : 'Removed') }}</dt>\n" +
+    "    \n" +
+    "    <dt>Producer ID</dt>\n" +
+    "    <dd>{{ obj.producerId }}</dd>\n" +
+    "\n" +
+    "    <dt>Source ID</dt>\n" +
+    "    <dd>{{ obj.sourceId }}</dd>\n" +
+    "\n" +
+    "    <dt>Source Name</dt>\n" +
+    "    <dd>{{ obj.sourceName }}</dd>\n" +
+    "\n" +
+    "    <dt>Source Category</dt>\n" +
+    "    <dd>{{ obj.sourceCategory.value }}</dd>\n" +
+    "</dl>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('directives/tmpls/prop-event.html',
+    "<div>\n" +
+    "<dl class=\"dl-horizontal\">\n" +
+    "    <dt>Property Event</dt>\n" +
+    "    \n" +
+    "    <dt>Source ID</dt>\n" +
+    "    <dd>{{ obj.sourceId }}</dd>\n" +
+    "\n" +
+    "    <dt>Source Name</dt>\n" +
+    "    <dd>{{ obj.sourceName }}</dd>\n" +
+    "\n" +
+    "    <dt>Source Category</dt>\n" +
+    "    <dd>{{ obj.sourceCategory }}</dd>\n" +
+    "\n" +
+    "    <dt>Properties</dt>\n" +
+    "\n" +
+    "    <div ng-repeat=\"prop in obj.properties\">\n" +
+    "        <dt>{{ prop.id | cleanPropId }}</dt>\n" +
+    "        <dd>{{ prop.value }}</dd>\n" +
+    "    </div>\n" +
+    "</dl>\n" +
+    "</div>"
+  );
+
+}]);

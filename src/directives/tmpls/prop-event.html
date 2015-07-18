@@ -1,0 +1,21 @@
+<div>
+<dl class="dl-horizontal">
+    <dt>Property Event</dt>
+    
+    <dt>Source ID</dt>
+    <dd>{{ obj.sourceId }}</dd>
+
+    <dt>Source Name</dt>
+    <dd>{{ obj.sourceName }}</dd>
+
+    <dt>Source Category</dt>
+    <dd>{{ obj.sourceCategory }}</dd>
+
+    <dt>Properties</dt>
+
+    <div ng-repeat="prop in obj.properties">
+        <dt>{{ prop.id | cleanPropId }}</dt>
+        <dd>{{ prop.value }}</dd>
+    </div>
+</dl>
+</div>

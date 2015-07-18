@@ -20,6 +20,17 @@
 
 /**
  * Top-level module definition for redhawk.directives.  Encapsulates all directives,
- * views, and view controllers.
+ * views, and view controllers as well some filters (here, below).
  */
-angular.module('redhawk.directives', ['redhawk.sockets', 'ngRoute']);
+angular.module('redhawk.directives', ['redhawk.sockets', 'ngRoute'])
+  /*
+   * Splits the given ID by the "::" syntax that is common and yields the last
+   * name of the resulting list.
+   */
+  .filter('cleanPropId', function() {
+    return function (id) {
+      var fields = id.split('::');
+      return fields[fields.length-1];
+    };
+  })
+;

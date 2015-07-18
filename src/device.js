@@ -32,7 +32,7 @@ angular.module('redhawk')
         var self = this;
 
         // Inherited setup
-        RESTPortBearer.apply(arguments);
+        RESTPortBearer.apply(self, arguments);
         self._portConfigUrl = Config.devicePortUrl;
 
         ///////// PUBLIC Interfaces /////////

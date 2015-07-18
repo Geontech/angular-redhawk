@@ -1,0 +1,19 @@
+<div>
+<dl class="dl-horizontal">
+    <dt>ODM Event</dt>
+    
+    <dt>{{ (obj.hasOwnProperty('sourceIOR') ? 'Added' : 'Removed') }}</dt>
+    
+    <dt>Producer ID</dt>
+    <dd>{{ obj.producerId }}</dd>
+
+    <dt>Source ID</dt>
+    <dd>{{ obj.sourceId }}</dd>
+
+    <dt>Source Name</dt>
+    <dd>{{ obj.sourceName }}</dd>
+
+    <dt>Source Category</dt>
+    <dd>{{ obj.sourceCategory.value }}</dd>
+</dl>
+</div>

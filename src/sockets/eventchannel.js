@@ -52,6 +52,7 @@ angular.module('redhawk.sockets')
           if (-1 == channels.indexOf(channel)) {
             eventMessageSocket.send(Msg('ADD', channel));
             channels.push(channel);
+            console.debug('Connected to ' + domainID + '-->' + channel);
           }
         }
 
@@ -64,6 +65,7 @@ angular.module('redhawk.sockets')
           if (-1 < chanIdx) {
             eventMessageSocket.send(Msg('REMOVE', channel));
             channels.splice(chanIdx, 1);
+            console.debug('Disconnected from ' + domainID + '-->' + channel);
           }
         }
 

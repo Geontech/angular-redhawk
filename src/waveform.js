@@ -31,7 +31,7 @@ angular.module('redhawk')
         var self = this;
 
         // Inherited setup
-        RESTPortBearer.apply(arguments);
+        RESTPortBearer.apply(self, arguments);
         self._portConfigUrl = Config.waveformPortUrl;
 
         //////// PUBLIC Interfaces (immutable) /////////
@@ -51,11 +51,11 @@ angular.module('redhawk')
         function start () {
           return REST.waveform.update(self._restArgs, {started: true},
             function() {
-              notify.success("Waveform "+self.REST.name+" started.");
+              notify.success("Waveform "+self.name+" started.");
               _reload();
             },
             function() {
-              notify.error("Waveform "+self.REST.name+" failed to start.")
+              notify.error("Waveform "+self.name+" failed to start.")
             }
           );
         }
