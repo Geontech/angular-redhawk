@@ -127,8 +127,8 @@ module.exports = function(grunt) {
       },
       vendorCss: {
         src: [
-          'scripts/vendor/angular-toastr/dist/angular-toastr.css',
-          'scripts/vendor/bootstrap-css/css/bootstrap.css'
+          'scripts/vendor/bootstrap-css/css/bootstrap.css',
+          'scripts/vendor/angular-toastr/dist/angular-toastr.css'
         ],
         dest: distDir + '/vendor.css'
       }

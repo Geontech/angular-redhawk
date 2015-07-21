@@ -17,7 +17,7 @@
       * You should have received a copy of the GNU Lesser General Public License                   
       * along with this program.  If not, see http://www.gnu.org/licenses/.                        
       *                                                                                            
-      * angular-redhawk - v0.1.0 - 2015-07-18          
+      * angular-redhawk - v0.1.0 - 2015-07-21          
       */                                                                                           
      angular.module('redhawk', ['redhawk.rest', 'redhawk.util', 'redhawk.sockets', 'redhawk.directives'])
   .config(['$httpProvider', function($httpProvider) {
@@ -396,14 +396,15 @@ angular.module('redhawk')
  */
 angular.module('redhawk.directives')
   /*
-   * Provides a list-view of messages and events intermixed
+   * Provides a list-view of messages and/or event structures in the order
+   * found in events
    * 
    * @param events - Array of event/message structures
    * @param max - The maximum number of elements to show (>= 1)
    */
-  .directive('events', function () {
+  .directive('eventView', function () {
     return {
-      templateUrl: 'directives/tmpls/events.html',
+      templateUrl: 'directives/tmpls/event-view.html',
       restrict: 'E',
       scope: {
         rhEvents   : '=',
@@ -411,7 +412,7 @@ angular.module('redhawk.directives')
       },
       controller: function($scope) {
         // setup defaults.
-        $scope.max = $scope.max || 10;
+        $scope.max = $scope.max || 5;
 
         /*
          * Determines the type of the event structure:
@@ -2810,8 +2811,9 @@ g),f.beginPath(),f.moveTo(b,d),f.lineTo(a,c),f.closePath(),f.stroke();f.restore(
 angular.module('redhawk.directives').run(['$templateCache', function($templateCache) {
   'use strict';
 
-  $templateCache.put('directives/tmpls/events.html',
-    "<div ng-repeat=\"rhEvent in rhEvents | limitTo: max\" ng-switch=\"typeOfEvent(rhEvent)\">\n" +
+  $templateCache.put('directives/tmpls/event-view.html',
+    "<div ng-repeat=\"rhEvent in rhEvents | orderBy: '-' | limitTo: max\" \n" +
+    "     ng-switch=\"typeOfEvent(rhEvent)\">\n" +
     "    <odm-event     ng-switch-when=\"1\" rh-event=\"rhEvent\"></odm-event>\n" +
     "    <idm-event     ng-switch-when=\"2\" rh-event=\"rhEvent\"></idm-event>\n" +
     "    <prop-event    ng-switch-when=\"3\" rh-event=\"rhEvent\"></prop-event>\n" +
@@ -2822,9 +2824,8 @@ angular.module('redhawk.directives').run(['$templateCache', function($templateCa
 
   $templateCache.put('directives/tmpls/idm-event.html',
     "<div>\n" +
+    "<h4>IDM Event</h4>\n" +
     "<dl class=\"dl-horizontal\">\n" +
-    "    <dt>IDM Event</dt>\n" +
-    "    \n" +
     "    <dt>Producer ID</dt>\n" +
     "    <dd>{{ obj.producerId }}</dd>\n" +
     "\n" +
@@ -2834,8 +2835,10 @@ angular.module('redhawk.directives').run(['$templateCache', function($templateCa
     "    <dt>State Change Category</dt>\n" +
     "    <dd>{{ obj.stateChangeCategory.value }}</dd>\n" +
     "\n" +
-    "    <dt>From - To</dt>\n" +
+    "    <dt>From</dt>\n" +
     "    <dd>{{ obj.stateChangeFrom.value }}</dd>\n" +
+    "    \n" +
+    "    <dt>To</dt>\n" +
     "    <dd>{{ obj.stateChangeTo.value   }}</dd>\n" +
     "</dl>\n" +
     "</div>"
@@ -2844,8 +2847,8 @@ angular.module('redhawk.directives').run(['$templateCache', function($templateCa
 
   $templateCache.put('directives/tmpls/message-event.html',
     "<div>\n" +
-    "<dl class=\"dl-horizontal\">\n" +
-    "    <dt>Message</dt>\n" +
+    "<h4>Message</h4>\n" +
+    "<dl class=\"dl-horizontal\">\\\n" +
     "    <div ng-repeat=\"prop in obj\">\n" +
     "        <dt>{{ prop.id | cleanPropId }}</dt>\n" +
     "        <dd>{{ prop.value }}</dd>\n" +
@@ -2857,10 +2860,10 @@ angular.module('redhawk.directives').run(['$templateCache', function($templateCa
 
   $templateCache.put('directives/tmpls/odm-event.html',
     "<div>\n" +
+    "<h4>ODM Event</h4>\n" +
     "<dl class=\"dl-horizontal\">\n" +
-    "    <dt>ODM Event</dt>\n" +
-    "    \n" +
     "    <dt>{{ (obj.hasOwnProperty('sourceIOR') ? 'Added' : 'Removed') }}</dt>\n" +
+    "    <dd>&nbsp</dd>\n" +
     "    \n" +
     "    <dt>Producer ID</dt>\n" +
     "    <dd>{{ obj.producerId }}</dd>\n" +
@@ -2880,9 +2883,8 @@ angular.module('redhawk.directives').run(['$templateCache', function($templateCa
 
   $templateCache.put('directives/tmpls/prop-event.html',
     "<div>\n" +
-    "<dl class=\"dl-horizontal\">\n" +
-    "    <dt>Property Event</dt>\n" +
-    "    \n" +
+    "<h4>Property Event</h4>\n" +
+    "<dl class=\"dl-horizontal\">    \n" +
     "    <dt>Source ID</dt>\n" +
     "    <dd>{{ obj.sourceId }}</dd>\n" +
     "\n" +
@@ -2892,7 +2894,7 @@ angular.module('redhawk.directives').run(['$templateCache', function($templateCa
     "    <dt>Source Category</dt>\n" +
     "    <dd>{{ obj.sourceCategory }}</dd>\n" +
     "\n" +
-    "    <dt>Properties</dt>\n" +
+    "    <dt>Properties</dt><dd>&nbsp</dd>\n" +
     "\n" +
     "    <div ng-repeat=\"prop in obj.properties\">\n" +
     "        <dt>{{ prop.id | cleanPropId }}</dt>\n" +

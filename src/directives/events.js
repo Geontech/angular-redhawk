@@ -23,14 +23,15 @@
  */
 angular.module('redhawk.directives')
   /*
-   * Provides a list-view of messages and events intermixed
+   * Provides a list-view of messages and/or event structures in the order
+   * found in events
    * 
    * @param events - Array of event/message structures
    * @param max - The maximum number of elements to show (>= 1)
    */
-  .directive('events', function () {
+  .directive('eventView', function () {
     return {
-      templateUrl: 'directives/tmpls/events.html',
+      templateUrl: 'directives/tmpls/event-view.html',
       restrict: 'E',
       scope: {
         rhEvents   : '=',
@@ -38,7 +39,7 @@ angular.module('redhawk.directives')
       },
       controller: function($scope) {
         // setup defaults.
-        $scope.max = $scope.max || 10;
+        $scope.max = $scope.max || 5;
 
         /*
          * Determines the type of the event structure:

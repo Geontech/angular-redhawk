@@ -1,4 +1,5 @@
-<div ng-repeat="rhEvent in rhEvents | limitTo: max" ng-switch="typeOfEvent(rhEvent)">
+<div ng-repeat="rhEvent in rhEvents | orderBy: '-' | limitTo: max" 
+     ng-switch="typeOfEvent(rhEvent)">
     <odm-event     ng-switch-when="1" rh-event="rhEvent"></odm-event>
     <idm-event     ng-switch-when="2" rh-event="rhEvent"></idm-event>
     <prop-event    ng-switch-when="3" rh-event="rhEvent"></prop-event>

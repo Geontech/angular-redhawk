@@ -2,11 +2,11 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div ng-show="domain">
-                <h2>Connected to events on: {{ domain.name }}</h2>
-                <events rh-events="domain.events"></events>
+                <h1>{{ domain.name }} Events</h1>
+                <event-view rh-events="domain.events"></event-view>
             </div>
             <div ng-show="!domain">
-                <h2>No domains found</h2>
+                <h1>No domains found</h1>
                 Please start a domain.
             </div>
         </div>
