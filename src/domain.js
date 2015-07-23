@@ -76,7 +76,7 @@ angular.module('redhawk')
          * @returns {*}
          */
         function getFileSystem (path) {
-          return REST.fileSystem.query({domainId: self.id, path: path});
+          return REST.fileSystem.query( angular.extend({}, self._restArgs, { path: path }) );
         };
 
         /**
@@ -89,7 +89,7 @@ angular.module('redhawk')
           var storeId = id + ((factoryName) ? factoryName : 'DeviceManager');
           if(!self.deviceManagers[storeId]) {
             var constructor = (factoryName) ? $injector.get(factoryName) : DeviceManager;
-            self.deviceManagers[storeId] = new constructor(id, self.id);
+            self.deviceManagers[storeId] = new constructor(id, self.name);
           }
           return self.deviceManagers[storeId];
         };
@@ -105,7 +105,7 @@ angular.module('redhawk')
           var storeId = id + ((factoryName) ? factoryName : 'Device');
           if(!self.devices[storeId]){
             var constructor = (factoryName) ? $injector.get(factoryName) : Device;
-            self.devices[storeId] = new constructor(id, self.id, deviceManagerId);
+            self.devices[storeId] = new constructor(id, self.name, deviceManagerId);
           }
 
           return self.devices[storeId];
@@ -138,7 +138,7 @@ angular.module('redhawk')
          * @returns {*}
          */
         function launch (name) {
-          return REST.waveform.launch(self._restArgs, {name: name},
+          return REST.waveform.launch(self._restArgs, { name: name },
             function(data){
               notify.success("Waveform "+data['launched']+" launched");
               _reload();
@@ -159,7 +159,7 @@ angular.module('redhawk')
           var storeId = id + ((factoryName) ? factoryName : 'Waveform');
           if(!self.waveforms[storeId]) {
             var constructor = (factoryName) ? $injector.get(factoryName) : Waveform;
-            self.waveforms[storeId] = new constructor(id, self.id);
+            self.waveforms[storeId] = new constructor(id, self.name);
           }
 
           return self.waveforms[storeId];
@@ -176,7 +176,7 @@ angular.module('redhawk')
           var storeId = id + ((factoryName) ? factoryName : 'Component');
           if(!self.components[storeId]) {
             var constructor = (factoryName) ? $injector.get(factoryName) : Component;
-            self.components[storeId] = new constructor(id, self.id, applicationId);
+            self.components[storeId] = new constructor(id, self.name, applicationId);
           }
 
           return self.components[storeId];
