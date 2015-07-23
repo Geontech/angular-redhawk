@@ -25,8 +25,8 @@
   using the getComponent(id, appID, <extension name>) method.
  */
 angular.module('redhawk')
-  .factory('Component', ['$timeout', 'Config', 'REST', 'RESTPortBearer',
-    function ($timeout, Config, REST, RESTPortBearer) {
+  .factory('Component', ['$timeout', 'Config', 'REST', 'RESTPortBearer', 'Config',
+    function ($timeout, Config, REST, RESTPortBearer, Config) {
       var Component = function(id, domainId, applicationId) {
         var self = this;
 

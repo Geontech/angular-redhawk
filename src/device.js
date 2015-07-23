@@ -26,8 +26,8 @@
   using the getDevice(id, deviceManagerID, <extension name>) method.
  */
 angular.module('redhawk')
-  .factory('Device', ['$timeout', 'REST', 'RESTPortBearer',
-    function ($timeout, REST, RESTPortBearer) {
+  .factory('Device', ['$timeout', 'REST', 'RESTPortBearer', 'Config',
+    function ($timeout, REST, RESTPortBearer, Config) {
       var Device = function(id, domainId, managerId) {
         var self = this;
 

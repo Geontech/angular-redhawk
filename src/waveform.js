@@ -25,8 +25,8 @@
   using the getWaveform(id, <extension name>) method.
  */
 angular.module('redhawk')
-  .factory('Waveform', ['Config', 'REST', 'RESTPortBearer', 'NotificationService',
-    function(Config, REST, RESTPortBearer, NotificationService) {
+  .factory('Waveform', ['Config', 'REST', 'RESTPortBearer', 'NotificationService', 'Config',
+    function(Config, REST, RESTPortBearer, NotificationService, Config) {
       var Waveform = function(id, domainId) {
         var self = this;
 
