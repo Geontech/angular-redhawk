@@ -62,12 +62,20 @@ module.exports = function(grunt) {
           'angular-toastr/dist/angular-toastr.css' : 'angular-toastr/dist/angular-toastr.css'
         }
       },
-      bootstrap: {
+      bootstrap_map: {
         options: {
           destPrefix: distDir
         },
         files: {
           'bootstrap.css.map' : 'bootstrap-css/css/bootstrap.css.map'
+        }
+      },
+      bootstrap_fonts: {
+        options: {
+          destPrefix: distDir + '/fonts'
+        },
+        files: {
+          '' : 'bootstrap-css/fonts/*'
         }
       }
     },
