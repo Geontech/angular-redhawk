@@ -1,27 +1,7 @@
-/*
-  This file is protected by Copyright. Please refer to the COPYRIGHT file
-  distributed with this source distribution.
-
-  This file is part of REDHAWK rest-python.
-
-  REDHAWK rest-python is free software: you can redistribute it and/or modify it under
-  the terms of the GNU Lesser General Public License as published by the Free
-  Software Foundation, either version 3 of the License, or (at your option) any
-  later version.
-
-  REDHAWK rest-python is distributed in the hope that it will be useful, but WITHOUT ANY
-  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
-  A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
-  details.
-
-  You should have received a copy of the GNU Lesser General Public License along
-  with this program.  If not, see http://www.gnu.org/licenses/.
-*/
-
 angular.module('gMapApp', [
     'ui.bootstrap',
     'ngRoute',
-    'RedhawkServices',
+    'redhawk',
     'uiGmapgoogle-maps',  
   ])
 
@@ -48,55 +28,49 @@ angular.module('gMapApp', [
 
   // View Controller for the google map example
   .controller('GMapExampleController', 
-            ['$scope', '$timeout', 'user', 'Redhawk', 'RedhawkEventChannel', 'uiGmapGoogleMapApi',
-    function( $scope,   $timeout,   user,   Redhawk,   RedhawkEventChannel,   uiGmapGoogleMapApi) {
-      // Attach to to the first redhawk domain ID found, create and assign it to
-      // a property on $scope to make it accessible from the views/example.html
-      // Then perform initial scrape of all device managers' devices for GPS Devices.
-      $scope.user = user;
-      $scope.$watch('user.domain', function(domainId) {
-        var self = this;
+            ['$scope', '$timeout', 'REDHAWK', 'uiGmapGoogleMapApi',
+    function( $scope,   $timeout,   REDHAWK,   uiGmapGoogleMapApi) {
+      // See examples/basic for a detailed explanation on REDHAWK.addListener
+      REDHAWK.addListener( 
+        function(msg) {
+          if (msg && msg.domains && msg.domains.length && !$scope.domain) {
+            $scope.domain = REDHAWK.getDomain(msg.domains[0]);
 
-        if (domainId) {
-          $scope.domain = Redhawk.getDomain(domainId);
-          $scope.myEventChannel = new RedhawkEventChannel($scope.domain,
-            // On Message
-            function(message) {
-              var event = message.event;
+            // Unlike the FeiTuner example, this example inserts our own 
+            // "updateFinished" method onto the standard Domain instance.
+            // The effect is similar to the customized Domain instance.
+            $scope.domain.updateFinished.push( function () {
+                angular.forEach($scope.domain.deviceManagers, 
+                  function(manager) {
+                    $scope.processDeviceManager(manager.id); 
+                  });
+                return false; // Runs once.
+              });
 
-              // Messages often occur long before the server model is ready to respond:
+            $scope.domain.on_msg = function(message) {
+              // Messages/events often occur long before the server model is ready to
+              // respond, so we use a timeout before attempting to "process"
               $timeout(function() {
-                var adding = event.hasOwnProperty('sourceIOR');
-                if (event.hasOwnProperty('sourceCategory')) {
-                  switch (event.sourceCategory.value) {
+                var adding = message.hasOwnProperty('sourceIOR');
+                if (message.hasOwnProperty('sourceCategory')) {
+                  switch (message.sourceCategory.value) {
                     case 'DEVICE_MANAGER':
                       if (adding)
-                        $scope.processDeviceManager(event.sourceId);
+                        $scope.processDeviceManager(message.sourceId);
                       break;
                     case 'DEVICE':
                       if (!adding)
-                        $scope.removeGpsDevice(event.sourceId);
+                        $scope.removeGpsDevice(message.sourceId);
                       break;
                     default:
                       break;
                   }
                 }
               }, 2000);
-            });
-        }
-      });
-
-      var oneshot = true;
-      $scope.$watch('domain.deviceManagers', function (deviceManagers) {
-        var self = this;
-        if (oneshot && deviceManagers && Object.keys(deviceManagers).length) {
-          angular.forEach(deviceManagers, 
-            function(manager) {
-              $scope.processDeviceManager(manager.id); 
-            });
-          oneshot = false;
-        }
-      });
+            }
+          }
+        });
+      }
 
       $scope.processDeviceManager = function (managerId) {
         $scope.domain.getDeviceManager(managerId).$promise.then(
@@ -106,6 +80,47 @@ angular.module('gMapApp', [
             });
             return devMgr;
           });
+      }
+
+      // Map for successfully-created GenericGPS references.
+      $scope.gpsDevices = {};
+
+      // Attempt to create a GenericPGS device.  If the feiPort handle is valid,
+      // this is a supported FEI GPS implementation that GenericGPS can manage.
+      // Then, add to the map.
+      $scope.addGpsDevice = function(deviceId, managerId) {
+        var gps = $scope.domain.getDevice(deviceId, managerId, 'GenericGPS');
+        $timeout(function() {
+          if (gps.feiPort) {
+            console.debug('GenericGPS Device discovered: ' + gps.name);
+            $scope.gpsDevices[deviceId] = gps;
+            if (!$scope.map.api) {
+              $scope.apiDelayQueue.push(gps);
+            }
+            else if (-1 == findMarker(gps.id)) {
+              $scope.map.markers.push($scope.makeMarker(gps));
+            }
+          }
+          else {
+            // Remove the GenericGPS factory version of this device since it's not valid for use.
+            console.debug('GenericGPS could not represent Device: ' + gps.name);
+            delete $scope.domain.devices[deviceId];
+          }
+        }, 1000);
+      }
+
+      // Set the reference to null, delete the mapping and marker (if found)
+      $scope.removeGpsDevice = function(deviceId) {
+        var self = this;
+        if ($scope.gpsDevices[deviceId]) {
+          $scope.gpsDevices[deviceId] = null;
+          delete $scope.gpsDevices[deviceId];
+
+          // Remove the marker
+          var i = findMarker(deviceId);
+          if (-1 < i)
+            $scope.map.markers.splice(i, 1);
+        }
       }
 
       // Note: Some of the directives require at least something to be defined originally!
@@ -188,7 +203,7 @@ angular.module('gMapApp', [
                       animation:  $scope.map.api.Animation.DROP,
                       draggable:  true, 
                       icon: {
-                        url:        '/client/images/RedHawk_Logo_ALT_B_121px.png',
+                        url:        'bower_components/angular-redhawk/images/RedHawk_Logo_ALT_B_121px.png',
                         scaledSize: new $scope.map.api.Size(60,60),
                         origin:     new $scope.map.api.Point(0,0),
                         anchor:     new $scope.map.api.Point(30,30)
@@ -217,49 +232,6 @@ angular.module('gMapApp', [
         }
         return foundIdx;
       }
-
-
-      // Map for successfully-created GenericGPS references.
-      $scope.gpsDevices = {};
-
-      // Attempt to create a GenericPGS device.  If the feiPort handle is valid,
-      // this is a supported FEI GPS implementation that GenericGPS can manage.
-      // Then, add to the map.
-      $scope.addGpsDevice = function(deviceId, managerId) {
-        var gps = $scope.domain.getDevice(deviceId, managerId, 'GenericGPS');
-        $timeout(function() {
-          if (gps.feiPort) {
-            console.debug('GenericGPS Device discovered: ' + gps.name);
-            $scope.gpsDevices[deviceId] = gps;
-            if (!$scope.map.api) {
-              $scope.apiDelayQueue.push(gps);
-            }
-            else if (-1 == findMarker(gps.id)) {
-              $scope.map.markers.push($scope.makeMarker(gps));
-            }
-          }
-          else {
-            // Remove the GenericGPS factory version of this device since it's not valid for use.
-            console.debug('GenericGPS could not represent Device: ' + gps.name);
-            delete $scope.domain.devices[deviceId];
-          }
-        }, 1000);
-      }
-
-      // Set the reference to null, delete the mapping and marker (if found)
-      $scope.removeGpsDevice = function(deviceId) {
-        var self = this;
-        if ($scope.gpsDevices[deviceId]) {
-          $scope.gpsDevices[deviceId] = null;
-          delete $scope.gpsDevices[deviceId];
-
-          // Remove the marker
-          var i = findMarker(deviceId);
-          if (-1 < i)
-            $scope.map.markers.splice(i, 1);
-        }
-      }
-
       // Toggle InfoWindow pop-up
       $scope.toggleInfoWindow = function(model) {
         var gps = undefined;
@@ -285,12 +257,12 @@ angular.module('gMapApp', [
   // Geon's GPS Wrapper (supports 'dummy' movable device)
   // Provides a convenience interface for UI development with
   // FEI GPS devices that have a Provides GPS port prefixed `gps` or `GPS`.
-  .factory('GenericGPS', ['RedhawkFeiDevice',
-    function(RedhawkFeiDevice) {
-      // Define and extend from the base factory, RedhawkFeiDevice
+  .factory('GenericGPS', ['FEIDevice',
+    function(FEIDevice) {
+      // Define and extend from the base factory, FEIDevice
       var GenericGPS = function() {
         var self = this;
-        RedhawkFeiDevice.apply(self, arguments);
+        FEIDevice.apply(self, arguments);
         // List of callbacks to fire during refresh()
         self._feiListeners = []; 
 
@@ -314,7 +286,6 @@ angular.module('gMapApp', [
               }
             }]);
           }
-          //self.refresh();
         }
 
         // Async refresh of position.  
@@ -382,27 +353,31 @@ angular.module('gMapApp', [
             }
           }
         }
-      }
 
-      GenericGPS.prototype = Object.create(RedhawkFeiDevice.prototype);
-      GenericGPS.prototype.constructor = GenericGPS;
-      GenericGPS.prototype._updateFinished = function() {
-        var self = this;
-
-        // Get the FEI Handle (convenience);
-        angular.forEach(self.ports, function(port) {
-          if (('FRONTEND' == port.idl.namespace) &&  
-              ('GPS' == port.idl.type) &&
-              ('Provides' == port.direction)) {
-            self.feiPort = port;
-          }
-        });
-
+        // Add a run-many updateFinished that persistently updates isMovable.
         // Update isMovable.  The presence of the 'position' property structure
         // indicates this GPS can be reconfigured to a different location (i.e., demo dummy).
-        self.isMovable = (UtilityFunctions.findPropId(self.properties, 'position')) ? true : false; 
-        self.refresh();
-      };
+        self.updateFinished.push(function () {
+          self.isMovable = (UtilityFunctions.findPropId(self.properties, 'position')) ? true : false;
+        });
+
+        // Add a run-once updateFinished that gives us a 
+        // convenience property, feiPort, to use
+        self.updateFinished.push(function() {
+          angular.forEach(self.ports, function(port) {
+            if (('FRONTEND' == port.idl.namespace) &&  
+                ('GPS' == port.idl.type) &&
+                ('Provides' == port.direction)) {
+              self.feiPort = port;
+            }
+          });
+          self.refresh();
+          return false; // Run once
+        }
+      }
+
+      GenericGPS.prototype = Object.create(FEIDevice.prototype);
+      GenericGPS.prototype.constructor = GenericGPS;
 
       return GenericGPS;
     }])
