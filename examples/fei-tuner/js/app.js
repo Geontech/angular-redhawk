@@ -21,7 +21,7 @@
 angular.module('FeiTunerApp', [
     'ui.bootstrap',
     'ngRoute',
-    'RedhawkServices' 
+    'redhawk' 
   ])
 
   // Route configuration to load views into our single-page app
@@ -37,15 +37,15 @@ angular.module('FeiTunerApp', [
   ])
 
   /** 
-   * Example of wrapping the RedhawkDomain to tap directly into the message stream.
+   * Example of wrapping the Domain to tap directly into the message stream.
    * Here, we'll follow DEVICE_MANAGER's coming online to check for devices that can be tuned.
-   * creating a RedhawkFeiTunerDevice instance for each.
+   * creating a FEITunerDevice instance for each.
    */
-  .factory('DomainWrapper', ['RedhawkDomain', '$timeout',
-    function(RedhawkDomain, $timeout) {
+  .factory('DomainWrapper', ['Domain', '$timeout',
+    function(Domain, $timeout) {
       var DomainWrapper = function () {
         var self = this;
-        RedhawkDomain.apply(self, arguments);
+        Domain.apply(self, arguments);
 
         // List of tuners discovered by this Domain
         self.tuners = [];
@@ -66,36 +66,33 @@ angular.module('FeiTunerApp', [
           else
             return self.tuners[i];
         }
-      }
-      DomainWrapper.prototype = Object.create(RedhawkDomain.prototype);
-      DomainWrapper.prototype.constructor = DomainWrapper;
 
-      // First update we run through the deviceManagers list to check for tuners.
-      DomainWrapper.prototype._updateFinished = function () {
-        var self = this;
-        if (self._oneshot) {
-          self._oneshot = false;
+        // First update we run through the deviceManagers list to check for tuners.
+        self.updateFinished.push(function () {
           angular.forEach(self.deviceManagers, function (manager) {
             processDeviceManager.call(self, manager.id);
           });
-        }
+          return false; // runs only once
+        });
       }
+      DomainWrapper.prototype = Object.create(Domain.prototype);
+      DomainWrapper.prototype.constructor = DomainWrapper;
 
       // Tap the message stream to maintain the list of tuners after the first init.
       DomainWrapper.prototype.on_msg = function(message) {
         var self = this;
         $timeout(function() { 
-          var adding = message.event.hasOwnProperty('sourceIOR');
-          if (message.event.hasOwnProperty('sourceCategory')) {
-            switch (message.event.sourceCategory.value) {
+          var adding = message.hasOwnProperty('sourceIOR');
+          if (message.hasOwnProperty('sourceCategory')) {
+            switch (message.sourceCategory.value) {
               case 'DEVICE_MANAGER':
                 if (adding)
-                  processDeviceManager.call(self, message.event.sourceId);
+                  processDeviceManager.call(self, message.sourceId);
                 break;
     
               case 'DEVICE':
                 if (!adding)
-                  removeTuner.call(self, message.event.sourceId);
+                  removeTuner.call(self, message.sourceId);
                 break;
 
               default:
@@ -123,7 +120,7 @@ angular.module('FeiTunerApp', [
       /**
        * Harmlessly caches a default Device to read its port information.
        * If a port is both tunable and queryable, the Device is stored as
-       * a RedhawkFeiTunerDevice instance. 
+       * a FEITunerDevice instance. 
        */
       var addTuner = function(deviceId, managerId) {
         var self = this; // Will be the DomainWrapper instance.
@@ -131,7 +128,7 @@ angular.module('FeiTunerApp', [
         device.$promise.then(function() {
           for (var i=0; i < device.ports.length; i++) {
             if (device.ports[i].canFeiQuery && device.ports[i].canFeiTune && !self.getTuner(deviceId)) {
-              self.tuners.push(self.getDevice(deviceId, managerId, 'RedhawkFeiTunerDevice'));
+              self.tuners.push(self.getDevice(deviceId, managerId, 'FEITunerDevice'));
               console.debug('Tuner Discovered: ' + deviceId);
               break;
             }
@@ -152,15 +149,16 @@ angular.module('FeiTunerApp', [
       return DomainWrapper;
   }])
 
-  .controller('FeiTunerController', ['$scope', '$modal', '$timeout', 'Redhawk', 'user', 'DomainWrapper',
-    function($scope, $modal, $timeout, Redhawk, user, DomainWrapper) {
-      // Attach to to the first redhawk domain ID found, create and assign it to
-      // a property on $scope to make it accessible from the views/example.html
-      $scope.user = user;
-      $scope.$watch('user.domain', function(domainId) {
-        if (domainId) {
-          $scope.domain = Redhawk.getDomain(domainId, 'DomainWrapper');
-        }
+  .controller('FeiTunerController', ['$scope', '$modal', '$timeout', 'REDHAWK', 'DomainWrapper',
+    function($scope, $modal, $timeout, REDHAWK, DomainWrapper) {
+      // See the basic example for what's happening here.
+      // The key difference is providing the name of our 
+      // extended "special" DomainWrapper version of the 
+      // Domain factory that makes the efforts of this 
+      // controller mildy less complex.
+      REDHAWK.addListener( function (msg) {
+        if (msg && msg.domains && msg.domains.length && !$scope.domain)
+          $scope.domain = REDHAWK.getDomain(msg.domains[0], 'DomainWrapper');
       });
 
       // Once tuners are discovered, select the first one to get started.
@@ -279,10 +277,6 @@ angular.module('FeiTunerApp', [
         $scope.info.templates.tuner : 
         $scope.info.templates.listener;
     });
-
-    $scope.prettyId = function(id) {
-      return id.replace(/^(\w+::){2}/, '');
-    }
 
     // FIXME: Back in the server-side, modify the property helper to give scaTypes
     //        and enumerations to the fields of structs, structSeq, etc., then tweak here
@@ -423,12 +417,7 @@ angular.module('FeiTunerApp', [
       scope: {
         status: "=", // Reference to the tuning structure
       },  
-      templateUrl: 'templates/tunerStatus.html',
-      controller: function ($scope) {
-        $scope.prettyId = function(id) {
-          return id.replace(/^(\w+::){2}/, '');
-        }
-      }
+      templateUrl: 'templates/tunerStatus.html'
     }
   })
 ;

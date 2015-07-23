@@ -22,10 +22,10 @@
                 </div>
 
                 <div class="form-group" ng-repeat="(id, value) in properties.value | orderBy: id">
-                    <label for="{{ prettyId(id) }}"
+                    <label for="{{ id | cleanPropId }}"
                         ng-class="{ 'col-sm-5' :  showStatuses,
                                     'col-sm-4' : !showStatuses }"
-                        class="control-label">{{ prettyId(id) }}</label>
+                        class="control-label">{{ id | cleanPropId }}</label>
                     <div ng-class="{ 'col-sm-7' :  showStatuses, 
                                      'col-sm-6' : !showStatuses}">
 

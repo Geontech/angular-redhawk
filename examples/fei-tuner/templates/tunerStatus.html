@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row" ng-repeat="stat in status">
         <div class="col-sm-5">
-            <strong>{{ prettyId(stat.id) }}</strong>
+            <strong>{{ stat.id | cleanPropId }}</strong>
         </div>
         <div class="col-sm-6 col-sm-offset-1">
             <span class="text-muted">{{ stat.value }}</span>
