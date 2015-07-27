@@ -54,19 +54,19 @@ angular.module('redhawk')
        * @returns {Array.<string>}
        */
       function getDomainIds () {
-        if(!domainIds) {
-          domainIds.$promise = REST.domain.query()
+        if(!redhawk.domainIds) {
+          redhawk.domainIds.$promise = REST.domain.query()
             .$promise
             .then(
               function(data){
                 angular.forEach(data.domains, function(id) {
                   this.push(id);
-                }, domainIds);
-                return domainIds;
+                }, redhawk.domainIds);
+                return redhawk.domainIds;
               }
             );
         }
-        return domainIds;
+        return redhawk.domainIds;
       };
 
       /**
