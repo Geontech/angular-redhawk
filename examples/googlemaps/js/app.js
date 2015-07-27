@@ -70,7 +70,6 @@ angular.module('gMapApp', [
             }
           }
         });
-      }
 
       $scope.processDeviceManager = function (managerId) {
         $scope.domain.getDeviceManager(managerId).$promise.then(
@@ -373,7 +372,7 @@ angular.module('gMapApp', [
           });
           self.refresh();
           return false; // Run once
-        }
+        });
       }
 
       GenericGPS.prototype = Object.create(FEIDevice.prototype);

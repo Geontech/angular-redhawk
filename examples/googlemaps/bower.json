@@ -12,8 +12,8 @@
     "bower_components"
   ],
   "dependencies": {
-    "angular-redhawk" : "git@github.com:geontech/angular-redhawk.git",
-    "angular-google-maps": "~2.0.12",
-    "lodash": "~3.0.0"
-  },
+    "angular-redhawk": "git@github.com:geontech/angular-redhawk.git",
+    "angular-google-maps": "~2.1.5",
+    "lodash": ">=3.8.0"
+  }
 }
