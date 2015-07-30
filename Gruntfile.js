@@ -72,7 +72,7 @@ module.exports = function(grunt) {
       },
       bootstrap_fonts: {
         options: {
-          destPrefix: distDir + '/fonts'
+          destPrefix: 'fonts'
         },
         files: {
           '' : 'bootstrap-css/fonts/*'
@@ -90,7 +90,7 @@ module.exports = function(grunt) {
     },
 
     // Clean the dist directory and the generated templates file.
-    clean: [distDir, '<%= ngtemplates.directives.dest %>'],
+    clean: [distDir, 'fonts', '<%= ngtemplates.directives.dest %>'],
 
     // Reusable directives and templates
     ngtemplates: {
