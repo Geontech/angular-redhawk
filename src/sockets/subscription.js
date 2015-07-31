@@ -115,8 +115,10 @@ angular.module('redhawk.sockets')
          * created an instance of this factory.
          */
         function close () {
-          if (ws) ws.close();
-          console.log("Socket closed: " + path);
+          if (ws) {
+            ws.close();
+            console.log("Socket closed: " + path);
+          }
         }
 
 
