@@ -36,12 +36,11 @@ angular.module('redhawk.rest')
     };
 
     this.restPath = '/redhawk/rest';
-    this.wsPath = '/redhawk/rest';
-    this.websocketUrl = getWSBasePath() + this.wsPath;
+    this.websocketUrl = getWSBasePath();
     this.restUrl = this.restPath;
 
-    this.redhawkSocketUrl = this.websocketUrl + '/redhawk';
-    this.eventSocketUrl = this.websocketUrl + '/events';
+    this.redhawkSocketUrl = this.websocketUrl + this.restPath + '/redhawk';
+    this.eventSocketUrl = this.websocketUrl + this.restPath + '/events';
 
     // General locations
     this.portsUrl = '/ports';
@@ -67,7 +66,6 @@ angular.module('redhawk.rest')
     this.$get = function() {
       return {
         restPath:         provider.restPath,
-        websocketPath:    provider.wsPath,
         websocketUrl:     provider.websocketUrl,
         redhawkSocketUrl: provider.redhawkSocketUrl,
         eventSocketUrl:   provider.eventSocketUrl,
