@@ -103,7 +103,7 @@
               port.canPlot = port.direction == "Uses" && port.idl.namespace == "BULKIO";
               if(port.canPlot) {
                 port.plotType = matches[1].toLowerCase();
-                configArgs.portId = port.id;
+                configArgs.portId = port.name;
                 port.bulkioUrl = InterpolateUrl(socketUrl, configArgs) + '/bulkio';
               }
             } else {
