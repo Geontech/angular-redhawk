@@ -93,7 +93,7 @@ angular.module('redhawk.rest')
    */
   .service('InterpolateUrl', function() {
     return function (configUrl, params) {
-      params = (params || {});
+      localParams = (angular.extend({}, params) || {});
 
       configUrl = configUrl.replace( /(\(\s*|\s*\)|\s*\|\s*)/g, "" );
 
@@ -101,7 +101,7 @@ angular.module('redhawk.rest')
       configUrl = configUrl.replace(
         /:([a-z]\w*)/gi,
         function( $0, label ) {
-          return( popFirstKey( params, label ) || "" );
+          return( popFirstKey( localParams, label ) || "" );
         }
       );
 

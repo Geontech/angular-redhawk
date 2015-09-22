@@ -17,7 +17,7 @@
       * You should have received a copy of the GNU Lesser General Public License                   
       * along with this program.  If not, see http://www.gnu.org/licenses/.                        
       *                                                                                            
-      * angular-redhawk - v0.1.0 - 2015-08-09          
+      * angular-redhawk - v0.1.0 - 2015-09-22          
       */                                                                                           
      angular.module('redhawk', ['redhawk.rest', 'redhawk.util', 'redhawk.sockets', 'redhawk.directives'])
   .config(['$httpProvider', function($httpProvider) {
@@ -1303,7 +1303,7 @@ angular.module('redhawk.rest')
    */
   .service('InterpolateUrl', function() {
     return function (configUrl, params) {
-      params = (params || {});
+      localParams = (angular.extend({}, params) || {});
 
       configUrl = configUrl.replace( /(\(\s*|\s*\)|\s*\|\s*)/g, "" );
 
@@ -1311,7 +1311,7 @@ angular.module('redhawk.rest')
       configUrl = configUrl.replace(
         /:([a-z]\w*)/gi,
         function( $0, label ) {
-          return( popFirstKey( params, label ) || "" );
+          return( popFirstKey( localParams, label ) || "" );
         }
       );
 

@@ -28,7 +28,6 @@
   "dependencies": {
     "jQuery": "~2.1.1",
     "bootstrap-css": "~3.1.1",
-
     "angular": ">=1.3.8",
     "angular-bootstrap": "~0.12.0",
     "angular-recursion": "~1.0.1",
@@ -47,5 +46,8 @@
     "lib",
     "examples",
     "scripts"
-  ]
+  ],
+  "resolutions": {
+    "angular": "1.4.6"
+  }
 }
