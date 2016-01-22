@@ -31,7 +31,7 @@ angular.module('redhawk.directives')
    */
   .directive('eventView', function () {
     return {
-      templateUrl: 'directives/tmpls/event-view.html',
+      templateUrl: 'directives/tmpls/events/event-view.html',
       restrict: 'E',
       scope: {
         rhEvents   : '=',
@@ -72,28 +72,28 @@ angular.module('redhawk.directives')
   
   .directive('odmEvent', function () {
     return {
-      templateUrl : 'directives/tmpls/odm-event.html',
+      templateUrl : 'directives/tmpls/events/odm-event.html',
       restrict    : 'E',
       scope       : { obj : '=rhEvent' }
     }
   })
   .directive('idmEvent', function () {
     return {
-      templateUrl : 'directives/tmpls/idm-event.html',
+      templateUrl : 'directives/tmpls/events/idm-event.html',
       restrict    : 'E',
       scope       : { obj : '=rhEvent' }
     }
   })
   .directive('propEvent', function () {
     return {
-      templateUrl : 'directives/tmpls/prop-event.html',
+      templateUrl : 'directives/tmpls/events/prop-event.html',
       restrict    : 'E',
       scope       : { obj : '=rhEvent' }
     }
   })
   .directive('messageEvent', function () {
     return {
-      templateUrl : 'directives/tmpls/message-event.html',
+      templateUrl : 'directives/tmpls/events/message-event.html',
       restrict    : 'E',
       scope       : { obj : '=rhEvent' }
     }
