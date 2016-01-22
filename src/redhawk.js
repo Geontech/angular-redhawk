@@ -142,20 +142,12 @@ angular.module('redhawk')
       var redhawkSocket = null; // Handle for the service socket.
 
       var on_connect = function() {
-        console.warn("TODO: Implement REDHAWK.on_connect for status socket");
+        console.info('Connected to REDHAWK Domain Monitoring Socket')
       }
 
       var on_msg = function(msg) {
         // msg is { domains: [], added: [], removed: [] }
         angular.copy(msg.domains, redhawk.domainIds);
-
-        if (msg.hasOwnProperty('added') && msg.added && 0 < msg.added.length) {
-          console.debug("TODO: Domains were added");
-        }
-
-        if (msg.hasOwnProperty('removed') && msg.removed && 0 < msg.removed.length) {
-          console.debug("TODO: Domains were removed, notify the factory(ies) if one exists");
-        }
       }
 
   }])
