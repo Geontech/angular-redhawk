@@ -28,7 +28,7 @@ angular.module('ExampleApp', [
         function(msg) {
           if (msg && msg.domains && msg.domains.length && !$scope.domain) {
             // Purpose: 
-            // If the message is valid and no $scope.domain exists, ttach to to the first 
+            // If the message is valid and no $scope.domain exists, attach to the first 
             // REDHAWK Domain ID found by using the REDHAK service to create/fetch it, by ID,
             // using the default Domain factory.  Then assign it to $scope to make it accessible 
             // from the views/example.html as 'domain'.
