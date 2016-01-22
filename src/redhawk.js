@@ -142,7 +142,7 @@ angular.module('redhawk')
       var redhawkSocket = null; // Handle for the service socket.
 
       var on_connect = function() {
-        console.info('Connected to REDHAWK Domain Monitoring Socket')
+        console.debug('Connected to REDHAWK Domain Monitoring Socket')
       }
 
       var on_msg = function(msg) {
