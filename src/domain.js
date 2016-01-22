@@ -52,6 +52,7 @@ angular.module('redhawk')
         self.events = []; // buffer
         self.addEventChannel = addEventChannel;
         self.removeEventChannel = removeEventChannel;
+        self.getChannelNames = getChannelNames;
 
         //////// PUBLIC (mutable) /////////
         // on_msg -- Replace with a function to call when event channel messages are received
@@ -186,14 +187,26 @@ angular.module('redhawk')
          * Add the named event channel to the list of subscriptions.
          */
         function addEventChannel (name) {
-          eventChannel.addChannel(name);
+          if (!!eventChannel)
+            eventChannel.addChannel(name);
         }
 
         /**
          * Remove the named event channel from the list of subscriptions.
          */
-        function removeEventChannel (name){
-          eventChannel.removeChannel(name);
+        function removeEventChannel (name) {
+          if (!!eventChannel)
+            eventChannel.removeChannel(name);
+        }
+
+        /**
+         * Get a list of active channel names on the eventChannel socket
+         */
+        function getChannelNames () {
+          if (!!eventChannel)
+            return eventChannel.getChannelNames();
+          else
+            return [];
         }
 
 
