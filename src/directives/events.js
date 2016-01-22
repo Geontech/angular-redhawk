@@ -52,10 +52,7 @@ angular.module('redhawk.directives')
         $scope.typeOfEvent = function (rhEvent) {
           var t = 0;
 
-          if (Array.isArray(rhEvent)) {
-            t = 4;
-          }
-          else if (rhEvent.hasOwnProperty('sourceName') && rhEvent.sourceName) {
+          if (rhEvent.hasOwnProperty('sourceCategory') && rhEvent.sourceName) {
             t = 1;
           }
           else if (rhEvent.hasOwnProperty('stateChangeCategory') && rhEvent.stateChangeCategory) {
@@ -63,6 +60,9 @@ angular.module('redhawk.directives')
           }
           else if (rhEvent.hasOwnProperty('properties') && rhEvent.properties) {
             t = 3;
+          }
+          if (rhEvent.hasOwnProperty('id') && rhEvent.id) {
+            t = 4;
           }
           return t;
         };

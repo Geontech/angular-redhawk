@@ -1,9 +1,7 @@
 <div>
 <h4>Message</h4>
-<dl class="dl-horizontal">\
-    <div ng-repeat="prop in obj">
-        <dt>{{ prop.id | cleanPropId }}</dt>
-        <dd>{{ prop.value }}</dd>
-    </div>
+<dl class="dl-horizontal">
+    <dt>Property ID</dt><dd>{{ obj.id | cleanPropId }}</dd>
+    <dt>JSON Value</dt><dd>{{ obj.value }}</dd>
 </dl>
 </div>

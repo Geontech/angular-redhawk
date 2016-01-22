@@ -7,14 +7,7 @@
     <dt>Source Name</dt>
     <dd>{{ obj.sourceName }}</dd>
 
-    <dt>Source Category</dt>
-    <dd>{{ obj.sourceCategory }}</dd>
-
-    <dt>Properties</dt><dd>&nbsp</dd>
-
-    <div ng-repeat="prop in obj.properties">
-        <dt>{{ prop.id | cleanPropId }}</dt>
-        <dd>{{ prop.value }}</dd>
-    </div>
+    <dt>Property IDs</dt>
+    <dd><span ng-repeat="prop in obj.properties">{{ prop.id }}<br></span></dd>
 </dl>
 </div>
