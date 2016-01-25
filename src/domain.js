@@ -225,6 +225,7 @@ angular.module('redhawk')
          */
         var _load = function(id) {
           self._restArgs = { domainId: id };
+          self.name = id;
 
           // Event socket.
           if (!eventChannel)
