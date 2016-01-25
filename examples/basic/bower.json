@@ -1,0 +1,20 @@
+{
+  "name": "event-listening-client",
+  "version": "1.0.0",
+  "authors": [
+    "Thomas Goodwin <btgoodwin@geontech.com>"
+  ],
+  "description": "Basic angular-redhawk client-side example",
+  "main": "index.html",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-redhawk" : "git@github.com:geontech/angular-redhawk.git",
+  },
+}

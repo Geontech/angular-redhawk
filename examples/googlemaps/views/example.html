@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <ui-gmap-google-map 
+        class="col-xs-12"
+        pan="true"
+        center="map.center" 
+        zoom="map.zoom"
+        events="map.events"
+        options="map.options">
+
+        <!-- InfoWindow for a single marker is clicked -->
+        <ui-gmap-window 
+            coords="selectedDevice.position"
+            show="map.infoWindow.show"
+            closeClick="toggleInfoWindow()">
+            <div style="height: 50pt;">
+                <h3>{{ selectedDevice.name }}
+                    <small>Position: {{ selectedDevice.position.latitude | number:2 }}&deg x {{ selectedDevice.position.longitude | number:2 }}&deg</small>
+                </h3>
+            </div>
+        </ui-gmap-window>
+
+        <!-- Markers -->
+        <ui-gmap-markers 
+            models="map.markers" 
+            coords="'position'"
+            options="'options'"
+            events="map.markerEvents">
+        </ui-gmap-markers>
+    </ui-gmap-google-map>
+</div>

@@ -1,0 +1,54 @@
+<!doctype html>
+<!--
+This file is protected by Copyright. Please refer to the COPYRIGHT file
+distributed with this source distribution.
+
+This file is part of Angular-REDHAWK.
+
+Angular-REDHAWK is free software: you can redistribute it and/or modify it under
+the terms of the GNU Lesser General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version.
+
+Angular-REDHAWK is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
+details.
+
+You should have received a copy of the GNU Lesser General Public License along
+with this program.  If not, see http://www.gnu.org/licenses/.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" 
+        type="image/png" 
+        href="bower_components/angular-redhawk/images/RedHawk_Logo_ALT_B_121px.png"/>
+
+    <title>Angular-REDHAWK SigPlot Example</title>
+
+    <!-- Vendor plugins, packaged -->
+    <script src="bower_components/angular-redhawk/dist/vendor.min.js"></script>
+    <link  href="bower_components/angular-redhawk/dist/vendor.css" rel="stylesheet">
+
+    <!-- Angular-REDHAWK -->
+    <script src="bower_components/angular-redhawk/dist/angular-redhawk.js"></script>
+
+    <!-- This App -->
+    <script src="js/app.js"></script>
+
+  </head>
+  <body ng-app="SigPlotApp">
+
+    <!-- 
+    ng-view for Angular.JS to populate 
+    As seen in admin-console, ng-if="user.domain" maps to the
+    TopLevelController's $scope.user.domain variable.
+    -->
+    <div id="view" ng-view>
+    </div>
+
+  </body>
+</html>

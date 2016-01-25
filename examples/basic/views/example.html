@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div ng-show="domain">
+                <h1>{{ domain.name }} Events</h1>
+                <event-view rh-events="domain.events"></event-view>
+            </div>
+            <div ng-show="!domain">
+                <h1>No domains found</h1>
+                Please start a domain.
+            </div>
+        </div>
+    </div>
+</div>

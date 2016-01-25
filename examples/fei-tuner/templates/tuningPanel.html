@@ -1,0 +1,46 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-7">
+          <h3>Tuning Parameters</h3>
+          <form name="tuningEditor" 
+                role="form" 
+                ng-submit="doSubmit()" 
+                class="form-horizontal">
+                <div class="form-group" ng-repeat="prop in tuningStruct.value | orderBy: 'id' | filter: showProp">
+                    <label for="{{prop.id}}" class="col-sm-5 control-label">{{prop.id}}</label>
+                    <div class="col-sm-6">
+                        <input class="form-control input-sm"
+                            ng-if="propIsEditable(prop) && 'number' == propType(prop)"
+                            type="number" 
+                            pattern="/^-?\d*\.?\d*$/"
+                            ng-model="prop.value" 
+                            id="{{ prop.id }}"
+                            ng-change="changedProp(prop)">
+
+                        <select class="form-control input-sm"
+                            ng-if="propIsEditable(prop) && 'boolean' == propType(prop)"
+                            ng-model="prop.value"
+                            ng-options="enum for enum in [true, false]"
+                            id="{{ prop.id }}"
+                            ng-change="changedProp(prop)"></select>
+
+                        <input class="form-control input-sm"
+                            ng-if="!propIsEditable(prop)"
+                            type="text" 
+                            ng-model="prop.value" 
+                            id="{{prop.id}}"
+                            readonly>
+                    </div>
+                </div>
+                <div class="col-sm-offset-10">
+                    <button class="btn btn-default btn-sm" type="submit">Tune</button>
+                </div>
+          </form>
+      </div>
+
+      <div class="col-sm-5" ng-if="tunerStatus">
+          <h3>Status</h3>
+          <tuner-status status="tunerStatus"></tuner-status>
+      </div>
+    </div>
+</div>

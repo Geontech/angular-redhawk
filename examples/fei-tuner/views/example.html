@@ -1,0 +1,60 @@
+<div class="container-fluid" style="width:95%">
+    <div class="row">
+        <h1>Frontend Tuners in {{user.domain}}</h1>
+    </div>
+    <div class="row"> <!-- Nav bar for Control Device, Tuner Port, Allocation ID Selection -->
+        <ol class="breadcrumb">
+            <li><select id="tuners"
+                    ng-model="selectedDevice"
+                    ng-options="tuner as tuner.name for tuner in domain.tuners | orderBy: 'name'">
+                </select></li>
+            <li ng-if="selectedDevice"><select id="interfaces"  
+                    ng-model="selectedInterface"
+                    ng-options="port as port.name for port in selectedDevice.ports | filter: feiFilter | orderBy: 'name'">
+                </select></li>
+            <li ng-if="selectedInterface"><select id="allocations"
+                    ng-model="selectedAllocationId"
+                    ng-options="id for id in selectedInterface.active_allocation_ids"
+                    ng-if="selectedInterface.active_allocation_ids.length"
+                    ng-change="allocationIdChanged()">
+                </select>
+                <button 
+                    class="btn btn-success btn-xs" 
+                    title="New Allocation"
+                    ng-click="allocationCreator()">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </li>
+        </ol>
+    </div>
+
+    <div ng-if="selectedDevice">
+        <div class="row">
+            <h2>{{ selectedDevice.name }} <small>{{ selectedDevice.id }}</small></h2>
+            <h3>Selected Interface</h3>
+            <dl class="dl-horizontal" ng-if="selectedInterface">
+                <dt>Name</dt>
+                <dd>{{ selectedInterface.name }}</dd>
+                <dt>Type</dt>
+                <dd>{{ selectedInterface.idl.type }}</dd>
+            </dl>
+        </div>
+
+        <div class="row"> <!-- Details table for the allocation.  Button shows Allocate" -->
+            <div ng-if="selectedAllocation">
+                <tuning-panel 
+                    tuning-struct="selectedAllocation"
+                    submit="tune">
+                </tuning-panel>
+            </div>
+            <div ng-if="!selectedAllocation">
+                <strong>No Allocations Present</strong>
+            </div>
+        </div>
+
+        <div class="row text-muted" style="padding-top: 100pt;">
+            DEBUGGING:<br>
+            {{ selectedAllocation }}
+        </div>
+    </div>
+</div>

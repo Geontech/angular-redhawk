@@ -1,0 +1,32 @@
+<div class="container-fluid" style="width:95%">
+    <div ng-show="!domain">
+        <h1>Please Start a Domain</h1>
+    </div>
+    <div ng-show="domain">
+        <div class="row">
+            <h1>BULKIO Devices in: {{ domain.name }}</h1>
+        </div>
+        <div class="row"> <!-- Nav bar for Control Device, Bulkio Port, etc.-->
+            <ol class="breadcrumb">
+                <li><select id="bulkioDevices"
+                        ng-model="selectedDevice"
+                        ng-options="bulkioDevice as bulkioDevice.name for bulkioDevice in domain.bulkioDevices | orderBy: 'name'">
+                    </select></li>
+                <li ng-show="selectedDevice">
+                    <!-- Note, bulkioInterface is in the child scope, not controller scope -->
+                    <select id="interfaces"  
+                        ng-model="bulkioInterface"
+                        ng-options="port as port.name for port in selectedDevice.ports | filter: bulkioFilter | orderBy: 'name'"
+                        ng-change="selectInterface(bulkioInterface)">
+                        <option value=""><!--empty option--></option>
+                    </select>
+                </li>
+            </ol>
+        </div>
+
+        <!-- This will show once a selectedInterface is picked -->
+        <div class="row" ng-show="selectedInterface" >
+            <sig-plot-psd port="selectedInterface" style="height: 450px;"></sig-plot-psd>
+        </div>
+    </div>
+</div>
