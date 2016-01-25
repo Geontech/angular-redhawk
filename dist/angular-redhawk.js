@@ -17,7 +17,7 @@
       * You should have received a copy of the GNU Lesser General Public License                   
       * along with this program.  If not, see http://www.gnu.org/licenses/.                        
       *                                                                                            
-      * angular-redhawk - v0.1.0 - 2015-07-31          
+      * angular-redhawk - v0.1.0 - 2016-01-25          
       */                                                                                           
      angular.module('redhawk', ['redhawk.rest', 'redhawk.util', 'redhawk.sockets', 'redhawk.directives'])
   .config(['$httpProvider', function($httpProvider) {
@@ -404,7 +404,7 @@ angular.module('redhawk.directives')
    */
   .directive('eventView', function () {
     return {
-      templateUrl: 'directives/tmpls/event-view.html',
+      templateUrl: 'directives/tmpls/events/event-view.html',
       restrict: 'E',
       scope: {
         rhEvents   : '=',
@@ -425,10 +425,7 @@ angular.module('redhawk.directives')
         $scope.typeOfEvent = function (rhEvent) {
           var t = 0;
 
-          if (Array.isArray(rhEvent)) {
-            t = 4;
-          }
-          else if (rhEvent.hasOwnProperty('sourceName') && rhEvent.sourceName) {
+          if (rhEvent.hasOwnProperty('sourceCategory') && rhEvent.sourceName) {
             t = 1;
           }
           else if (rhEvent.hasOwnProperty('stateChangeCategory') && rhEvent.stateChangeCategory) {
@@ -436,6 +433,9 @@ angular.module('redhawk.directives')
           }
           else if (rhEvent.hasOwnProperty('properties') && rhEvent.properties) {
             t = 3;
+          }
+          if (rhEvent.hasOwnProperty('id') && rhEvent.id) {
+            t = 4;
           }
           return t;
         };
@@ -445,28 +445,28 @@ angular.module('redhawk.directives')
   
   .directive('odmEvent', function () {
     return {
-      templateUrl : 'directives/tmpls/odm-event.html',
+      templateUrl : 'directives/tmpls/events/odm-event.html',
       restrict    : 'E',
       scope       : { obj : '=rhEvent' }
     }
   })
   .directive('idmEvent', function () {
     return {
-      templateUrl : 'directives/tmpls/idm-event.html',
+      templateUrl : 'directives/tmpls/events/idm-event.html',
       restrict    : 'E',
       scope       : { obj : '=rhEvent' }
     }
   })
   .directive('propEvent', function () {
     return {
-      templateUrl : 'directives/tmpls/prop-event.html',
+      templateUrl : 'directives/tmpls/events/prop-event.html',
       restrict    : 'E',
       scope       : { obj : '=rhEvent' }
     }
   })
   .directive('messageEvent', function () {
     return {
-      templateUrl : 'directives/tmpls/message-event.html',
+      templateUrl : 'directives/tmpls/events/message-event.html',
       restrict    : 'E',
       scope       : { obj : '=rhEvent' }
     }
@@ -739,6 +739,7 @@ angular.module('redhawk')
         self.events = []; // buffer
         self.addEventChannel = addEventChannel;
         self.removeEventChannel = removeEventChannel;
+        self.getChannelNames = getChannelNames;
 
         //////// PUBLIC (mutable) /////////
         // on_msg -- Replace with a function to call when event channel messages are received
@@ -873,14 +874,26 @@ angular.module('redhawk')
          * Add the named event channel to the list of subscriptions.
          */
         function addEventChannel (name) {
-          eventChannel.addChannel(name);
+          if (!!eventChannel)
+            eventChannel.addChannel(name);
         }
 
         /**
          * Remove the named event channel from the list of subscriptions.
          */
-        function removeEventChannel (name){
-          eventChannel.removeChannel(name);
+        function removeEventChannel (name) {
+          if (!!eventChannel)
+            eventChannel.removeChannel(name);
+        }
+
+        /**
+         * Get a list of active channel names on the eventChannel socket
+         */
+        function getChannelNames () {
+          if (!!eventChannel)
+            return eventChannel.getChannelNames();
+          else
+            return [];
         }
 
 
@@ -1206,20 +1219,12 @@ angular.module('redhawk')
       var redhawkSocket = null; // Handle for the service socket.
 
       var on_connect = function() {
-        console.warn("TODO: Implement REDHAWK.on_connect for status socket");
+        console.debug('Connected to REDHAWK Domain Monitoring Socket')
       }
 
       var on_msg = function(msg) {
         // msg is { domains: [], added: [], removed: [] }
         angular.copy(msg.domains, redhawk.domainIds);
-
-        if (msg.hasOwnProperty('added') && msg.added && 0 < msg.added.length) {
-          console.debug("TODO: Domains were added");
-        }
-
-        if (msg.hasOwnProperty('removed') && msg.removed && 0 < msg.removed.length) {
-          console.debug("TODO: Domains were removed, notify the factory(ies) if one exists");
-        }
       }
 
   }])
@@ -1360,21 +1365,15 @@ angular.module('redhawk.rest')
 angular.module('redhawk.rest')
   .service('REST', ['$resource', 'Config', 
     function($resource, Config) {
-      this.system = $resource(Config.restUrl, {}, {
-        query:        {method: 'GET', cache: false },
-        channels:     {method: 'GET', url: Config.restUrl + '/channels', cache: false },
-      });
-
       this.domain = $resource(Config.domainsUrl, {}, {
         query:        {method: 'GET', cache:false},
-        add:          {method: 'POST'},
         info:         {method: 'GET', url: Config.domainUrl, cache:false},
-        configure:    {method: 'PUT', url: Config.domainUrl + '/configure'},
       });
 
+      /* Retaining for future upcoming feature 
       this.fileSystem = $resource(Config.domainUrl + '/fs/:path', {}, {
         query:        {method: 'GET', cache:false}
-      });
+      }); */
 
       this.deviceManager = $resource(Config.deviceManagerUrl, {}, {
         query:        {method: 'GET', cache:false}
@@ -2509,7 +2508,7 @@ g),f.beginPath(),f.moveTo(b,d),f.lineTo(a,c),f.closePath(),f.stroke();f.restore(
 angular.module('redhawk.directives').run(['$templateCache', function($templateCache) {
   'use strict';
 
-  $templateCache.put('directives/tmpls/event-view.html',
+  $templateCache.put('directives/tmpls/events/event-view.html',
     "<div ng-repeat=\"rhEvent in rhEvents | orderBy: '-' | limitTo: max\" \n" +
     "     ng-switch=\"typeOfEvent(rhEvent)\">\n" +
     "    <odm-event     ng-switch-when=\"1\" rh-event=\"rhEvent\"></odm-event>\n" +
@@ -2520,15 +2519,15 @@ angular.module('redhawk.directives').run(['$templateCache', function($templateCa
   );
 
 
-  $templateCache.put('directives/tmpls/idm-event.html',
+  $templateCache.put('directives/tmpls/events/idm-event.html',
     "<div>\n" +
     "<h4>IDM Event</h4>\n" +
     "<dl class=\"dl-horizontal\">\n" +
-    "    <dt>Producer ID</dt>\n" +
-    "    <dd>{{ obj.producerId }}</dd>\n" +
-    "\n" +
     "    <dt>Source ID</dt>\n" +
     "    <dd>{{ obj.sourceId }}</dd>\n" +
+    "\n" +
+    "    <dt>Producer ID</dt>\n" +
+    "    <dd>{{ obj.producerId }}</dd>\n" +
     "\n" +
     "    <dt>State Change Category</dt>\n" +
     "    <dd>{{ obj.stateChangeCategory.value }}</dd>\n" +
@@ -2543,31 +2542,29 @@ angular.module('redhawk.directives').run(['$templateCache', function($templateCa
   );
 
 
-  $templateCache.put('directives/tmpls/message-event.html',
+  $templateCache.put('directives/tmpls/events/message-event.html',
     "<div>\n" +
     "<h4>Message</h4>\n" +
-    "<dl class=\"dl-horizontal\">\\\n" +
-    "    <div ng-repeat=\"prop in obj\">\n" +
-    "        <dt>{{ prop.id | cleanPropId }}</dt>\n" +
-    "        <dd>{{ prop.value }}</dd>\n" +
-    "    </div>\n" +
+    "<dl class=\"dl-horizontal\">\n" +
+    "    <dt>Property ID</dt><dd>{{ obj.id | cleanPropId }}</dd>\n" +
+    "    <dt>JSON Value</dt><dd>{{ obj.value }}</dd>\n" +
     "</dl>\n" +
     "</div>"
   );
 
 
-  $templateCache.put('directives/tmpls/odm-event.html',
+  $templateCache.put('directives/tmpls/events/odm-event.html',
     "<div>\n" +
     "<h4>ODM Event</h4>\n" +
     "<dl class=\"dl-horizontal\">\n" +
     "    <dt>{{ (obj.hasOwnProperty('sourceIOR') ? 'Added' : 'Removed') }}</dt>\n" +
     "    <dd>&nbsp</dd>\n" +
-    "    \n" +
-    "    <dt>Producer ID</dt>\n" +
-    "    <dd>{{ obj.producerId }}</dd>\n" +
     "\n" +
     "    <dt>Source ID</dt>\n" +
     "    <dd>{{ obj.sourceId }}</dd>\n" +
+    "    \n" +
+    "    <dt>Producer ID</dt>\n" +
+    "    <dd>{{ obj.producerId }}</dd>\n" +
     "\n" +
     "    <dt>Source Name</dt>\n" +
     "    <dd>{{ obj.sourceName }}</dd>\n" +
@@ -2579,7 +2576,7 @@ angular.module('redhawk.directives').run(['$templateCache', function($templateCa
   );
 
 
-  $templateCache.put('directives/tmpls/prop-event.html',
+  $templateCache.put('directives/tmpls/events/prop-event.html',
     "<div>\n" +
     "<h4>Property Event</h4>\n" +
     "<dl class=\"dl-horizontal\">    \n" +
@@ -2589,15 +2586,8 @@ angular.module('redhawk.directives').run(['$templateCache', function($templateCa
     "    <dt>Source Name</dt>\n" +
     "    <dd>{{ obj.sourceName }}</dd>\n" +
     "\n" +
-    "    <dt>Source Category</dt>\n" +
-    "    <dd>{{ obj.sourceCategory }}</dd>\n" +
-    "\n" +
-    "    <dt>Properties</dt><dd>&nbsp</dd>\n" +
-    "\n" +
-    "    <div ng-repeat=\"prop in obj.properties\">\n" +
-    "        <dt>{{ prop.id | cleanPropId }}</dt>\n" +
-    "        <dd>{{ prop.value }}</dd>\n" +
-    "    </div>\n" +
+    "    <dt>Property IDs</dt>\n" +
+    "    <dd><span ng-repeat=\"prop in obj.properties\">{{ prop.id }}<br></span></dd>\n" +
     "</dl>\n" +
     "</div>"
   );

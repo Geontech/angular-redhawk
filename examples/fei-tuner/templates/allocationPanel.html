@@ -21,32 +21,32 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-repeat="(id, value) in properties.value | orderBy: id">
-                    <label for="{{ id | cleanPropId }}"
+                <div class="form-group" ng-repeat="prop in properties.value | orderBy: 'id'">
+                    <label for="{{ prop.id | cleanPropId }}"
                         ng-class="{ 'col-sm-5' :  showStatuses,
                                     'col-sm-4' : !showStatuses }"
-                        class="control-label">{{ id | cleanPropId }}</label>
+                        class="control-label">{{ prop.id | cleanPropId }}</label>
                     <div ng-class="{ 'col-sm-7' :  showStatuses, 
                                      'col-sm-6' : !showStatuses}">
 
                         <input class="form-control input-sm"
-                            ng-if="typeForPropId(id) == 'text'"
+                            ng-if="typeForPropId(prop.id) == 'text'"
                             type="text" 
-                            ng-model="properties.value[id]"
-                            id="{{ id }}">
+                            ng-model="prop.value"
+                            id="{{ prop.id }}">
 
                         <input class="form-control input-sm"
-                            ng-if="typeForPropId(id) == 'number'"
+                            ng-if="typeForPropId(prop.id) == 'number'"
                             type="number"
                             pattern="/^-?\d*\.?\d*$/"
-                            ng-model="properties.value[id]"
-                            id="{{ id }}">
+                            ng-model="prop.value"
+                            id="{{ prop.id }}">
 
                         <select class="form-control input-sm"
-                            ng-if="typeForPropId(id) == 'enum'"
-                            ng-model="properties.value[id]"
-                            ng-options="enum for enum in enumForPropId(id)"
-                            id="{{ id }}"></select>
+                            ng-if="typeForPropId(prop.id) == 'enum'"
+                            ng-model="prop.value"
+                            ng-options="enum for enum in enumForPropId(prop.id)"
+                            id="{{ prop.id }}"></select>
                     </div>
                 </div>
 

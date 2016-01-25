@@ -244,6 +244,7 @@ angular.module('FeiTunerApp', [
         panel.result.then(
           function(result) {
             /* Attempt allocation.  Timeout, queryFEI for the ID */
+            console.debug(result.properties)
             $scope.selectedDevice.allocate([result.properties]);
             $timeout(function() {
               $scope.selectedAllocationId = result.id; // Triggers redraw via affected $watch's.
@@ -305,13 +306,11 @@ angular.module('FeiTunerApp', [
 
     $scope.submit = function () {
       info.properties = $scope.properties;
-      if ($scope.allocationTypeIsTuner) {
-        info.id = info.properties.value["FRONTEND::tuner_allocation::allocation_id"];
-      }
-      else {
-        info.id = info.properties.value["FRONTEND::listener_allocation::listener_allocation_id"];
-      }
-
+      propId = ($scope.allocationTypeIsTuner) ? 
+        "FRONTEND::tuner_allocation::allocation_id" : 
+        "FRONTEND::listener_allocation::listener_allocation_id";
+      prop = UtilityFunctions.findPropId(info.properties.value, propId);
+      info.id = prop.value;
       $modalInstance.close(info);
     }
 
