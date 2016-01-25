@@ -279,10 +279,10 @@ angular.module('gMapApp', [
           if (self.isMovable) {
             self.configure([{ 
               id: 'position', 
-              value: {
-                'position::latitude': lat, 
-                'position::longitude': lon
-              }
+              value: [
+                { id: 'position::latitude', value: lat }, 
+                { id: 'position::longitude', value: lon }
+              ]
             }]);
           }
         }
