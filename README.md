@@ -5,13 +5,17 @@ The original inspiration and some of the code-base came from the REDHAWK SDR [ad
 
 ## Installation
 
-Include the angular-redhawk repository in your web app's bower.json as a dependency:
+For CentOS 6 installations with the EPEL repository, as would be required to install REDHAWK SDR, you can install `npm` and `bower` as follows (as root):
+
+    yum install -y nodejs npm --enablerepo=epel
+
+Include angular-redhawk in your web app's bower.json as a dependency as shown in the various provided examples:
 
     "dependencies": {
-        "angular-redhawk" : "git@github.com:geontech/angular-redhawk.git"
+        "angular-redhawk" : "https://github.com/geontech/angular-redhawk.git"
     }
 
-Then use `bower install` in your web app directory to download the module to your `bower_components` directory.
+Then from your web app's directory, use `bower install` to download the module to your `bower_components` directory.  If prompted to resolve a dependency issue, err on the side of angular-redhawk (even though we actually package all of its dependencies into a minified JS for you).
 
 Next, in your top-level HTML file, include the following, as appropriate:
 
