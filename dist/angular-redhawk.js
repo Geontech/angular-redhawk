@@ -17,7 +17,7 @@
       * You should have received a copy of the GNU Lesser General Public License                   
       * along with this program.  If not, see http://www.gnu.org/licenses/.                        
       *                                                                                            
-      * angular-redhawk - v0.5.0 - 2016-01-25          
+      * angular-redhawk - v0.5.0 - 2016-04-20          
       */                                                                                           
      angular.module('redhawk', ['redhawk.rest', 'redhawk.util', 'redhawk.sockets', 'redhawk.directives'])
   .config(['$httpProvider', function($httpProvider) {
@@ -487,32 +487,11 @@ angular.module('redhawk.directives')
    * to the bulkio port.  If the DOM element and controller are removed
    * (destroyed) the socket closes automatically.
    */
-  .controller('BulkioSocketController', ['$scope', 'Subscription',
-    function ($scope, Subscription) {
+  .controller('BulkioSocketController', ['$scope', 'Subscription', 'BulkioPB2',
+    function ($scope, Subscription, BulkioPB2) {
       // Get a new socket instance and listen for binary and JSON data.
       var portSocket = new Subscription();
       portSocket.addBinaryListener(on_data);
-      portSocket.addJSONListener(on_sri);
-
-      var reloadSettings = true;
-
-      var getFormatStr = function(dataType, sriMode) {
-        var s = (sriMode === 0) ? 'S' : 'C';
-        switch (dataType) {
-          case 'float':
-            s += 'F';
-            break;
-          case 'double':
-            s += 'D';
-          case 'short':
-          case 'char':
-          case 'octet':
-          default:
-            s += 'B';
-            break;
-        }
-        return s;
-      }
 
       /* 
        * When the URL changes, attempt to connect to the socket.
@@ -527,45 +506,131 @@ angular.module('redhawk.directives')
       });
 
       /*
-       * Process the incoming data 
-       */
-      function on_data (data) {
-        if ($scope.dataSettings.size != data.length){
-          reloadSettings = true;
-          $scope.dataSettings.size = data.length;
-        }
-
-        if (reloadSettings) {
-          reloadSettings = false;
-          $scope.plot.reload($scope.plotLayer, data, $scope.dataSettings);
-          $scope.plot.refresh();
-        }
-        else {
-          $scope.plot.reload($scope.plotLayer, data);
-        }
-        // A hack noted that this field gets ignored repeatedly.
-        // this fixes it.
-        $scope.plot._Gx.ylab = $scope.dataSettings.yunits;
-      }
-
-      /* 
-       * Process SRI
-       */
-      function on_sri (sri) {
-          reloadSettings = true;
-          $scope.dataSettings.xstart = sri.xstart;
-          $scope.dataSettings.xdelta = sri.xdelta;
-          $scope.dataSettings.subsize = sri.subsize;
-          $scope.dataSettings.format = getFormatStr($scope.port.plotType, sri.mode);
-      }
-
-      /*
        * If the controller closes/is removed, be nice and shut down the socket
        */
       $scope.$on("$destroy", function() {
         portSocket.close();
       });
+
+      /*
+       * Process the incoming raw data into its structure and then plots it.
+       * TODO: Add multi-layer support.  by having multiple plot layers and 
+       *       refreshing them independently, one can have multiple signals 
+       *       on the same plot.
+       */
+      function on_data (raw) {
+        var dataPB2 = BulkioPB2.get(raw);
+
+        var reloadSettings = false;
+
+        // Format string specific to sigplot
+        // per the enclosed data type
+        var getFormatStr = function(bulkioObj) {
+          var s = (bulkioObj.SRI.mode === BulkioPB2.sriModes.COMPLEX) ? 'C' : 'S';
+          switch (bulkioObj.type) {
+            case BulkioPB2.dataTypes.Float:
+              s += 'F';
+              break;
+            case BulkioPB2.dataTypes.Double:
+              s += 'D';
+              break;
+            case BulkioPB2.dataTypes.Short:
+            case BulkioPB2.dataTypes.Char:
+            case BulkioPB2.dataTypes.Octet:
+            default: // TODO: Account for the various Long's
+              s += 'B';
+              break;
+          }
+          return s;
+        }
+
+        // Get or create a copy of data settings for this streamID
+        var signalLayerData = null;
+        for (i=0; i < $scope.signalLayers.length; i++) {
+          if (dataPB2.streamID == $scope.signalLayers[i].streamID) {
+            signalLayerData = $scope.signalLayers[i];
+            break;
+          }
+        }
+        if (!signalLayerData) {
+          reloadSettings = true;
+          var dataSettings = angular.copy($scope.dataSettings);
+          var plotLayer = $scope.plot.overlay_array(null, 
+              angular.extend(dataSettings, {'file_name' : dataPB2.streamID })
+            );
+          signalLayerData = {
+            'streamID'     : dataPB2.streamID,
+            'dataSettings' : dataSettings,
+            'plotLayer'    : plotLayer
+          }
+          $scope.signalLayers.push(signalLayerData);
+        }
+        
+        if (!!dataPB2.sriChanged) {
+          reloadSettings = true;
+          signalLayerData.dataSettings.xstart  = dataPB2.SRI.xstart;
+          signalLayerData.dataSettings.xdelta  = dataPB2.SRI.xdelta;
+          signalLayerData.dataSettings.size    = dataPB2.SRI.subsize;
+          signalLayerData.dataSettings.subsize = dataPB2.SRI.subsize;
+          signalLayerData.dataSettings.format  = getFormatStr(dataPB2);
+        }
+
+        if (!!dataPB2.dataBuffer) {
+          if (reloadSettings) {
+            $scope.plot.reload(
+              signalLayerData.plotLayer, 
+              dataPB2.dataBuffer, 
+              signalLayerData.dataSettings);
+            $scope.plot.refresh();
+          }
+          else {
+            $scope.plot.reload(
+              signalLayerData.plotLayer, 
+              dataPB2.dataBuffer);
+          }
+
+          // A hack noted that this field gets ignored repeatedly.
+          // this fixes it.
+          $scope.plot._Gx.ylab = signalLayerData.dataSettings.yunits;
+        }
+      }
+
+      /* Detect width of the plotting container having changed.
+       * If it changes, calculate the Log2 equivalent width and 
+       * pass it back to the server.  The result will do decimate
+       * using a neighbor-mean approach.
+      */
+      var currentPow = 0;
+      $scope.maxSamples = $scope.maxSamples || 0;
+      $scope.$watch('maxSamples',
+        function() {
+          var newPow = Math.floor(Math.log($scope.maxSamples) / Math.log(2));
+          if (currentPow != newPow) {
+            currentPow = newPow;
+            var widthLog2 = Math.pow(2, newPow);
+
+            var controlPB2 = BulkioPB2.controlWidth(widthLog2);
+            portSocket.send(controlPB2.toBuffer());
+          }
+        }
+      );
     }])
+  
+  /*
+   * Various fill styles for the sigPlotPsd.
+   */
+  .constant('SigPlotFillStyles', {
+    'DefaultLine' : [
+      // No fill...because it's a line plot
+    ],
+    'DefaultPSD'  : [
+      // Color cascade through the spectrum
+      "rgba(255, 255, 100, 0.7)",
+      "rgba(255, 0, 0, 0.7)",
+      "rgba(0, 255, 0, 0.7)",
+      "rgba(0, 0, 255, 0.7)"
+    ]
+  })
 
   /**
    * This is a PSD plot PSD directive.  Provide the BULKIO port and
@@ -575,8 +640,8 @@ angular.module('redhawk.directives')
    * and supplying it to the directive:
    * <sig-plot-psd port="device.port" height="400"></sig-plot-psd>
    */
-  .directive('sigPlotPsd', 
-    function() { 
+  .directive('sigPlotPsd', ['SigPlotFillStyles',
+    function(SigPlotFillStyles) { 
       return { 
         restrict: 'E',
         template: '<div style="height: inherit; width: 100%;"></div>',
@@ -585,6 +650,7 @@ angular.module('redhawk.directives')
           overrideID:   '@', // Override the DOM element ID the plot will use.
           plotSettings: '@', // Plot Settings
           fillStyle:    '@', // Filling settings
+          maxSamples:   '@', // Controls decimation factor.
         },
         controller: 'BulkioSocketController',
         link: function(scope, element, attrs) {
@@ -631,16 +697,10 @@ angular.module('redhawk.directives')
           // Plot handle and fill settings.
           scope.plot = new sigplot.Plot(
             element.children()[0],
-            //document.getElementById(sigPlotID), 
             scope.plotSettings);
 
           // Fill settings are CSS settings
-          scope.fillStyle = scope.fillStyle || [
-              "rgba(255, 255, 100, 0.7)",
-              "rgba(255, 0, 0, 0.7)",
-              "rgba(0, 255, 0, 0.7)",
-              "rgba(0, 0, 255, 0.7)"
-            ];
+          scope.fillStyle = scope.fillStyle || SigPlotFillStyles.DefaultPSD;
           scope.plot.change_settings({
             fillStyle: scope.fillStyle,
           });
@@ -648,14 +708,10 @@ angular.module('redhawk.directives')
           // The plot layer is what gets updated when the buffer is drawn.
           // Adding multiple layers will create a legend such that the file_name
           // is the signal name.
-          scope.plotLayer = scope.plot.overlay_array(null,
-            angular.extend(scope.dataSettings, {
-              'file_name' : sigPlotID,  // Name in legend, if present
-            })
-          );
+          scope.signalLayers = [];
         }
       }; 
-    })
+    }])
 ;
 /*
   * The status enum attribute can be applied to buttons or labels.
@@ -1524,6 +1580,64 @@ angular.module('redhawk.sockets')
       };
   }])
 ;
+// Generic BULKIO ProtoBuf decoder.  
+// get() Returns BULKIO plus dataBuffer matching type or null (if no match)
+// controlWidth() Returns Control message
+angular.module('redhawk.sockets')
+  .service('BulkioPB2', [
+    function () {
+      var Decoder = dcodeIO.ProtoBuf.loadProtoFile("/protobuf/bulkio.proto").build();
+
+      // Converts raw binary to BULKIO packet
+      this.get = function(raw) {
+        var pkt = Decoder.BULKIO.decode(raw);
+
+        var type = null;
+        switch (pkt.type) {
+          case Decoder.BULKIO.TYPE.Char      : 
+            type = '.DataChar.bulkio';
+            break;
+          case Decoder.BULKIO.TYPE.Short     : 
+            type = '.DataShort.bulkio';
+            break;
+          case Decoder.BULKIO.TYPE.Long      : 
+            type = '.DataLong.bulkio';
+            break;
+          case Decoder.BULKIO.TYPE.LongLong  : 
+            type = '.DataLongLong.bulkio';
+            break;
+          case Decoder.BULKIO.TYPE.ULong     : 
+            type = '.DataULong.bulkio';
+            break;
+          case Decoder.BULKIO.TYPE.ULongLong : 
+            type = '.DataULongLong.bulkio';
+            break;
+          case Decoder.BULKIO.TYPE.Float     : 
+            type = '.DataFloat.bulkio';
+            break;
+          case Decoder.BULKIO.TYPE.Double    : 
+            type = '.DataDouble.bulkio';
+            break;
+          default:
+            break;
+        }
+
+        angular.extend(pkt, { dataBuffer : (type ? pkt[type].dataBuffer : null) });
+        return pkt;
+      }
+
+      this.dataTypes = Decoder.BULKIO.TYPE;
+      this.sriModes = Decoder.SRI.MODE;
+
+      // Creates a Control message for MaxWidth
+      this.controlWidth = function(width) {
+        var c = new Decoder.Control();
+        c.type = Decoder.Control.TYPE.MaxWidth;
+        c.value = width;
+        return c;
+      }
+    }])
+;
 /**
  * Convenience class to add a listener pattern to the standard WebSocket
  *
@@ -1562,7 +1676,7 @@ angular.module('redhawk.sockets')
             // If the outbound queue has been filling, send all now.
             var l = delayOutQueue.length;
             while (l--) {
-              self.send(delayOutQueue(l));
+              self.send(delayOutQueue[l]);
               delayOutQueue.splice(l, 1);
             }
           };
