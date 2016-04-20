@@ -18,7 +18,7 @@
   ],
   "authors": [
     "Thomas Goodwin <btgoodwin@geontech.com>",
-    "redhawksdr@redhawksdr.org"
+    "Patrick Wolfram <pwolfram@geontech.com>"
   ],
   "homepage": "http://geontech.github.io/angular-redhawk",
   "repository": {
@@ -34,7 +34,8 @@
     "angular-route": "",
     "angular-resource": "",
     "angular-toastr": "0.5.2",
-    "angular-animate": ""
+    "angular-animate": "",
+    "protobuf": "~3.8.2"
   },
   "ignore": [
     "**/.*",

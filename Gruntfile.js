@@ -50,6 +50,9 @@ module.exports = function(grunt) {
         files: {
           'jQuery/dist/jquery.js'                  : 'jQuery/dist/jquery.js',
           'bootstrap-css/js/bootstrap.js'          : 'bootstrap-css/js/bootstrap.js',
+          'bytebuffer/dist/ByteBufferAB.js'        : 'bytebuffer/dist/ByteBufferAB.js',
+          'protobuf/dist/ProtoBuf.js'              : 'protobuf/dist/ProtoBuf.js',
+
           'angular/angular.js'                     : 'angular/angular.js',
           'angular-animate/angular-animate.js'     : 'angular-animate/angular-animate.js',
           'angular-bootstrap/ui-bootstrap-tpls.js' : 'angular-bootstrap/ui-bootstrap-tpls.js',
@@ -123,6 +126,9 @@ module.exports = function(grunt) {
         src: [
           'scripts/vendor/jQuery/dist/jquery.js',
           'scripts/vendor/bootstrap-css/js/bootstrap.js',
+          'scripts/vendor/bytebuffer/dist/ByteBufferAB.js',
+          'scripts/vendor/protobuf/dist/ProtoBuf.js',
+
           'scripts/vendor/angular/angular.js', 
           'scripts/vendor/angular-animate/angular-animate.js', 
           'scripts/vendor/angular-bootstrap/ui-bootstrap-tpls.js', 

@@ -56,7 +56,7 @@ angular.module('redhawk.sockets')
             // If the outbound queue has been filling, send all now.
             var l = delayOutQueue.length;
             while (l--) {
-              self.send(delayOutQueue(l));
+              self.send(delayOutQueue[l]);
               delayOutQueue.splice(l, 1);
             }
           };
