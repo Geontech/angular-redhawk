@@ -487,8 +487,9 @@ angular.module('redhawk.directives')
    * to the bulkio port.  If the DOM element and controller are removed
    * (destroyed) the socket closes automatically.
    */
-  .controller('BulkioSocketController', ['$scope', 'Subscription', 'BulkioPB2',
-    function ($scope, Subscription, BulkioPB2) {
+  .controller('BulkioSocketController', 
+    ['$scope', 'Subscription', 'BulkioPB2', 'SigPlotFillStyles',
+    function ($scope, Subscription, BulkioPB2, SigPlotFillStyles) {
       // Get a new socket instance and listen for binary and JSON data.
       var portSocket = new Subscription();
       portSocket.addBinaryListener(on_data);
@@ -564,6 +565,15 @@ angular.module('redhawk.directives')
             'plotLayer'    : plotLayer
           }
           $scope.signalLayers.push(signalLayerData);
+
+          // Override fillStyle if it contains fills and we are plotting
+          // now more than one signal   
+          if (1 < $scope.signalLayers.length && null != $scope.fillStyle) {
+            $scope.fillStyle = SigPlotFillStyles.DefaultLine;
+            $scope.plot.change_settings({
+              fillStyle: $scope.fillStyle,
+            });
+          }
         }
         
         if (!!dataPB2.sriChanged) {
@@ -601,7 +611,7 @@ angular.module('redhawk.directives')
        * using a neighbor-mean approach.
       */
       var currentPow = 0;
-      $scope.maxSamples = $scope.maxSamples || 0;
+      $scope.maxSamples = $scope.maxSamples || 1024;
       $scope.$watch('maxSamples',
         function() {
           var newPow = Math.floor(Math.log($scope.maxSamples) / Math.log(2));
@@ -620,9 +630,7 @@ angular.module('redhawk.directives')
    * Various fill styles for the sigPlotPsd.
    */
   .constant('SigPlotFillStyles', {
-    'DefaultLine' : [
-      // No fill...because it's a line plot
-    ],
+    'DefaultLine' : null, // Default line is no fill, because it's a line.
     'DefaultPSD'  : [
       // Color cascade through the spectrum
       "rgba(255, 255, 100, 0.7)",
