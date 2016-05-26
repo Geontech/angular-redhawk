@@ -1631,7 +1631,7 @@ angular.module('redhawk.sockets')
             break;
         }
 
-        angular.extend(pkt, { dataBuffer : (type ? pkt[type].dataBuffer : null) });
+        angular.extend(pkt, { dataBuffer : (type ? (pkt[type] ? pkt[type].dataBuffer: null) : null) });
         return pkt;
       }
 
