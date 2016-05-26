@@ -100,9 +100,10 @@
         if (!signalLayerData) {
           reloadSettings = true;
           var dataSettings = angular.copy($scope.dataSettings);
-          var plotLayer = $scope.plot.overlay_array(null, 
-              angular.extend(dataSettings, {'file_name' : dataPB2.streamID })
-            );
+          var plotLayer = $scope.plot.overlay_array(
+            dataPB2.streamID, 
+            null
+          );
           signalLayerData = {
             'streamID'     : dataPB2.streamID,
             'dataSettings' : dataSettings,
@@ -240,7 +241,7 @@
             autoy             : 3,
             ydiv              : 10,
             xdiv              : 10,
-            autohide_panbars  : true,
+            nopan             : true,
             xcnt              : 0,
             colors            : {bg: "#222", fg: "#888"},
             cmode             : "MA"

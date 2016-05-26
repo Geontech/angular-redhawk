@@ -102,7 +102,7 @@ angular.module('redhawk.sockets')
          * Send data on the websocket
          */
         function send  (data) {
-          if (undefined == ws) 
+          if (undefined == ws || ws.readyState != WebSocket.OPEN) 
             delayOutQueue.push(data);
           else 
             ws.send(data);
