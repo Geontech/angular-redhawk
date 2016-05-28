@@ -17,7 +17,7 @@
       * You should have received a copy of the GNU Lesser General Public License                   
       * along with this program.  If not, see http://www.gnu.org/licenses/.                        
       *                                                                                            
-      * angular-redhawk - v0.5.0 - 2016-05-27          
+      * angular-redhawk - v0.5.0 - 2016-05-28          
       */                                                                                           
      angular.module('redhawk', ['redhawk.rest', 'redhawk.util', 'redhawk.sockets', 'redhawk.directives'])
   .config(['$httpProvider', function($httpProvider) {
@@ -495,6 +495,23 @@ angular.module('redhawk.directives')
       portSocket.addBinaryListener(on_data);
       var plotValid = false;
 
+      /*
+       * When the plot settings change, create a new sigplot
+       */
+      $scope.$watch('plotSettings', function(plotSettings) {
+        plotValid = false;
+        $scope.plotSettings = plotSettings;
+        $scope.plot = new sigplot.Plot(
+          $scope.element,
+          $scope.plotSettings
+        );
+        $scope.plot.change_settings({
+          fillStyle: $scope.fillStyle
+        });
+        $scope.signalLayers = [];
+        plotValid = true;
+      }, true);
+
       /* 
        * When the URL changes, attempt to connect to the socket.
        */
@@ -668,11 +685,11 @@ angular.module('redhawk.directives')
     function(SigPlotFillStyles) { 
       return { 
         restrict: 'E',
-        template: '<div style="height: inherit; width: 100%;"></div>',
+        template: '<div style="height: inherit; width: inherit;"></div>',
         scope: {
           port:         '=', // A BULKIO Port
           overrideID:   '@', // Override the DOM element ID the plot will use.
-          plotSettings: '@', // Plot Settings
+          plotSettings: '=', // Plot Settings
           fillStyle:    '@', // Filling settings
           maxSamples:   '@', // Controls decimation factor.
         },
@@ -718,9 +735,12 @@ angular.module('redhawk.directives')
             cmode             : "MA"
           }
 
+          // Save a reference to the DOM element in case the sigplot is reset
+          scope.element = element.children()[0];
+
           // Plot handle and fill settings.
           scope.plot = new sigplot.Plot(
-            element.children()[0],
+            scope.element,
             scope.plotSettings);
 
           // Fill settings are CSS settings

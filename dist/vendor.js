@@ -17,7 +17,7 @@
       * You should have received a copy of the GNU Lesser General Public License                   
       * along with this program.  If not, see http://www.gnu.org/licenses/.                        
       *                                                                                            
-      * angular-redhawk - v0.5.0 - 2016-05-27          
+      * angular-redhawk - v0.5.0 - 2016-05-28          
       */                                                                                           
      /*!
  * jQuery JavaScript Library v2.1.4
