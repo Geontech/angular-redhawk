@@ -37,15 +37,20 @@
       // Get a new socket instance and listen for binary and JSON data.
       var portSocket = new Subscription();
       portSocket.addBinaryListener(on_data);
+      var plotValid = false;
 
       /* 
        * When the URL changes, attempt to connect to the socket.
        */
       $scope.$watch('port', function(port) {
+        plotValid = false;
         portSocket.close();
         if (port && port.bulkioUrl && port.canPlot) {
+          $scope.plot.deoverlay();
+          $scope.signalLayers = [];
           portSocket.connect(port.bulkioUrl, function() { 
-            console.log("Connected to BULKIO port @ " + port.bulkioUrl); 
+            console.log("Connected to BULKIO port @ " + port.bulkioUrl);
+            plotValid = true;
           });
         }
       });
@@ -64,6 +69,10 @@
        *       on the same plot.
        */
       function on_data (raw) {
+        if (!plotValid) {
+          return;
+        }
+
         var dataPB2 = BulkioPB2.get(raw);
 
         var reloadSettings = false;
@@ -113,10 +122,16 @@
 
           // Override fillStyle if it contains fills and we are plotting
           // now more than one signal   
-          if (1 < $scope.signalLayers.length && null != $scope.fillStyle) {
+          if (1 < $scope.signalLayers.length) {
+            $scope.originalFillStyle = angular.copy($scope.fillStyle);
             $scope.fillStyle = SigPlotFillStyles.DefaultLine;
             $scope.plot.change_settings({
               fillStyle: $scope.fillStyle,
+            });
+          } else if (1 == $scope.signalLayers.length) {
+            $scope.fillStyle = $scope.originalFillStyle;
+            $scope.plot.change_settings({
+              fillStyle: $scope.fillStyle
             });
           }
         }
@@ -257,6 +272,7 @@
           scope.plot.change_settings({
             fillStyle: scope.fillStyle,
           });
+          scope.originalFillStyle = scope.fillStyle;
 
           // The plot layer is what gets updated when the buffer is drawn.
           // Adding multiple layers will create a legend such that the file_name
@@ -264,5 +280,5 @@
           scope.signalLayers = [];
         }
       }; 
-    }])
-;
+    }]);
+
