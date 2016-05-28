@@ -17,7 +17,7 @@
       * You should have received a copy of the GNU Lesser General Public License                   
       * along with this program.  If not, see http://www.gnu.org/licenses/.                        
       *                                                                                            
-      * angular-redhawk - v0.5.0 - 2016-05-26          
+      * angular-redhawk - v0.5.0 - 2016-05-27          
       */                                                                                           
      angular.module('redhawk', ['redhawk.rest', 'redhawk.util', 'redhawk.sockets', 'redhawk.directives'])
   .config(['$httpProvider', function($httpProvider) {
@@ -493,15 +493,20 @@ angular.module('redhawk.directives')
       // Get a new socket instance and listen for binary and JSON data.
       var portSocket = new Subscription();
       portSocket.addBinaryListener(on_data);
+      var plotValid = false;
 
       /* 
        * When the URL changes, attempt to connect to the socket.
        */
       $scope.$watch('port', function(port) {
+        plotValid = false;
         portSocket.close();
         if (port && port.bulkioUrl && port.canPlot) {
+          $scope.plot.deoverlay();
+          $scope.signalLayers = [];
           portSocket.connect(port.bulkioUrl, function() { 
-            console.log("Connected to BULKIO port @ " + port.bulkioUrl); 
+            console.log("Connected to BULKIO port @ " + port.bulkioUrl);
+            plotValid = true;
           });
         }
       });
@@ -520,6 +525,10 @@ angular.module('redhawk.directives')
        *       on the same plot.
        */
       function on_data (raw) {
+        if (!plotValid) {
+          return;
+        }
+
         var dataPB2 = BulkioPB2.get(raw);
 
         var reloadSettings = false;
@@ -569,10 +578,16 @@ angular.module('redhawk.directives')
 
           // Override fillStyle if it contains fills and we are plotting
           // now more than one signal   
-          if (1 < $scope.signalLayers.length && null != $scope.fillStyle) {
+          if (1 < $scope.signalLayers.length) {
+            $scope.originalFillStyle = angular.copy($scope.fillStyle);
             $scope.fillStyle = SigPlotFillStyles.DefaultLine;
             $scope.plot.change_settings({
               fillStyle: $scope.fillStyle,
+            });
+          } else if (1 == $scope.signalLayers.length) {
+            $scope.fillStyle = $scope.originalFillStyle;
+            $scope.plot.change_settings({
+              fillStyle: $scope.fillStyle
             });
           }
         }
@@ -713,6 +728,7 @@ angular.module('redhawk.directives')
           scope.plot.change_settings({
             fillStyle: scope.fillStyle,
           });
+          scope.originalFillStyle = scope.fillStyle;
 
           // The plot layer is what gets updated when the buffer is drawn.
           // Adding multiple layers will create a legend such that the file_name
@@ -720,8 +736,9 @@ angular.module('redhawk.directives')
           scope.signalLayers = [];
         }
       }; 
-    }])
-;
+    }]);
+
+
 /*
   * The status enum attribute can be applied to buttons or labels.
   * to simplify putting color-coded enumerations (and text) onto your UI
