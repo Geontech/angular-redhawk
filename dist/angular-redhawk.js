@@ -17,7 +17,7 @@
       * You should have received a copy of the GNU Lesser General Public License                   
       * along with this program.  If not, see http://www.gnu.org/licenses/.                        
       *                                                                                            
-      * angular-redhawk - v0.5.0 - 2016-05-28          
+      * angular-redhawk - v0.5.0 - 2016-05-30          
       */                                                                                           
      angular.module('redhawk', ['redhawk.rest', 'redhawk.util', 'redhawk.sockets', 'redhawk.directives'])
   .config(['$httpProvider', function($httpProvider) {
@@ -508,7 +508,7 @@ angular.module('redhawk.directives')
         $scope.plot.change_settings({
           fillStyle: $scope.fillStyle
         });
-        $scope.signalLayers = [];
+        $scope.signalLayers = {};
         plotValid = true;
       }, true);
 
@@ -520,7 +520,7 @@ angular.module('redhawk.directives')
         portSocket.close();
         if (port && port.bulkioUrl && port.canPlot) {
           $scope.plot.deoverlay();
-          $scope.signalLayers = [];
+          $scope.signalLayers = {};
           portSocket.connect(port.bulkioUrl, function() { 
             console.log("Connected to BULKIO port @ " + port.bulkioUrl);
             plotValid = true;
@@ -548,6 +548,14 @@ angular.module('redhawk.directives')
 
         var dataPB2 = BulkioPB2.get(raw);
 
+        // On EOS remove the layer
+        if (dataPB2.EOS && $scope.signalLayers.hasOwnProperty(dataPB2.streamID)) {
+          var plotLayer = $scope.signalLayers[dataPB2.streamID].plotLayer;
+          $scope.plot.remove_layer(plotLayer);
+          delete $scope.signalLayers[dataPB2.streamID];
+          return;
+        }
+
         var reloadSettings = false;
 
         // Format string specific to sigplot
@@ -573,11 +581,8 @@ angular.module('redhawk.directives')
 
         // Get or create a copy of data settings for this streamID
         var signalLayerData = null;
-        for (i=0; i < $scope.signalLayers.length; i++) {
-          if (dataPB2.streamID == $scope.signalLayers[i].streamID) {
-            signalLayerData = $scope.signalLayers[i];
-            break;
-          }
+        if (dataPB2.streamID in $scope.signalLayers) {
+          signalLayerData = $scope.signalLayers[dataPB2.streamID];
         }
         if (!signalLayerData) {
           reloadSettings = true;
@@ -586,22 +591,23 @@ angular.module('redhawk.directives')
             dataPB2.streamID, 
             null
           );
-          signalLayerData = {
-            'streamID'     : dataPB2.streamID,
+          var signalLayerData = {
             'dataSettings' : dataSettings,
             'plotLayer'    : plotLayer
-          }
-          $scope.signalLayers.push(signalLayerData);
+          };
+          $scope.signalLayers[dataPB2.streamID] = signalLayerData;
 
           // Override fillStyle if it contains fills and we are plotting
-          // now more than one signal   
-          if (1 < $scope.signalLayers.length) {
+          // now more than one signal
+          var numKeys = Object.keys($scope.signalLayers).length;
+
+          if (1 < numKeys) {
             $scope.originalFillStyle = angular.copy($scope.fillStyle);
             $scope.fillStyle = SigPlotFillStyles.DefaultLine;
             $scope.plot.change_settings({
               fillStyle: $scope.fillStyle,
             });
-          } else if (1 == $scope.signalLayers.length) {
+          } else if (1 == numKeys) {
             $scope.fillStyle = $scope.originalFillStyle;
             $scope.plot.change_settings({
               fillStyle: $scope.fillStyle
@@ -753,7 +759,7 @@ angular.module('redhawk.directives')
           // The plot layer is what gets updated when the buffer is drawn.
           // Adding multiple layers will create a legend such that the file_name
           // is the signal name.
-          scope.signalLayers = [];
+          scope.signalLayers = {};
         }
       }; 
     }]);
