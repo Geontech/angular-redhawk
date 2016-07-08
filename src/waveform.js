@@ -40,6 +40,7 @@ angular.module('redhawk')
         self.stop = stop;
         self.release = release;
         self.configure = configure;
+        self.refresh = refresh;
 
 
         //////// Definitions ////////
@@ -94,6 +95,11 @@ angular.module('redhawk')
           return REST.waveform.configure(self._restArgs, {properties: properties});
         }
 
+        /*
+         * Refresh the REST model
+         */
+        function refresh () { _reload; }
+        
         //////// Internal ////////
 
 

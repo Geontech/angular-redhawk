@@ -37,6 +37,7 @@ angular.module('redhawk')
 
         ///////// PUBLIC Interfaces (immutable) ///////////
         self.configure = configure;
+        self.refresh = refresh;
 
 
         ///////// Definitions ////////////
@@ -46,9 +47,14 @@ angular.module('redhawk')
          */
         function configure (properties) {
           return REST.component.configure(self._restArgs, { properties: properties },
-              function(){ $timeout(self._reload, 1000); }
+              function(){ $timeout(_reload, 1000); }
           );
         };
+
+        /*
+         * Refresh the REST model
+         */
+        function refresh() { _reload(); }
 
 
         ///////// Internal /////////////

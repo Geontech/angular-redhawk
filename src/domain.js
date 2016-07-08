@@ -36,7 +36,7 @@ angular.module('redhawk')
         RESTFactory.apply(self, arguments);
 
         ///////// PUBLIC (immutable) //////////
-        
+        self.refresh = refresh;
         self.configure = configure;
         self.getFileSystem = getFileSystem;
         // Getting Device Managers and Devices
@@ -61,6 +61,11 @@ angular.module('redhawk')
 
 
         ///////// Definitions ////////
+
+        /**
+         * Refresh the REST model
+         */
+        function refresh() { _reload(); }
 
         /**
          * Configure REDHAWK properties for this object.
