@@ -17,7 +17,7 @@
       * You should have received a copy of the GNU Lesser General Public License                   
       * along with this program.  If not, see http://www.gnu.org/licenses/.                        
       *                                                                                            
-      * angular-redhawk - v0.5.0 - 2016-01-25          
+      * angular-redhawk - v0.5.0 - 2016-07-08          
       */                                                                                           
      angular.module('redhawk', ['redhawk.rest', 'redhawk.util', 'redhawk.sockets', 'redhawk.directives'])
   .config(['$httpProvider', function($httpProvider) {
@@ -203,6 +203,7 @@ angular.module('redhawk')
 
         ///////// PUBLIC Interfaces (immutable) ///////////
         self.configure = configure;
+        self.refresh = refresh;
 
 
         ///////// Definitions ////////////
@@ -212,9 +213,14 @@ angular.module('redhawk')
          */
         function configure (properties) {
           return REST.component.configure(self._restArgs, { properties: properties },
-              function(){ $timeout(self._reload, 1000); }
+              function(){ $timeout(_reload, 1000); }
           );
         };
+
+        /*
+         * Refresh the REST model
+         */
+        function refresh() { _reload(); }
 
 
         ///////// Internal /////////////
@@ -723,7 +729,7 @@ angular.module('redhawk')
         RESTFactory.apply(self, arguments);
 
         ///////// PUBLIC (immutable) //////////
-        
+        self.refresh = refresh;
         self.configure = configure;
         self.getFileSystem = getFileSystem;
         // Getting Device Managers and Devices
@@ -748,6 +754,11 @@ angular.module('redhawk')
 
 
         ///////// Definitions ////////
+
+        /**
+         * Refresh the REST model
+         */
+        function refresh() { _reload(); }
 
         /**
          * Configure REDHAWK properties for this object.
@@ -1760,6 +1771,7 @@ angular.module('redhawk')
         self.stop = stop;
         self.release = release;
         self.configure = configure;
+        self.refresh = refresh;
 
 
         //////// Definitions ////////
@@ -1814,6 +1826,11 @@ angular.module('redhawk')
           return REST.waveform.configure(self._restArgs, {properties: properties});
         }
 
+        /*
+         * Refresh the REST model
+         */
+        function refresh () { _reload; }
+        
         //////// Internal ////////
 
 
