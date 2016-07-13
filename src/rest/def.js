@@ -53,10 +53,24 @@
           }
         }
 
-        self._update = function(updateData) {
-          if (!!updateData) {
-              angular.extend(self, updateData);
+        // Run an update using REST data
+        self._update = function(restUpdateData) {
+          if (!!restUpdateData) {
+              angular.extend(self, restUpdateData);
               _runAllUpdatesFinished();
+          }
+        }
+
+        // Run an update of properties found in the message
+        self._updateFromMessage = function(messageUpdateData) {
+          if (!!messageUpdateData && !!self.properties) {
+            for (var i=0, len=self.properties.size(); i < len; i++) {
+              if (self.properties[i].id === messageUpdateData.id) {
+                angular.extend(self.properties[i], messageUpdateData);
+                _runAllUpdatesFinished();
+                break;
+              }
+            }
           }
         }
       }

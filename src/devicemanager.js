@@ -40,7 +40,12 @@ angular.module('redhawk')
         //////// Definitions /////////
         
 
-        function refresh () { _reload(); }
+        function refresh (propMessage) {
+          if (!!propMessage) 
+            self._updateFromMessage(propMessage);
+          else
+            _reload(); 
+        }
 
 
         //////// Internal /////////

@@ -17,7 +17,7 @@
       * You should have received a copy of the GNU Lesser General Public License                   
       * along with this program.  If not, see http://www.gnu.org/licenses/.                        
       *                                                                                            
-      * angular-redhawk - v1.1.0 - 2016-07-08          
+      * angular-redhawk - v1.1.1 - 2016-07-13          
       */                                                                                           
      angular.module('redhawk', ['redhawk.rest', 'redhawk.util', 'redhawk.sockets', 'redhawk.directives'])
   .config(['$httpProvider', function($httpProvider) {
@@ -85,10 +85,24 @@ angular.module('redhawk.rest', ['ngResource'])
           }
         }
 
-        self._update = function(updateData) {
-          if (!!updateData) {
-              angular.extend(self, updateData);
+        // Run an update using REST data
+        self._update = function(restUpdateData) {
+          if (!!restUpdateData) {
+              angular.extend(self, restUpdateData);
               _runAllUpdatesFinished();
+          }
+        }
+
+        // Run an update of properties found in the message
+        self._updateFromMessage = function(messageUpdateData) {
+          if (!!messageUpdateData && !!self.properties) {
+            for (var i=0, len=self.properties.size(); i < len; i++) {
+              if (self.properties[i].id === messageUpdateData.id) {
+                angular.extend(self.properties[i], messageUpdateData);
+                _runAllUpdatesFinished();
+                break;
+              }
+            }
           }
         }
       }
@@ -220,7 +234,12 @@ angular.module('redhawk')
         /*
          * Refresh the REST model
          */
-        function refresh() { _reload(); }
+        function refresh (propMessage) {
+          if (!!propMessage) 
+            self._updateFromMessage(propMessage);
+          else
+            _reload(); 
+        }
 
 
         ///////// Internal /////////////
@@ -296,9 +315,14 @@ angular.module('redhawk')
         function deallocate (properties) { return _commonSave('deallocate', properties); }
 
         /*
-         * Refresh the REST model
+         * Refresh the model
          */
-        function refresh () { _reload; }
+        function refresh (propMessage) {
+          if (!!propMessage) 
+            self._updateFromMessage(propMessage);
+          else
+            _reload(); 
+        }
 
         //////// Internal //////////
         /**
@@ -364,7 +388,12 @@ angular.module('redhawk')
         //////// Definitions /////////
         
 
-        function refresh () { _reload(); }
+        function refresh (propMessage) {
+          if (!!propMessage) 
+            self._updateFromMessage(propMessage);
+          else
+            _reload(); 
+        }
 
 
         //////// Internal /////////
@@ -866,7 +895,12 @@ angular.module('redhawk')
         /**
          * Refresh the REST model
          */
-        function refresh() { _reload(); }
+        function refresh (propMessage) {
+          if (!!propMessage) 
+            self._updateFromMessage(propMessage);
+          else
+            _reload(); 
+        }
 
         /**
          * Configure REDHAWK properties for this object.
@@ -1995,7 +2029,12 @@ angular.module('redhawk')
         /*
          * Refresh the REST model
          */
-        function refresh () { _reload; }
+        function refresh (propMessage) {
+          if (!!propMessage) 
+            self._updateFromMessage(propMessage);
+          else
+            _reload(); 
+        }
         
         //////// Internal ////////
 

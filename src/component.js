@@ -54,7 +54,12 @@ angular.module('redhawk')
         /*
          * Refresh the REST model
          */
-        function refresh() { _reload(); }
+        function refresh (propMessage) {
+          if (!!propMessage) 
+            self._updateFromMessage(propMessage);
+          else
+            _reload(); 
+        }
 
 
         ///////// Internal /////////////

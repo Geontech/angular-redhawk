@@ -60,9 +60,14 @@ angular.module('redhawk')
         function deallocate (properties) { return _commonSave('deallocate', properties); }
 
         /*
-         * Refresh the REST model
+         * Refresh the model
          */
-        function refresh () { _reload; }
+        function refresh (propMessage) {
+          if (!!propMessage) 
+            self._updateFromMessage(propMessage);
+          else
+            _reload(); 
+        }
 
         //////// Internal //////////
         /**
