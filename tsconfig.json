@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "outDir":"dist",
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es5",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "declaration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "exclude": [ "node_modules" ],
+  "files": [
+    "angular-redhawk.ts",
+    "node_modules/typescript/lib/lib.es6.d.ts"
+  ],
+  "atom": {
+    "rewriteTsconfig": true
+  }
+}
