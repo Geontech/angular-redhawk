@@ -2,23 +2,27 @@ import { Injectable } from '@angular/core';
 import { Http }       from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
-import { RESTConfig } from './config.service';
-import { DeviceManager } from '../models/devicemanager';
+import { RESTConfig } from '../shared/config.service';
+import { Filesystem } from './filesystem'
 
 
 @Injectable()
-export class DeviceManagerService {
+export class FilesystemService {
     constructor(
         private http: Http,
         private rpConfig: RESTConfig
         ) {}
-
-    public getDeviceManager(domainId: string, deviceManagerId: string): Promise<DeviceManager> {
+    
+    public getFilesystem(domainId: string, path: string): Promise<Filesystem> {
         return this.http
-            .get(this.rpConfig.deviceManagerUrl(domainId, deviceManagerId))
+            .get(this.rpConfig.filesystemUrl(domainId, path))
             .toPromise()
-            .then(response => response.json() as DeviceManager)
+            .then(response => response.json() as Filesystem)
             .catch(this.handleError);
+    }
+
+    public launch(domainId: string, waveformId: string) {
+        // TODO: Implement
     }
 
     private handleError(error: any): Promise<any> {

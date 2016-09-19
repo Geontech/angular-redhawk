@@ -2,27 +2,23 @@ import { Injectable } from '@angular/core';
 import { Http }       from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
-import { RESTConfig } from './config.service';
-import { Domain } from '../models/domain';
+import { RESTConfig } from '../shared/config.service';
+import { Component }  from './component';
 
 
 @Injectable()
-export class DomainService {
+export class ComponentService {
     constructor(
         private http: Http,
         private rpConfig: RESTConfig
         ) {}
 
-    public getDomain(domainId: string): Promise<Domain> {
+    public getComponent(domainId: string, waveformId: string, componentId: string): Promise<Component> {
         return this.http
-            .get(this.rpConfig.domainUrl(domainId))
+            .get(this.rpConfig.componentUrl(domainId, waveformId, componentId))
             .toPromise()
-            .then(response => response.json() as Domain)
+            .then(response => response.json() as Component)
             .catch(this.handleError);
-    }
-
-    public launch(domainId: string, waveformId: string) {
-        // TODO: Implement
     }
 
     private handleError(error: any): Promise<any> {

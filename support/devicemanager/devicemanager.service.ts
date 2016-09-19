@@ -2,22 +2,22 @@ import { Injectable } from '@angular/core';
 import { Http }       from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
-import { RESTConfig } from './config.service';
-import { Component } from '../models/component';
+import { RESTConfig }    from '../shared/config.service';
+import { DeviceManager } from './devicemanager';
 
 
 @Injectable()
-export class ComponentService {
+export class DeviceManagerService {
     constructor(
         private http: Http,
         private rpConfig: RESTConfig
         ) {}
 
-    public getComponent(domainId: string, waveformId: string, componentId: string): Promise<Component> {
+    public getDeviceManager(domainId: string, deviceManagerId: string): Promise<DeviceManager> {
         return this.http
-            .get(this.rpConfig.componentUrl(domainId, waveformId, componentId))
+            .get(this.rpConfig.deviceManagerUrl(domainId, deviceManagerId))
             .toPromise()
-            .then(response => response.json() as Component)
+            .then(response => response.json() as DeviceManager)
             .catch(this.handleError);
     }
 

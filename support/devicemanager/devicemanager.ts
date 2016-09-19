@@ -1,5 +1,5 @@
-import { CFPropertySet }             from './property';
-import { ResourceRef, ResourceRefs } from './resource';
+import { CFPropertySet }             from '../shared/property';
+import { ResourceRef, ResourceRefs } from '../shared/resource';
 
 // Reference to a device manager (Node)
 export class DeviceManagerRef extends ResourceRef {}

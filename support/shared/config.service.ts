@@ -21,6 +21,9 @@ export class RESTConfig {
     public domainUrl(domainId: string): string {
         return this.domainsUrl() + '/' + domainId;
     }
+    public filesystemUrl(domainId: string, path: string): string {
+        return this.domainUrl(domainId) + '/fs/' + path;
+    }
     public deviceManagersUrl(domainId: string): string {
         return this.domainUrl(domainId) + '/deviceManagers';
     }

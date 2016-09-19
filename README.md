@@ -46,6 +46,8 @@ There are two main modules, support and uikit.  So let's set some ground rules:
 4. Components in the UI kit should be prefied `arkit` in the kabob-case.  Please follow a similar class naming convention as found in the Support module.
 0. Certainly more to come... just trying to establish some friendly MVC ground rules.
 
+> **NOTE:** If you use comment blocks, `/* block */`, you'll likely find that the typescript compiler works but your code fails to execute in the browser.  One error seen so far was a failure to load a module that is unrelated to this module (i.e., some dependency in node_modules that should be okay).  Remove the code block and everything should be happy.
+
 ### Publishing
 
 Use the NPM task `prepublish` to quality check and compile your code:

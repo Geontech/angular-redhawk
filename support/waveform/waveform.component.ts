@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { WaveformService } from '../services/waveform.service';
-import { Waveform }        from '../models/waveform';
+import { WaveformService } from './waveform.service';
+import { Waveform }        from './waveform';
 
 @Component({
     selector: 'ar-waveform',

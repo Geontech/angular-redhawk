@@ -1,31 +1,35 @@
 import { NgModule }     from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-// Angular REDHAWK Component interfaces to services
-import { ArRedhawk }       from './components/redhawk.component';
-import { ArDomain }        from './components/domain.component';
-import { ArDeviceManager } from './components/devicemanager.component';
-import { ArWaveform }      from './components/waveform.component';
-import { ArDevice }        from './components/device.component';
-import { ArComponent }     from './components/component.component';
-import { ArPort }          from './components/port.component';
+// Angular REDHAWK REST paths
+import { RESTConfig } from './shared/config.service';
 
-// Models
-// import { Redhawk }       from './models/redhawk';
-// import { Domain }        from './models/domain';
-// import { DeviceManager } from './models/devicemanager';
-// import { Waveform }      from './models/waveform';
-// import { Device }        from './models/device';
-// import { Component }     from './models/component';
+// Angular REDHAWK Component interfaces to services
+import { ArRedhawk }            from './redhawk/redhawk.component';
+import { RedhawkService }       from './redhawk/redhawk.service';
+// import { Redhawk }           from './redhawk/redhawk';
+import { ArDomain }             from './domain/domain.component';
+import { DomainService }        from './domain/domain.service';
+// import { Domain }            from './domain/domain';
+// import { ArDomain }             from './filesystem/filesystem.component';
+import { FilesystemService }        from './filesystem/filesystem.service';
+// import { Filesystem }            from './filesystem/filesystem';
+import { ArDeviceManager }      from './devicemanager/devicemanager.component';
+import { DeviceManagerService } from './devicemanager/devicemanager.service';
+// import { DeviceManager }     from './devicemanager/devicemanager';
+import { ArWaveform }           from './waveform/waveform.component';
+import { WaveformService }      from './waveform/waveform.service';
+// import { Waveform }          from './waveform/waveform';
+import { ArDevice }             from './device/device.component';
+import { DeviceService }        from './device/device.service';
+// import { Device }            from './device/device';
+import { ArComponent }          from './component/component.component';
+import { ComponentService }     from './component/component.service';
+// import { Component }         from './component/component';
+import { ArPort }               from './port/port.component';
+
 
 // Angular REDHAWK back-end Services
-import { RESTConfig }           from './services/config.service';
-import { RedhawkService }       from './services/redhawk.service';
-import { DomainService }        from './services/domain.service';
-import { DeviceManagerService } from './services/devicemanager.service';
-import { WaveformService }      from './services/waveform.service';
-import { DeviceService }        from './services/device.service';
-import { ComponentService }     from './services/component.service';
 
 @NgModule({
     imports:      [

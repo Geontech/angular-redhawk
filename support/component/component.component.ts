@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { ComponentService }         from '../services/component.service';
-import { Component as RPComponent } from '../models/component';
+import { ComponentService }         from './component.service';
+import { Component as RPComponent } from './component';
 
 @Component({
     selector: 'ar-component',

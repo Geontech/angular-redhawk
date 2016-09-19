@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { DeviceManagerService } from '../services/devicemanager.service';
-import { DeviceManager }        from '../models/devicemanager';
+import { DeviceManagerService } from './devicemanager.service';
+import { DeviceManager }        from './devicemanager';
 
 @Component({
     selector: 'ar-device-manager',

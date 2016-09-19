@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http }       from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
-import { RESTConfig } from './config.service';
-import { Waveform } from '../models/waveform';
+import { RESTConfig } from '../shared/config.service';
+import { Waveform }   from './waveform';
 
 
 @Injectable()

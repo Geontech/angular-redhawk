@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { DeviceService } from '../services/device.service';
-import { Device }        from '../models/device';
+import { DeviceService } from './device.service';
+import { Device }        from './device';
 
 @Component({
     selector: 'ar-device',

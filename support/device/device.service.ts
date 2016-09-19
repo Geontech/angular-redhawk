@@ -2,21 +2,22 @@ import { Injectable } from '@angular/core';
 import { Http }       from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
-import { RESTConfig } from './config.service';
-import { Redhawk }    from '../models/redhawk';
+import { RESTConfig } from '../shared/config.service';
+import { Device }     from './device';
+
 
 @Injectable()
-export class RedhawkService {
+export class DeviceService {
     constructor(
         private http: Http,
         private rpConfig: RESTConfig
         ) {}
 
-    public getDomainIds(): Promise<Redhawk> {
+    public getDevice(domainId: string, deviceManagerId: string, deviceId: string): Promise<Device> {
         return this.http
-            .get(this.rpConfig.redhawkUrl())
+            .get(this.rpConfig.deviceUrl(domainId, deviceManagerId, deviceId))
             .toPromise()
-            .then(response => response.json() as Redhawk)
+            .then(response => response.json() as Device)
             .catch(this.handleError);
     }
 
