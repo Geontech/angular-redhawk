@@ -8,3 +8,5 @@ export class RedhawkEvent {
 export class Redhawk {
     public domains: Array<string>;
 }
+
+export const URL_REDHAWK = "/redhawk/rest";

@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Host } from '@angular/core';
+
+import { WaveformService } from '../waveform/waveform.service';
 
 import { ComponentService }         from './component.service';
 import { Component as RPComponent } from './component';
@@ -12,26 +14,19 @@ import { Component as RPComponent } from './component';
 })
 
 export class ArComponent implements OnInit {
-    @Input()
-    domainId: string;
-
-    @Input()
-    waveformId: string;
 
     @Input()
     componentId: string;
 
-    public model: Component = new RPComponent();
+    public model: RPComponent = new RPComponent();
 
-    constructor(private _service: ComponentService) { }
+    constructor(
+        private service: ComponentService,
+        @Host() private parentService: WaveformService
+        ) { }
 
     ngOnInit() {
-        this.query();
-    }
-
-    private query(): void {
-        this._service
-            .getComponent(this.domainId, this.waveformId, this.componentId)
-            .then(response => this.model = response);
+        this.service.uniqueId = this.componentId;
+        this.service.model.subscribe(it => this.model = it);
     }
 }

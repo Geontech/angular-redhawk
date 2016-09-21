@@ -1,28 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Http }       from '@angular/http';
-import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
-import { RESTConfig } from '../shared/config.service';
+// Parent service & base class
+import { WaveformService } from '../waveform/waveform.service';
+import { PortBearingService } from '../port/port.interface';
+
+// URL Builders
+import {
+    ComponentUrl,
+    PortUrl,
+    PropertyUrl
+} from '../shared/config.service';
+
+// This model
 import { Component }  from './component';
+import { Port } from '../port/port';
 
+// Child models
+import { PropertySet, PropertyCommand } from '../shared/property';
 
 @Injectable()
-export class ComponentService {
-    constructor(
-        private http: Http,
-        private rpConfig: RESTConfig
-        ) {}
+export class ComponentService extends PortBearingService<Component> {
 
-    public getComponent(domainId: string, waveformId: string, componentId: string): Promise<Component> {
-        return this.http
-            .get(this.rpConfig.componentUrl(domainId, waveformId, componentId))
-            .toPromise()
-            .then(response => response.json() as Component)
-            .catch(this.handleError);
+    constructor(
+        protected http: Http,
+        protected waveformService: WaveformService
+        ) { super(http); }
+
+    setBaseUrl(url: string): void { 
+        this._baseUrl = ComponentUrl(this.waveformService.baseUrl, url);
     }
 
-    private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
+    uniqueQuery(): Observable<Component> {
+        return <Observable<Component>> this.waveformService.comps(this.uniqueId);
+    }
+
+    configure(properties: PropertySet): void {
+        let command = new PropertyCommand(properties);
+        this.http.put(PropertyUrl(this.baseUrl), command);
     }
 }

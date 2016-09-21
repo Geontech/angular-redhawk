@@ -1,16 +1,16 @@
-import { CFPropertySet } from './property';
-// import { Ports } from './port';
+import { PropertySet } from './property';
+import { Port } from '../port/port';
 
 // Reference to a Resource (Device + Component) 
 export class ResourceRef {
     public name: string;
     public id: string;
 }
-export type ResourceRefs = Resource[];
+export type ResourceRefs = ResourceRef[];
 
 // Resource  model
 export class Resource extends ResourceRef {
     public started: boolean;
-    public properties: CFPropertySet;
-    public ports: Array<any>; // Ports
+    public properties: PropertySet;
+    public ports: Array<Port>;
 }

@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Host} from '@angular/core';
+
+import { DomainService }   from '../domain/domain.service';
 
 import { WaveformService } from './waveform.service';
 import { Waveform }        from './waveform';
@@ -12,23 +14,19 @@ import { Waveform }        from './waveform';
 })
 
 export class ArWaveform implements OnInit {
-    @Input()
-    domainId: string;
 
     @Input()
     waveformId: string;
 
     public model: Waveform = new Waveform();
 
-    constructor(private _service: WaveformService) { }
+    constructor(
+        private service: WaveformService, 
+        @Host() private parentService: DomainService
+        ) { }
 
     ngOnInit() {
-        this.query();
-    }
-
-    private query(): void {
-        this._service
-            .getWaveform(this.domainId, this.waveformId)
-            .then(response => this.model = response);
+        this.service.uniqueId = this.waveformId;
+        this.service.model.subscribe(it => this.model = it);
     }
 }

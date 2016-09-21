@@ -1,41 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Http }       from '@angular/http';
-import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
-import { RESTConfig } from '../shared/config.service';
+import { BaseService } from '../shared/base.service';
+import { RedhawkUrl, DomainUrl } from '../shared/config.service';
 import { Redhawk }    from './redhawk';
 
 // Other models
 import { Domain }     from '../domain/domain';
 
 @Injectable()
-export class RedhawkService {
+export class RedhawkService extends BaseService<Redhawk> {
 
-    private instance: Redhawk = new Redhawk();
+    constructor(protected http: Http) { super(http); }
 
-    constructor(
-        private http: Http,
-        private rpConfig: RESTConfig
-        ) { }
+    setBaseUrl(url: string): void {
+        this._baseUrl = RedhawkUrl();
+    }
 
-    public getRedhawk(): Promise<Redhawk> {
+    uniqueQuery(): Observable<Redhawk> {
         return this.http
-            .get(this.rpConfig.redhawkUrl())
-            .toPromise()
-            .then(response => response.json() as Redhawk)
+            .get(DomainUrl(this.baseUrl))
+            .map(res => res.json() as Redhawk)
             .catch(this.handleError);
     }
 
-    public getDomain(domainId: string): Promise<Domain> {
+    // Get a list of online domain names
+    public scan(): Observable<string[]> {
         return this.http
-            .get(this.rpConfig.domainUrl(domainId))
-            .toPromise()
-            .then(response => response.json() as Domain)
+            .get(DomainUrl(this.baseUrl))
+            .map(response => response.json().domains as string[])
             .catch(this.handleError);
     }
 
-    private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
+    // Get the named domain model
+    public attach(domainId: string): Observable<Domain> {
+        return this.http
+            .get(DomainUrl(this.baseUrl, domainId))
+            .map(response => response.json() as Domain)
+            .catch(this.handleError);
     }
 }

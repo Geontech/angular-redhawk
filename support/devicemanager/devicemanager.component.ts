@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Host } from '@angular/core';
+
+import { DomainService } from '../domain/domain.service';
 
 import { DeviceManagerService } from './devicemanager.service';
 import { DeviceManager }        from './devicemanager';
@@ -13,22 +15,17 @@ import { DeviceManager }        from './devicemanager';
 
 export class ArDeviceManager implements OnInit {
     @Input()
-    domainId: string;
-
-    @Input()
     deviceManagerId: string;
 
     public model: DeviceManager = new DeviceManager();
 
-    constructor(private _service: DeviceManagerService) { }
-
-    ngOnInit() {
-        this.query();
+    constructor(
+        private service: DeviceManagerService, 
+        @Host() private parentService: DomainService) { 
     }
 
-    private query(): void {
-        this._service
-            .getDeviceManager(this.domainId, this.deviceManagerId)
-            .then(response => this.model = response);
+    ngOnInit() {
+        this.service.uniqueId = this.deviceManagerId;
+        this.service.model.subscribe(it => this.model = it);
     }
 }

@@ -3,9 +3,6 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/cor
 import { RedhawkService }        from './redhawk.service';
 import { Redhawk, RedhawkEvent } from './redhawk';
 
-// Other models
-import { Domain }                from '../domain/domain';
-
 @Component({
     selector: 'ar-redhawk',
     template: `
@@ -20,28 +17,14 @@ export class ArRedhawk implements OnInit, OnDestroy {
 
     public model: Redhawk = new Redhawk();
 
-    constructor(private _service: RedhawkService) { }
-
-    public getDomain(domainId: string): Domain {
-        let inst = new Domain();
-        this._service.getDomain(domainId)
-            .then(res => inst = res);
-        return inst;
-    }
+    constructor(private service: RedhawkService) { }
 
     ngOnInit() {
-        // TODO: Connect to REDHAWK socket
-        this.query();
+        this.service.uniqueId = "Angular-REDHAWK";
+        this.service.model.subscribe(it => this.model = it);
     }
 
     ngOnDestroy() {
         // TODO: Disconnect from REDHAWK socket
-    }
-
-    private query(): void {
-        // Get domain listing
-        this._service
-            .getRedhawk()
-            .then(response => this.model = response);
     }
 }

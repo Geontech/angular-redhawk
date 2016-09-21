@@ -1,77 +1,56 @@
-// REST-Python API
-import { Injectable } from '@angular/core';
+// REST API URL Helper functions
+// The general concept here is to build out a url you need to already know something
+// about the hierarchy of REDHAWK systems.  To get a Domain, for example:
+//
+//     DomainUrl(RedhawkUrl(), 'MyDomain') ==> /redhawk/rest/MyDomain
+//
+// Or a device listing on a device manager:
+//
+//     DeviceUrl(DeviceManagerUrl(DomainUrl(RedhawkUrl(), 'MyDomain'), 'NodeId'))
+//         ==> /redhawk/rest/MyDomain/deviceManagers/NodeId/devices
+//
+// Ideally, you won't need this outside of the service layer, which provide "baseUrl"
+// for their services.  So from a Device service appropriately preceded by a Device Manager
+// service, the above example becomes this:
+//
+//      DeviceUrl(this.dmService.baseUrl) ==> (Same output)
+//
+// All of these functions have similar setups except the root, RedhawkUrl.  Include 
+// the baseUrl field and, optionally, the specific entity ID.
+const REST_URL = '/redhawk/rest';
 
-@Injectable()
-export class RESTConfig {
+// Entities
+export function RedhawkUrl(): string { return REST_URL; }
+export function DomainUrl(baseUrl: string, domainId?: string): string { return BaseUrl(baseUrl, '/domains', domainId); }
+export function FileSystemUrl(baseUrl: string, path?: string): string { return BaseUrl(baseUrl, '/fs', path); }
+export function DeviceManagerUrl(baseUrl: string, deviceManagerId?: string): string { return BaseUrl(baseUrl, '/deviceManagers', deviceManagerId); }
+export function DeviceUrl(baseUrl: string, deviceId?: string): string { return BaseUrl(baseUrl, '/devices', deviceId); }
+export function ServiceUrl(baseUrl: string, serviceId?: string): string { return BaseUrl(baseUrl, '/services', serviceId); }
+export function WaveformUrl(baseUrl: string, waveformId?: string): string { return BaseUrl(baseUrl, '/applications', waveformId); }
+export function ComponentUrl(baseUrl: string, componentId?: string): string { return BaseUrl(baseUrl, '/components', componentId); }
 
-    // API location
-    private restPath: string = '/redhawk/rest';
-    private websocketPath: string = this.websocketUrl() + this.restPath;
+// Entity Fields
+export function PropertyUrl(baseUrl: string): string { return BaseUrl(baseUrl, '/properties'); }
+export function PortUrl(baseUrl: string, portId?: string): string { return BaseUrl(baseUrl, '/ports', portId); }
 
-    // Internal paths
-    private portsPath: string = '/ports';
+// Entity Sockets
+export function BulkioSocketUrl(baseUrl: string, portId: string): string { return WebsocketUrl() + PortUrl(baseUrl, portId) + '/bulkio'; }
+export function RedhawkSocketUrl(): string { return WebsocketUrl() + '/redhawk'; }
+export function EventSocketUrl(): string { return WebsocketUrl() + '/events'; }
 
-    // API Public REST
-    public redhawkUrl(): string {
-        return this.restPath + '/domains';
-    }
-    public domainsUrl(): string {
-        return this.redhawkUrl();
-    }
-    public domainUrl(domainId: string): string {
-        return this.domainsUrl() + '/' + domainId;
-    }
-    public filesystemUrl(domainId: string, path: string): string {
-        return this.domainUrl(domainId) + '/fs/' + path;
-    }
-    public deviceManagersUrl(domainId: string): string {
-        return this.domainUrl(domainId) + '/deviceManagers';
-    }
-    public deviceManagerUrl(domainId: string, devMgrId: string): string {
-        return this.deviceManagersUrl(domainId) + '/' + devMgrId;
-    }
-    public devicesUrl(domainId: string, devMgrId: string): string {
-        return this.deviceManagerUrl(domainId, devMgrId) + '/devices';
-    }
-    public deviceUrl(domainId: string, devMgrId: string, deviceId: string): string {
-        return this.devicesUrl(domainId, devMgrId) + '/' + deviceId;
-    }
-    public devicePortsUrl(domainId: string, devMgrId: string, deviceId: string): string {
-        return this.deviceUrl(domainId, devMgrId, deviceId) + this.portsPath;
-    }
-    public devicePortUrl(domainId: string, devMgrId: string, deviceId: string, portId: string): string {
-        return this.devicePortsUrl(domainId, devMgrId, deviceId) + this.portUrl(portId);
-    }
-    public waveformsUrl(domainId: string): string {
-        return this.domainUrl(domainId) + '/applications';
-    }
-    public waveformUrl(domainId: string, waveformId: string): string {
-        return this.waveformsUrl(domainId) + '/' + waveformId;
-    }
-    public waveformPortsUrl(domainId: string, waveformId: string): string {
-        return this.waveformUrl(domainId, waveformId) + this.portsPath;
-    }
-    public waveformPortUrl(domainId: string, waveformId: string, portId: string): string {
-        return this.waveformPortsUrl(domainId, waveformId) + this.portUrl(portId);
-    }
-    public componentsUrl(domainId: string, waveformId: string): string {
-        return this.waveformUrl(domainId, waveformId) + '/components';
-    }
-    public componentUrl(domainId: string, waveformId: string, componentId: string): string {
-        return this.componentsUrl(domainId, waveformId) + '/' + componentId;
-    }
-    public componentPortsUrl(domainId: string, waveformId: string, componentId: string): string {
-        return this.componentUrl(domainId, waveformId, componentId) + this.portsPath;
-    }
-    public componentPortUrl(domainId: string, waveformId: string, componentId: string, portId: string): string {
-        return this.componentPortsUrl(domainId, waveformId, componentId) + this.portUrl(portId);
-    }
 
-    // API Public Websockets
-    public websocketUrl(): string { return ((window.location.protocol === 'https:') ? 'wss:' : 'ws:') + '//' + window.location.host; }
-    public redhawkSocketUrl(): string { return this.websocketPath + '/redhawk'; }
-    public eventSocketUrl(): string { return this.websocketPath + '/events'; }
 
-    private portUrl(portId: string): string { return this.portsPath + '/' + portId; }
 
+// Base URL for websockets
+function WebsocketUrl(): string { return ((window.location.protocol === 'https:') ? 'wss:' : 'ws:') + '//' + window.location.host + REST_URL; }
+
+// Base Url builder function
+function BaseUrl(baseUrl: string, subPath?: string, target?:string): string {
+    if (subPath) {
+        if (target) {
+            return baseUrl + subPath + '/' + target;
+        }
+        return baseUrl + subPath;
+    }
+    return baseUrl;
 }

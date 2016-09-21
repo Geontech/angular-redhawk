@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Host} from '@angular/core';
+
+import { RedhawkService } from '../redhawk/redhawk.service';
 
 import { DomainService } from './domain.service';
 import { Domain }        from './domain';
@@ -12,12 +14,20 @@ import { Domain }        from './domain';
 })
 
 export class ArDomain implements OnInit {
-    @Input()
-    model: Domain;
 
-    constructor(private _service: DomainService) { }
+    @Input()
+    domainId: string;
+
+    public model: Domain = new Domain();
+
+    constructor(
+        private service: DomainService, 
+        @Host() private parentService: RedhawkService
+        ) { }
 
     ngOnInit() {
-        // TODO: Something...
+        // Get domain model from the parent service
+        this.service.uniqueId = this.domainId;
+        this.service.model.subscribe(it => this.model = it);
     }
 }

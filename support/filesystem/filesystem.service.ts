@@ -1,32 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Http }       from '@angular/http';
-import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
-import { RESTConfig } from '../shared/config.service';
-import { Filesystem } from './filesystem'
+// Parent Service & base class
+import { DomainService } from '../domain/domain.service';
+import { BaseService } from '../shared/base.service';
 
+// URL Builder
+import { FileSystemUrl } from '../shared/config.service';
+
+// This model
+import { FileSystem } from './filesystem'
 
 @Injectable()
-export class FilesystemService {
+export class FilesystemService extends BaseService<FileSystem> {
     constructor(
-        private http: Http,
-        private rpConfig: RESTConfig
-        ) {}
-    
-    public getFilesystem(domainId: string, path: string): Promise<Filesystem> {
-        return this.http
-            .get(this.rpConfig.filesystemUrl(domainId, path))
-            .toPromise()
-            .then(response => response.json() as Filesystem)
-            .catch(this.handleError);
+        protected http: Http,
+        protected domainService: DomainService
+        ) { super(http); }
+
+    setBaseUrl(url: string): void {
+        this._baseUrl = FileSystemUrl(this.domainService.baseUrl, url);
     }
 
-    public launch(domainId: string, waveformId: string) {
-        // TODO: Implement
-    }
-
-    private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
+    uniqueQuery(): Observable<FileSystem> {
+        return this.http.get(this.baseUrl);
     }
 }
