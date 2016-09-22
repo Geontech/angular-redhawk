@@ -26,6 +26,8 @@ export class FilesystemService extends BaseService<FileSystem> {
     }
 
     uniqueQuery(): Observable<FileSystem> {
-        return this.http.get(this.baseUrl);
+        return this.http
+            .get(this.baseUrl)
+            .map(response => response.json() as FileSystem);
     }
 }

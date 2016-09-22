@@ -3,28 +3,23 @@ import { CommonModule } from '@angular/common';
 
 // Angular REDHAWK Component interfaces to services
 import { ArRedhawk }            from './redhawk/redhawk.component';
-// import { RedhawkService }       from './redhawk/redhawk.service';
-// import { Redhawk }           from './redhawk/redhawk';
+import { RedhawkService }       from './redhawk/redhawk.service';
 import { ArDomain }             from './domain/domain.component';
-// import { DomainService }        from './domain/domain.service';
-// import { Domain }            from './domain/domain';
-// import { ArDomain }             from './filesystem/filesystem.component';
-// import { FilesystemService }        from './filesystem/filesystem.service';
-// import { Filesystem }            from './filesystem/filesystem';
 import { ArDeviceManager }      from './devicemanager/devicemanager.component';
-// import { DeviceManagerService } from './devicemanager/devicemanager.service';
-// import { DeviceManager }     from './devicemanager/devicemanager';
 import { ArWaveform }           from './waveform/waveform.component';
-// import { WaveformService }      from './waveform/waveform.service';
-// import { Waveform }          from './waveform/waveform';
 import { ArDevice }             from './device/device.component';
-// import { DeviceService }        from './device/device.service';
-// import { Device }            from './device/device';
 import { ArComponent }          from './component/component.component';
-// import { ComponentService }     from './component/component.service';
-// import { Component }         from './component/component';
 import { ArPort }               from './port/port.component';
-// import { PortService }               from './port/port.service';
+
+// Useful services
+export { RedhawkService }       from './redhawk/redhawk.service';
+export { DomainService }        from './domain/domain.service';
+export { FilesystemService }        from './filesystem/filesystem.service';
+export { DeviceManagerService } from './devicemanager/devicemanager.service';
+export { WaveformService }      from './waveform/waveform.service';
+export { DeviceService }        from './device/device.service';
+export { ComponentService }     from './component/component.service';
+export { PortService }               from './port/port.service';
 
 
 // Angular REDHAWK back-end Services
@@ -41,7 +36,7 @@ import { ArPort }               from './port/port.component';
         ArDevice,
         ArWaveform,
         ArComponent,
-        ArPort,
+        ArPort
     ],
     declarations: [
         // High-level interfaces
@@ -54,13 +49,7 @@ import { ArPort }               from './port/port.component';
         ArPort
     ],
     providers:    [
-// RedhawkService,
-// DomainService,
-// DeviceManagerService,
-// DeviceService,
-// WaveformService,
-// ComponentService,
-// PortService
+        RedhawkService
     ]
 })
 export class ArSupportModule { }
