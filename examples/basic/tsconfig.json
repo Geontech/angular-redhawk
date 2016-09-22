@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "es5",
+    "module": "system",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "filesGlob": [
+    "app/**/*.ts",
+    "typings/**/*.d.ts"
+  ],
+  "files": [
+    "typings/globals/core-js/index.d.ts",
+    "typings/globals/jasmine/index.d.ts",
+    "typings/globals/node/index.d.ts",
+    "typings/index.d.ts",
+    "app/app.component.ts",
+    "app/app.module.ts",
+    "app/main.ts"
+  ],
+  "atom": {
+    "rewriteTsconfig": true
+  }
+}
