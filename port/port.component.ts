@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Host, Optional } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Host, Optional } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 // Parent Services
 import { WaveformService } from '../waveform/waveform.service';
@@ -19,12 +20,14 @@ import { Port } from './port';
     providers: [ PortService ]
 })
 
-export class ArPort implements OnInit {
+export class ArPort implements OnInit, OnDestroy {
 
     @Input()
     portId: string;
 
     public model: Port = new Port();
+
+    private subscription: Subscription;
 
     private parentService: WaveformService | DeviceService | ComponentService;
 
@@ -46,6 +49,10 @@ export class ArPort implements OnInit {
 
     ngOnInit() {
         this.service.uniqueId = this.portId;
-        this.service.model.subscribe(it => this.model = it);
+        this.subscription = this.service.model.subscribe(it => this.model = it);
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

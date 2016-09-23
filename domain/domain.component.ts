@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Host} from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Host} from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { RedhawkService } from '../redhawk/redhawk.service';
 
@@ -13,12 +14,14 @@ import { Domain }        from './domain';
     providers: [ DomainService ]
 })
 
-export class ArDomain implements OnInit {
+export class ArDomain implements OnInit, OnDestroy {
 
     @Input()
     domainId: string;
 
     public model: Domain = new Domain();
+
+    private subscription: Subscription;
 
     constructor(
         private service: DomainService, 
@@ -28,6 +31,10 @@ export class ArDomain implements OnInit {
     ngOnInit() {
         // Get domain model from the parent service
         this.service.uniqueId = this.domainId;
-        this.service.model.subscribe(it => this.model = it);
+        this.subscription = this.service.model.subscribe(it => this.model = it);
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

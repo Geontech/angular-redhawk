@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Host } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Host } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { WaveformService } from '../waveform/waveform.service';
 
@@ -13,12 +14,14 @@ import { Component as RPComponent } from './component';
     providers: [ ComponentService ]
 })
 
-export class ArComponent implements OnInit {
+export class ArComponent implements OnInit, OnDestroy {
 
     @Input()
     componentId: string;
 
     public model: RPComponent = new RPComponent();
+
+    private subscription: Subscription;
 
     constructor(
         private service: ComponentService,
@@ -27,6 +30,10 @@ export class ArComponent implements OnInit {
 
     ngOnInit() {
         this.service.uniqueId = this.componentId;
-        this.service.model.subscribe(it => this.model = it);
+        this.subscription = this.service.model.subscribe(it => this.model = it);
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

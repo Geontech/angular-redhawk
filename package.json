@@ -1,7 +1,7 @@
 {
   "name": "angular-redhawk",
   "version": "1.0.0",
-  "description": "AngularJS library for interfacing with REDHAWK SDR via REST-python",
+  "description": "AngularJS library for interfacing with REDHAWK SDR via Geon's fork of REST-python",
   "main": "dist/angular-redhawk.js",
   "scripts": {
     "clean": "rm -rf dist",
@@ -12,6 +12,11 @@
   },
   "author": "Thomas Goodwin <btgoodwin@geontech.com>",
   "license": "GPL-3.0",
+  "contributors": [
+    "Patrick Wolfram <pwolfram@geontech.com>",
+    "Sirajuddin Choudhary <sirajuddin.c@gmail.com> (https://sirajc.github.io/angular2-bs4-navbar)"
+  ],
+  "repository": "git://github.com/GeonTech/angular-redhawk.git",
   "dependencies": {
     "@angular/common": "2.0.0",
     "@angular/compiler": "2.0.0",
@@ -22,11 +27,9 @@
     "@angular/platform-browser-dynamic": "2.0.0",
     "@angular/router": "3.0.0",
     "@angular/upgrade": "2.0.0",
-
     "rxjs": "^5.0.0-beta.12",
     "zone.js": "^0.6.23"
   },
-  "repository": "git://github.com/GeonTech/angular-redhawk.git",
   "devDependencies": {
     "tsconfig-glob": "^0.4.3",
     "tslint": "^3.15.1",
@@ -34,5 +37,7 @@
     "typings": "^1.3.2"
   },
   "typings": "dist/angular-redhawk.d.ts",
-  "engines": {"npm": ">=3.10.0"}
+  "engines": {
+    "npm": ">=3.10.0"
+  }
 }

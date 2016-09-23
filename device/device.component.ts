@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Host } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Host } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { DeviceManagerService } from '../devicemanager/devicemanager.service';
 
@@ -13,12 +14,14 @@ import { Device }        from './device';
     providers: [ DeviceService ]
 })
 
-export class ArDevice implements OnInit {
+export class ArDevice implements OnInit, OnDestroy {
 
     @Input()
     deviceId: string;
 
     public model: Device = new Device();
+
+    private subscription: Subscription;
 
     constructor(
         private service: DeviceService,
@@ -27,6 +30,10 @@ export class ArDevice implements OnInit {
 
     ngOnInit() {
         this.service.uniqueId = this.deviceId;
-        this.service.model.subscribe(it => this.model = it);
+        this.subscription = this.service.model.subscribe(it => this.model = it);
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }
