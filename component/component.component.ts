@@ -7,6 +7,7 @@ import { ComponentService }         from './component.service';
 import { Component as RPComponent } from './component';
 
 @Component({
+    moduleId: module.id,
     selector: 'ar-component',
     template: `
         <ng-content></ng-content>

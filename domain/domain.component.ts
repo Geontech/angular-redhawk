@@ -7,6 +7,7 @@ import { DomainService } from './domain.service';
 import { Domain }        from './domain';
 
 @Component({
+    moduleId: module.id,
     selector: 'ar-domain',
     template: `
         <ng-content></ng-content>

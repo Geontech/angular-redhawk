@@ -1,5 +1,9 @@
 # Angular REDHAWK
 
+The angular-redhawk library is a back-end interface to the REST and socket services of Geon's fork of REST-Python.  It provides minimal examples of very low-level interfaces to these services.  For higher-level interfaces, see the Angualr-REDHAWK UIKit (angular-redhawk-uikit).
+
+The rest of this document has been OBE -- Overcome by Elvis.
+
 This AngularJS 2 library interfaces with the REST-Python server from Geon Technologies.  It provides two modules top-level, Support and UI Kit.  The former contains the high-level Components users can implement in their designs to facilitate easy access to the underlying Services.  It also contains the generic REST Model definitions that are returned by those Services.  The UI Kit contains re-usable UI Components that use those support module Component interfaces to view and manipulate the Models.
 
 ## Installing Angular-REDHAWK
@@ -7,14 +11,6 @@ This AngularJS 2 library interfaces with the REST-Python server from Geon Techno
 Presumably you have already installed it by including it in your `package.json` file and ran `npm install` for your app.  Now if you're using SystemJS for packaging, you need to configure your map for the name.  Assuming you have a `paths: { 'npm:': 'node_modules/' }` already listed, you can add to your map: `'angular-redhawk': 'npm:angular-redhawk/dist'`.  You will also need to add the name to the `packages`: `'angular-redhawk': { defaultExtension: 'js' }`.  These changes allow the app to locate the `angular-redhawk` module when the app loads.
 
 For compiling your app, update your `tsconfig.json` to include `node_modules/angular-redhawk/angular-redhawk.d.ts` in your `files`.  This change will allow the compiler to type map your app against Angular-REDHAWK.
-
-## Using the UI Kit Module
-
-TBD
-
-## Using the Support Module
-
-TBD
 
 ## Developing the Library
 

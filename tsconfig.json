@@ -14,8 +14,8 @@
   },
   "exclude": [ "node_modules" ],
   "files": [
-    "angular-redhawk.ts",
-    "node_modules/typescript/lib/lib.es6.d.ts"
+    "typings/index.d.ts",
+    "angular-redhawk.ts"
   ],
   "atom": {
     "rewriteTsconfig": true

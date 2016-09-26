@@ -7,6 +7,7 @@ import { DeviceService } from './device.service';
 import { Device }        from './device';
 
 @Component({
+    moduleId: module.id,
     selector: 'ar-device',
     template: `
         <ng-content></ng-content>

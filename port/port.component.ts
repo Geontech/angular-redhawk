@@ -13,6 +13,7 @@ import { PortService } from './port.service';
 import { Port } from './port';
 
 @Component({
+    moduleId: module.id,
     selector: 'ar-port',
     template: `
         <ng-content></ng-content>

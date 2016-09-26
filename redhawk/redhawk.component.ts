@@ -5,6 +5,7 @@ import { RedhawkService }        from './redhawk.service';
 import { Redhawk, RedhawkEvent } from './redhawk';
 
 @Component({
+    moduleId: module.id,
     selector: 'ar-redhawk',
     template: `
         <ng-content></ng-content>

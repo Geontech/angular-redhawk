@@ -5,7 +5,8 @@
   "main": "dist/angular-redhawk.js",
   "scripts": {
     "clean": "rm -rf dist",
-    "prepublish": "npm run clean && tsc",
+    "html": "find . -type f -name '*.html' ! -path './node_modules/*' ! -path './typings/*' ! -path './dist/*' -exec cp --parents {} ./dist \\;",
+    "prepublish": "npm run clean && tsc && npm run html",
     "postinstall": "typings install",
     "tslint": "tslint -c tslint.json angular-redhawk.ts",
     "test": "echo \"Error: no test specified\" && exit 1"

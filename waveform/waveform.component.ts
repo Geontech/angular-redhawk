@@ -7,6 +7,7 @@ import { WaveformService } from './waveform.service';
 import { Waveform }        from './waveform';
 
 @Component({
+    moduleId: module.id,
     selector: 'ar-waveform',
     template: `
         <ng-content></ng-content>

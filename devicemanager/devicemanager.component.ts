@@ -7,6 +7,7 @@ import { DeviceManagerService } from './devicemanager.service';
 import { DeviceManager }        from './devicemanager';
 
 @Component({
+    moduleId: module.id,
     selector: 'ar-device-manager',
     template: `
         <ng-content></ng-content>
