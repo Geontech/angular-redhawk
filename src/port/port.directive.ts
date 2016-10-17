@@ -1,4 +1,13 @@
-import { Component, OnInit, OnDestroy, Input, Host, Optional } from '@angular/core';
+import {
+    Directive,
+    OnInit,
+    OnDestroy,
+    OnChanges,
+    SimpleChanges,
+    Input,
+    Host,
+    Optional
+} from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 // Parent Services
@@ -12,23 +21,17 @@ import { PortService } from './port.service';
 // This model
 import { Port } from './port';
 
-@Component({
-    // moduleId: module.id,
-    selector: 'ar-port',
-    template: `
-        <ng-content></ng-content>
-        `,
+@Directive({
+    selector: '[arPort]',
     providers: [ PortService ]
 })
+export class ArPort implements OnInit, OnDestroy, OnChanges {
 
-export class ArPort implements OnInit, OnDestroy {
-
-    @Input()
-    portId: string;
+    @Input('arPort') portId: string;
 
     public model: Port = new Port();
 
-    private subscription: Subscription;
+    private subscription: Subscription = null;
 
     private parentService: WaveformService | DeviceService | ComponentService;
 
@@ -49,12 +52,20 @@ export class ArPort implements OnInit, OnDestroy {
         }
     }
 
-    ngOnInit() {
-        this.service.uniqueId = this.portId;
-        this.subscription = this.service.model.subscribe(it => this.model = it);
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.hasOwnProperty('arPort')) {
+            this.service.uniqueId = this.portId;
+            if (!this.subscription) {
+                this.subscription = this.service.model.subscribe(it => this.model = it);
+            }
+        }
     }
 
+    ngOnInit() { /** */ }
+
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 }

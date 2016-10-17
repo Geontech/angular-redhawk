@@ -22,7 +22,11 @@ First, clone the repository somewhere outside of your test application and instr
 
     git clone http://github.com/GeonTech/angular-redhawk.git
     cd angular-redhawk
+    vi package.json
+    # change the postinstall script to postinstalld
     npm install
+    vi package.json
+    # change postinstalld back to postinstall
     npm link
 
 Next, in your project directory establish the link:

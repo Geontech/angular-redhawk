@@ -2,14 +2,14 @@ import { NgModule }     from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // Angular REDHAWK Component interfaces to services
-import { ArRedhawk }            from './redhawk/redhawk.component';
+import { ArRedhawk }            from './redhawk/redhawk.directive';
 import { RedhawkService }       from './redhawk/redhawk.service';
-import { ArDomain }             from './domain/domain.component';
-import { ArDeviceManager }      from './devicemanager/devicemanager.component';
-import { ArWaveform }           from './waveform/waveform.component';
-import { ArDevice }             from './device/device.component';
-import { ArComponent }          from './component/component.component';
-import { ArPort }               from './port/port.component';
+import { ArDomain }             from './domain/domain.directive';
+import { ArDeviceManager }      from './devicemanager/devicemanager.directive';
+import { ArWaveform }           from './waveform/waveform.directive';
+import { ArDevice }             from './device/device.directive';
+import { ArComponent }          from './component/component.directive';
+import { ArPort }               from './port/port.directive';
 
 // Useful services
 export { RedhawkService }       from './redhawk/redhawk.service';
