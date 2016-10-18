@@ -18,7 +18,7 @@ import { Waveform }        from './waveform';
     selector: '[arWaveform]',
     providers: [ WaveformService ]
 })
-export class ArWaveform implements OnInit, OnDestroy, OnChanges {
+export class ArWaveformDirective implements OnInit, OnDestroy, OnChanges {
 
     @Input('arWaveform') waveformId: string;
 

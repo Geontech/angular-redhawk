@@ -25,7 +25,7 @@ import { Port } from './port';
     selector: '[arPort]',
     providers: [ PortService ]
 })
-export class ArPort implements OnInit, OnDestroy, OnChanges {
+export class ArPortDirective implements OnInit, OnDestroy, OnChanges {
 
     @Input('arPort') portId: string;
 

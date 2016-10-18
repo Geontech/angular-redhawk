@@ -18,7 +18,7 @@ import {
 import { Component }  from './component';
 
 // Child models
-import { PropertySet, PropertyCommand } from '../shared/property';
+import { PropertySet, PropertyCommand } from '../property/property';
 
 @Injectable()
 export class ComponentService extends PortBearingService<Component> {

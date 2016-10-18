@@ -1,5 +1,5 @@
 import { Resource } from '../shared/resource';
-import { PropertySet, PropertyCommand } from '../shared/property';
+import { PropertySet, PropertyCommand } from '../property/property';
 
 // Device model
 export class Device extends Resource { }

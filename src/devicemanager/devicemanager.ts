@@ -1,4 +1,4 @@
-import { PropertySet }             from '../shared/property';
+import { PropertySet }             from '../property/property';
 import { ResourceRef, ResourceRefs } from '../shared/resource';
 
 // Reference to a device manager (Node)

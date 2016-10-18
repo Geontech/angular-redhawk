@@ -1,4 +1,4 @@
-import { PropertySet }     from '../shared/property';
+import { PropertySet }     from '../property/property';
 import { ResourceRefs }      from '../shared/resource';
 import { DeviceManagerRefs } from '../devicemanager/devicemanager';
 

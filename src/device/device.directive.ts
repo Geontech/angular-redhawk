@@ -19,7 +19,7 @@ import { Device }        from './device';
     providers: [ DeviceService ]
 })
 
-export class ArDevice implements OnInit, OnDestroy, OnChanges {
+export class ArDeviceDirective implements OnInit, OnDestroy, OnChanges {
 
     @Input('arDevice') deviceId: string;
 

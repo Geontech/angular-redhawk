@@ -19,7 +19,7 @@ import { Component } from './component';
     providers: [ ComponentService ]
 })
 
-export class ArComponent implements OnInit, OnDestroy, OnChanges {
+export class ArComponentDirective implements OnInit, OnDestroy, OnChanges {
 
     @Input('arComponent') componentId: string;
 

@@ -1,4 +1,4 @@
-import { PropertySet } from './property';
+import { PropertySet } from '../property/property';
 import { Port } from '../port/port';
 
 // Reference to a Resource (Device + Component) 

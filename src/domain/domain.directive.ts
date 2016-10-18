@@ -19,7 +19,7 @@ import { Domain }        from './domain';
     providers: [ DomainService ]
 })
 
-export class ArDomain implements OnInit, OnDestroy, OnChanges {
+export class ArDomainDirective implements OnInit, OnDestroy, OnChanges {
 
     @Input('arDomain') domainId: string;
 

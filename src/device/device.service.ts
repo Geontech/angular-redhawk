@@ -22,7 +22,7 @@ import {
 } from './device';
 
 // Child models
-import { PropertySet } from '../shared/property';
+import { PropertySet } from '../property/property';
 
 @Injectable()
 export class DeviceService extends PortBearingService<Device> {

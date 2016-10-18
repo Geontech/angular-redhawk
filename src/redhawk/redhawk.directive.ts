@@ -12,7 +12,7 @@ import { Redhawk } from './redhawk';
     selector: '[arRedhawk]',
     providers: [ RedhawkService ]
 })
-export class ArRedhawk implements OnInit, OnDestroy {
+export class ArRedhawkDirective implements OnInit, OnDestroy {
     public model: Redhawk = new Redhawk();
 
     private subscription: Subscription;

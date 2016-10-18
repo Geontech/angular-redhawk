@@ -30,7 +30,7 @@ import {
 import { DeviceManager, DeviceManagerRefs } from '../devicemanager/devicemanager';
 import { Device } from '../device/device';
 import { ResourceRefs } from '../shared/resource';
-import { PropertySet, PropertyCommand } from '../shared/property';
+import { PropertySet, PropertyCommand } from '../property/property';
 
 @Injectable()
 export class DomainService extends BaseService<Domain> {
