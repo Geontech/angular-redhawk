@@ -2,16 +2,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { Property, PropertySet } from './property';
 
-@Pipe({name: 'property'})
+@Pipe({name: 'arProperty'})
 export class ArPropertyPipe implements PipeTransform {
-    transform(properties: PropertySet, id: string) {
-        return properties.filter(prop => prop.id === id);
+    transform(properties: PropertySet, id: string): Property {
+        return properties.filter(prop => prop.id === id)[0] || undefined;
     }
 }
 
-@Pipe({name: 'properties'})
+@Pipe({name: 'arProperties'})
 export class ArPropertiesPipe implements PipeTransform {
-    transform(properties: PropertySet, ids: string[]) {
+    transform(properties: PropertySet, ids: string[]): PropertySet {
         let set: PropertySet = [];
         properties.filter(prop => {
             for (let id in ids) {
