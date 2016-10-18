@@ -36,7 +36,7 @@ export class ArComponentDirective implements OnInit, OnDestroy, OnChanges {
         if (changes.hasOwnProperty('arComponent')) {
             this.service.uniqueId = this.componentId;
             if (!this.subscription) {
-                this.subscription = this.service.model.subscribe(it => this.model = it);
+                this.subscription = this.service.model$.subscribe(it => this.model = it);
             }
         }
     }

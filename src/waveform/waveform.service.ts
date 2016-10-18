@@ -38,11 +38,11 @@ export class WaveformService extends PortBearingService<Waveform> {
         this._baseUrl = WaveformUrl(this.domainService.baseUrl, url);
     }
 
-    uniqueQuery(): Observable<Waveform> {
-        return <Observable<Waveform>> this.domainService.apps(this.uniqueId);
+    uniqueQuery$(): Observable<Waveform> {
+        return <Observable<Waveform>> this.domainService.apps$(this.uniqueId);
     }
 
-    public comps(componentId?: string): Observable<Component> | Observable<ResourceRefs> {
+    public comps$(componentId?: string): Observable<Component> | Observable<ResourceRefs> {
         if (componentId) {
             return this.http
                 .get(ComponentUrl(this.baseUrl, componentId))
@@ -56,24 +56,24 @@ export class WaveformService extends PortBearingService<Waveform> {
         }
     }
 
-    public start(): Observable<WaveformControlCommandResponse> {
+    public start$(): Observable<WaveformControlCommandResponse> {
         let command = new WaveformControlCommand(true);
-        return this.controlCommand(command);
+        return this.controlCommand$(command);
     }
 
-    public stop(): Observable<WaveformControlCommandResponse> {
+    public stop$(): Observable<WaveformControlCommandResponse> {
         let command = new WaveformControlCommand(false);
-        return this.controlCommand(command);
+        return this.controlCommand$(command);
     }
 
-    public release(): Observable<WaveformReleaseResponse> {
+    public release$(): Observable<WaveformReleaseResponse> {
         return this.http
             .delete(this.baseUrl)
             .map(response => response.json() as WaveformReleaseResponse)
             .catch(this.handleError);
     }
 
-    private controlCommand(command: WaveformControlCommand): Observable<WaveformControlCommandResponse> {
+    private controlCommand$(command: WaveformControlCommand): Observable<WaveformControlCommandResponse> {
         return this.http
             .put(this.baseUrl, command)
             .map(response => response.json() as WaveformControlCommandResponse)

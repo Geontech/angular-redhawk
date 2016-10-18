@@ -9,7 +9,7 @@ import { PortUrl } from '../shared/config.service';
 import { Port } from './port';
 
 export abstract class PortBearingService<T> extends BaseService<T> {
-    ports(portName?: string): Observable<Port> | Observable<Array<Port>> {
+    ports$(portName?: string): Observable<Port> | Observable<Array<Port>> {
         if (portName) {
             return this.http
                 .get(PortUrl(this.baseUrl, portName))

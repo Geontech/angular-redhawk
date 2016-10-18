@@ -43,8 +43,8 @@ export class DomainService extends BaseService<Domain> {
         this._baseUrl = DomainUrl(this.redhawkService.baseUrl, url);
     }
 
-    uniqueQuery(): Observable<Domain> {
-        return this.redhawkService.attach(this.uniqueId);
+    uniqueQuery$(): Observable<Domain> {
+        return this.redhawkService.attach$(this.uniqueId);
     }
 
     // Configure properties
@@ -57,7 +57,7 @@ export class DomainService extends BaseService<Domain> {
     }
 
     // Get a list of running apps or a specific instance
-    public apps(waveformId?: string): Observable<Waveform> | Observable<ResourceRefs> {
+    public apps$(waveformId?: string): Observable<Waveform> | Observable<ResourceRefs> {
         if (waveformId) {
             return this.http
                 .get(WaveformUrl(this.baseUrl, waveformId))
@@ -72,7 +72,7 @@ export class DomainService extends BaseService<Domain> {
     }
 
     // Get a list of launchable waveforms
-    public catalogSads(): Observable<WaveformSADRefs> {
+    public catalogSads$(): Observable<WaveformSADRefs> {
         return this.http
             .get(WaveformUrl(this.baseUrl))
             .map(response => response.json().waveforms as WaveformSADRefs)
@@ -80,7 +80,7 @@ export class DomainService extends BaseService<Domain> {
     }
 
     // Launch a waveform
-    public launch(waveformName: string, started?: boolean): Observable<WaveformLaunchCommandResponse> {
+    public launch$(waveformName: string, started?: boolean): Observable<WaveformLaunchCommandResponse> {
         let command = new WaveformLaunchCommand(waveformName, started || false);
         return this.http
             .post(WaveformUrl(this.baseUrl), command)
@@ -89,7 +89,7 @@ export class DomainService extends BaseService<Domain> {
     }
 
     // Get a list of device managers or a specific instance
-    public devMgrs(deviceManagerId?: string): Observable<DeviceManager> | Observable<DeviceManagerRefs> {
+    public devMgrs$(deviceManagerId?: string): Observable<DeviceManager> | Observable<DeviceManagerRefs> {
         if (deviceManagerId) {
             return this.http
                 .get(DeviceManagerUrl(this.baseUrl, deviceManagerId))
@@ -104,7 +104,7 @@ export class DomainService extends BaseService<Domain> {
     }
 
     // Get a list of devices or a specific instance
-    public devices(deviceManagerId: string, deviceId?: string): Observable<Device> | Observable<ResourceRefs> {
+    public devices$(deviceManagerId: string, deviceId?: string): Observable<Device> | Observable<ResourceRefs> {
         let devMgrUrl = DeviceManagerUrl(this.baseUrl, deviceManagerId);
         if (deviceId) {
             return this.http

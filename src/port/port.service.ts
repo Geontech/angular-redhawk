@@ -47,8 +47,8 @@ export class PortService extends BaseService<Port> {
         this._baseUrl = PortUrl(this.parent.baseUrl, this.uniqueId);
     }
 
-    uniqueQuery(): Observable<Port> {
-        return <Observable<Port>> this.parent.ports(this.uniqueId);
+    uniqueQuery$(): Observable<Port> {
+        return <Observable<Port>> this.parent.ports$(this.uniqueId);
     }
 
     connect(): void {

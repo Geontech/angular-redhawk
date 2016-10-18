@@ -35,7 +35,7 @@ export class ArDeviceManagerDirective implements OnInit, OnDestroy, OnChanges {
         if (changes.hasOwnProperty('arDeviceManager')) {
             this.service.uniqueId = this.deviceManagerId;
             if (!this.subscription) {
-                this.subscription = this.service.model.subscribe(it => this.model = it);
+                this.subscription = this.service.model$.subscribe(it => this.model = it);
             }
         }
     }

@@ -35,7 +35,7 @@ export class ArWaveformDirective implements OnInit, OnDestroy, OnChanges {
         if (changes.hasOwnProperty('arWaveform')) {
             this.service.uniqueId = this.waveformId;
             if (!this.subscription) {
-                this.subscription = this.service.model.subscribe(it => this.model = it);
+                this.subscription = this.service.model$.subscribe(it => this.model = it);
             }
         }
     }

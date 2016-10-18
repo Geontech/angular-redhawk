@@ -32,8 +32,8 @@ export class ComponentService extends PortBearingService<Component> {
         this._baseUrl = ComponentUrl(this.waveformService.baseUrl, url);
     }
 
-    uniqueQuery(): Observable<Component> {
-        return <Observable<Component>> this.waveformService.comps(this.uniqueId);
+    uniqueQuery$(): Observable<Component> {
+        return <Observable<Component>> this.waveformService.comps$(this.uniqueId);
     }
 
     configure(properties: PropertySet): void {

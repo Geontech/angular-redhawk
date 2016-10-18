@@ -21,7 +21,7 @@ export class ArRedhawkDirective implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.service.uniqueId = 'Angular-REDHAWK';
-        this.subscription = this.service.model.subscribe(it => this.model = it);
+        this.subscription = this.service.model$.subscribe(it => this.model = it);
     }
 
     ngOnDestroy() {

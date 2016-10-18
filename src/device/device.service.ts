@@ -36,26 +36,26 @@ export class DeviceService extends PortBearingService<Device> {
         this._baseUrl = DeviceUrl(this.dmService.baseUrl, url);
     }
 
-    uniqueQuery(): Observable<Device> {
-        return <Observable<Device>> this.dmService.devs(this.uniqueId);
+    uniqueQuery$(): Observable<Device> {
+        return <Observable<Device>> this.dmService.devs$(this.uniqueId);
     }
 
-    public configure(properties: PropertySet): Observable<DevicePropertyCommandResponse> {
+    public configure$(properties: PropertySet): Observable<DevicePropertyCommandResponse> {
         let command = new DevicePropertyCommand('configure', properties);
-        return this.sendDevicePropertyCommand(command);
+        return this.sendDevicePropertyCommand$(command);
     }
 
-    public allocate(properties: PropertySet): Observable<DevicePropertyCommandResponse> {
+    public allocate$(properties: PropertySet): Observable<DevicePropertyCommandResponse> {
         let command = new DevicePropertyCommand('allocate', properties);
-        return this.sendDevicePropertyCommand(command);
+        return this.sendDevicePropertyCommand$(command);
     }
 
-    public deallocate(properties: PropertySet): Observable<DevicePropertyCommandResponse> {
+    public deallocate$(properties: PropertySet): Observable<DevicePropertyCommandResponse> {
         let command = new DevicePropertyCommand('deallocate', properties);
-        return this.sendDevicePropertyCommand(command);
+        return this.sendDevicePropertyCommand$(command);
     }
 
-    private sendDevicePropertyCommand(command: DevicePropertyCommand): Observable<DevicePropertyCommandResponse> {
+    private sendDevicePropertyCommand$(command: DevicePropertyCommand): Observable<DevicePropertyCommandResponse> {
         return this.http
             .put(PropertyUrl(this.baseUrl), command)
             .map(response => response.json() as DevicePropertyCommandResponse)

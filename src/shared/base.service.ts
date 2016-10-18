@@ -1,6 +1,6 @@
 import { Http }       from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Subject }    from 'rxjs/Subject';
 
 export abstract class BaseService<T> {
 
@@ -35,7 +35,7 @@ export abstract class BaseService<T> {
         return this._baseUrl;
     }
 
-    get model(): Observable<T> {
+    get model$(): Observable<T> {
         if (!this._configured) {
             console.error('UniqueId Not set!');
         }
@@ -44,7 +44,7 @@ export abstract class BaseService<T> {
 
     // Get an instance of the _model and configure any automated maintenance of
     // that instance.  Also setup _baseUrl to this instance
-    protected abstract uniqueQuery(): Observable<T>;
+    protected abstract uniqueQuery$(): Observable<T>;
 
     // Update _baseUrl
     protected abstract setBaseUrl(url: string): void;
@@ -52,7 +52,7 @@ export abstract class BaseService<T> {
     // Pass the observable to this method to update your local model
     // NOTE: Setting the uniqueID of this service triggers this update.
     protected update(obj?: Observable<T>) {
-        let inst = obj || this.uniqueQuery();
+        let inst: Observable<T> = obj || this.uniqueQuery$();
         inst.subscribe(o => this._model.next(o));
     }
 

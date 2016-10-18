@@ -36,7 +36,7 @@ export class ArDomainDirective implements OnInit, OnDestroy, OnChanges {
         if (changes.hasOwnProperty('arDomain')) {
             this.service.uniqueId = this.domainId;
             if (!this.subscription) {
-                this.subscription = this.service.model.subscribe(it => this.model = it);
+                this.subscription = this.service.model$.subscribe(it => this.model = it);
             }
         }
     }
