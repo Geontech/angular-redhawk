@@ -18,8 +18,8 @@ import {
 import {
     Waveform,
     WaveformControlCommand,
-    WaveformControlCommandResponse,
-    WaveformReleaseResponse
+    IWaveformControlCommandResponse,
+    IWaveformReleaseResponse
 } from './waveform';
 
 // Child models
@@ -56,27 +56,27 @@ export class WaveformService extends PortBearingService<Waveform> {
         }
     }
 
-    public start$(): Observable<WaveformControlCommandResponse> {
+    public start$(): Observable<IWaveformControlCommandResponse> {
         let command = new WaveformControlCommand(true);
         return this.controlCommand$(command);
     }
 
-    public stop$(): Observable<WaveformControlCommandResponse> {
+    public stop$(): Observable<IWaveformControlCommandResponse> {
         let command = new WaveformControlCommand(false);
         return this.controlCommand$(command);
     }
 
-    public release$(): Observable<WaveformReleaseResponse> {
+    public release$(): Observable<IWaveformReleaseResponse> {
         return this.http
             .delete(this.baseUrl)
-            .map(response => response.json() as WaveformReleaseResponse)
+            .map(response => response.json() as IWaveformReleaseResponse)
             .catch(this.handleError);
     }
 
-    private controlCommand$(command: WaveformControlCommand): Observable<WaveformControlCommandResponse> {
+    private controlCommand$(command: WaveformControlCommand): Observable<IWaveformControlCommandResponse> {
         return this.http
             .put(this.baseUrl, command)
-            .map(response => response.json() as WaveformControlCommandResponse)
+            .map(response => response.json() as IWaveformControlCommandResponse)
             .catch(this.handleError);
     }
 }

@@ -1,37 +1,63 @@
-import { Resource, ResourceRefs } from '../shared/resource';
+import {
+    Resource,
+    ResourceRefs,
+    deserializeResourceRefs
+} from '../shared/resource';
+
+import { ISerializable } from '../shared/serializable';
 
 // Waveform model
-export class Waveform extends Resource {
+export class Waveform extends Resource implements ISerializable<Waveform> {
     public components: ResourceRefs;
+
+    deserialize(input: any) {
+        super.deserialize(input);
+        this.components = deserializeResourceRefs(input.components);
+        return this;
+    }
 }
 
 // Waveform SAD model
-export class WaveformSAD {
+export class WaveformSAD implements ISerializable<WaveformSAD> {
     public name: string;
     public sad: string;
+
+    deserialize(input: any) {
+        this.name = input.name;
+        this.sad = input.sad;
+        return this;
+    }
 }
 export type WaveformSADRefs = Array<WaveformSAD>;
+
+export function deserializeWaveformSADRefs (input: any): WaveformSADRefs {
+    let refs: WaveformSADRefs = [];
+    for (let ref of input) {
+        refs.push(new WaveformSAD().deserialize(ref));
+    }
+    return refs;
+}
 
 // Waveform Launch Command and Response
 export class WaveformLaunchCommand {
     constructor(name: string, started: boolean) { /** */ }
 }
-export class WaveformLaunchCommandResponse {
-    public launched: string;
-    public applications: ResourceRefs;
+export interface IWaveformLaunchCommandResponse {
+    launched: string;
+    applications: ResourceRefs;
 }
 
 // Waveform release response
-export class WaveformReleaseResponse {
-    public released: string;
-    public applications: ResourceRefs;
+export interface IWaveformReleaseResponse {
+    released: string;
+    applications: ResourceRefs;
 }
 
 // Waveform Control and  Response
 export class WaveformControlCommand {
     constructor(started: boolean) { /** */ }
 }
-export class WaveformControlCommandResponse {
-    public id: string;
-    public started: boolean;
+export interface IWaveformControlCommandResponse {
+    id: string;
+    started: boolean;
 }

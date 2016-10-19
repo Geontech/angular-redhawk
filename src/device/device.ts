@@ -5,13 +5,18 @@ import { PropertySet, PropertyCommand } from '../property/property';
 export class Device extends Resource { }
 
 // Specialized property command and response structures
-export class DevicePropertyCommand extends PropertyCommand {
+export interface IDevicePropertyCommand extends PropertyCommand {
+    method: DevicePropertyCommandType;
+}
+export class DevicePropertyCommand
+        extends PropertyCommand
+        implements IDevicePropertyCommand {
     constructor(
-        method: DevicePropertyCommandType,
+        public method: DevicePropertyCommandType,
         properties: PropertySet
     ) { super(properties); }
 }
-export class DevicePropertyCommandResponse {
+export interface IDevicePropertyCommandResponse {
     method: DevicePropertyCommandType;
     status: boolean;
     message: string;

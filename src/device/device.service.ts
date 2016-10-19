@@ -18,7 +18,7 @@ import {
 import {
     Device,
     DevicePropertyCommand,
-    DevicePropertyCommandResponse
+    IDevicePropertyCommandResponse
 } from './device';
 
 // Child models
@@ -40,25 +40,28 @@ export class DeviceService extends PortBearingService<Device> {
         return <Observable<Device>> this.dmService.devs$(this.uniqueId);
     }
 
-    public configure$(properties: PropertySet): Observable<DevicePropertyCommandResponse> {
+    public configure$(properties: PropertySet): Observable<IDevicePropertyCommandResponse> {
         let command = new DevicePropertyCommand('configure', properties);
         return this.sendDevicePropertyCommand$(command);
     }
 
-    public allocate$(properties: PropertySet): Observable<DevicePropertyCommandResponse> {
+    public allocate$(properties: PropertySet): Observable<IDevicePropertyCommandResponse> {
         let command = new DevicePropertyCommand('allocate', properties);
         return this.sendDevicePropertyCommand$(command);
     }
 
-    public deallocate$(properties: PropertySet): Observable<DevicePropertyCommandResponse> {
+    public deallocate$(properties: PropertySet): Observable<IDevicePropertyCommandResponse> {
         let command = new DevicePropertyCommand('deallocate', properties);
         return this.sendDevicePropertyCommand$(command);
     }
 
-    private sendDevicePropertyCommand$(command: DevicePropertyCommand): Observable<DevicePropertyCommandResponse> {
+    private sendDevicePropertyCommand$(command: DevicePropertyCommand): Observable<IDevicePropertyCommandResponse> {
         return this.http
             .put(PropertyUrl(this.baseUrl), command)
-            .map(response => response.json() as DevicePropertyCommandResponse)
+            .map(response => {
+                    this.delayedUpdate();
+                    return response.json() as IDevicePropertyCommandResponse;
+                })
             .catch(this.handleError);
     }
 }

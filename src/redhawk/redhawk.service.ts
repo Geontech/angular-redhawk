@@ -23,7 +23,7 @@ export class RedhawkService extends BaseService<Redhawk> {
     uniqueQuery$(): Observable<Redhawk> {
         return this.http
             .get(DomainUrl(this.baseUrl))
-            .map(res => res.json() as Redhawk)
+            .map(res => new Redhawk().deserialize(res.json()))
             .catch(this.handleError);
     }
 
@@ -39,7 +39,7 @@ export class RedhawkService extends BaseService<Redhawk> {
     public attach$(domainId: string): Observable<Domain> {
         return this.http
             .get(DomainUrl(this.baseUrl, domainId))
-            .map(response => response.json() as Domain)
+            .map(response => new Domain().deserialize(response.json()))
             .catch(this.handleError);
     }
 }

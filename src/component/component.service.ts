@@ -39,5 +39,6 @@ export class ComponentService extends PortBearingService<Component> {
     configure(properties: PropertySet): void {
         let command = new PropertyCommand(properties);
         this.http.put(PropertyUrl(this.baseUrl), command);
+        this.delayedUpdate();
     }
 }
