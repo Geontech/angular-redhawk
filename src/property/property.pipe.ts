@@ -5,7 +5,8 @@ import { Property, PropertySet } from './property';
 @Pipe({name: 'arProperty'})
 export class ArPropertyPipe implements PipeTransform {
     transform(properties: PropertySet, id: string): Property {
-        return properties.filter(prop => prop.id === id)[0] || undefined;
+        let p = properties.filter(prop => prop.id === id)[0] || undefined;
+        return p;
     }
 }
 

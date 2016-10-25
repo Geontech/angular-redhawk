@@ -69,7 +69,7 @@ export class SimpleCommon extends Property {
  * @class A 'simple' Property
  */
 export class SimpleProperty extends SimpleCommon implements ISerializable<SimpleProperty> {
-    value: SimpleValueType = '';
+    value: SimpleValueType;
     scaType: ScaSimpleType = 'simple';
 
     deserialize(input: any) {
@@ -86,7 +86,7 @@ export class SimpleProperty extends SimpleCommon implements ISerializable<Simple
  * @class A 'simpleSeq' Property
  */
 export class SimpleSeqProperty extends SimpleCommon implements ISerializable<SimpleSeqProperty> {
-    value: SimpleSeqValueType = [];
+    value: SimpleSeqValueType;
     scaType: ScaSimpleSeqType = 'simpleSeq';
 
     deserialize(input: any) {
@@ -103,7 +103,7 @@ export class SimpleSeqProperty extends SimpleCommon implements ISerializable<Sim
  * @class A 'struct' Property
  */
 export class StructProperty extends Property implements ISerializable<StructProperty> {
-    value: StructValueType = [];
+    value: StructValueType;
     scaType: ScaStructType = 'struct';
 
     /**
@@ -149,7 +149,7 @@ export class StructProperty extends Property implements ISerializable<StructProp
  * @class A 'structSeq' Property
  */
 export class StructSeqProperty extends Property implements ISerializable<StructSeqProperty> {
-    value: StructSeqValueType = [];
+    value: StructSeqValueType;
     scaType: ScaStructSeqType = 'structSeq';
 
     deserialize(input: any) {
