@@ -25,7 +25,7 @@ import { Port } from './port';
     selector: '[arPort]',
     providers: [ PortService ]
 })
-export class ArPort implements OnInit, OnDestroy, OnChanges {
+export class ArPortDirective implements OnInit, OnDestroy, OnChanges {
 
     @Input('arPort') portId: string;
 
@@ -56,7 +56,7 @@ export class ArPort implements OnInit, OnDestroy, OnChanges {
         if (changes.hasOwnProperty('arPort')) {
             this.service.uniqueId = this.portId;
             if (!this.subscription) {
-                this.subscription = this.service.model.subscribe(it => this.model = it);
+                this.subscription = this.service.model$.subscribe(it => this.model = it);
             }
         }
     }

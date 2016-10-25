@@ -12,7 +12,7 @@ import { Redhawk } from './redhawk';
     selector: '[arRedhawk]',
     providers: [ RedhawkService ]
 })
-export class ArRedhawk implements OnInit, OnDestroy {
+export class ArRedhawkDirective implements OnInit, OnDestroy {
     public model: Redhawk = new Redhawk();
 
     private subscription: Subscription;
@@ -21,7 +21,7 @@ export class ArRedhawk implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.service.uniqueId = 'Angular-REDHAWK';
-        this.subscription = this.service.model.subscribe(it => this.model = it);
+        this.subscription = this.service.model$.subscribe(it => this.model = it);
     }
 
     ngOnDestroy() {

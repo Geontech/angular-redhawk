@@ -19,7 +19,7 @@ import { Domain }        from './domain';
     providers: [ DomainService ]
 })
 
-export class ArDomain implements OnInit, OnDestroy, OnChanges {
+export class ArDomainDirective implements OnInit, OnDestroy, OnChanges {
 
     @Input('arDomain') domainId: string;
 
@@ -36,7 +36,7 @@ export class ArDomain implements OnInit, OnDestroy, OnChanges {
         if (changes.hasOwnProperty('arDomain')) {
             this.service.uniqueId = this.domainId;
             if (!this.subscription) {
-                this.subscription = this.service.model.subscribe(it => this.model = it);
+                this.subscription = this.service.model$.subscribe(it => this.model = it);
             }
         }
     }

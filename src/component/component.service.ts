@@ -18,7 +18,7 @@ import {
 import { Component }  from './component';
 
 // Child models
-import { PropertySet, PropertyCommand } from '../shared/property';
+import { PropertySet, PropertyCommand } from '../property/property';
 
 @Injectable()
 export class ComponentService extends PortBearingService<Component> {
@@ -32,12 +32,13 @@ export class ComponentService extends PortBearingService<Component> {
         this._baseUrl = ComponentUrl(this.waveformService.baseUrl, url);
     }
 
-    uniqueQuery(): Observable<Component> {
-        return <Observable<Component>> this.waveformService.comps(this.uniqueId);
+    uniqueQuery$(): Observable<Component> {
+        return <Observable<Component>> this.waveformService.comps$(this.uniqueId);
     }
 
     configure(properties: PropertySet): void {
         let command = new PropertyCommand(properties);
         this.http.put(PropertyUrl(this.baseUrl), command);
+        this.delayedUpdate();
     }
 }

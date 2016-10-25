@@ -31,15 +31,15 @@ export class DeviceManagerService extends BaseService<DeviceManager> {
         this._baseUrl = DeviceManagerUrl(this.domainService.baseUrl, url);
     }
 
-    uniqueQuery(): Observable<DeviceManager> {
-        return <Observable<DeviceManager>> this.domainService.devMgrs(this.uniqueId);
+    uniqueQuery$(): Observable<DeviceManager> {
+        return <Observable<DeviceManager>> this.domainService.devMgrs$(this.uniqueId);
     }
 
-    public devs(deviceId?: string): Observable<Device> | Observable<ResourceRefs> {
-        return this.domainService.devices(this.uniqueId, deviceId);
+    public devs$(deviceId?: string): Observable<Device> | Observable<ResourceRefs> {
+        return this.domainService.devices$(this.uniqueId, deviceId);
     }
 
-    public services(serviceId?: string): Observable<any> | Observable<any[]> {
+    public services$(serviceId?: string): Observable<any> | Observable<any[]> {
         if (serviceId) {
             return this.http
                 .get(ServiceUrl(this.baseUrl, serviceId))

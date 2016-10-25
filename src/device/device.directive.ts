@@ -19,7 +19,7 @@ import { Device }        from './device';
     providers: [ DeviceService ]
 })
 
-export class ArDevice implements OnInit, OnDestroy, OnChanges {
+export class ArDeviceDirective implements OnInit, OnDestroy, OnChanges {
 
     @Input('arDevice') deviceId: string;
 
@@ -36,7 +36,7 @@ export class ArDevice implements OnInit, OnDestroy, OnChanges {
         if (changes.hasOwnProperty('arDevice')) {
             this.service.uniqueId = this.deviceId;
             if (!this.subscription) {
-                this.subscription = this.service.model.subscribe(it => this.model = it);
+                this.subscription = this.service.model$.subscribe(it => this.model = it);
             }
         }
     }

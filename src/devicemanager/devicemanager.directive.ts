@@ -18,7 +18,7 @@ import { DeviceManager }        from './devicemanager';
     selector: '[arDeviceManager]',
     providers: [ DeviceManagerService ]
 })
-export class ArDeviceManager implements OnInit, OnDestroy, OnChanges {
+export class ArDeviceManagerDirective implements OnInit, OnDestroy, OnChanges {
     @Input('arDeviceManager') deviceManagerId: string;
 
     public model: DeviceManager = new DeviceManager();
@@ -35,7 +35,7 @@ export class ArDeviceManager implements OnInit, OnDestroy, OnChanges {
         if (changes.hasOwnProperty('arDeviceManager')) {
             this.service.uniqueId = this.deviceManagerId;
             if (!this.subscription) {
-                this.subscription = this.service.model.subscribe(it => this.model = it);
+                this.subscription = this.service.model$.subscribe(it => this.model = it);
             }
         }
     }

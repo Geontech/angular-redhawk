@@ -1,15 +1,17 @@
 import { NgModule }     from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-// Angular REDHAWK Component interfaces to services
-import { ArRedhawk }            from './redhawk/redhawk.directive';
-import { RedhawkService }       from './redhawk/redhawk.service';
-import { ArDomain }             from './domain/domain.directive';
-import { ArDeviceManager }      from './devicemanager/devicemanager.directive';
-import { ArWaveform }           from './waveform/waveform.directive';
-import { ArDevice }             from './device/device.directive';
-import { ArComponent }          from './component/component.directive';
-import { ArPort }               from './port/port.directive';
+// Angular REDHAWK Directive interfaces to services
+import { ArRedhawkDirective }            from './redhawk/redhawk.directive';
+import { ArDomainDirective }             from './domain/domain.directive';
+import { ArDeviceManagerDirective }      from './devicemanager/devicemanager.directive';
+import { ArWaveformDirective }           from './waveform/waveform.directive';
+import { ArDeviceDirective }             from './device/device.directive';
+import { ArComponentDirective }          from './component/component.directive';
+import { ArPortDirective }               from './port/port.directive';
+
+// Pipes
+import { ArPropertyPipe, ArPropertiesPipe } from './property/property.pipe';
 
 // Useful services
 export { RedhawkService }       from './redhawk/redhawk.service';
@@ -21,6 +23,9 @@ export { DeviceService }        from './device/device.service';
 export { ComponentService }     from './component/component.service';
 export { PortService }          from './port/port.service';
 
+// Top Service
+import { RedhawkService } from './redhawk/redhawk.service';
+
 // Models
 export * from './redhawk/redhawk';
 export * from './domain/domain';
@@ -30,7 +35,7 @@ export * from './waveform/waveform';
 export * from './device/device';
 export * from './component/component';
 export * from './port/port';
-export * from './shared/property';
+export * from './property/property';
 
 @NgModule({
     imports:      [
@@ -38,23 +43,29 @@ export * from './shared/property';
     ],
     exports:      [
         // High-level interfaces
-        ArRedhawk,
-        ArDomain,
-        ArDeviceManager,
-        ArDevice,
-        ArWaveform,
-        ArComponent,
-        ArPort
+        ArRedhawkDirective,
+        ArDomainDirective,
+        ArDeviceManagerDirective,
+        ArDeviceDirective,
+        ArWaveformDirective,
+        ArComponentDirective,
+        ArPortDirective,
+        // Pipes
+        ArPropertyPipe,
+        ArPropertiesPipe
     ],
     declarations: [
         // High-level interfaces
-        ArRedhawk,
-        ArDomain,
-        ArDeviceManager,
-        ArDevice,
-        ArWaveform,
-        ArComponent,
-        ArPort
+        ArRedhawkDirective,
+        ArDomainDirective,
+        ArDeviceManagerDirective,
+        ArDeviceDirective,
+        ArWaveformDirective,
+        ArComponentDirective,
+        ArPortDirective,
+        // Pipes
+        ArPropertyPipe,
+        ArPropertiesPipe
     ],
     providers:    [
         // This is the only global service

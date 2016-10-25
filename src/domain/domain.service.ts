@@ -25,12 +25,24 @@ import {
     Waveform,
     WaveformSADRefs,
     WaveformLaunchCommand,
-    WaveformLaunchCommandResponse
+    IWaveformLaunchCommandResponse,
+    deserializeWaveformSADRefs
 } from '../waveform/waveform';
-import { DeviceManager, DeviceManagerRefs } from '../devicemanager/devicemanager';
+
+import {
+    DeviceManager,
+    DeviceManagerRefs,
+    deserializeDeviceManagerRefs
+} from '../devicemanager/devicemanager';
+
 import { Device } from '../device/device';
-import { ResourceRefs } from '../shared/resource';
-import { PropertySet, PropertyCommand } from '../shared/property';
+
+import {
+    ResourceRefs,
+    deserializeResourceRefs
+} from '../shared/resource';
+
+import { PropertySet, PropertyCommand } from '../property/property';
 
 @Injectable()
 export class DomainService extends BaseService<Domain> {
@@ -43,8 +55,8 @@ export class DomainService extends BaseService<Domain> {
         this._baseUrl = DomainUrl(this.redhawkService.baseUrl, url);
     }
 
-    uniqueQuery(): Observable<Domain> {
-        return this.redhawkService.attach(this.uniqueId);
+    uniqueQuery$(): Observable<Domain> {
+        return this.redhawkService.attach$(this.uniqueId);
     }
 
     // Configure properties
@@ -52,69 +64,72 @@ export class DomainService extends BaseService<Domain> {
         let command = new PropertyCommand(properties);
         this.http
             .put(PropertyUrl(this.baseUrl), command)
-            .map(response => this.update())
             .catch(this.handleError);
+        this.delayedUpdate();
     }
 
     // Get a list of running apps or a specific instance
-    public apps(waveformId?: string): Observable<Waveform> | Observable<ResourceRefs> {
+    public apps$(waveformId?: string): Observable<Waveform> | Observable<ResourceRefs> {
         if (waveformId) {
             return this.http
                 .get(WaveformUrl(this.baseUrl, waveformId))
-                .map(response => response.json() as Waveform)
+                .map(response => new Waveform().deserialize(response.json()))
                 .catch(this.handleError);
         } else {
             return this.http
                 .get(WaveformUrl(this.baseUrl))
-                .map(response => response.json().applications as ResourceRefs)
+                .map(response => deserializeResourceRefs(response.json().applications))
                 .catch(this.handleError);
         }
     }
 
     // Get a list of launchable waveforms
-    public catalogSads(): Observable<WaveformSADRefs> {
+    public catalogSads$(): Observable<WaveformSADRefs> {
         return this.http
             .get(WaveformUrl(this.baseUrl))
-            .map(response => response.json().waveforms as WaveformSADRefs)
+            .map(response => deserializeWaveformSADRefs(response.json().waveforms))
             .catch(this.handleError);
     }
 
     // Launch a waveform
-    public launch(waveformName: string, started?: boolean): Observable<WaveformLaunchCommandResponse> {
+    public launch$(waveformName: string, started?: boolean): Observable<IWaveformLaunchCommandResponse> {
         let command = new WaveformLaunchCommand(waveformName, started || false);
         return this.http
             .post(WaveformUrl(this.baseUrl), command)
-            .map(response => response.json() as WaveformLaunchCommandResponse)
+            .map(response => {
+                this.delayedUpdate();
+                return response.json() as IWaveformLaunchCommandResponse;
+            })
             .catch(this.handleError);
     }
 
     // Get a list of device managers or a specific instance
-    public devMgrs(deviceManagerId?: string): Observable<DeviceManager> | Observable<DeviceManagerRefs> {
+    public devMgrs$(deviceManagerId?: string): Observable<DeviceManager> | Observable<DeviceManagerRefs> {
         if (deviceManagerId) {
             return this.http
                 .get(DeviceManagerUrl(this.baseUrl, deviceManagerId))
-                .map(response => response.json() as DeviceManager)
+                .map(response => new DeviceManager().deserialize(response.json()))
                 .catch(this.handleError);
         } else {
             return this.http
                 .get(DeviceManagerUrl(this.baseUrl))
-                .map(response => response.json().deviceManagers as DeviceManagerRefs)
+                .map(response => deserializeDeviceManagerRefs(response.json().deviceManagers))
                 .catch(this.handleError);
         }
     }
 
     // Get a list of devices or a specific instance
-    public devices(deviceManagerId: string, deviceId?: string): Observable<Device> | Observable<ResourceRefs> {
+    public devices$(deviceManagerId: string, deviceId?: string): Observable<Device> | Observable<ResourceRefs> {
         let devMgrUrl = DeviceManagerUrl(this.baseUrl, deviceManagerId);
         if (deviceId) {
             return this.http
                 .get(DeviceUrl(devMgrUrl, deviceId))
-                .map(response => response.json() as Device)
+                .map(response => new Device().deserialize(response.json()))
                 .catch(this.handleError);
         } else {
             return this.http
                 .get(DeviceUrl(devMgrUrl))
-                .map(response => response.json().devices as ResourceRefs)
+                .map(response => deserializeResourceRefs(response.json().devices))
                 .catch(this.handleError);
         }
     }

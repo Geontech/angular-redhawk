@@ -6,19 +6,24 @@ import { BaseService } from '../shared/base.service';
 
 import { PortUrl } from '../shared/config.service';
 
-import { Port } from './port';
+import {
+    Port,
+    Ports,
+    deserializePort,
+    deserializePorts
+} from './port';
 
 export abstract class PortBearingService<T> extends BaseService<T> {
-    ports(portName?: string): Observable<Port> | Observable<Array<Port>> {
+    ports$(portName?: string): Observable<Port> | Observable<Ports> {
         if (portName) {
             return this.http
                 .get(PortUrl(this.baseUrl, portName))
-                .map(response => response.json() as Port)
+                .map(response => deserializePort(response.json()))
                 .catch(this.handleError);
         } else {
             return this.http
                 .get(PortUrl(this.baseUrl))
-                .map(response => response.json().ports as Array<Port>)
+                .map(response => deserializePorts(response.json().ports))
                 .catch(this.handleError);
         }
     }

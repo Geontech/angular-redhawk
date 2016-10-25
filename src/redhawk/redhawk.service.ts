@@ -20,15 +20,15 @@ export class RedhawkService extends BaseService<Redhawk> {
         this._baseUrl = RedhawkUrl();
     }
 
-    uniqueQuery(): Observable<Redhawk> {
+    uniqueQuery$(): Observable<Redhawk> {
         return this.http
             .get(DomainUrl(this.baseUrl))
-            .map(res => res.json() as Redhawk)
+            .map(res => new Redhawk().deserialize(res.json()))
             .catch(this.handleError);
     }
 
     // Get a list of online domain names
-    public scan(): Observable<string[]> {
+    public scan$(): Observable<string[]> {
         return this.http
             .get(DomainUrl(this.baseUrl))
             .map(response => response.json().domains as string[])
@@ -36,10 +36,10 @@ export class RedhawkService extends BaseService<Redhawk> {
     }
 
     // Get the named domain model
-    public attach(domainId: string): Observable<Domain> {
+    public attach$(domainId: string): Observable<Domain> {
         return this.http
             .get(DomainUrl(this.baseUrl, domainId))
-            .map(response => response.json() as Domain)
+            .map(response => new Domain().deserialize(response.json()))
             .catch(this.handleError);
     }
 }
