@@ -23,6 +23,7 @@ import { Port } from './port';
 
 @Directive({
     selector: '[arPort]',
+    exportAs: 'arPort',
     providers: [ PortService ]
 })
 export class ArPortDirective implements OnInit, OnDestroy, OnChanges {

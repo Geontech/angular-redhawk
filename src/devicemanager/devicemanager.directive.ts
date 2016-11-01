@@ -16,6 +16,7 @@ import { DeviceManager }        from './devicemanager';
 
 @Directive({
     selector: '[arDeviceManager]',
+    exportAs: 'arDeviceManager',
     providers: [ DeviceManagerService ]
 })
 export class ArDeviceManagerDirective implements OnInit, OnDestroy, OnChanges {

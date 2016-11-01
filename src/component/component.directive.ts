@@ -16,6 +16,7 @@ import { Component } from './component';
 
 @Directive({
     selector: '[arComponent]',
+    exportAs: 'arComponent',
     providers: [ ComponentService ]
 })
 
