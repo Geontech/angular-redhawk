@@ -21,6 +21,7 @@ export class DeviceManager extends DeviceManagerRef implements ISerializable<Dev
     services: ResourceRefs;
 
     deserialize(input: any) {
+        super.deserialize(input);
         this.properties = deserializeProperties(input.properties);
         this.devices = deserializeResourceRefs(input.devices);
         this.services = deserializeResourceRefs(input.services);
@@ -28,9 +29,12 @@ export class DeviceManager extends DeviceManagerRef implements ISerializable<Dev
     }
 }
 
-export function deserializeDeviceManagerRefs(input: any): DeviceManagerRefs {
+export function deserializeDeviceManagerRefs(inputs?: any): DeviceManagerRefs {
+    if (!inputs) {
+        return [];
+    }
     let refs: DeviceManagerRefs = [];
-    for (let ref of input) {
+    for (let ref of inputs) {
         refs.push(new DeviceManagerRef().deserialize(ref));
     }
     return refs;

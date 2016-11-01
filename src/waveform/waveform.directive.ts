@@ -4,8 +4,7 @@ import {
     OnDestroy,
     OnChanges,
     SimpleChanges,
-    Input,
-    Host
+    Input
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -29,11 +28,11 @@ export class ArWaveformDirective implements OnInit, OnDestroy, OnChanges {
 
     constructor(
         private service: WaveformService,
-        @Host() private parentService: DomainService
+        private parentService: DomainService
         ) { }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.hasOwnProperty('arWaveform')) {
+        if (changes.hasOwnProperty('waveformId')) {
             this.service.uniqueId = this.waveformId;
             if (!this.subscription) {
                 this.subscription = this.service.model$.subscribe(it => this.model = it);

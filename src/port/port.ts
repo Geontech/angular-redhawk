@@ -44,9 +44,12 @@ export function deserializePort(input: any): Port {
  * @param {any} input JSON Object representing a list of ports.
  * @return {Ports} The port models represented in input
  */
-export function deserializePorts(input: any): Ports {
+export function deserializePorts(inputs?: any): Ports {
+    if (!inputs) {
+        return [];
+    }
     let ports: Ports = [];
-    for (let port of input) {
+    for (let port of inputs) {
         ports.push(deserializePort(port));
     }
     return ports;

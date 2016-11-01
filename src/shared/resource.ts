@@ -48,9 +48,12 @@ export class Resource extends ResourceRef implements ISerializable<Resource> {
     }
 }
 
-export function deserializeResourceRefs(input: any): ResourceRefs {
+export function deserializeResourceRefs(inputs?: any): ResourceRefs {
+    if (!inputs) {
+        return [];
+    }
     let refs: ResourceRefs = [];
-    for (let ref of input) {
+    for (let ref of inputs) {
         refs.push(new ResourceRef().deserialize(ref));
     }
     return refs;
