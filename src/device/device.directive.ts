@@ -4,8 +4,7 @@ import {
     OnDestroy,
     OnChanges,
     SimpleChanges,
-    Input,
-    Host
+    Input
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -30,11 +29,11 @@ export class ArDeviceDirective implements OnInit, OnDestroy, OnChanges {
 
     constructor(
         private service: DeviceService,
-        @Host() private parentService: DeviceManagerService
+        private parentService: DeviceManagerService
         ) { }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.hasOwnProperty('arDevice')) {
+        if (changes.hasOwnProperty('deviceId')) {
             this.service.uniqueId = this.deviceId;
             if (!this.subscription) {
                 this.subscription = this.service.model$.subscribe(it => this.model = it);

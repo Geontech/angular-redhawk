@@ -4,8 +4,7 @@ import {
     OnDestroy,
     OnChanges,
     SimpleChanges,
-    Input,
-    Host
+    Input
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -19,7 +18,6 @@ import { Domain }        from './domain';
     exportAs: 'arDomain',
     providers: [ DomainService ]
 })
-
 export class ArDomainDirective implements OnInit, OnDestroy, OnChanges {
 
     @Input('arDomain') domainId: string;
@@ -30,11 +28,11 @@ export class ArDomainDirective implements OnInit, OnDestroy, OnChanges {
 
     constructor(
         private service: DomainService,
-        @Host() private parentService: RedhawkService
+        private parentService: RedhawkService
         ) { }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.hasOwnProperty('arDomain')) {
+        if (changes.hasOwnProperty('domainId')) {
             this.service.uniqueId = this.domainId;
             if (!this.subscription) {
                 this.subscription = this.service.model$.subscribe(it => this.model = it);

@@ -4,8 +4,7 @@ import {
     OnDestroy,
     OnChanges,
     SimpleChanges,
-    Input,
-    Host
+    Input
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -30,11 +29,11 @@ export class ArComponentDirective implements OnInit, OnDestroy, OnChanges {
 
     constructor(
         private service: ComponentService,
-        @Host() private parentService: WaveformService
+        private parentService: WaveformService
         ) { }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.hasOwnProperty('arComponent')) {
+        if (changes.hasOwnProperty('componentId')) {
             this.service.uniqueId = this.componentId;
             if (!this.subscription) {
                 this.subscription = this.service.model$.subscribe(it => this.model = it);

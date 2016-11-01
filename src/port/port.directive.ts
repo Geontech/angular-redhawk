@@ -5,7 +5,6 @@ import {
     OnChanges,
     SimpleChanges,
     Input,
-    Host,
     Optional
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
@@ -38,9 +37,9 @@ export class ArPortDirective implements OnInit, OnDestroy, OnChanges {
 
     constructor(
         private service: PortService,
-        @Host() @Optional() private _wave?: WaveformService,
-        @Host() @Optional() private _device?: DeviceService,
-        @Host() @Optional() private _component?: ComponentService
+        @Optional() private _wave?: WaveformService,
+        @Optional() private _device?: DeviceService,
+        @Optional() private _component?: ComponentService
         ) {
         if (_wave) {
             this.parentService = _wave;
@@ -54,7 +53,7 @@ export class ArPortDirective implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.hasOwnProperty('arPort')) {
+        if (changes.hasOwnProperty('portId')) {
             this.service.uniqueId = this.portId;
             if (!this.subscription) {
                 this.subscription = this.service.model$.subscribe(it => this.model = it);

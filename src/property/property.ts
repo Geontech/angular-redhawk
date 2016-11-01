@@ -206,7 +206,11 @@ export function deserializeProperty(input: any): SimpleProperty | SimpleSeqPrope
 /**
  * @param {any} inputs A JSON Object that is a list of Property objects
  */
-export function deserializeProperties(inputs: any): PropertySet {
+export function deserializeProperties(inputs?: any): PropertySet {
+    if (!inputs) {
+        return []
+    }
+    
     let props: PropertySet = [];
     for (let input of inputs) {
         props.push(deserializeProperty(input));

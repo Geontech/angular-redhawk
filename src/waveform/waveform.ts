@@ -30,9 +30,12 @@ export class WaveformSAD implements ISerializable<WaveformSAD> {
 }
 export type WaveformSADRefs = Array<WaveformSAD>;
 
-export function deserializeWaveformSADRefs (input: any): WaveformSADRefs {
+export function deserializeWaveformSADRefs (inputs?: any): WaveformSADRefs {
+    if (!inputs) {
+        return [];
+    }
     let refs: WaveformSADRefs = [];
-    for (let ref of input) {
+    for (let ref of inputs) {
         refs.push(new WaveformSAD().deserialize(ref));
     }
     return refs;
