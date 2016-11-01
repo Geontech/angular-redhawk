@@ -10,6 +10,7 @@ import { Redhawk } from './redhawk';
 
 @Directive({
     selector: '[arRedhawk]',
+    exportAs: 'arRedhawk',
     providers: [ RedhawkService ]
 })
 export class ArRedhawkDirective implements OnInit, OnDestroy {

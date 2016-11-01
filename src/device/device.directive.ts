@@ -16,6 +16,7 @@ import { Device }        from './device';
 
 @Directive({
     selector: '[arDevice]',
+    exportAs: 'arDevice',
     providers: [ DeviceService ]
 })
 

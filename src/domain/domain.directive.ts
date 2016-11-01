@@ -16,6 +16,7 @@ import { Domain }        from './domain';
 
 @Directive({
     selector: '[arDomain]',
+    exportAs: 'arDomain',
     providers: [ DomainService ]
 })
 
