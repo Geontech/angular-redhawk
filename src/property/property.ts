@@ -208,9 +208,8 @@ export function deserializeProperty(input: any): SimpleProperty | SimpleSeqPrope
  */
 export function deserializeProperties(inputs?: any): PropertySet {
     if (!inputs) {
-        return []
+        return [];
     }
-    
     let props: PropertySet = [];
     for (let input of inputs) {
         props.push(deserializeProperty(input));
