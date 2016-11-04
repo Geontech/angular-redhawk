@@ -3,6 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import { Subject }    from 'rxjs/Subject';
 
 export abstract class BaseService<T> {
+    // Returns whether or not the service is in the middle of updating the model.
+    public get isUpdating(): boolean { return this._updating; }
 
     // Unique ID of the server-side instance for this service
     protected _uniqueId: string;
@@ -15,6 +17,9 @@ export abstract class BaseService<T> {
 
     // Flag for whether or not this service is setup
     protected _configured: boolean = false;
+
+    // Internal updating flag
+    protected _updating: boolean = false;
 
     constructor(protected http: Http) {
         this._model = <Subject<T>> new Subject();
@@ -50,12 +55,16 @@ export abstract class BaseService<T> {
      *        subscribers will see.
      */
     public update(obj?: Observable<T>) {
+        this._updating = true;
         let inst: Observable<T> = obj || this.uniqueQuery$();
-        inst.subscribe(o => this._model.next(o));
+        inst.subscribe(o => {
+            this._model.next(o);
+            this._updating = false;
+        });
     }
 
     // Get an instance of the _model and configure any automated maintenance of
-    // that instance.  Also setup _baseUrl to this instance
+    // that instance.  Also setup _baseUrl to this instance.
     protected abstract uniqueQuery$(): Observable<T>;
 
     // Update _baseUrl
