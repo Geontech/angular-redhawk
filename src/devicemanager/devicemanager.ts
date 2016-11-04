@@ -20,6 +20,13 @@ export class DeviceManager extends DeviceManagerRef implements ISerializable<Dev
     devices: ResourceRefs;
     services: ResourceRefs;
 
+    constructor() {
+        super();
+        this.properties = [];
+        this.devices = [];
+        this.services = [];
+    }
+
     deserialize(input: any) {
         super.deserialize(input);
         this.properties = deserializeProperties(input.properties);

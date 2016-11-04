@@ -23,6 +23,14 @@ export class Domain implements ISerializable<Domain> {
     public deviceManagers: DeviceManagerRefs;
     public eventChannels: Array<string>;
 
+    constructor() {
+        this.properties = [];
+        this.applications = [];
+        this.waveforms = [];
+        this.deviceManagers = [];
+        this.eventChannels = [];
+    }
+
     deserialize(input: any) {
         this.name = input.name;
         this.id = input.id;

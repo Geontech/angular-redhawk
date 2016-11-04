@@ -10,6 +10,11 @@ import { ISerializable } from '../shared/serializable';
 export class Waveform extends Resource implements ISerializable<Waveform> {
     public components: ResourceRefs;
 
+    constructor() {
+        super();
+        this.components = [];
+    }
+
     deserialize(input: any) {
         super.deserialize(input);
         this.components = deserializeResourceRefs(input.components);

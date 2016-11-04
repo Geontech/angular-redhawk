@@ -5,6 +5,11 @@ export class FileSystem implements ISerializable<FileSystem> {
     directories: IFileSystemPath[];
     contents: string;
 
+    constructor() {
+        this.files = [];
+        this.directories = [];
+    }
+
     deserialize(input: any) {
         this.files = input.files;
         this.directories = input.directories;

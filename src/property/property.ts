@@ -41,6 +41,7 @@ export abstract class Property implements ISerializable<Property> {
         this.id = id;
         this.name = name;
         this.value = value;
+        this.kinds = [];
     }
 
     /** WARNING: This is a partial deserialization.  Used derived classes instead */
