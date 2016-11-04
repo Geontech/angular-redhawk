@@ -1,18 +1,15 @@
 import {
     Directive,
-    OnInit,
     OnDestroy,
     OnChanges,
     SimpleChanges,
     Input,
-    Optional
+    Output,
+    EventEmitter,
+    Optional,
+    Inject
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-
-// Parent Services
-import { WaveformService } from '../waveform/waveform.service';
-import { DeviceService } from '../device/device.service';
-import { ComponentService } from '../component/component.service';
 
 // This service
 import { PortService } from './port.service';
@@ -23,45 +20,42 @@ import { Port } from './port';
 @Directive({
     selector: '[arPort]',
     exportAs: 'arPort',
-    providers: [ PortService ]
+    providers: [ { provide: 'DefaultPortService', useClass: PortService } ]
 })
-export class ArPortDirective implements OnInit, OnDestroy, OnChanges {
+export class ArPort implements OnDestroy, OnChanges {
 
     @Input('arPort') portId: string;
 
-    public model: Port = new Port();
+    /**
+     * "Banana Syntax" [()] for accessing the model externally. 
+     */
+    @Input('arModel') model: Port;
+    @Output('arModelChange') modelChange: EventEmitter<Port>;
+
+    public get service(): PortService { return this._service; }
 
     private subscription: Subscription = null;
-
-    private parentService: WaveformService | DeviceService | ComponentService;
+    private _service: PortService;
 
     constructor(
-        private service: PortService,
-        @Optional() private _wave?: WaveformService,
-        @Optional() private _device?: DeviceService,
-        @Optional() private _component?: ComponentService
-        ) {
-        if (_wave) {
-            this.parentService = _wave;
-        } else if (_device) {
-            this.parentService = _device;
-        } else if (_component) {
-            this.parentService = _component;
-        } else {
-            console.error('Failed to provide a port bearing service');
-        }
+        @Inject('DefaultPortService') local: PortService,
+        @Optional() host: PortService) {
+            this._service = host ? host : local;
+            this.modelChange = new EventEmitter<Port>();
+            this.model = new Port();
     }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty('portId')) {
             this.service.uniqueId = this.portId;
             if (!this.subscription) {
-                this.subscription = this.service.model$.subscribe(it => this.model = it);
+                this.subscription = this.service.model$.subscribe(it => {
+                    this.model = it;
+                    this.modelChange.emit(this.model);
+                });
             }
         }
     }
-
-    ngOnInit() { /** */ }
 
     ngOnDestroy() {
         if (this.subscription) {
