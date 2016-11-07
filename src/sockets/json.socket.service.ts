@@ -49,7 +49,7 @@ export class JsonSocketService {
                         break;
 
                     case WebSocket.CLOSED:
-                        alert('WebSocket closed');
+                        alert('Attempted to send data and WebSocket is closed');
                         break;
 
                     default:

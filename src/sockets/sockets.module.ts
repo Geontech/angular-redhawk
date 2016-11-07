@@ -2,9 +2,12 @@ import { NgModule } from '@angular/core';
 
 import { JsonSocketService } from './json.socket.service';
 
-export { OdmListenerService } from './odm.listener.service';
+export { EventChannelService } from './event.channel.service';
+export { OdmListenerService } from './odm/odm.listener.service';
+export { IdmListenerService } from './idm/idm.listener.service';
 
-export { SourceCategory, OdmEvent } from './odm.event';
+export * from './odm/odm.listener.service';
+export * from './idm/idm.listener.service';
 
 @NgModule({
     providers: [

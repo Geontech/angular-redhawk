@@ -1,14 +1,18 @@
-import { Injectable } from '@angular/core';
+import {
+    Injectable,
+    ReflectiveInjector,
+    Optional
+} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 
-import { JsonSocketService } from './json.socket.service';
-
-import { EventSocketUrl } from '../shared/config.service';
+import { EventChannelService } from '../event.channel.service';
 
 import { OdmEvent, SourceCategory } from './odm.event';
-import { IEventChannelCommand } from './event.channel.command';
+
+// Export the structure and enumeration.
+export { OdmEvent, SourceCategory } from './odm.event';
 
 /**
  * The OdmListenerService is similar to the ODMListener in the REDHAWK sandbox.
@@ -18,7 +22,7 @@ import { IEventChannelCommand } from './event.channel.command';
 @Injectable()
 export class OdmListenerService {
 
-    public get events$(): Observable<OdmEvent> { return this.events.asObservable(); }
+    public get allEvents$(): Observable<OdmEvent> { return this.allEvents.asObservable(); }
 
     public get deviceManagerAdded$(): Observable<OdmEvent> { return this.deviceManagerAdded.asObservable(); }
     public get deviceManagerRemoved$(): Observable<OdmEvent> { return this.deviceManagerRemoved.asObservable(); }
@@ -31,8 +35,8 @@ export class OdmListenerService {
     public get serviceAdded$(): Observable<OdmEvent> { return this.serviceAdded.asObservable(); }
     public get serviceRemoved$(): Observable<OdmEvent> { return this.serviceRemoved.asObservable(); }
 
-    // All events and "send" interface
-    private events: Subject<OdmEvent|IEventChannelCommand>;
+    // All events
+    private allEvents: Subject<OdmEvent>;
 
     // Add/remove for individual elements.
     private deviceManagerAdded: Subject<OdmEvent>;
@@ -46,38 +50,26 @@ export class OdmListenerService {
     private serviceAdded: Subject<OdmEvent>;
     private serviceRemoved: Subject<OdmEvent>;
 
+    // The event interface
+    private eventChannel: EventChannelService;
+
 
     public connect(domainId: string) {
-        let cmd: IEventChannelCommand = {
-            command: 'ADD',
-            domainId: domainId,
-            topic: 'ODM_Channel'
-        };
-        this.events.next(cmd);
+        this.eventChannel.connect(domainId, 'ODM_Channel');
     }
 
     public disconnect(domainId: string) {
-        let cmd: IEventChannelCommand = {
-            command: 'REMOVE',
-            domainId: domainId,
-            topic: 'ODM_Channel'
-        };
-        this.events.next(cmd);
+        this.eventChannel.disconnect(domainId, 'ODM_Channel');
     }
 
-    constructor(jsonSocket: JsonSocketService) {
-        this.events = <Subject<OdmEvent>> jsonSocket
-            .connect(EventSocketUrl())
-            .map((response: MessageEvent): OdmEvent => {
-                let odm = new OdmEvent().deserialize(JSON.parse(response.data));
-                if (odm.sourceIOR) {
-                    this.handleAdd(odm);
-                } else {
-                    this.handleRemove(odm);
-                }
-                return odm;
-            });
+    constructor(@Optional() eventChannel: EventChannelService) {
+        if (!eventChannel) {
+            let injector = ReflectiveInjector.resolveAndCreate([EventChannelService]);
+            eventChannel = injector.get(EventChannelService);
+        }
+        this.eventChannel = eventChannel;
 
+        this.allEvents = new Subject<OdmEvent>();
         this.deviceManagerAdded = new Subject<OdmEvent>();
         this.deviceManagerRemoved = new Subject<OdmEvent>();
         this.deviceAdded = new Subject<OdmEvent>();
@@ -88,6 +80,18 @@ export class OdmListenerService {
         this.applicationRemoved = new Subject<OdmEvent>();
         this.serviceAdded = new Subject<OdmEvent>();
         this.serviceRemoved = new Subject<OdmEvent>();
+
+        this.eventChannel
+            .events$
+            .subscribe((data: any) => {
+                let odm = new OdmEvent().deserialize(data);
+                this.allEvents.next(odm);
+                if (odm.sourceIOR) {
+                    this.handleAdd(odm);
+                } else {
+                    this.handleRemove(odm);
+                }
+            });
     }
 
     private handleAdd(event: OdmEvent) {
