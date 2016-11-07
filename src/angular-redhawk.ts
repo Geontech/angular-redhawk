@@ -18,6 +18,8 @@ import { ComponentModule }     from './component/component.module';
 export * from './component/component.module';
 import { PortModule }          from './port/port.module';
 export * from './port/port.module';
+import { SocketsModule }       from './sockets/sockets.module';
+export * from './sockets/sockets.module';
 
 // Top Service
 import { RedhawkService } from './redhawk/redhawk.service';
@@ -36,7 +38,8 @@ import { ArPropertyPipe, ArPropertiesPipe } from './property/property.pipe';
         DeviceManagerModule,
         DeviceModule,
         ComponentModule,
-        PortModule
+        PortModule,
+        SocketsModule
     ],
     exports:      [
         // Submodules
@@ -48,6 +51,7 @@ import { ArPropertyPipe, ArPropertiesPipe } from './property/property.pipe';
         DeviceModule,
         ComponentModule,
         PortModule,
+        SocketsModule,
         // Pipes
         ArPropertyPipe,
         ArPropertiesPipe
