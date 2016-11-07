@@ -1,4 +1,8 @@
-import { Injectable } from '@angular/core';
+import {
+    Injectable,
+    Optional,
+    ReflectiveInjector
+} from '@angular/core';
 import { Http }       from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -44,12 +48,30 @@ import {
 
 import { PropertySet, PropertyCommand } from '../property/property';
 
+import { OdmListenerService } from '../sockets/odm/odm.listener.service';
+
 @Injectable()
 export class DomainService extends BaseService<Domain> {
     constructor(
         protected http: Http,
-        protected redhawkService: RedhawkService
-        ) { super(http); }
+        protected redhawkService: RedhawkService,
+        @Optional() protected odmListener: OdmListenerService
+        ) {
+        super(http);
+
+        if (!this.odmListener) {
+            let injector = ReflectiveInjector.resolveAndCreate([OdmListenerService]);
+            this.odmListener = injector.get(OdmListenerService);
+        }
+
+        // Bind update() to apps, factories, and device manager changes.
+        this.odmListener.applicationAdded$.subscribe(o => this.update());
+        this.odmListener.applicationRemoved$.subscribe(o => this.update());
+        this.odmListener.applicationFactoryAdded$.subscribe(o => this.update());
+        this.odmListener.applicationFactoryRemoved$.subscribe(o => this.update());
+        this.odmListener.deviceManagerAdded$.subscribe(o => this.update());
+        this.odmListener.deviceManagerRemoved$.subscribe(o => this.update());
+    }
 
     setBaseUrl(url: string): void {
         this._baseUrl = DomainUrl(this.redhawkService.baseUrl, url);
@@ -132,5 +154,13 @@ export class DomainService extends BaseService<Domain> {
                 .map(response => deserializeResourceRefs(response.json().devices))
                 .catch(this.handleError);
         }
+    }
+
+    protected reconfigure(id: string) {
+        if (this._uniqueId) {
+            this.odmListener.disconnect(this._uniqueId);
+        }
+        super.reconfigure(id);
+        this.odmListener.connect(this.uniqueId);
     }
 }

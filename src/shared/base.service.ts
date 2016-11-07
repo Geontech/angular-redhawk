@@ -26,10 +26,7 @@ export abstract class BaseService<T> {
     }
 
     set uniqueId(id: string) {
-        this._uniqueId = id;
-        this.setBaseUrl(id);
-        this.update();
-        this._configured = true;
+        this.reconfigure(id);
     }
 
     get uniqueId(): string {
@@ -82,5 +79,12 @@ export abstract class BaseService<T> {
      */
     protected delayedUpdate(msec?: number) {
         setTimeout(() => { this.update(); }, msec || 1000);
+    }
+
+    protected reconfigure(id: string) {
+        this._uniqueId = id;
+        this.setBaseUrl(id);
+        this.update();
+        this._configured = true;
     }
 }

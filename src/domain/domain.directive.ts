@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { DomainService } from './domain.service';
 import { Domain }        from './domain';
 
-import { OdmListenerService } from '../sockets/odm.listener.service';
+import { OdmListenerService } from '../sockets/odm/odm.listener.service';
 
 @Directive({
     selector: '[arDomain]',
@@ -38,20 +38,13 @@ export class ArDomain implements OnDestroy, OnChanges {
 
     private subscription: Subscription = null;
     private _service: DomainService;
-    private odmListener: OdmListenerService;
 
     constructor(
-            odmListener: OdmListenerService,
             @Inject('DefaultDomainService') local: DomainService,
             @Optional() host: DomainService) {
         this._service = host ? host : local;
         this.modelChange = new EventEmitter<Domain>();
         this.model = new Domain();
-
-        this.odmListener = odmListener;
-        this.odmListener.events$.subscribe(o => {
-            this.service.update();
-        });
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -66,13 +59,6 @@ export class ArDomain implements OnDestroy, OnChanges {
                     this.modelChange.emit(this.model);
                 });
             }
-
-            // Update the websocket connection
-            let previous: any = changes[domainId].previousValue;
-            if (typeof previous === 'string' || previous instanceof String) {
-                this.odmListener.disconnect('' + previous);
-            }
-            this.odmListener.connect(this.domainId);
         }
     }
 
