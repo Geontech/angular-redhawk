@@ -1,14 +1,15 @@
 import {
     Directive,
-    OnInit,
     OnDestroy,
     OnChanges,
     SimpleChanges,
-    Input
+    Input,
+    Output,
+    EventEmitter,
+    Optional,
+    Inject
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-
-import { WaveformService } from '../waveform/waveform.service';
 
 import { ComponentService } from './component.service';
 import { Component } from './component';
@@ -16,32 +17,43 @@ import { Component } from './component';
 @Directive({
     selector: '[arComponent]',
     exportAs: 'arComponent',
-    providers: [ ComponentService ]
+    providers: [ { provide: 'DefaultComponentService', useClass: ComponentService } ]
 })
 
-export class ArComponentDirective implements OnInit, OnDestroy, OnChanges {
+export class ArComponent implements OnDestroy, OnChanges {
 
     @Input('arComponent') componentId: string;
 
-    public model: Component = new Component();
+    /**
+     * "Banana Syntax" [()] for accessing the model externally. 
+     */
+    @Input('arModel') model: Component;
+    @Output('arModelChange') modelChange: EventEmitter<Component>;
+
+    public get service(): ComponentService { return this._service; }
 
     private subscription: Subscription = null;
+    private _service: ComponentService;
 
     constructor(
-        private service: ComponentService,
-        private parentService: WaveformService
-        ) { }
+        @Inject('DefaultComponentService') local: ComponentService,
+        @Optional() host: ComponentService) {
+            this._service = host ? host : local;
+            this.modelChange = new EventEmitter<Component>();
+            this.model = new Component();
+    }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty('componentId')) {
             this.service.uniqueId = this.componentId;
             if (!this.subscription) {
-                this.subscription = this.service.model$.subscribe(it => this.model = it);
+                this.subscription = this.service.model$.subscribe(it => {
+                    this.model = it;
+                    this.modelChange.emit(this.model);
+                });
             }
         }
     }
-
-    ngOnInit() { /** */ }
 
     ngOnDestroy() {
         if (this.subscription) {

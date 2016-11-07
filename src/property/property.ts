@@ -41,6 +41,7 @@ export abstract class Property implements ISerializable<Property> {
         this.id = id;
         this.name = name;
         this.value = value;
+        this.kinds = [];
     }
 
     /** WARNING: This is a partial deserialization.  Used derived classes instead */
@@ -208,9 +209,8 @@ export function deserializeProperty(input: any): SimpleProperty | SimpleSeqPrope
  */
 export function deserializeProperties(inputs?: any): PropertySet {
     if (!inputs) {
-        return []
+        return [];
     }
-    
     let props: PropertySet = [];
     for (let input of inputs) {
         props.push(deserializeProperty(input));

@@ -21,6 +21,12 @@ export class Resource extends ResourceRef implements ISerializable<Resource> {
     public properties: PropertySet;
     public ports: Ports;
 
+    constructor() {
+        super();
+        this.properties = [];
+        this.ports = [];
+    }
+
     public property(id: string): Property {
         for (let prop of this.properties) {
             if (prop.id === id) {

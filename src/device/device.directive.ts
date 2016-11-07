@@ -1,14 +1,15 @@
 import {
     Directive,
-    OnInit,
     OnDestroy,
     OnChanges,
     SimpleChanges,
-    Input
+    Input,
+    Output,
+    EventEmitter,
+    Optional,
+    Inject
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-
-import { DeviceManagerService } from '../devicemanager/devicemanager.service';
 
 import { DeviceService } from './device.service';
 import { Device }        from './device';
@@ -16,32 +17,43 @@ import { Device }        from './device';
 @Directive({
     selector: '[arDevice]',
     exportAs: 'arDevice',
-    providers: [ DeviceService ]
+    providers: [ { provide: 'DefaultDeviceService', useClass: DeviceService } ]
 })
 
-export class ArDeviceDirective implements OnInit, OnDestroy, OnChanges {
+export class ArDevice implements OnDestroy, OnChanges {
 
     @Input('arDevice') deviceId: string;
 
-    public model: Device = new Device();
+    /**
+     * "Banana Syntax" [()] for accessing the model externally. 
+     */
+    @Input('arModel') model: Device;
+    @Output('arModelChange') modelChange: EventEmitter<Device>;
+
+    public get service(): DeviceService { return this._service; }
 
     private subscription: Subscription = null;
+    private _service: DeviceService;
 
     constructor(
-        private service: DeviceService,
-        private parentService: DeviceManagerService
-        ) { }
+        @Inject('DefaultDeviceService') local: DeviceService,
+        @Optional() host: DeviceService) {
+            this._service = host ? host : local;
+            this.modelChange = new EventEmitter<Device>();
+            this.model = new Device();
+    }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty('deviceId')) {
             this.service.uniqueId = this.deviceId;
             if (!this.subscription) {
-                this.subscription = this.service.model$.subscribe(it => this.model = it);
+                this.subscription = this.service.model$.subscribe(it => {
+                    this.model = it;
+                    this.modelChange.emit(this.model);
+                });
             }
         }
     }
-
-    ngOnInit() { /** */ }
 
     ngOnDestroy() {
         if (this.subscription) {

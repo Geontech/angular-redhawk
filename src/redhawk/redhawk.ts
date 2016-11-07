@@ -10,6 +10,10 @@ export interface IRedhawkEvent {
 export class Redhawk implements ISerializable<Redhawk> {
     public domains: Array<string>;
 
+    constructor() {
+        this.domains = [];
+    }
+
     deserialize(input: any) {
         this.domains = input.domains;
         return this;
