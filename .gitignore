@@ -12,3 +12,7 @@ Thumbs.db
 *.map
 *.d.ts
 dist
+
+# Definitely allow these
+!gruntfile.js
+!rollup.config.js
