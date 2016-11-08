@@ -33,7 +33,7 @@
     "gulp-inline-ng2-template": "^3.0.2",
     "gulp-typescript": "^3.1.2",
     "nyc": "^8.3.2",
-    "rxjs": "^5.0.0-beta.12",
+    "rxjs": "5.0.0-beta.12",
     "typescript": "^2.0.6",
     "typings": "^1.5.0",
     "zone.js": "^0.6.26"
@@ -59,7 +59,7 @@
     "@angular/core": "^2.1.2",
     "@angular/http": "^2.1.2",
     "@angular/platform-browser": "^2.1.2",
-    "rxjs": "^5.0.0-beta.12",
+    "rxjs": "5.0.0-beta.12",
     "typescript": "^2.0.6"
   },
   "files": [
