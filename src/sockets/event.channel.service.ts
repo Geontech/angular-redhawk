@@ -1,8 +1,4 @@
-import {
-    Injectable,
-    ReflectiveInjector,
-    Optional
-} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
@@ -10,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
 // tslint:disable-next-line:no-unused-variable
 import { map } from 'rxjs/operator/map';
 
-import { JsonSocketService } from './json.socket.service';
+import { basicSocket } from './basic.socket';
 
 import { EventSocketUrl } from '../shared/config.service';
 import { IEventChannelCommand } from './event.channel.command';
@@ -27,10 +23,10 @@ export class EventChannelService {
     /**
      * All events coming from this web socket
      */
-    public get events$(): Observable<any|RhMessage> { return this.events.asObservable(); }
+    public get events$(): Observable<any|RhMessage> { return this.socketInterface.asObservable(); }
 
     // All events and "send" interface
-    private events: Subject<any|RhMessage|IEventChannelCommand>;
+    private socketInterface: Subject<any|RhMessage|IEventChannelCommand>;
 
     /**
      * Connects to the named event channel per the provided domain ID
@@ -43,7 +39,7 @@ export class EventChannelService {
             domainId: domainId,
             topic: channelName
         };
-        this.events.next(cmd);
+        this.socketInterface.next(cmd);
     }
 
     /**
@@ -57,7 +53,7 @@ export class EventChannelService {
             domainId: domainId,
             topic: channelName
         };
-        this.events.next(cmd);
+        this.socketInterface.next(cmd);
     }
 
     /**
@@ -65,16 +61,11 @@ export class EventChannelService {
      */
     public send(payload: Object) {
         alert('This method is reserved for future use.');
-        // this.events.next(payload);
+        // this.socketInterface.next(payload);
     }
 
-    constructor(@Optional() jsonSocket: JsonSocketService) {
-        if (!jsonSocket) {
-            let injector = ReflectiveInjector.resolveAndCreate([JsonSocketService]);
-            jsonSocket = injector.get(JsonSocketService);
-        }
-        this.events = <Subject<any|RhMessage>> jsonSocket
-            .connect(EventSocketUrl())
+    constructor() {
+        this.socketInterface = <Subject<any|RhMessage>> basicSocket(EventSocketUrl())
             .map((response: MessageEvent): (any | RhMessage) => {
                 let data: any = JSON.parse(response.data);
                 if (data.hasOwnProperty('id') && data.hasOwnProperty('value')) {
