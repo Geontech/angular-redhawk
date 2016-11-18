@@ -1,5 +1,12 @@
 import { ISerializable } from '../shared/serializable';
 
+// Enumerations and resolvers
+import {
+    PortIDLNameSpace, resolvePortIDLNameSpace,
+    PortDirection,    resolvePortDirection,
+    PortIDLType,      resolvePortIDLType
+} from './enums/enums.module';
+
 export class Port implements ISerializable<Port> {
     public name: string;
     public repId: string;
@@ -9,7 +16,7 @@ export class Port implements ISerializable<Port> {
     deserialize(input: any) {
         this.name = input.name;
         this.repId = input.repId;
-        this.direction = input.direction;
+        this.direction = resolvePortDirection(input.direction);
         this.idl = new PortIDL().deserialize(input.idl);
         return this;
     }
@@ -19,18 +26,16 @@ export type Ports = Array<Port>;
 export class PortIDL implements ISerializable<PortIDL> {
     public namespace: PortIDLNameSpace;
     public version: string;
-    public type: string;
+    public type: PortIDLType;
 
     deserialize(input: any) {
-        this.namespace = input.namespace;
+        this.namespace = resolvePortIDLNameSpace(input.namespace);
         this.version = input.version;
-        this.type = input.type;
+        this.type = resolvePortIDLType(input.type);
         return this;
     }
 }
 
-export type PortDirection = 'Uses' | 'Provides';
-export type PortIDLNameSpace = 'BULKIO' | 'FRONTEND' | 'ExtendedEvent' | 'CosEventChannelAdmin';
 
 /**
  * @param {any} input JSON Object representing a port
