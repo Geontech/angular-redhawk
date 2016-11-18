@@ -55,7 +55,7 @@ export abstract class BaseService<T> {
         this._updating = true;
         let inst: Observable<T> = obj || this.uniqueQuery$();
         inst.subscribe(o => {
-            this._model.next(o);
+            this.modelUpdated(o);
             this._updating = false;
         });
     }
@@ -74,6 +74,7 @@ export abstract class BaseService<T> {
     }
 
     /**
+     * @member
      * Call this method from a function that needs a slight delay (for the server)
      * before calling update.
      */
@@ -81,10 +82,26 @@ export abstract class BaseService<T> {
         setTimeout(() => { this.update(); }, msec || 1000);
     }
 
+    /**
+     * @member
+     * This method is called when the uniqueId is set and begins the update cycle
+     * which includes reconfiguring the base URL and retrieving a fresh copy
+     * of the model for any subscribers to $model.
+     */
     protected reconfigure(id: string) {
         this._uniqueId = id;
         this.setBaseUrl(id);
         this.update();
         this._configured = true;
+    }
+
+    /**
+     * @member
+     * This method is called during update() calls and pushes the model to any
+     * subscribers of $model.  Subclasses can overload this method to either
+     * call it before or after internal changes are made related to the model.
+     */
+    protected modelUpdated(model: T) {
+        this._model.next(model);
     }
 }
