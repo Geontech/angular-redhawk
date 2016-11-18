@@ -36,7 +36,7 @@ export function PropertyUrl(baseUrl: string): string { return BaseUrl(baseUrl, '
 export function PortUrl(baseUrl: string, portId?: string): string { return BaseUrl(baseUrl, '/ports', portId); }
 
 // Entity Sockets
-export function BulkioSocketUrl(baseUrl: string, portId: string): string { return WebsocketUrl() + PortUrl(baseUrl, portId) + '/bulkio'; }
+export function BulkioSocketUrl(portUrl: string): string { return WebsocketUrl() + BaseUrl(portUrl, '/bulkio'); }
 export function RedhawkSocketUrl(): string { return WebsocketUrl() + '/redhawk'; }
 export function EventSocketUrl(): string { return WebsocketUrl() + '/events'; }
 
