@@ -1,4 +1,4 @@
-import { Injectable, Optional} from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { Http }       from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -13,9 +13,27 @@ import { ComponentService } from '../component/component.service';
 import { BaseService } from '../shared/base.service';
 
 // URL Builders
+import { PortUrl } from '../shared/config.service';
+
+// Common port "ref" and the specific ones.
 import {
-    PortUrl
-} from '../shared/config.service';
+    PortRef,
+    BulkioRef,
+    FeiAnalogTunerRef,
+    FeiDigitalTunerRef,
+    FeiGPSRef,
+    FeiNavDataRef,
+    FeiRFInfoRef,
+    FeiRFSourceRef
+} from './refs/refs.module';
+
+// Enumerations
+import {
+    PortBulkIOType,
+    PortFEIType,
+    PortIDLNameSpace,
+    PortDirection
+} from './enums/enums.module';
 
 // This model
 import { Port } from './port';
@@ -23,7 +41,18 @@ import { Port } from './port';
 @Injectable()
 export class PortService extends BaseService<Port> {
 
+    /**
+     * The port's sub-reference interfaces.  For BulkIO, this will be a
+     * BulkioRef giving connectPort and disconnectPort.  For FEI, these will
+     * be interfaces that look like those defined in the associated IDL.
+     */
+    get ref(): PortRef { return this._ref; }
+
+    // Reference to the parent service
     protected parent: WaveformService | DeviceService | ComponentService;
+
+    private _ref: PortRef;
+    private _previousUniqueID: string;
 
     constructor(
         protected http: Http,
@@ -51,11 +80,42 @@ export class PortService extends BaseService<Port> {
         return <Observable<Port>> this.parent.ports$(this.uniqueId);
     }
 
-    connect(): void {
-        // FIXME: Add websocket interface
-    }
-
-    disconnect(): void {
-        // FIXME: Add websocket interface
+    modelUpdated(model: Port) {
+        if (this._previousUniqueID !== this.uniqueId) {
+            if (model.direction === PortDirection.Uses &&
+                model.idl.namespace === PortIDLNameSpace.BULKIO &&
+                model.idl.type !== PortBulkIOType.UNKNOWN) {
+                this._ref = new BulkioRef(this.baseUrl);
+            } else if (model.direction === PortDirection.Provides &&
+                       model.idl.namespace === PortIDLNameSpace.FRONTEND) {
+                switch (model.idl.type) {
+                    case PortFEIType.AnalogTuner:
+                        this._ref = new FeiAnalogTunerRef(this.baseUrl);
+                        break;
+                    case PortFEIType.DigitalTuner:
+                        this._ref = new FeiDigitalTunerRef(this.baseUrl);
+                        break;
+                    case PortFEIType.GPS:
+                        this._ref = new FeiGPSRef(this.baseUrl);
+                        break;
+                    case PortFEIType.NavData:
+                        this._ref = new FeiNavDataRef(this.baseUrl);
+                        break;
+                    case PortFEIType.RFInfo:
+                        this._ref = new FeiRFInfoRef(this.baseUrl);
+                        break;
+                    case PortFEIType.RFSource:
+                        this._ref = new FeiRFSourceRef(this.baseUrl);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (!this._ref) {
+                this._ref = new PortRef(this.baseUrl);
+            }
+            this._previousUniqueID = this.uniqueId;
+        }
+        super.modelUpdated(model);
     }
 }
