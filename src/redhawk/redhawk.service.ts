@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { BaseService } from '../shared/base.service';
-import { RedhawkUrl, DomainUrl } from '../shared/config.service';
+import { RedhawkUrl, DomainUrl, EventChannelsUrl } from '../shared/config.service';
 import { Redhawk }    from './redhawk';
 
 // Other models
@@ -40,6 +40,13 @@ export class RedhawkService extends BaseService<Redhawk> {
         return this.http
             .get(DomainUrl(this.baseUrl, domainId))
             .map(response => new Domain().deserialize(response.json()))
+            .catch(this.handleError);
+    }
+    // Get a list of online Event Channels
+    public scanChannels$(): Observable<string[]> {
+        return this.http
+            .get(EventChannelsUrl())
+            .map(response => response.json().eventChannels as string[])
             .catch(this.handleError);
     }
 }

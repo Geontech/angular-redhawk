@@ -5,7 +5,7 @@
   "scripts": {
     "build": "gulp && rollup -c",
     "clean": "rimraf dist coverage .nyc_output",
-    "lint": "tslint src/**/*.ts",
+    "lint": "tslint 'src/**/*.ts'",
     "test": "nyc ava --reporter=text --reporter=html",
     "upload-coverage": "nyc report --reporter=text-lcov | coveralls",
     "prebuild": "npm run clean",
