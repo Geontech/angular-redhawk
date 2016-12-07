@@ -25,8 +25,8 @@ export function resolve(category: TUsageState): UsageState {
 export class UsageStateEvent extends IdmStateEvent<UsageState> implements ISerializable<UsageStateEvent> {
     deserialize(input: any) {
         super.deserialize(input);
-        this.stateChangeFrom = resolve(input.stateChangeFrom);
-        this.stateChangeTo = resolve(input.stateChangeTo);
+        this.stateChangeFrom = resolve(input.stateChangeFrom.value);
+        this.stateChangeTo = resolve(input.stateChangeTo.value);
         return this;
     }
 }

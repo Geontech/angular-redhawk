@@ -1,5 +1,12 @@
-import { ISerializable } from '../../shared/serializable';
+import { ISerializableFn } from '../../shared/serializable';
 
+import { DomainManagementObjectChangedEvent } from './domain.management.object.changed.event';
+import { ResourceStateChangeEvent } from './resource.state.change.event';
+
+export type OdmEvent = DomainManagementObjectChangedEvent | ResourceStateChangeEvent;
+
+export { DomainManagementObjectChangedEvent } from './domain.management.object.changed.event';
+export { ResourceStateChangeEvent, ResourceStateChangeType } from './resource.state.change.event';
 export enum SourceCategory {
     DEVICE_MANAGER,
     DEVICE,
@@ -32,20 +39,18 @@ export function resolveSourceCategory(category: TSourceCategory): SourceCategory
     }
 }
 
-export class OdmEvent implements ISerializable<OdmEvent> {
 
-    producerId: string;
-    sourceId: string;
-    sourceName: string;
-    sourceCategory: SourceCategory;
-    sourceIOR: string;
+type TOdmEventCategory =
+    'DOMAIN_MANAGEMENT_OBJECT_EVENT' |
+    'RESOURCE_STATE_CHANGE_EVENT';
 
-    deserialize(input: any) {
-        this.producerId = input.producerId;
-        this.sourceId = input.sourceId;
-        this.sourceName = input.sourceName;
-        this.sourceIOR = input.sourceIOR;
-        this.sourceCategory = resolveSourceCategory(input.sourceCategory.value);
-        return this;
+let deserializeOdmEvent: ISerializableFn<OdmEvent>;
+deserializeOdmEvent = function (input: any) {
+    if (input.hasOwnProperty('producerId')) {
+        return new DomainManagementObjectChangedEvent().deserialize(input);
+    } else {
+        return new ResourceStateChangeEvent().deserialize(input);
     }
-}
+};
+
+export { deserializeOdmEvent };

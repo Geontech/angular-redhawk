@@ -22,8 +22,8 @@ export function resolve(category: TOperationalState): OperationalState {
 export class OperationalStateEvent extends IdmStateEvent<OperationalState> implements ISerializable<OperationalStateEvent> {
     deserialize(input: any) {
         super.deserialize(input);
-        this.stateChangeFrom = resolve(input.stateChangeFrom);
-        this.stateChangeTo = resolve(input.stateChangeTo);
+        this.stateChangeFrom = resolve(input.stateChangeFrom.value);
+        this.stateChangeTo = resolve(input.stateChangeTo.value);
         return this;
     }
 }

@@ -9,8 +9,8 @@ import 'rxjs/add/operator/map';
 
 import { EventChannelService } from '../event.channel.service';
 
-import { OdmEvent, SourceCategory } from './odm.event';
-
+import { OdmEvent, SourceCategory, deserializeOdmEvent } from './odm.event';
+import { ChangeType } from './odm.state.event';
 // Export the structure and enumeration.
 export { OdmEvent, SourceCategory } from './odm.event';
 
@@ -84,9 +84,9 @@ export class OdmListenerService {
         this.eventChannel
             .events$
             .subscribe((data: any) => {
-                let odm = new OdmEvent().deserialize(data);
+                let odm = deserializeOdmEvent(data);
                 this.allEvents.next(odm);
-                if (odm.sourceIOR) {
+                if (odm.changeType === ChangeType.ADDED) {
                     this.handleAdd(odm);
                 } else {
                     this.handleRemove(odm);

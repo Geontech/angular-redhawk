@@ -42,6 +42,7 @@ export class RedhawkService extends BaseService<Redhawk> {
             .map(response => new Domain().deserialize(response.json()))
             .catch(this.handleError);
     }
+
     // Get a list of online Event Channels
     public scanChannels$(): Observable<string[]> {
         return this.http

@@ -21,7 +21,7 @@ const REST_URL = '/redhawk/rest';
 
 // Entities
 export function RedhawkUrl(): string { return REST_URL; }
-export function EventChannelsUrl(): string { return BaseUrl(REST_URL, '/events/') }
+export function EventChannelsUrl(): string { return BaseUrl(REST_URL, '/events/'); }
 export function DomainUrl(baseUrl: string, domainId?: string): string { return BaseUrl(baseUrl, '/domains', domainId); }
 export function FileSystemUrl(baseUrl: string, path?: string): string { return BaseUrl(baseUrl, '/fs', path); }
 export function DeviceManagerUrl(baseUrl: string, deviceManagerId?: string): string {
