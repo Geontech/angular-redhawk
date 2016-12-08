@@ -25,7 +25,6 @@ export * from './property/property';
 
 
 // Top Service
-// tslint:disable-next-line
 import { RedhawkService } from './redhawk/redhawk.service';
 
 // Pipes
@@ -65,6 +64,6 @@ import { ArPropertyPipe, ArPropertiesPipe } from './property/property.pipe';
         ArPropertyPipe,
         ArPropertiesPipe
     ],
-    providers:    [ ]
+    providers:    [ RedhawkService ]
 })
 export class AngularRedhawkModule { }
