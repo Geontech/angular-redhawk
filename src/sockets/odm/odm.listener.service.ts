@@ -10,7 +10,9 @@ import 'rxjs/add/operator/map';
 import { EventChannelService } from '../event.channel.service';
 
 import { OdmEvent, SourceCategory, deserializeOdmEvent } from './odm.event';
-import { ChangeType } from './odm.state.event';
+import { DomainManagementObjectAddedEvent } from './domain.management.object.added.event';
+import { DomainManagementObjectRemovedEvent } from './domain.management.object.removed.event';
+
 // Export the structure and enumeration.
 export { OdmEvent, SourceCategory } from './odm.event';
 
@@ -86,9 +88,9 @@ export class OdmListenerService {
             .subscribe((data: any) => {
                 let odm = deserializeOdmEvent(data);
                 this.allEvents.next(odm);
-                if (odm.changeType === ChangeType.ADDED) {
+                if (odm instanceof DomainManagementObjectAddedEvent) {
                     this.handleAdd(odm);
-                } else {
+                } else if (odm instanceof DomainManagementObjectRemovedEvent) {
                     this.handleRemove(odm);
                 }
             });

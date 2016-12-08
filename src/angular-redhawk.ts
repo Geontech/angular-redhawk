@@ -21,6 +21,9 @@ export * from './port/port.module';
 import { SocketsModule }       from './sockets/sockets.module';
 export * from './sockets/sockets.module';
 
+export * from './property/property';
+
+
 // Top Service
 // tslint:disable-next-line
 import { RedhawkService } from './redhawk/redhawk.service';

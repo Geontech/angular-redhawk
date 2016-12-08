@@ -1,12 +1,7 @@
 import { ISerializable } from '../../shared/serializable';
-import { OdmStateEvent } from './odm.state.event';
+import { OdmStateEvent, ResourceStateChangeType, TResourceStateChangeType } from './odm.state.event';
 
-export enum ResourceStateChangeType {
-    STOPPED,
-    STARTED
-}
 
-export type TResourceStateChangeType = 'STOPPED' | 'STARTED';
 
 export function
  resolve(state: TResourceStateChangeType): ResourceStateChangeType {
@@ -21,7 +16,7 @@ export function
 }
 
 export class ResourceStateChangeEvent
-    extends OdmStateEvent<ResourceStateChangeType>
+    extends OdmStateEvent
     implements ISerializable<ResourceStateChangeEvent> {
     deserialize(input: any) {
         super.deserialize(input);

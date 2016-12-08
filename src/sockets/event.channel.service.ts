@@ -78,9 +78,13 @@ export class EventChannelService {
                 } else if (data.hasOwnProperty('sourceName')) {
                     let retval = deserializeOdmEvent(data);
                     return retval;
+                } else if (data.hasOwnProperty('stateChangeFrom')) {
+                    let retval = deserializeIdmEvent(data);
+                    return retval;
+                } else {
+                    console.log('Event Received is not of a recognized type.');
+                    return null;
                 }
-                let retval = deserializeIdmEvent(data);
-                return retval;
             });
     }
 }

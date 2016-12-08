@@ -1,12 +1,15 @@
 import { ISerializableFn } from '../../shared/serializable';
 
-import { DomainManagementObjectChangedEvent } from './domain.management.object.changed.event';
+import { DomainManagementObjectAddedEvent } from './domain.management.object.added.event';
+import { DomainManagementObjectRemovedEvent } from './domain.management.object.removed.event';
 import { ResourceStateChangeEvent } from './resource.state.change.event';
+import { ResourceStateChangeType } from './odm.state.event';
+export type OdmEvent = DomainManagementObjectAddedEvent | ResourceStateChangeEvent;
 
-export type OdmEvent = DomainManagementObjectChangedEvent | ResourceStateChangeEvent;
-
-export { DomainManagementObjectChangedEvent } from './domain.management.object.changed.event';
-export { ResourceStateChangeEvent, ResourceStateChangeType } from './resource.state.change.event';
+export { DomainManagementObjectAddedEvent } from './domain.management.object.added.event';
+export { DomainManagementObjectRemovedEvent } from './domain.management.object.removed.event';
+export { ResourceStateChangeEvent } from './resource.state.change.event';
+export { ResourceStateChangeType } from './odm.state.event';
 export enum SourceCategory {
     DEVICE_MANAGER,
     DEVICE,
@@ -47,7 +50,11 @@ type TOdmEventCategory =
 let deserializeOdmEvent: ISerializableFn<OdmEvent>;
 deserializeOdmEvent = function (input: any) {
     if (input.hasOwnProperty('producerId')) {
-        return new DomainManagementObjectChangedEvent().deserialize(input);
+        if (input.hasOwnProperty('sourceIOR')) {
+            return new DomainManagementObjectAddedEvent().deserialize(input);
+        } else {
+            return new DomainManagementObjectRemovedEvent().deserialize(input);
+        }
     } else {
         return new ResourceStateChangeEvent().deserialize(input);
     }
