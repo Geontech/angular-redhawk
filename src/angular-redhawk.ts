@@ -22,7 +22,6 @@ import { SocketsModule }       from './sockets/sockets.module';
 export * from './sockets/sockets.module';
 
 // Top Service
-// tslint:disable-next-line
 import { RedhawkService } from './redhawk/redhawk.service';
 
 // Pipes
@@ -62,6 +61,6 @@ import { ArPropertyPipe, ArPropertiesPipe } from './property/property.pipe';
         ArPropertyPipe,
         ArPropertiesPipe
     ],
-    providers:    [ ]
+    providers:    [ RedhawkService ]
 })
 export class AngularRedhawkModule { }
