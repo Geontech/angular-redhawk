@@ -4,7 +4,7 @@ import { DomainManagementObjectAddedEvent } from './domain.management.object.add
 import { DomainManagementObjectRemovedEvent } from './domain.management.object.removed.event';
 import { ResourceStateChangeEvent } from './resource.state.change.event';
 import { ResourceStateChangeType } from './odm.state.event';
-export type OdmEvent = DomainManagementObjectAddedEvent | ResourceStateChangeEvent;
+export type OdmEvent = DomainManagementObjectAddedEvent | DomainManagementObjectRemovedEvent | ResourceStateChangeEvent;
 
 export { DomainManagementObjectAddedEvent } from './domain.management.object.added.event';
 export { DomainManagementObjectRemovedEvent } from './domain.management.object.removed.event';
