@@ -13,6 +13,10 @@ import { IEventChannelCommand } from './event.channel.command';
 
 import { RhMessage } from './message/message';
 
+import { deserializeOdmEvent, OdmEvent } from './odm/odm.event';
+
+import { deserializeIdmEvent, IdmEvent } from './idm/idm.event';
+
 /**
  * The EventChannelService is a basic event channel interface.  You can
  * subscribe to any channel (WebSocket topics) based on domain ID.
@@ -65,13 +69,22 @@ export class EventChannelService {
     }
 
     constructor() {
-        this.socketInterface = <Subject<any|RhMessage>> basicSocket(EventSocketUrl())
-            .map((response: MessageEvent): (any | RhMessage) => {
+        this.socketInterface = <Subject<RhMessage|OdmEvent|IdmEvent>> basicSocket(EventSocketUrl())
+            .map((response: MessageEvent): (RhMessage|OdmEvent|IdmEvent) => {
                 let data: any = JSON.parse(response.data);
                 if (data.hasOwnProperty('id') && data.hasOwnProperty('value')) {
-                    return new RhMessage().deserialize(data);
+                    let retval =  new RhMessage().deserialize(data);
+                    return retval;
+                } else if (data.hasOwnProperty('sourceName')) {
+                    let retval = deserializeOdmEvent(data);
+                    return retval;
+                } else if (data.hasOwnProperty('stateChangeFrom')) {
+                    let retval = deserializeIdmEvent(data);
+                    return retval;
+                } else {
+                    console.log('Event Received is not of a recognized type.');
+                    return null;
                 }
-                return data;
             });
     }
 }

@@ -1,5 +1,15 @@
-import { ISerializable } from '../../shared/serializable';
+import { ISerializableFn } from '../../shared/serializable';
 
+import { DomainManagementObjectAddedEvent } from './domain.management.object.added.event';
+import { DomainManagementObjectRemovedEvent } from './domain.management.object.removed.event';
+import { ResourceStateChangeEvent } from './resource.state.change.event';
+import { ResourceStateChangeType } from './odm.state.event';
+export type OdmEvent = DomainManagementObjectAddedEvent | DomainManagementObjectRemovedEvent | ResourceStateChangeEvent;
+
+export { DomainManagementObjectAddedEvent } from './domain.management.object.added.event';
+export { DomainManagementObjectRemovedEvent } from './domain.management.object.removed.event';
+export { ResourceStateChangeEvent } from './resource.state.change.event';
+export { ResourceStateChangeType } from './odm.state.event';
 export enum SourceCategory {
     DEVICE_MANAGER,
     DEVICE,
@@ -32,20 +42,22 @@ export function resolveSourceCategory(category: TSourceCategory): SourceCategory
     }
 }
 
-export class OdmEvent implements ISerializable<OdmEvent> {
 
-    producerId: string;
-    sourceId: string;
-    sourceName: string;
-    sourceCategory: SourceCategory;
-    sourceIOR: string;
+type TOdmEventCategory =
+    'DOMAIN_MANAGEMENT_OBJECT_EVENT' |
+    'RESOURCE_STATE_CHANGE_EVENT';
 
-    deserialize(input: any) {
-        this.producerId = input.producerId;
-        this.sourceId = input.sourceId;
-        this.sourceName = input.sourceName;
-        this.sourceIOR = input.sourceIOR;
-        this.sourceCategory = resolveSourceCategory(input.sourceCategory.value);
-        return this;
+let deserializeOdmEvent: ISerializableFn<OdmEvent>;
+deserializeOdmEvent = function (input: any) {
+    if (input.hasOwnProperty('producerId')) {
+        if (input.hasOwnProperty('sourceIOR')) {
+            return new DomainManagementObjectAddedEvent().deserialize(input);
+        } else {
+            return new DomainManagementObjectRemovedEvent().deserialize(input);
+        }
+    } else {
+        return new ResourceStateChangeEvent().deserialize(input);
     }
-}
+};
+
+export { deserializeOdmEvent };

@@ -27,8 +27,8 @@ export class AdministrativeStateEvent
     implements ISerializable<AdministrativeStateEvent> {
     deserialize(input: any) {
         super.deserialize(input);
-        this.stateChangeFrom = resolve(input.stateChangeFrom);
-        this.stateChangeTo = resolve(input.stateChangeTo);
+        this.stateChangeFrom = resolve(input.stateChangeFrom.value);
+        this.stateChangeTo = resolve(input.stateChangeTo.value);
         return this;
     }
 }

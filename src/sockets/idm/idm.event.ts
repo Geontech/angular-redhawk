@@ -27,6 +27,6 @@ deserializeIdmEvent = function (input: any) {
             return new UsageStateEvent().deserialize(input);
     }
 
-}
+};
 
 export { deserializeIdmEvent };

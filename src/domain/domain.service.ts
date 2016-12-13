@@ -81,6 +81,7 @@ export class DomainService extends BaseService<Domain> {
         return this.redhawkService.attach$(this.uniqueId);
     }
 
+
     // Configure properties
     public configure(properties: PropertySet): void {
         let command = new PropertyCommand(properties);
