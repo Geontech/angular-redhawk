@@ -7,8 +7,9 @@ import {
     Output,
     EventEmitter,
     Optional,
-    Inject
+    SkipSelf
 } from '@angular/core';
+import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
 // This service
@@ -17,10 +18,37 @@ import { PortService } from './port.service';
 // This model
 import { Port } from './port';
 
+// Possible "parent" dependencies for the PortService
+import { WaveformService } from '../waveform/waveform.service';
+import { ComponentService } from '../component/component.service';
+import { DeviceService } from '../device/device.service';
+
+export function serviceSelect(
+    service: PortService,
+    http: Http,
+    waveform: WaveformService,
+    device: DeviceService,
+    component: ComponentService): PortService {
+    if (service === null) {
+        service = new PortService(http, waveform, device, component);
+    }
+    return service;
+}
+
 @Directive({
     selector: '[arPort]',
     exportAs: 'arPort',
-    providers: [ { provide: 'DefaultPortService', useClass: PortService } ]
+    providers: [{
+        provide:    PortService,
+        useFactory: serviceSelect,
+        deps: [
+            [PortService, new Optional(), new SkipSelf()],
+            Http,
+            [WaveformService, new Optional()],
+            [DeviceService, new Optional()],
+            [ComponentService, new Optional()]
+        ]
+    }]
 })
 export class ArPort implements OnDestroy, OnChanges {
 
@@ -35,12 +63,8 @@ export class ArPort implements OnDestroy, OnChanges {
     public get service(): PortService { return this._service; }
 
     private subscription: Subscription = null;
-    private _service: PortService;
 
-    constructor(
-        @Inject('DefaultPortService') local: PortService,
-        @Optional() host: PortService) {
-            this._service = host ? host : local;
+    constructor(private _service: PortService) {
             this.modelChange = new EventEmitter<Port>();
             this.model = new Port();
     }

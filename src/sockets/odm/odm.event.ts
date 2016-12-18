@@ -3,7 +3,6 @@ import { ISerializableFn } from '../../shared/serializable';
 import { DomainManagementObjectAddedEvent } from './domain.management.object.added.event';
 import { DomainManagementObjectRemovedEvent } from './domain.management.object.removed.event';
 import { ResourceStateChangeEvent } from './resource.state.change.event';
-import { ResourceStateChangeType } from './odm.state.event';
 export type OdmEvent = DomainManagementObjectAddedEvent | DomainManagementObjectRemovedEvent | ResourceStateChangeEvent;
 
 export { DomainManagementObjectAddedEvent } from './domain.management.object.added.event';
