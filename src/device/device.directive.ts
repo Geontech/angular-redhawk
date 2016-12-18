@@ -7,17 +7,38 @@ import {
     Output,
     EventEmitter,
     Optional,
-    Inject
+    SkipSelf
 } from '@angular/core';
+import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
+import { DeviceManagerService } from '../devicemanager/devicemanager.service';
 import { DeviceService } from './device.service';
 import { Device }        from './device';
+
+export function serviceSelect (
+    service: DeviceService,
+    http: Http,
+    dm: DeviceManagerService
+    ): DeviceService {
+    if (service === null) {
+        service = new DeviceService(http, dm);
+    }
+    return service;
+}
 
 @Directive({
     selector: '[arDevice]',
     exportAs: 'arDevice',
-    providers: [ { provide: 'DefaultDeviceService', useClass: DeviceService } ]
+    providers: [{
+        provide:    DeviceService,
+        useFactory: serviceSelect,
+        deps: [
+        [DeviceService, new Optional(), new SkipSelf()],
+        Http,
+        DeviceManagerService
+        ]
+    }]
 })
 
 export class ArDevice implements OnDestroy, OnChanges {
@@ -33,14 +54,10 @@ export class ArDevice implements OnDestroy, OnChanges {
     public get service(): DeviceService { return this._service; }
 
     private subscription: Subscription = null;
-    private _service: DeviceService;
 
-    constructor(
-        @Inject('DefaultDeviceService') local: DeviceService,
-        @Optional() host: DeviceService) {
-            this._service = host ? host : local;
-            this.modelChange = new EventEmitter<Device>();
-            this.model = new Device();
+    constructor(private _service: DeviceService) {
+        this.modelChange = new EventEmitter<Device>();
+        this.model = new Device();
     }
 
     ngOnChanges(changes: SimpleChanges) {

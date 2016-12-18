@@ -7,21 +7,44 @@ import {
     Output,
     EventEmitter,
     Optional,
-    Inject
+    SkipSelf
 } from '@angular/core';
+import { Http }       from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
+import { RedhawkService } from '../redhawk/redhawk.service';
 import { DomainService } from './domain.service';
 import { Domain }        from './domain';
 
 import { OdmListenerService } from '../sockets/odm/odm.listener.service';
+
+export function serviceSelect(
+        service: DomainService,
+        http: Http,
+        rh: RedhawkService,
+        odm: OdmListenerService
+    ): DomainService {
+    if (service === null) {
+        service = new DomainService(http, rh, odm);
+    }
+    return service;
+}
 
 @Directive({
     selector: '[arDomain]',
     exportAs: 'arDomain',
     providers: [
         OdmListenerService,
-        { provide: 'DefaultDomainService', useClass: DomainService }
+        {
+            provide:    DomainService,
+            useFactory: serviceSelect,
+            deps: [
+                [DomainService, new Optional(), new SkipSelf()],
+                Http,
+                RedhawkService,
+                OdmListenerService
+            ]
+        }
         ]
 })
 export class ArDomain implements OnDestroy, OnChanges {
@@ -37,12 +60,12 @@ export class ArDomain implements OnDestroy, OnChanges {
     public get service(): DomainService { return this._service; }
 
     private subscription: Subscription = null;
-    private _service: DomainService;
 
-    constructor(
-            @Inject('DefaultDomainService') local: DomainService,
-            @Optional() host: DomainService) {
-        this._service = host ? host : local;
+    /**
+     * The directive tries to use the parent's DomainService, if provided.
+     * If not, it injects its own.
+     */
+    constructor(private _service: DomainService) {
         this.modelChange = new EventEmitter<Domain>();
         this.model = new Domain();
     }

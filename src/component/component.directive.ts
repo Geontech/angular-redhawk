@@ -7,17 +7,37 @@ import {
     Output,
     EventEmitter,
     Optional,
-    Inject
+    SkipSelf
 } from '@angular/core';
+import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
+import { WaveformService } from '../waveform/waveform.service';
 import { ComponentService } from './component.service';
 import { Component } from './component';
+
+export function serviceSelect(
+    service: ComponentService,
+    http: Http,
+    waveform: WaveformService): ComponentService {
+    if (service === null) {
+        service = new ComponentService(http, waveform);
+    }
+    return service;
+}
 
 @Directive({
     selector: '[arComponent]',
     exportAs: 'arComponent',
-    providers: [ { provide: 'DefaultComponentService', useClass: ComponentService } ]
+    providers: [{
+        provide:    ComponentService,
+        useFactory: serviceSelect,
+        deps: [
+        [ComponentService, new Optional(), new SkipSelf()],
+        Http,
+        WaveformService
+        ]
+    }]
 })
 
 export class ArComponent implements OnDestroy, OnChanges {
@@ -33,14 +53,10 @@ export class ArComponent implements OnDestroy, OnChanges {
     public get service(): ComponentService { return this._service; }
 
     private subscription: Subscription = null;
-    private _service: ComponentService;
 
-    constructor(
-        @Inject('DefaultComponentService') local: ComponentService,
-        @Optional() host: ComponentService) {
-            this._service = host ? host : local;
-            this.modelChange = new EventEmitter<Component>();
-            this.model = new Component();
+    constructor(private _service: ComponentService) {
+        this.modelChange = new EventEmitter<Component>();
+        this.model = new Component();
     }
 
     ngOnChanges(changes: SimpleChanges) {
