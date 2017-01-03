@@ -23,6 +23,7 @@ export * from './sockets/sockets.module';
 
 export * from './property/property';
 
+export { ResourceRef, ResourceRefs } from './shared/resource';
 
 // Top Service
 import { RedhawkService } from './redhawk/redhawk.service';
