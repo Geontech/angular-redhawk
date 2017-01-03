@@ -1,27 +1,43 @@
+import { Pipe, PipeTransform } from '@angular/core';
+
 import { ISerializable } from '../../shared/serializable';
-import { OdmStateEvent, ResourceStateChangeType, TResourceStateChangeType } from './odm.state.event';
+import { OdmEvent } from './odm.event.base';
 
+export enum ResourceStateChange {
+    STOPPED,
+    STARTED,
+    UNKNOWN
+}
 
-
-export function
- resolve(state: TResourceStateChangeType): ResourceStateChangeType {
-    switch (<TResourceStateChangeType> state) {
+export function resolve(state: string): ResourceStateChange {
+    switch (state) {
         case 'STOPPED':
-            return ResourceStateChangeType.STOPPED;
+            return ResourceStateChange.STOPPED;
         case 'STARTED':
-        // tslint:disable-next-line:no-switch-case-fall-through
+            return ResourceStateChange.STARTED;
         default:
-            return ResourceStateChangeType.STARTED;
+            return ResourceStateChange.UNKNOWN;
     }
 }
 
 export class ResourceStateChangeEvent
-    extends OdmStateEvent
+    extends OdmEvent
     implements ISerializable<ResourceStateChangeEvent> {
+
+    public stateChangeFrom: ResourceStateChange;
+    public stateChangeTo:   ResourceStateChange;
+
     deserialize(input: any) {
         super.deserialize(input);
         this.stateChangeFrom = resolve(input.stateChangeFrom.value);
         this.stateChangeTo = resolve(input.stateChangeTo.value);
         return this;
+    }
+}
+
+@Pipe({ name: 'resourceStateChange' })
+export class ResourceStateChangePipe implements PipeTransform {
+    transform (change: ResourceStateChange): string {
+        return ResourceStateChange[change];
     }
 }
