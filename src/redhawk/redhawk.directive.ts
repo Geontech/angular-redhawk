@@ -11,12 +11,16 @@ import {
 import { Http }       from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
-import { RedhawkService }        from './redhawk.service';
-import { Redhawk } from './redhawk';
+import { RedhawkService } from './redhawk.service';
+import { Redhawk }        from './redhawk';
+import { RedhawkListenerService } from '../sockets/redhawk.listener.service';
 
-export function serviceSelect(service: RedhawkService, http: Http): RedhawkService {
+export function serviceSelect(
+    service: RedhawkService,
+    http: Http,
+    rhls: RedhawkListenerService): RedhawkService {
     if (service === null) {
-        service = new RedhawkService(http);
+        service = new RedhawkService(http, rhls);
     }
     return service;
 }
@@ -25,12 +29,14 @@ export function serviceSelect(service: RedhawkService, http: Http): RedhawkServi
     selector: '[arRedhawk]',
     exportAs: 'arRedhawk',
     providers: [
+        RedhawkListenerService,
         {
             provide: RedhawkService,
             useFactory: serviceSelect,
             deps: [
                 [RedhawkService, new Optional(), new SkipSelf()],
-                Http
+                Http,
+                RedhawkListenerService
             ]
         }
     ]
