@@ -74,7 +74,7 @@ export class EventChannelService {
             .map((response: MessageEvent): (RhMessage|OdmEvent|IdmEvent) => {
                 let data: any = JSON.parse(response.data);
                 if (data.hasOwnProperty('id') && data.hasOwnProperty('value')) {
-                    let retval =  new RhMessage().deserialize(data);
+                    let retval = new RhMessage().deserialize(data);
                     return retval;
                 } else if (data.hasOwnProperty('sourceName')) {
                     let retval = deserializeOdmEvent(data);
