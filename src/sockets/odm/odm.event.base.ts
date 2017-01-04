@@ -12,3 +12,10 @@ export class OdmEvent implements ISerializable<OdmEvent> {
         return this;
     }
 }
+
+// Typeguard simply for interface parity between the ODM and IDM event
+// interfaces.  Yes, this is logically obvious at this time since all ODM
+// events thus far in the API can inherit from OdmEvent.
+export function isOdmEvent(event: any): event is OdmEvent {
+    return event instanceof OdmEvent;
+}

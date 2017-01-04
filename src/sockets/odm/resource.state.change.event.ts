@@ -35,6 +35,10 @@ export class ResourceStateChangeEvent
     }
 }
 
+export function isResourceStateChangeEvent(ev: OdmEvent): ev is ResourceStateChangeEvent {
+    return ev instanceof ResourceStateChangeEvent;
+}
+
 @Pipe({ name: 'resourceStateChange' })
 export class ResourceStateChangePipe implements PipeTransform {
     transform (change: ResourceStateChange): string {

@@ -8,7 +8,7 @@ export * from './idm/idm.listener.service';
 export * from './odm/odm.event';
 export * from './idm/idm.event';
 
-export { RhMessage } from './message/message';
+export { RhMessage, isRhMessage } from './message/message';
 
 // Pipes for enumerations
 import {

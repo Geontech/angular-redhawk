@@ -57,6 +57,10 @@ export class DomainManagementObjectRemovedEvent
     }
 }
 
+export function isDomainManagementObjectRemovedEvent(ev: OdmEvent): ev is DomainManagementObjectRemovedEvent {
+    return ev instanceof DomainManagementObjectRemovedEvent;
+}
+
 // Object Added Event
 export class DomainManagementObjectAddedEvent
     extends DomainManagementObjectRemovedEvent
@@ -69,6 +73,10 @@ export class DomainManagementObjectAddedEvent
         this.sourceIOR = {};
         return this;
     }
+}
+
+export function isDomainManagementObjectAddedEvent(ev: OdmEvent): ev is DomainManagementObjectAddedEvent {
+    return ev instanceof DomainManagementObjectAddedEvent;
 }
 
 @Pipe({ name: 'arSourceCategory'})
