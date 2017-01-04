@@ -11,7 +11,7 @@ import { EventChannelService } from '../event.channel.service';
 
 import {
     IdmEvent,
-    deserializeIdmEvent,
+    isIdmEvent,
     AdministrativeStateEvent,
     OperationalStateEvent,
     UsageStateEvent,
@@ -84,16 +84,17 @@ export class IdmListenerService {
         this.eventChannel
             .events$
             .subscribe((data: any) => {
-                let idm: IdmEvent = deserializeIdmEvent(data);
-                this.allEvents.next(idm);
-                if (isAdministrativeStateEvent(idm)) {
-                    this.administrativeStateChanged.next(idm);
-                } else if (isOperationalStateEvent(idm)) {
-                    this.operationalStateChanged.next(idm);
-                } else if (isUsageStateEvent(idm)) {
-                    this.usageStateChanged.next(idm);
-                } else if (isAbnormalComponentTerminationEvent(idm)) {
-                    this.abnormalComponentTerminationChanged.next(idm);
+                if (isIdmEvent(data)) {
+                    this.allEvents.next(data);
+                    if (isAdministrativeStateEvent(data)) {
+                        this.administrativeStateChanged.next(data);
+                    } else if (isOperationalStateEvent(data)) {
+                        this.operationalStateChanged.next(data);
+                    } else if (isUsageStateEvent(data)) {
+                        this.usageStateChanged.next(data);
+                    } else if (isAbnormalComponentTerminationEvent(data)) {
+                        this.abnormalComponentTerminationChanged.next(data);
+                    }
                 }
             });
     }
