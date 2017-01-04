@@ -4,6 +4,7 @@ export { basicSocket, WebSocketBinaryType } from './basic.socket';
 export { EventChannelService } from './event.channel.service';
 export * from './odm/odm.listener.service';
 export * from './idm/idm.listener.service';
+export * from './redhawk.listener.service';
 
 export * from './odm/odm.event';
 export * from './idm/idm.event';
