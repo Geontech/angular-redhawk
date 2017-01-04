@@ -27,10 +27,12 @@ export class EventChannelService {
     /**
      * All events coming from this web socket
      */
-    public get events$(): Observable<any|RhMessage> { return this.socketInterface.asObservable(); }
+    public get events$(): Observable<OdmEvent|IdmEvent|RhMessage> {
+        return this.socketInterface.asObservable();
+    }
 
     // All events and "send" interface
-    private socketInterface: Subject<any|RhMessage|IEventChannelCommand>;
+    private socketInterface: Subject<OdmEvent|IdmEvent|RhMessage|IEventChannelCommand>;
 
     /**
      * Connects to the named event channel per the provided domain ID
@@ -65,7 +67,6 @@ export class EventChannelService {
      */
     public send(payload: Object) {
         alert('This method is reserved for future use.');
-        // this.socketInterface.next(payload);
     }
 
     constructor() {
@@ -82,7 +83,7 @@ export class EventChannelService {
                     let retval = deserializeIdmEvent(data);
                     return retval;
                 } else {
-                    console.log('Event Received is not of a recognized type.');
+                    console.error('Event Received is not of a recognized type.');
                     return null;
                 }
             });
