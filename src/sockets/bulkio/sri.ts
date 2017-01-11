@@ -21,7 +21,7 @@ deserializeKeywords = function (inputs?: any): Keywords {
         }
     }
     return keywords;
-}
+};
 
 export class SRI implements ISerializable<SRI> {
     hversion: number;

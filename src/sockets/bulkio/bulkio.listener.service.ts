@@ -18,6 +18,14 @@ type BulkioSocketTypes = BulkioPacket | BulkioControl;
 @Injectable()
 export class BulkioListenerService {
 
+    // Internal packet relay and socket interface
+    private packet: Subject<BulkioPacket>;
+    private socketInterface: Subject<BulkioSocketTypes>;
+    private socketSubscription: Subscription;
+
+    // The amount of time deserializing a packet took.
+    private _deserializeTime: number = 0;
+
     /**
      * Subscribe to receive the bulkio packets.
      * @member {Observable<BulkioPacket>} 
@@ -71,15 +79,6 @@ export class BulkioListenerService {
      * @return {boolean} True: Subscribers are present, False: No subscribers.
      */
     public get active(): boolean { return !this.packet.isStopped; }
-
-
-    // Internal packet relay and socket interface
-    private packet: Subject<BulkioPacket>;
-    private socketInterface: Subject<BulkioSocketTypes>;
-    private socketSubscription: Subscription;
-
-    // The amount of time deserializing a packet took.
-    private _deserializeTime: number = 0;
 
     /**
      * Connect to the BULKIO socket at the url.  The URL is optional and takes
