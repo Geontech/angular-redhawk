@@ -21,8 +21,9 @@ export * from './port/port.module';
 import { SocketsModule }       from './sockets/sockets.module';
 export * from './sockets/sockets.module';
 
-// Top Service
-import { RedhawkService } from './redhawk/redhawk.service';
+export * from './property/property';
+
+export { ResourceRef, ResourceRefs } from './shared/resource';
 
 // Pipes
 import { ArPropertyPipe, ArPropertiesPipe } from './property/property.pipe';
@@ -60,7 +61,6 @@ import { ArPropertyPipe, ArPropertiesPipe } from './property/property.pipe';
         // Pipes
         ArPropertyPipe,
         ArPropertiesPipe
-    ],
-    providers:    [ ]
+    ]
 })
 export class AngularRedhawkModule { }

@@ -1,29 +1,40 @@
+import { Pipe, PipeTransform } from '@angular/core';
+
 import { ISerializable } from '../../shared/serializable';
 import { IdmStateEvent } from './idm.state.event';
 
 export enum OperationalState {
     ENABLED,
-    DISABLED
+    DISABLED,
+    UNKNOWN
 }
 
-export type TOperationalState = 'ENABLED' | 'DISABLED';
-
-export function resolve(category: TOperationalState): OperationalState {
-    switch (<TOperationalState> category) {
+export function resolve(category: string): OperationalState {
+    switch (category) {
         case 'ENABLED':
             return OperationalState.ENABLED;
         case 'DISABLED':
-        // tslint:disable-next-line:no-switch-case-fall-through
-        default:
             return OperationalState.DISABLED;
+        default:
+            console.error('Unknown OperationalState: ' + category);
+            return OperationalState.UNKNOWN;
     }
 }
 
 export class OperationalStateEvent extends IdmStateEvent<OperationalState> implements ISerializable<OperationalStateEvent> {
     deserialize(input: any) {
         super.deserialize(input);
-        this.stateChangeFrom = resolve(input.stateChangeFrom);
-        this.stateChangeTo = resolve(input.stateChangeTo);
+        this.stateChangeFrom = resolve(input.stateChangeFrom.value);
+        this.stateChangeTo = resolve(input.stateChangeTo.value);
         return this;
+    }
+}
+
+// Behaves like a toString() operator inside templates for the OperationalState
+// enumeration.
+@Pipe({name: 'operationalState'})
+export class OperationalStatePipe implements PipeTransform {
+    transform(state: OperationalState): string {
+        return OperationalState[state];
     }
 }

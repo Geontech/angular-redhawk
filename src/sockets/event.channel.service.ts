@@ -13,6 +13,10 @@ import { IEventChannelCommand } from './event.channel.command';
 
 import { RhMessage } from './message/message';
 
+import { deserializeOdmEvent, OdmEvent } from './odm/odm.event';
+
+import { deserializeIdmEvent, IdmEvent } from './idm/idm.event';
+
 /**
  * The EventChannelService is a basic event channel interface.  You can
  * subscribe to any channel (WebSocket topics) based on domain ID.
@@ -23,10 +27,12 @@ export class EventChannelService {
     /**
      * All events coming from this web socket
      */
-    public get events$(): Observable<any|RhMessage> { return this.socketInterface.asObservable(); }
+    public get events$(): Observable<OdmEvent|IdmEvent|RhMessage> {
+        return this.socketInterface.asObservable();
+    }
 
     // All events and "send" interface
-    private socketInterface: Subject<any|RhMessage|IEventChannelCommand>;
+    private socketInterface: Subject<OdmEvent|IdmEvent|RhMessage|IEventChannelCommand>;
 
     /**
      * Connects to the named event channel per the provided domain ID
@@ -61,17 +67,25 @@ export class EventChannelService {
      */
     public send(payload: Object) {
         alert('This method is reserved for future use.');
-        // this.socketInterface.next(payload);
     }
 
     constructor() {
-        this.socketInterface = <Subject<any|RhMessage>> basicSocket(EventSocketUrl())
-            .map((response: MessageEvent): (any | RhMessage) => {
+        this.socketInterface = <Subject<RhMessage|OdmEvent|IdmEvent>> basicSocket(EventSocketUrl())
+            .map((response: MessageEvent): (RhMessage|OdmEvent|IdmEvent) => {
                 let data: any = JSON.parse(response.data);
                 if (data.hasOwnProperty('id') && data.hasOwnProperty('value')) {
-                    return new RhMessage().deserialize(data);
+                    let retval = new RhMessage().deserialize(data);
+                    return retval;
+                } else if (data.hasOwnProperty('sourceName')) {
+                    let retval = deserializeOdmEvent(data);
+                    return retval;
+                } else if (data.hasOwnProperty('stateChangeFrom')) {
+                    let retval = deserializeIdmEvent(data);
+                    return retval;
+                } else {
+                    console.error('Event Received is not of a recognized type.');
+                    return null;
                 }
-                return data;
             });
     }
 }

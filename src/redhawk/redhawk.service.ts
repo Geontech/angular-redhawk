@@ -1,20 +1,40 @@
-import { Injectable } from '@angular/core';
+import {
+    Injectable,
+    Optional,
+    ReflectiveInjector
+} from '@angular/core';
 import { Http }       from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { BaseService } from '../shared/base.service';
-import { RedhawkUrl, DomainUrl } from '../shared/config.service';
-import { Redhawk }    from './redhawk';
+import { RedhawkUrl, DomainUrl, EventChannelsUrl } from '../shared/config.service';
+import { Redhawk, RedhawkEvent } from './redhawk';
 
 // Other models
 import { Domain }     from '../domain/domain';
 
+// Websocket service
+import { RedhawkListenerService } from '../sockets/redhawk.listener.service';
+
 @Injectable()
 export class RedhawkService extends BaseService<Redhawk> {
 
-    constructor(protected http: Http) { super(http); }
+    constructor(
+        protected http: Http,
+        @Optional() protected rhListenerService: RedhawkListenerService) {
+        super(http);
+
+        if (this.rhListenerService === null) {
+            let injector = ReflectiveInjector.resolveAndCreate([RedhawkListenerService]);
+            this.rhListenerService = injector.get(RedhawkListenerService);
+        }
+
+        this.rhListenerService.events$.subscribe((rh: RedhawkEvent) => {
+            this._model.next(rh);
+        });
+    }
 
     setBaseUrl(url: string): void {
         this._baseUrl = RedhawkUrl();
@@ -40,6 +60,14 @@ export class RedhawkService extends BaseService<Redhawk> {
         return this.http
             .get(DomainUrl(this.baseUrl, domainId))
             .map(response => new Domain().deserialize(response.json()))
+            .catch(this.handleError);
+    }
+
+    // Get a list of online Event Channels
+    public scanChannels$(): Observable<string[]> {
+        return this.http
+            .get(EventChannelsUrl())
+            .map(response => response.json().eventChannels as string[])
             .catch(this.handleError);
     }
 }

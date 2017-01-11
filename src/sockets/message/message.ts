@@ -17,3 +17,10 @@ export class RhMessage implements ISerializable<RhMessage> {
         return this;
     }
 }
+
+// Typeguard for interface parity between other event types on channels.
+// This is logically obvious since all messages found on a channel have this
+// one structure, RhMessage.
+export function isRhMessage(event: any): event is RhMessage {
+    return event instanceof RhMessage;
+}

@@ -11,10 +11,16 @@ import { EventChannelService } from '../event.channel.service';
 
 import {
     IdmEvent,
-    deserializeIdmEvent,
+    isIdmEvent,
     AdministrativeStateEvent,
     OperationalStateEvent,
-    UsageStateEvent
+    UsageStateEvent,
+    AbnormalComponentTerminationEvent,
+    // Type Guards
+    isAdministrativeStateEvent,
+    isOperationalStateEvent,
+    isUsageStateEvent,
+    isAbnormalComponentTerminationEvent
 } from './idm.event';
 
 /**
@@ -37,6 +43,9 @@ export class IdmListenerService {
     public get usageStateChanged$(): Observable<UsageStateEvent> {
         return this.usageStateChanged.asObservable();
     }
+    public get abnormalComponentTerminationChanged$(): Observable<AbnormalComponentTerminationEvent> {
+        return this.abnormalComponentTerminationChanged.asObservable();
+    }
 
     // All events
     private allEvents: Subject<IdmEvent>;
@@ -45,6 +54,7 @@ export class IdmListenerService {
     private administrativeStateChanged: Subject<AdministrativeStateEvent>;
     private operationalStateChanged: Subject<OperationalStateEvent>;
     private usageStateChanged: Subject<UsageStateEvent>;
+    private abnormalComponentTerminationChanged: Subject<AbnormalComponentTerminationEvent>;
 
     // The event interface
     private eventChannel: EventChannelService;
@@ -69,18 +79,22 @@ export class IdmListenerService {
         this.administrativeStateChanged = new Subject<AdministrativeStateEvent>();
         this.operationalStateChanged = new Subject<OperationalStateEvent>();
         this.usageStateChanged = new Subject<UsageStateEvent>();
+        this.abnormalComponentTerminationChanged = new Subject<AbnormalComponentTerminationEvent>();
 
         this.eventChannel
             .events$
             .subscribe((data: any) => {
-                let idm: IdmEvent = deserializeIdmEvent(data);
-                this.allEvents.next(idm);
-                if (idm instanceof AdministrativeStateEvent) {
-                    this.administrativeStateChanged.next(idm);
-                } else if (idm instanceof OperationalStateEvent) {
-                    this.operationalStateChanged.next(idm);
-                } else if (idm instanceof UsageStateEvent) {
-                    this.usageStateChanged.next(idm);
+                if (isIdmEvent(data)) {
+                    this.allEvents.next(data);
+                    if (isAdministrativeStateEvent(data)) {
+                        this.administrativeStateChanged.next(data);
+                    } else if (isOperationalStateEvent(data)) {
+                        this.operationalStateChanged.next(data);
+                    } else if (isUsageStateEvent(data)) {
+                        this.usageStateChanged.next(data);
+                    } else if (isAbnormalComponentTerminationEvent(data)) {
+                        this.abnormalComponentTerminationChanged.next(data);
+                    }
                 }
             });
     }
