@@ -1,24 +1,17 @@
+// This file is only used to configure the editor during development.
+// It is NOT used for building the library.
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "inlineSources": true,
-    "module": "es2015",
-    "target": "es2015",
-    "moduleResolution": "node",
-    "lib": ["dom", "es2015", "es2016", "es2017" ],
-    "skipLibCheck": true,
-    "noImplicitAny": true,
-    "sourceMap": true,
-    "declaration": true,
-    "stripInternal": true,
-    "emitDecoratorMetadata": true,
+    "baseUrl": "./src",
     "experimentalDecorators": true,
-    "removeComments": false,
-    "suppressImplicitAnyIndexErrors": true
-  },
-  "typeRoots": [ "node_modules/@types" ],
-  "exclude": [ "node_modules" ],
-  "files": [
-    "index.ts"
-  ]
+    "moduleResolution": "node",
+    "rootDir": "./src",
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "skipLibCheck": true,
+    // Don't auto-discover @types/node, it results in a ///<reference in the .d.ts output
+    "types": []
+  }
 }

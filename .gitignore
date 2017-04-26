@@ -1,18 +1,32 @@
-# Node generated files
-node_modules
+# Node
+node_modules/*
 npm-debug.log
-typings
 
-# OS Generated files
+# TypeScript
+src/*.js
+src/*.map
+src/*.d.ts
+
+# JetBrains
+.idea
+.project
+.settings
+.idea/*
+*.iml
+
+# VS Code
+.vscode/*
+
+# Windows
 Thumbs.db
+Desktop.ini
+
+# Mac
 .DS_Store
+**/.DS_Store
 
-# Ignored Files
-*.js
-*.map
-*.d.ts
-dist
+# Ngc generated files
+**/*.ngfactory.ts
 
-# Definitely allow these
-!gruntfile.js
-!rollup.config.js
+# Build files
+dist/*

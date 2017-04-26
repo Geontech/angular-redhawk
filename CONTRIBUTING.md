@@ -8,6 +8,7 @@ Contributions are always welcome.  This guide will become more detailed as is ne
 4. If necessary, use specific TSLint rule _disable_ comments for that line (preferably).  Use of this option must be justifiable beyond subjective arguments.
 5. Use of JSDoc comments is appreciated.  
 6. If you have designed a large feature, please provide Markdown-formatted document explaining it.
+7. Karma Tests would be great... Thanks for volunteering. :thumbs-up:
 
 It should go without saying, but we will anyway, that we are expecting the contribution to be tested already (i.e., it was able to transpile and run for that feature).
 

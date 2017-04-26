@@ -1,0 +1,26 @@
+{
+  "name": "angular-redhawk",
+  "version": "1.0.0",  
+  "repository": "git://github.com/GeonTech/angular-redhawk.git",
+  "author": {
+    "name": "Thomas Goodwin",
+    "email": "btgoodwin@geontech.com"
+  },
+  "author": "Thomas Goodwin <btgoodwin@geontech.com>",
+  "license": "GPL-3.0",
+  "keywords": [
+    "angular",
+    "redhawk-sdr"
+  ],
+  "contributors": [
+    "Patrick Wolfram <pwolfram@geontech.com>",
+    "Adam Heacock <aheacock@geontech.com>"
+  ],
+  "module": "angular-redhawk.js",
+  "typings": "angular-redhawk.d.ts",
+  "peerDependencies": {
+    "@angular/core": "^4.0.0",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.8.4"
+  }
+}
