@@ -2,7 +2,7 @@ import { Property, PropertySet, deserializeProperties } from '../property/proper
 import { Port, Ports, deserializePorts } from '../port/port';
 import { ISerializable } from './serializable';
 
-// Reference to a Resource (Device + Component) 
+// Reference to a Resource (Device + Component)
 export class ResourceRef implements ISerializable<ResourceRef> {
     public name: string;
     public id: string;

@@ -29,16 +29,16 @@ export class ComponentService extends PortBearingService<Component> {
         ) { super(http); }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = ComponentUrl(this.waveformService.baseUrl, url);
+        this._baseUrl = ComponentUrl(this.waveformService.getBaseUrl(), url);
     }
 
     uniqueQuery$(): Observable<Component> {
-        return <Observable<Component>> this.waveformService.comps$(this.uniqueId);
+        return <Observable<Component>> this.waveformService.comps$(this.getUniqueId());
     }
 
     configure(properties: PropertySet): void {
         let command = new PropertyCommand(properties);
-        this.http.put(PropertyUrl(this.baseUrl), command);
+        this.http.put(PropertyUrl(this.getBaseUrl()), command);
         this.delayedUpdate();
     }
 }

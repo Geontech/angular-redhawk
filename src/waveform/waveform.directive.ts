@@ -40,30 +40,28 @@ export function serviceSelect (
         ]
     }]
 })
-export class ArWaveform implements OnDestroy, OnChanges {
+export class WaveformDirective implements OnDestroy, OnChanges {
 
     @Input('arWaveform') waveformId: string;
 
     /**
-     * "Banana Syntax" [()] for accessing the model externally. 
+     * "Banana Syntax" [()] for accessing the model externally.
      */
     @Input('arModel') model: Waveform;
     @Output('arModelChange') modelChange: EventEmitter<Waveform>;
 
-    public get service(): WaveformService { return this._service; }
-
     private subscription: Subscription = null;
 
-    constructor(private _service: WaveformService) {
+    constructor(public service: WaveformService) {
         this.modelChange = new EventEmitter<Waveform>();
         this.model = new Waveform();
     }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty('waveformId')) {
-            this.service.uniqueId = this.waveformId;
+            this.service.setUniqueId(this.waveformId);
             if (!this.subscription) {
-                this.subscription = this.service.model$.subscribe(it => {
+                this.subscription = this.service.model$().subscribe(it => {
                     this.model = it;
                     this.modelChange.emit(this.model);
                 });

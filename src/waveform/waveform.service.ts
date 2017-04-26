@@ -35,22 +35,22 @@ export class WaveformService extends PortBearingService<Waveform> {
         ) { super(http); }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = WaveformUrl(this.domainService.baseUrl, url);
+        this._baseUrl = WaveformUrl(this.domainService.getBaseUrl(), url);
     }
 
     uniqueQuery$(): Observable<Waveform> {
-        return <Observable<Waveform>> this.domainService.apps$(this.uniqueId);
+        return <Observable<Waveform>> this.domainService.apps$(this.getUniqueId());
     }
 
     public comps$(componentId?: string): Observable<Component> | Observable<ResourceRefs> {
         if (componentId) {
             return this.http
-                .get(ComponentUrl(this.baseUrl, componentId))
+                .get(ComponentUrl(this.getBaseUrl(), componentId))
                 .map(response => response.json() as Component)
                 .catch(this.handleError);
         } else {
             return this.http
-                .get(ComponentUrl(this.baseUrl))
+                .get(ComponentUrl(this.getBaseUrl()))
                 .map(response => response.json().components as ResourceRefs)
                 .catch(this.handleError);
         }
@@ -68,14 +68,14 @@ export class WaveformService extends PortBearingService<Waveform> {
 
     public release$(): Observable<IWaveformReleaseResponse> {
         return this.http
-            .delete(this.baseUrl)
+            .delete(this.getBaseUrl())
             .map(response => response.json() as IWaveformReleaseResponse)
             .catch(this.handleError);
     }
 
     private controlCommand$(command: WaveformControlCommand): Observable<IWaveformControlCommandResponse> {
         return this.http
-            .put(this.baseUrl, command)
+            .put(this.getBaseUrl(), command)
             .map(response => response.json() as IWaveformControlCommandResponse)
             .catch(this.handleError);
     }

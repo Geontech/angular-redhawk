@@ -31,10 +31,10 @@ export class BulkioRef extends PortRef {
      * @return {Subscription} The RxJS Subscription for this connection.
      */
     connectPort(target: PortReceiver): Subscription {
-        if (!this.bulkioService.connected) {
+        if (!this.bulkioService.isConnected()) {
             this.bulkioService.connect(this.url);
         }
-        return this.bulkioService.packet$.subscribe(target);
+        return this.bulkioService.getPacket$().subscribe(target);
     }
 
     /**
@@ -47,7 +47,7 @@ export class BulkioRef extends PortRef {
         if (connection) {
             connection.unsubscribe();
         }
-        if (!this.bulkioService.active) {
+        if (!this.bulkioService.isActive()) {
             // If nothing is subscribed, close the socket too.
             this.bulkioService.disconnect();
         }

@@ -4,10 +4,10 @@ import { HttpModule } from '@angular/http';
 import { RedhawkModule } from '../redhawk/redhawk.module';
 import { SocketsModule } from '../sockets/sockets.module';
 
-import { ArDomain } from './domain.directive';
+import { DomainDirective } from './domain.directive';
 
-export { DomainService } from './domain.service';
-export { ArDomain } from './domain.directive';
+export { DomainService }   from './domain.service';
+export { DomainDirective } from './domain.directive';
 export * from './domain';
 
 @NgModule({
@@ -16,7 +16,7 @@ export * from './domain';
         RedhawkModule,
         SocketsModule
         ],
-    exports:      [ ArDomain ],
-    declarations: [ ArDomain ]
+    exports:      [ DomainDirective ],
+    declarations: [ DomainDirective ]
 })
 export class DomainModule {}

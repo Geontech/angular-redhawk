@@ -3,15 +3,15 @@ import { HttpModule } from '@angular/http';
 
 import { DomainModule } from '../domain/domain.module';
 
-import { ArWaveform } from './waveform.directive';
+import { WaveformDirective } from './waveform.directive';
 
-export { WaveformService } from './waveform.service';
-export { ArWaveform } from './waveform.directive';
+export { WaveformService }   from './waveform.service';
+export { WaveformDirective } from './waveform.directive';
 export * from './waveform';
 
 @NgModule({
     imports:      [ HttpModule, DomainModule ],
-    exports:      [ ArWaveform ],
-    declarations: [ ArWaveform ]
+    exports:      [ WaveformDirective ],
+    declarations: [ WaveformDirective ]
 })
 export class WaveformModule {}

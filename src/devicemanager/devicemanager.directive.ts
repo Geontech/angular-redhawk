@@ -40,30 +40,28 @@ export function serviceSelect(
         ]
     } ]
 })
-export class ArDeviceManager implements OnDestroy, OnChanges {
+export class DeviceManagerDirective implements OnDestroy, OnChanges {
 
     @Input('arDeviceManager') deviceManagerId: string;
 
     /**
-     * "Banana Syntax" [()] for accessing the model externally. 
+     * "Banana Syntax" [()] for accessing the model externally.
      */
     @Input('arModel') model: DeviceManager;
     @Output('arModelChange') modelChange: EventEmitter<DeviceManager>;
 
-    public get service(): DeviceManagerService { return this._service; }
-
     private subscription: Subscription = null;
 
-    constructor(private _service: DeviceManagerService) {
+    constructor(public service: DeviceManagerService) {
             this.modelChange = new EventEmitter<DeviceManager>();
             this.model = new DeviceManager();
     }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty('deviceManagerId')) {
-            this.service.uniqueId = this.deviceManagerId;
+            this.service.setUniqueId(this.deviceManagerId);
             if (!this.subscription) {
-                this.subscription = this.service.model$.subscribe(it => {
+                this.subscription = this.service.model$().subscribe(it => {
                     this.model = it;
                     this.modelChange.emit(this.model);
                 });

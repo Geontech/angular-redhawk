@@ -3,15 +3,15 @@ import { HttpModule } from '@angular/http';
 
 import { WaveformModule } from '../waveform/waveform.module';
 
-import { ArComponent } from './component.directive';
+import { ComponentDirective } from './component.directive';
 
-export { ComponentService } from './component.service';
-export { ArComponent } from './component.directive';
+export { ComponentService }   from './component.service';
+export { ComponentDirective } from './component.directive';
 export * from './component';
 
 @NgModule({
     imports:      [ HttpModule, WaveformModule ],
-    exports:      [ ArComponent ],
-    declarations: [ ArComponent ]
+    exports:      [ ComponentDirective ],
+    declarations: [ ComponentDirective ]
 })
 export class ComponentModule {}

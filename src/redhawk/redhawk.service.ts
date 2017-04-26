@@ -31,7 +31,7 @@ export class RedhawkService extends BaseService<Redhawk> {
             this.rhListenerService = injector.get(RedhawkListenerService);
         }
 
-        this.rhListenerService.events$.subscribe((rh: RedhawkEvent) => {
+        this.rhListenerService.getEvents$().subscribe((rh: RedhawkEvent) => {
             this._model.next(rh);
         });
     }
@@ -42,7 +42,7 @@ export class RedhawkService extends BaseService<Redhawk> {
 
     uniqueQuery$(): Observable<Redhawk> {
         return this.http
-            .get(DomainUrl(this.baseUrl))
+            .get(DomainUrl(this.getBaseUrl()))
             .map(res => new Redhawk().deserialize(res.json()))
             .catch(this.handleError);
     }
@@ -50,7 +50,7 @@ export class RedhawkService extends BaseService<Redhawk> {
     // Get a list of online domain names
     public scan$(): Observable<string[]> {
         return this.http
-            .get(DomainUrl(this.baseUrl))
+            .get(DomainUrl(this.getBaseUrl()))
             .map(response => response.json().domains as string[])
             .catch(this.handleError);
     }
@@ -58,7 +58,7 @@ export class RedhawkService extends BaseService<Redhawk> {
     // Get the named domain model
     public attach$(domainId: string): Observable<Domain> {
         return this.http
-            .get(DomainUrl(this.baseUrl, domainId))
+            .get(DomainUrl(this.getBaseUrl(), domainId))
             .map(response => new Domain().deserialize(response.json()))
             .catch(this.handleError);
     }

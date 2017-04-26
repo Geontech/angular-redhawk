@@ -3,8 +3,6 @@ import { Observable } from 'rxjs/Observable';
 import { Subject }    from 'rxjs/Subject';
 
 export abstract class BaseService<T> {
-    // Returns whether or not the service is in the middle of updating the model.
-    public get isUpdating(): boolean { return this._updating; }
 
     // Unique ID of the server-side instance for this service
     protected _uniqueId: string;
@@ -25,19 +23,22 @@ export abstract class BaseService<T> {
         this._model = <Subject<T>> new Subject();
     }
 
-    set uniqueId(id: string) {
+    // Returns whether or not the service is in the middle of updating the model.
+    public isUpdating(): boolean { return this._updating; }
+
+    setUniqueId(id: string) {
         this.reconfigure(id);
     }
 
-    get uniqueId(): string {
+    getUniqueId(): string {
         return this._uniqueId;
     }
 
-    get baseUrl(): string {
+    getBaseUrl(): string {
         return this._baseUrl;
     }
 
-    get model$(): Observable<T> {
+    model$(): Observable<T> {
         if (!this._configured) {
             console.error('UniqueId Not set!');
         }

@@ -110,7 +110,7 @@ export class StructProperty extends Property implements ISerializable<StructProp
     /**
      * @return {string[]} List of field IDs in this structure
      */
-    get fields(): string[] {
+    getFields(): string[] {
         let fields: string[] = [];
         for (let field of this.value) {
             fields.push(field.id);

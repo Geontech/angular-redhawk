@@ -13,12 +13,13 @@ import { RedhawkEvent } from '../redhawk/redhawk';
 
 @Injectable()
 export class RedhawkListenerService {
-    public get events$(): Observable<RedhawkEvent> {
-        return this.socketInterface.asObservable();
-    }
 
     // Internal subject for received messages
     private socketInterface: Subject<RedhawkEvent>;
+
+    public getEvents$(): Observable<RedhawkEvent> {
+        return this.socketInterface.asObservable();
+    }
 
     // Constructor
     constructor() {

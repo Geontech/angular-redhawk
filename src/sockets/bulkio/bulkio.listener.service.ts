@@ -30,7 +30,7 @@ export class BulkioListenerService {
      * Subscribe to receive the bulkio packets.
      * @member {Observable<BulkioPacket>} 
      */
-    public get packet$(): Observable<BulkioPacket> {
+    public getPacket$(): Observable<BulkioPacket> {
         return <Observable<BulkioPacket>> this.packet.asObservable();
     }
 
@@ -38,7 +38,7 @@ export class BulkioListenerService {
      * The amount of time it took to deserialize the most recent packet.
      * @member {number}
      */
-    public get deserializeTime(): number { return this._deserializeTime; }
+    public getDeserializeTime(): number { return this._deserializeTime; }
 
     /**
      * Set the output data width
@@ -72,13 +72,13 @@ export class BulkioListenerService {
      * Returns whether the service is already connected.
      * @return {boolean} True: WebSocket is connected, False: it is not.
      */
-    public get connected(): boolean { return this.socketSubscription != null; }
+    public isConnected(): boolean { return this.socketSubscription != null; }
 
     /**
      * Returns whether anything is actually subscribed to receive packets.
      * @return {boolean} True: Subscribers are present, False: No subscribers.
      */
-    public get active(): boolean { return !this.packet.isStopped; }
+    public isActive(): boolean { return !this.packet.isStopped; }
 
     /**
      * Connect to the BULKIO socket at the url.  The URL is optional and takes
@@ -89,7 +89,7 @@ export class BulkioListenerService {
         this.disconnect();
 
         // Decide which URL to use
-        let target: string = url || this.serviceUrl;
+        let target: string = url || this.getServiceUrl();
         if (target) {
             this.socketInterface = <Subject<BulkioSocketTypes>> basicSocket(target)
                 .map((response: MessageEvent): BulkioSocketTypes => {
@@ -112,7 +112,7 @@ export class BulkioListenerService {
      * Disconnect from the websocket
      */
     public disconnect(): void {
-        if (this.connected) {
+        if (this.isConnected()) {
             // Close the websocket by unsubscribing, and clear the interfaces.
             this.socketSubscription.unsubscribe();
             this.socketInterface = null;
@@ -125,9 +125,9 @@ export class BulkioListenerService {
         this.packet = new Subject<BulkioPacket>();
     }
 
-    private get serviceUrl(): string {
+    private getServiceUrl(): string {
         if (this.portService) {
-            return BulkioSocketUrl(this.portService.baseUrl);
+            return BulkioSocketUrl(this.portService.getBaseUrl());
         }
         return null;
     }

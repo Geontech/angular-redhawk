@@ -3,15 +3,15 @@ import { HttpModule } from '@angular/http';
 
 import { DeviceManagerModule } from '../devicemanager/devicemanager.module';
 
-import { ArDevice } from './device.directive';
+import { DeviceDirective } from './device.directive';
 
-export { DeviceService } from './device.service';
-export { ArDevice } from './device.directive';
+export { DeviceService }   from './device.service';
+export { DeviceDirective } from './device.directive';
 export * from './device';
 
 @NgModule({
     imports:      [ HttpModule, DeviceManagerModule ],
-    exports:      [ ArDevice ],
-    declarations: [ ArDevice ]
+    exports:      [ DeviceDirective ],
+    declarations: [ DeviceDirective ]
 })
 export class DeviceModule {}

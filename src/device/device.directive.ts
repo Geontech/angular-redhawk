@@ -41,30 +41,28 @@ export function serviceSelect (
     }]
 })
 
-export class ArDevice implements OnDestroy, OnChanges {
+export class DeviceDirective implements OnDestroy, OnChanges {
 
     @Input('arDevice') deviceId: string;
 
     /**
-     * "Banana Syntax" [()] for accessing the model externally. 
+     * "Banana Syntax" [()] for accessing the model externally.
      */
     @Input('arModel') model: Device;
     @Output('arModelChange') modelChange: EventEmitter<Device>;
 
-    public get service(): DeviceService { return this._service; }
-
     private subscription: Subscription = null;
 
-    constructor(private _service: DeviceService) {
+    constructor(public service: DeviceService) {
         this.modelChange = new EventEmitter<Device>();
         this.model = new Device();
     }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty('deviceId')) {
-            this.service.uniqueId = this.deviceId;
+            this.service.setUniqueId(this.deviceId);
             if (!this.subscription) {
-                this.subscription = this.service.model$.subscribe(it => {
+                this.subscription = this.service.model$().subscribe(it => {
                     this.model = it;
                     this.modelChange.emit(this.model);
                 });

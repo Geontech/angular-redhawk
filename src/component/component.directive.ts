@@ -39,31 +39,28 @@ export function serviceSelect(
         ]
     }]
 })
-
-export class ArComponent implements OnDestroy, OnChanges {
+export class ComponentDirective implements OnDestroy, OnChanges {
 
     @Input('arComponent') componentId: string;
 
     /**
-     * "Banana Syntax" [()] for accessing the model externally. 
+     * "Banana Syntax" [()] for accessing the model externally.
      */
     @Input('arModel') model: Component;
     @Output('arModelChange') modelChange: EventEmitter<Component>;
 
-    public get service(): ComponentService { return this._service; }
-
     private subscription: Subscription = null;
 
-    constructor(private _service: ComponentService) {
+    constructor(public service: ComponentService) {
         this.modelChange = new EventEmitter<Component>();
         this.model = new Component();
     }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty('componentId')) {
-            this.service.uniqueId = this.componentId;
+            this.service.setUniqueId(this.componentId);
             if (!this.subscription) {
-                this.subscription = this.service.model$.subscribe(it => {
+                this.subscription = this.service.model$().subscribe(it => {
                     this.model = it;
                     this.modelChange.emit(this.model);
                 });

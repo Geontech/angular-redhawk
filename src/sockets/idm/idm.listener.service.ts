@@ -25,25 +25,23 @@ import {
 
 /**
  * The IdmListenerService is similar to the IDMListener in the REDHAWK sandbox.
- * Use the `*Added$` and `*Removed$` observables to monitor those specific events.
- * Alternatively, monitor all events using `events$`.
  */
 @Injectable()
 export class IdmListenerService {
 
-    public get allEvents$(): Observable<IdmEvent> {
+    public getAllEvents$(): Observable<IdmEvent> {
         return this.allEvents.asObservable();
     }
-    public get administrativeStateChanged$(): Observable<AdministrativeStateEvent> {
+    public getAdministrativeStateChanged$(): Observable<AdministrativeStateEvent> {
         return this.administrativeStateChanged.asObservable();
     }
-    public get operationalStateChanged$(): Observable<OperationalStateEvent> {
+    public getOperationalStateChanged$(): Observable<OperationalStateEvent> {
         return this.operationalStateChanged.asObservable();
     }
-    public get usageStateChanged$(): Observable<UsageStateEvent> {
+    public getUsageStateChanged$(): Observable<UsageStateEvent> {
         return this.usageStateChanged.asObservable();
     }
-    public get abnormalComponentTerminationChanged$(): Observable<AbnormalComponentTerminationEvent> {
+    public getAbnormalComponentTerminationChanged$(): Observable<AbnormalComponentTerminationEvent> {
         return this.abnormalComponentTerminationChanged.asObservable();
     }
 
@@ -82,7 +80,7 @@ export class IdmListenerService {
         this.abnormalComponentTerminationChanged = new Subject<AbnormalComponentTerminationEvent>();
 
         this.eventChannel
-            .events$
+            .getEvents$()
             .subscribe((data: any) => {
                 if (isIdmEvent(data)) {
                     this.allEvents.next(data);

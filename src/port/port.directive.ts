@@ -50,30 +50,28 @@ export function serviceSelect(
         ]
     }]
 })
-export class ArPort implements OnDestroy, OnChanges {
+export class PortDirective implements OnDestroy, OnChanges {
 
     @Input('arPort') portId: string;
 
     /**
-     * "Banana Syntax" [()] for accessing the model externally. 
+     * "Banana Syntax" [()] for accessing the model externally.
      */
     @Input('arModel') model: Port;
     @Output('arModelChange') modelChange: EventEmitter<Port>;
 
-    public get service(): PortService { return this._service; }
-
     private subscription: Subscription = null;
 
-    constructor(private _service: PortService) {
-            this.modelChange = new EventEmitter<Port>();
-            this.model = new Port();
+    constructor(public service: PortService) {
+        this.modelChange = new EventEmitter<Port>();
+        this.model = new Port();
     }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty('portId')) {
-            this.service.uniqueId = this.portId;
+            this.service.setUniqueId(this.portId);
             if (!this.subscription) {
-                this.subscription = this.service.model$.subscribe(it => {
+                this.subscription = this.service.model$().subscribe(it => {
                     this.model = it;
                     this.modelChange.emit(this.model);
                 });

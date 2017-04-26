@@ -47,17 +47,15 @@ export function serviceSelect(
         }
         ]
 })
-export class ArDomain implements OnDestroy, OnChanges {
+export class DomainDirective implements OnDestroy, OnChanges {
 
     @Input('arDomain') domainId: string;
 
     /**
-     * "Banana Syntax" [()] for accessing the model externally. 
+     * "Banana Syntax" [()] for accessing the model externally.
      */
     @Input('arModel') model: Domain;
     @Output('arModelChange') modelChange: EventEmitter<Domain>;
-
-    public get service(): DomainService { return this._service; }
 
     private subscription: Subscription = null;
 
@@ -65,7 +63,7 @@ export class ArDomain implements OnDestroy, OnChanges {
      * The directive tries to use the parent's DomainService, if provided.
      * If not, it injects its own.
      */
-    constructor(private _service: DomainService) {
+    constructor(public service: DomainService) {
         this.modelChange = new EventEmitter<Domain>();
         this.model = new Domain();
     }
@@ -73,11 +71,11 @@ export class ArDomain implements OnDestroy, OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         const domainId: string = 'domainId';
         if (changes.hasOwnProperty(domainId)) {
-            this.service.uniqueId = this.domainId;
+            this.service.setUniqueId(this.domainId);
 
             // Connect to the service if necessary
             if (!this.subscription) {
-                this.subscription = this.service.model$.subscribe(it => {
+                this.subscription = this.service.model$().subscribe(it => {
                     this.model = it;
                     this.modelChange.emit(this.model);
                 });

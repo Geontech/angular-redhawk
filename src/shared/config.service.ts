@@ -15,7 +15,7 @@
 //
 //      DeviceUrl(this.dmService.baseUrl) ==> (Same output)
 //
-// All of these functions have similar setups except the root, RedhawkUrl.  Include 
+// All of these functions have similar setups except the root, RedhawkUrl.  Include
 // the baseUrl field and, optionally, the specific entity ID.
 const REST_URL = '/redhawk/rest';
 

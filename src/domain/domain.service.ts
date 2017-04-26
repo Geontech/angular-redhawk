@@ -65,20 +65,20 @@ export class DomainService extends BaseService<Domain> {
         }
 
         // Bind update() to apps, factories, and device manager changes.
-        this.odmListener.applicationAdded$.subscribe(o => this.update());
-        this.odmListener.applicationRemoved$.subscribe(o => this.update());
-        this.odmListener.applicationFactoryAdded$.subscribe(o => this.update());
-        this.odmListener.applicationFactoryRemoved$.subscribe(o => this.update());
-        this.odmListener.deviceManagerAdded$.subscribe(o => this.update());
-        this.odmListener.deviceManagerRemoved$.subscribe(o => this.update());
+        this.odmListener.getApplicationAdded$().subscribe(o => this.update());
+        this.odmListener.getApplicationRemoved$().subscribe(o => this.update());
+        this.odmListener.getApplicationFactoryAdded$().subscribe(o => this.update());
+        this.odmListener.getApplicationFactoryRemoved$().subscribe(o => this.update());
+        this.odmListener.getDeviceManagerAdded$().subscribe(o => this.update());
+        this.odmListener.getDeviceManagerRemoved$().subscribe(o => this.update());
     }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = DomainUrl(this.redhawkService.baseUrl, url);
+        this._baseUrl = DomainUrl(this.redhawkService.getBaseUrl(), url);
     }
 
     uniqueQuery$(): Observable<Domain> {
-        return this.redhawkService.attach$(this.uniqueId);
+        return this.redhawkService.attach$(this.getUniqueId());
     }
 
 
@@ -86,7 +86,7 @@ export class DomainService extends BaseService<Domain> {
     public configure(properties: PropertySet): void {
         let command = new PropertyCommand(properties);
         this.http
-            .put(PropertyUrl(this.baseUrl), command)
+            .put(PropertyUrl(this.getBaseUrl()), command)
             .catch(this.handleError);
         this.delayedUpdate();
     }
@@ -95,12 +95,12 @@ export class DomainService extends BaseService<Domain> {
     public apps$(waveformId?: string): Observable<Waveform> | Observable<ResourceRefs> {
         if (waveformId) {
             return this.http
-                .get(WaveformUrl(this.baseUrl, waveformId))
+                .get(WaveformUrl(this.getBaseUrl(), waveformId))
                 .map(response => new Waveform().deserialize(response.json()))
                 .catch(this.handleError);
         } else {
             return this.http
-                .get(WaveformUrl(this.baseUrl))
+                .get(WaveformUrl(this.getBaseUrl()))
                 .map(response => deserializeResourceRefs(response.json().applications))
                 .catch(this.handleError);
         }
@@ -109,7 +109,7 @@ export class DomainService extends BaseService<Domain> {
     // Get a list of launchable waveforms
     public catalogSads$(): Observable<WaveformSADRefs> {
         return this.http
-            .get(WaveformUrl(this.baseUrl))
+            .get(WaveformUrl(this.getBaseUrl()))
             .map(response => deserializeWaveformSADRefs(response.json().waveforms))
             .catch(this.handleError);
     }
@@ -118,7 +118,7 @@ export class DomainService extends BaseService<Domain> {
     public launch$(waveformName: string, started?: boolean): Observable<IWaveformLaunchCommandResponse> {
         let command = new WaveformLaunchCommand(waveformName, started || false);
         return this.http
-            .post(WaveformUrl(this.baseUrl), command)
+            .post(WaveformUrl(this.getBaseUrl()), command)
             .map(response => {
                 this.delayedUpdate();
                 return response.json() as IWaveformLaunchCommandResponse;
@@ -130,12 +130,12 @@ export class DomainService extends BaseService<Domain> {
     public devMgrs$(deviceManagerId?: string): Observable<DeviceManager> | Observable<DeviceManagerRefs> {
         if (deviceManagerId) {
             return this.http
-                .get(DeviceManagerUrl(this.baseUrl, deviceManagerId))
+                .get(DeviceManagerUrl(this.getBaseUrl(), deviceManagerId))
                 .map(response => new DeviceManager().deserialize(response.json()))
                 .catch(this.handleError);
         } else {
             return this.http
-                .get(DeviceManagerUrl(this.baseUrl))
+                .get(DeviceManagerUrl(this.getBaseUrl()))
                 .map(response => deserializeDeviceManagerRefs(response.json().deviceManagers))
                 .catch(this.handleError);
         }
@@ -143,7 +143,7 @@ export class DomainService extends BaseService<Domain> {
 
     // Get a list of devices or a specific instance
     public devices$(deviceManagerId: string, deviceId?: string): Observable<Device> | Observable<ResourceRefs> {
-        let devMgrUrl = DeviceManagerUrl(this.baseUrl, deviceManagerId);
+        let devMgrUrl = DeviceManagerUrl(this.getBaseUrl(), deviceManagerId);
         if (deviceId) {
             return this.http
                 .get(DeviceUrl(devMgrUrl, deviceId))
@@ -162,6 +162,6 @@ export class DomainService extends BaseService<Domain> {
             this.odmListener.disconnect(this._uniqueId);
         }
         super.reconfigure(id);
-        this.odmListener.connect(this.uniqueId);
+        this.odmListener.connect(this.getUniqueId());
     }
 }

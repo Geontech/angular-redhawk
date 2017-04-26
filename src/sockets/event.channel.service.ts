@@ -24,15 +24,15 @@ import { deserializeIdmEvent, IdmEvent } from './idm/idm.event';
 @Injectable()
 export class EventChannelService {
 
+    // All events and "send" interface
+    private socketInterface: Subject<OdmEvent|IdmEvent|RhMessage|IEventChannelCommand>;
+
     /**
      * All events coming from this web socket
      */
-    public get events$(): Observable<OdmEvent|IdmEvent|RhMessage> {
+    public getEvents$(): Observable<OdmEvent|IdmEvent|RhMessage> {
         return this.socketInterface.asObservable();
     }
-
-    // All events and "send" interface
-    private socketInterface: Subject<OdmEvent|IdmEvent|RhMessage|IEventChannelCommand>;
 
     /**
      * Connects to the named event channel per the provided domain ID

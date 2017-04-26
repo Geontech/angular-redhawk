@@ -22,12 +22,12 @@ export class FilesystemService extends BaseService<FileSystem> {
         ) { super(http); }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = FileSystemUrl(this.domainService.baseUrl, url);
+        this._baseUrl = FileSystemUrl(this.domainService.getBaseUrl(), url);
     }
 
     uniqueQuery$(): Observable<FileSystem> {
         return this.http
-            .get(this.baseUrl)
+            .get(this.getBaseUrl())
             .map(response => new FileSystem().deserialize(response.json()));
     }
 }

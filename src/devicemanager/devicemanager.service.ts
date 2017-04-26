@@ -28,26 +28,26 @@ export class DeviceManagerService extends BaseService<DeviceManager> {
         ) { super(http); }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = DeviceManagerUrl(this.domainService.baseUrl, url);
+        this._baseUrl = DeviceManagerUrl(this.domainService.getBaseUrl(), url);
     }
 
     uniqueQuery$(): Observable<DeviceManager> {
-        return <Observable<DeviceManager>> this.domainService.devMgrs$(this.uniqueId);
+        return <Observable<DeviceManager>> this.domainService.devMgrs$(this.getUniqueId());
     }
 
     public devs$(deviceId?: string): Observable<Device> | Observable<ResourceRefs> {
-        return this.domainService.devices$(this.uniqueId, deviceId);
+        return this.domainService.devices$(this.getUniqueId(), deviceId);
     }
 
     public services$(serviceId?: string): Observable<any> | Observable<any[]> {
         if (serviceId) {
             return this.http
-                .get(ServiceUrl(this.baseUrl, serviceId))
+                .get(ServiceUrl(this.getBaseUrl(), serviceId))
                 .map(response => response.json())
                 .catch(this.handleError);
         } else {
             return this.http
-                .get(ServiceUrl(this.baseUrl))
+                .get(ServiceUrl(this.getBaseUrl()))
                 .map(response => response.json().services)
                 .catch(this.handleError);
         }

@@ -9,7 +9,7 @@ export type WebSocketBinaryType = 'blob' | 'arraybuffer';
 
 /**
  * This is a factory that returns websocket instances in the form of Subjects.
- * The Subject `subscribe` and `unsubscribe` methods are bound to opening and 
+ * The Subject `subscribe` and `unsubscribe` methods are bound to opening and
  * closing the socket, respectively.  When subscribing, map the output to the
  * type you expect.  Sometimes it's helpful to map this response into your own
  * local subject or observable, behaving as the buffer abstraction for your

@@ -41,18 +41,18 @@ import { Port } from './port';
 @Injectable()
 export class PortService extends BaseService<Port> {
 
-    /**
-     * The port's sub-reference interfaces.  For BulkIO, this will be a
-     * BulkioRef giving connectPort and disconnectPort.  For FEI, these will
-     * be interfaces that look like those defined in the associated IDL.
-     */
-    get ref(): PortRef { return this._ref; }
-
     // Reference to the parent service
     protected parent: WaveformService | DeviceService | ComponentService;
 
     private _ref: PortRef;
     private _previousUniqueID: string;
+
+    /**
+     * The port's sub-reference interfaces.  For BulkIO, this will be a
+     * BulkioRef giving connectPort and disconnectPort.  For FEI, these will
+     * be interfaces that look like those defined in the associated IDL.
+     */
+    getRef(): PortRef { return this._ref; }
 
     constructor(
         protected http: Http,
@@ -73,48 +73,48 @@ export class PortService extends BaseService<Port> {
     }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = PortUrl(this.parent.baseUrl, this.uniqueId);
+        this._baseUrl = PortUrl(this.parent.getBaseUrl(), this.getUniqueId());
     }
 
     uniqueQuery$(): Observable<Port> {
-        return <Observable<Port>> this.parent.ports$(this.uniqueId);
+        return <Observable<Port>> this.parent.ports$(this.getUniqueId());
     }
 
     modelUpdated(model: Port) {
-        if (this._previousUniqueID !== this.uniqueId) {
+        if (this._previousUniqueID !== this.getUniqueId()) {
             if (model.direction === PortDirection.Uses &&
                 model.idl.namespace === PortIDLNameSpace.BULKIO &&
                 model.idl.type !== PortBulkIOType.UNKNOWN) {
-                this._ref = new BulkioRef(this.baseUrl);
+                this._ref = new BulkioRef(this.getBaseUrl());
             } else if (model.direction === PortDirection.Provides &&
                        model.idl.namespace === PortIDLNameSpace.FRONTEND) {
                 switch (model.idl.type) {
                     case PortFEIType.AnalogTuner:
-                        this._ref = new FeiAnalogTunerRef(this.baseUrl);
+                        this._ref = new FeiAnalogTunerRef(this.getBaseUrl());
                         break;
                     case PortFEIType.DigitalTuner:
-                        this._ref = new FeiDigitalTunerRef(this.baseUrl);
+                        this._ref = new FeiDigitalTunerRef(this.getBaseUrl());
                         break;
                     case PortFEIType.GPS:
-                        this._ref = new FeiGPSRef(this.baseUrl);
+                        this._ref = new FeiGPSRef(this.getBaseUrl());
                         break;
                     case PortFEIType.NavData:
-                        this._ref = new FeiNavDataRef(this.baseUrl);
+                        this._ref = new FeiNavDataRef(this.getBaseUrl());
                         break;
                     case PortFEIType.RFInfo:
-                        this._ref = new FeiRFInfoRef(this.baseUrl);
+                        this._ref = new FeiRFInfoRef(this.getBaseUrl());
                         break;
                     case PortFEIType.RFSource:
-                        this._ref = new FeiRFSourceRef(this.baseUrl);
+                        this._ref = new FeiRFSourceRef(this.getBaseUrl());
                         break;
                     default:
                         break;
                 }
             }
             if (!this._ref) {
-                this._ref = new PortRef(this.baseUrl);
+                this._ref = new PortRef(this.getBaseUrl());
             }
-            this._previousUniqueID = this.uniqueId;
+            this._previousUniqueID = this.getUniqueId();
         }
         super.modelUpdated(model);
     }

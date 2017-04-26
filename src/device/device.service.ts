@@ -33,11 +33,11 @@ export class DeviceService extends PortBearingService<Device> {
         ) { super(http); }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = DeviceUrl(this.dmService.baseUrl, url);
+        this._baseUrl = DeviceUrl(this.dmService.getBaseUrl(), url);
     }
 
     uniqueQuery$(): Observable<Device> {
-        return <Observable<Device>> this.dmService.devs$(this.uniqueId);
+        return <Observable<Device>> this.dmService.devs$(this.getUniqueId());
     }
 
     public configure$(properties: PropertySet): Observable<IDevicePropertyCommandResponse> {
@@ -57,7 +57,7 @@ export class DeviceService extends PortBearingService<Device> {
 
     private sendDevicePropertyCommand$(command: DevicePropertyCommand): Observable<IDevicePropertyCommandResponse> {
         return this.http
-            .put(PropertyUrl(this.baseUrl), command)
+            .put(PropertyUrl(this.getBaseUrl()), command)
             .map(response => {
                     this.delayedUpdate();
                     return response.json() as IDevicePropertyCommandResponse;

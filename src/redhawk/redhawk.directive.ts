@@ -41,26 +41,25 @@ export function serviceSelect(
         }
     ]
 })
-export class ArRedhawk implements OnInit, OnDestroy {
+export class RedhawkDirective implements OnInit, OnDestroy {
     @Input() serviceName: string;
 
     /**
-     * "Banana Syntax" [()] for accessing the model externally. 
+     * "Banana Syntax" [()] for accessing the model externally.
      */
     @Input('arModel') model: Redhawk;
     @Output('arModelChange') modelChange: EventEmitter<Redhawk>;
 
     private subscription: Subscription;
-    public get service(): RedhawkService { return this._service; }
 
-    constructor(private _service: RedhawkService) {
+    constructor(public service: RedhawkService) {
         this.modelChange = new EventEmitter<Redhawk>();
         this.model = new Redhawk();
     }
 
     ngOnInit() {
-        this.service.uniqueId = this.serviceName || 'UI Kit';
-        this.subscription = this.service.model$.subscribe(it => {
+        this.service.setUniqueId(this.serviceName || 'UI Kit');
+        this.subscription = this.service.model$().subscribe(it => {
             this.model = it;
             this.modelChange.emit(this.model);
         });
