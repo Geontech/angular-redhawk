@@ -3,19 +3,19 @@ import {
     InjectionToken
 } from '@angular/core';
 
-export const REST_PYTHON_HOST = new InjectionToken<string>('REST_PYTHON_HOST');
-export const REST_PYTHON_PORT = new InjectionToken<number>('REST_PYTHON_PORT');
-export const REST_PYTHON_API_URL = new InjectionToken<string>('REST_PYTHON_API_URL');
+import { IRestPythonConfig } from './rest.python.config';
+
+export const REST_PYTHON_CONFIG = new InjectionToken<IRestPythonConfig>('REST_PYTHON_CONFIG');
 
 @Injectable()
 export class RestPythonService {
     private baseUrl: string;
     
-    constructor(host: string, port: number, apiUrl: string) {
+    constructor(config: IRestPythonConfig) {
         // Defaults
-        host = host || window.location.hostname;
-        port = port || +window.location.port; // converts to number
-        apiUrl = apiUrl || '/redhawk/rest';
+        let host = config.host || window.location.hostname;
+        let port = config.port || +window.location.port; // converts to number
+        let apiUrl = config.apiUrl || '/redhawk/rest';
         this.baseUrl = host + ':' + port + apiUrl;
     }
 
@@ -33,7 +33,7 @@ export class RestPythonService {
         if (parentUrl.lastIndexOf(server) >= 0) {
             server = ''; // Already added.
         }
-        
+
         if (subPath) {
             if (target) {
                 return server + parentUrl + subPath + '/' + target;

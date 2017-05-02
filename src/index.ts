@@ -36,11 +36,11 @@ export { ResourceRef, ResourceRefs } from './shared/resource';
 import { ArPropertyPipe, ArPropertiesPipe } from './property/property.pipe';
 
 // REST Python Service and Configuration
+export { IRestPythonConfig } from './shared/rest.python.config';
+import { IRestPythonConfig } from './shared/rest.python.config';
 import {
     RestPythonService,
-    REST_PYTHON_HOST,
-    REST_PYTHON_PORT,
-    REST_PYTHON_API_URL
+    REST_PYTHON_CONFIG
 } from './shared/rest.python.service';
 
 // Guard for providing RP
@@ -82,13 +82,11 @@ export const REST_PYTHON_GUARD = new InjectionToken<void>('REST_PYTHON_GUARD');
     ]
 })
 export class AngularRedhawkModule {
-    static forRoot(host?: string, port?: number, apiUrl?: string): ModuleWithProviders {
+    static forRoot(config?: IRestPythonConfig): ModuleWithProviders {
         return {
             ngModule:  AngularRedhawkModule,
             providers: [
-                { provide: REST_PYTHON_HOST, useValue: host },
-                { provide: REST_PYTHON_PORT, useValue: port },
-                { provide: REST_PYTHON_API_URL, useValue: apiUrl },
+                { provide: REST_PYTHON_CONFIG, useValue: config },
                 {
                     provide: REST_PYTHON_GUARD,
                     useFactory: provideRestPythonGuard,
@@ -99,11 +97,7 @@ export class AngularRedhawkModule {
                 {
                     provide: RestPythonService,
                     useFactory: configureRestPythonService,
-                    deps: [
-                        REST_PYTHON_HOST,
-                        REST_PYTHON_PORT,
-                        REST_PYTHON_API_URL
-                    ]
+                    deps: [ REST_PYTHON_CONFIG ]
                 }
             ]
         }
@@ -119,7 +113,8 @@ export function provideRestPythonGuard(service: RestPythonService): any {
     return 'guarded';
 }
 
-export function configureRestPythonService(host: string, port: number, apiUrl: string): RestPythonService {
-    const s = new RestPythonService(host, port, apiUrl);
+export function configureRestPythonService(config: IRestPythonConfig): RestPythonService {
+    config = config || {};
+    const s = new RestPythonService(config);
     return s;
 }
