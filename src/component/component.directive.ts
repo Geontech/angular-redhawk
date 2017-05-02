@@ -16,12 +16,15 @@ import { WaveformService } from '../waveform/waveform.service';
 import { ComponentService } from './component.service';
 import { Component } from './component';
 
+import { RestPythonService } from '../shared/rest.python.service';
+
 export function serviceSelect(
     service: ComponentService,
     http: Http,
+    restPython: RestPythonService,
     waveform: WaveformService): ComponentService {
     if (service === null) {
-        service = new ComponentService(http, waveform);
+        service = new ComponentService(http, restPython, waveform);
     }
     return service;
 }
@@ -33,9 +36,10 @@ export function serviceSelect(
         provide:    ComponentService,
         useFactory: serviceSelect,
         deps: [
-        [ComponentService, new Optional(), new SkipSelf()],
-        Http,
-        WaveformService
+            [ComponentService, new Optional(), new SkipSelf()],
+            Http,
+            RestPythonService,
+            WaveformService
         ]
     }]
 })

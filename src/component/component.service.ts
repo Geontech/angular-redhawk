@@ -8,11 +8,8 @@ import 'rxjs/add/operator/catch';
 import { WaveformService } from '../waveform/waveform.service';
 import { PortBearingService } from '../port/port.interface';
 
-// URL Builders
-import {
-    ComponentUrl,
-    PropertyUrl
-} from '../shared/config.service';
+// URL Builder
+import { RestPythonService } from '../shared/rest.python.service';
 
 // This model
 import { Component }  from './component';
@@ -25,11 +22,12 @@ export class ComponentService extends PortBearingService<Component> {
 
     constructor(
         protected http: Http,
+        protected restPython: RestPythonService,
         protected waveformService: WaveformService
-        ) { super(http); }
+        ) { super(http, restPython); }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = ComponentUrl(this.waveformService.getBaseUrl(), url);
+        this._baseUrl = this.restPython.componentUrl(this.waveformService.getBaseUrl(), url);
     }
 
     uniqueQuery$(): Observable<Component> {
@@ -38,7 +36,7 @@ export class ComponentService extends PortBearingService<Component> {
 
     configure(properties: PropertySet): void {
         let command = new PropertyCommand(properties);
-        this.http.put(PropertyUrl(this.getBaseUrl()), command);
+        this.http.put(this.restPython.propertyUrl(this.getBaseUrl()), command);
         this.delayedUpdate();
     }
 }

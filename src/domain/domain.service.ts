@@ -12,14 +12,8 @@ import 'rxjs/add/operator/catch';
 import { RedhawkService } from '../redhawk/redhawk.service';
 import { BaseService }    from '../shared/base.service';
 
-// URL Builders
-import {
-    DomainUrl,
-    DeviceManagerUrl,
-    WaveformUrl,
-    DeviceUrl,
-    PropertyUrl
-} from '../shared/config.service';
+// URL Builder
+import { RestPythonService } from '../shared/rest.python.service';
 
 // This model
 import { Domain } from './domain';
@@ -54,10 +48,11 @@ import { OdmListenerService } from '../sockets/odm/odm.listener.service';
 export class DomainService extends BaseService<Domain> {
     constructor(
         protected http: Http,
+        protected restPython: RestPythonService,
         protected redhawkService: RedhawkService,
         @Optional() protected odmListener: OdmListenerService
         ) {
-        super(http);
+        super(http, restPython);
 
         if (!this.odmListener) {
             let injector = ReflectiveInjector.resolveAndCreate([OdmListenerService]);
@@ -74,7 +69,7 @@ export class DomainService extends BaseService<Domain> {
     }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = DomainUrl(this.redhawkService.getBaseUrl(), url);
+        this._baseUrl = this.restPython.domainUrl(this.redhawkService.getBaseUrl(), url);
     }
 
     uniqueQuery$(): Observable<Domain> {
@@ -86,7 +81,7 @@ export class DomainService extends BaseService<Domain> {
     public configure(properties: PropertySet): void {
         let command = new PropertyCommand(properties);
         this.http
-            .put(PropertyUrl(this.getBaseUrl()), command)
+            .put(this.restPython.propertyUrl(this.getBaseUrl()), command)
             .catch(this.handleError);
         this.delayedUpdate();
     }
@@ -95,12 +90,12 @@ export class DomainService extends BaseService<Domain> {
     public apps$(waveformId?: string): Observable<Waveform> | Observable<ResourceRefs> {
         if (waveformId) {
             return this.http
-                .get(WaveformUrl(this.getBaseUrl(), waveformId))
+                .get(this.restPython.waveformUrl(this.getBaseUrl(), waveformId))
                 .map(response => new Waveform().deserialize(response.json()))
                 .catch(this.handleError);
         } else {
             return this.http
-                .get(WaveformUrl(this.getBaseUrl()))
+                .get(this.restPython.waveformUrl(this.getBaseUrl()))
                 .map(response => deserializeResourceRefs(response.json().applications))
                 .catch(this.handleError);
         }
@@ -109,7 +104,7 @@ export class DomainService extends BaseService<Domain> {
     // Get a list of launchable waveforms
     public catalogSads$(): Observable<WaveformSADRefs> {
         return this.http
-            .get(WaveformUrl(this.getBaseUrl()))
+            .get(this.restPython.waveformUrl(this.getBaseUrl()))
             .map(response => deserializeWaveformSADRefs(response.json().waveforms))
             .catch(this.handleError);
     }
@@ -118,7 +113,7 @@ export class DomainService extends BaseService<Domain> {
     public launch$(waveformName: string, started?: boolean): Observable<IWaveformLaunchCommandResponse> {
         let command = new WaveformLaunchCommand(waveformName, started || false);
         return this.http
-            .post(WaveformUrl(this.getBaseUrl()), command)
+            .post(this.restPython.waveformUrl(this.getBaseUrl()), command)
             .map(response => {
                 this.delayedUpdate();
                 return response.json() as IWaveformLaunchCommandResponse;
@@ -130,12 +125,12 @@ export class DomainService extends BaseService<Domain> {
     public devMgrs$(deviceManagerId?: string): Observable<DeviceManager> | Observable<DeviceManagerRefs> {
         if (deviceManagerId) {
             return this.http
-                .get(DeviceManagerUrl(this.getBaseUrl(), deviceManagerId))
+                .get(this.restPython.deviceManagerUrl(this.getBaseUrl(), deviceManagerId))
                 .map(response => new DeviceManager().deserialize(response.json()))
                 .catch(this.handleError);
         } else {
             return this.http
-                .get(DeviceManagerUrl(this.getBaseUrl()))
+                .get(this.restPython.deviceManagerUrl(this.getBaseUrl()))
                 .map(response => deserializeDeviceManagerRefs(response.json().deviceManagers))
                 .catch(this.handleError);
         }
@@ -143,15 +138,15 @@ export class DomainService extends BaseService<Domain> {
 
     // Get a list of devices or a specific instance
     public devices$(deviceManagerId: string, deviceId?: string): Observable<Device> | Observable<ResourceRefs> {
-        let devMgrUrl = DeviceManagerUrl(this.getBaseUrl(), deviceManagerId);
+        let devMgrUrl = this.restPython.deviceManagerUrl(this.getBaseUrl(), deviceManagerId);
         if (deviceId) {
             return this.http
-                .get(DeviceUrl(devMgrUrl, deviceId))
+                .get(this.restPython.deviceUrl(devMgrUrl, deviceId))
                 .map(response => new Device().deserialize(response.json()))
                 .catch(this.handleError);
         } else {
             return this.http
-                .get(DeviceUrl(devMgrUrl))
+                .get(this.restPython.deviceUrl(devMgrUrl))
                 .map(response => deserializeResourceRefs(response.json().devices))
                 .catch(this.handleError);
         }

@@ -23,14 +23,17 @@ import { WaveformService } from '../waveform/waveform.service';
 import { ComponentService } from '../component/component.service';
 import { DeviceService } from '../device/device.service';
 
+import { RestPythonService } from '../shared/rest.python.service';
+
 export function serviceSelect(
     service: PortService,
     http: Http,
+    restPython: RestPythonService,
     waveform: WaveformService,
     device: DeviceService,
     component: ComponentService): PortService {
     if (service === null) {
-        service = new PortService(http, waveform, device, component);
+        service = new PortService(http, restPython, waveform, device, component);
     }
     return service;
 }
@@ -44,6 +47,7 @@ export function serviceSelect(
         deps: [
             [PortService, new Optional(), new SkipSelf()],
             Http,
+            RestPythonService,
             [WaveformService, new Optional()],
             [DeviceService, new Optional()],
             [ComponentService, new Optional()]

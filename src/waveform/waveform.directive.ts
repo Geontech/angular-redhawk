@@ -16,13 +16,16 @@ import { DomainService } from '../domain/domain.service';
 import { WaveformService } from './waveform.service';
 import { Waveform }        from './waveform';
 
+import { RestPythonService } from '../shared/rest.python.service';
+
 
 export function serviceSelect (
     service: WaveformService,
     http: Http,
+    restPython: RestPythonService,
     domain: DomainService): WaveformService {
     if (service === null) {
-        service = new WaveformService(http, domain);
+        service = new WaveformService(http, restPython, domain);
     }
     return service;
 }
@@ -36,6 +39,7 @@ export function serviceSelect (
         deps: [
             [WaveformService, new Optional(), new SkipSelf()],
             Http,
+            RestPythonService,
             DomainService
         ]
     }]

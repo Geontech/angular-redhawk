@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { BaseService } from '../shared/base.service';
-import { RedhawkUrl, DomainUrl, EventChannelsUrl } from '../shared/config.service';
+import { RestPythonService } from '../shared/rest.python.service';
 import { Redhawk, RedhawkEvent } from './redhawk';
 
 // Other models
@@ -23,8 +23,9 @@ export class RedhawkService extends BaseService<Redhawk> {
 
     constructor(
         protected http: Http,
-        @Optional() protected rhListenerService: RedhawkListenerService) {
-        super(http);
+        protected restPython: RestPythonService,
+        @Optional() protected rhListenerService: RedhawkListenerService,) {
+        super(http, restPython);
 
         if (this.rhListenerService === null) {
             let injector = ReflectiveInjector.resolveAndCreate([RedhawkListenerService]);
@@ -37,12 +38,12 @@ export class RedhawkService extends BaseService<Redhawk> {
     }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = RedhawkUrl();
+        this._baseUrl = this.restPython.redhawkUrl();
     }
 
     uniqueQuery$(): Observable<Redhawk> {
         return this.http
-            .get(DomainUrl(this.getBaseUrl()))
+            .get(this.restPython.domainUrl(this.getBaseUrl()))
             .map(res => new Redhawk().deserialize(res.json()))
             .catch(this.handleError);
     }
@@ -50,7 +51,7 @@ export class RedhawkService extends BaseService<Redhawk> {
     // Get a list of online domain names
     public scan$(): Observable<string[]> {
         return this.http
-            .get(DomainUrl(this.getBaseUrl()))
+            .get(this.restPython.domainUrl(this.getBaseUrl()))
             .map(response => response.json().domains as string[])
             .catch(this.handleError);
     }
@@ -58,7 +59,7 @@ export class RedhawkService extends BaseService<Redhawk> {
     // Get the named domain model
     public attach$(domainId: string): Observable<Domain> {
         return this.http
-            .get(DomainUrl(this.getBaseUrl(), domainId))
+            .get(this.restPython.domainUrl(this.getBaseUrl(), domainId))
             .map(response => new Domain().deserialize(response.json()))
             .catch(this.handleError);
     }
@@ -66,7 +67,7 @@ export class RedhawkService extends BaseService<Redhawk> {
     // Get a list of online Event Channels
     public scanChannels$(): Observable<string[]> {
         return this.http
-            .get(EventChannelsUrl())
+            .get(this.restPython.eventChannelsUrl())
             .map(response => response.json().eventChannels as string[])
             .catch(this.handleError);
     }

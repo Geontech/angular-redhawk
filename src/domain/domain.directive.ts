@@ -18,14 +18,17 @@ import { Domain }        from './domain';
 
 import { OdmListenerService } from '../sockets/odm/odm.listener.service';
 
+import { RestPythonService } from '../shared/rest.python.service';
+
 export function serviceSelect(
         service: DomainService,
         http: Http,
+        restPython: RestPythonService,
         rh: RedhawkService,
         odm: OdmListenerService
     ): DomainService {
     if (service === null) {
-        service = new DomainService(http, rh, odm);
+        service = new DomainService(http, restPython, rh, odm);
     }
     return service;
 }
@@ -41,6 +44,7 @@ export function serviceSelect(
             deps: [
                 [DomainService, new Optional(), new SkipSelf()],
                 Http,
+                RestPythonService,
                 RedhawkService,
                 OdmListenerService
             ]

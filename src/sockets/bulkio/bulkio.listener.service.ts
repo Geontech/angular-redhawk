@@ -4,7 +4,7 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
 
-import { BulkioSocketUrl } from '../../shared/config.service';
+import { RestPythonService } from '../../shared/rest.python.service';
 import { PortService } from '../../port/port.service';
 
 import { basicSocket } from '../basic.socket';
@@ -121,13 +121,13 @@ export class BulkioListenerService {
         }
     }
 
-    constructor(@Optional() private portService: PortService) {
+    constructor(@Optional() private portService: PortService, private restPython: RestPythonService) {
         this.packet = new Subject<BulkioPacket>();
     }
 
     private getServiceUrl(): string {
         if (this.portService) {
-            return BulkioSocketUrl(this.portService.getBaseUrl());
+            return this.restPython.bulkioSocketUrl(this.portService.getBaseUrl());
         }
         return null;
     }

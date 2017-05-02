@@ -16,13 +16,16 @@ import { DeviceManagerService } from '../devicemanager/devicemanager.service';
 import { DeviceService } from './device.service';
 import { Device }        from './device';
 
+import { RestPythonService } from '../shared/rest.python.service';
+
 export function serviceSelect (
     service: DeviceService,
     http: Http,
+    restPython: RestPythonService,
     dm: DeviceManagerService
     ): DeviceService {
     if (service === null) {
-        service = new DeviceService(http, dm);
+        service = new DeviceService(http, restPython, dm);
     }
     return service;
 }
@@ -34,9 +37,10 @@ export function serviceSelect (
         provide:    DeviceService,
         useFactory: serviceSelect,
         deps: [
-        [DeviceService, new Optional(), new SkipSelf()],
-        Http,
-        DeviceManagerService
+            [DeviceService, new Optional(), new SkipSelf()],
+            Http,
+            RestPythonService,
+            DeviceManagerService
         ]
     }]
 })

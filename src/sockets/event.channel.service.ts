@@ -8,7 +8,7 @@ import { map } from 'rxjs/operator/map';
 
 import { basicSocket } from './basic.socket';
 
-import { EventSocketUrl } from '../shared/config.service';
+import { RestPythonService } from '../shared/rest.python.service';
 import { IEventChannelCommand } from './event.channel.command';
 
 import { RhMessage } from './message/message';
@@ -69,8 +69,8 @@ export class EventChannelService {
         alert('This method is reserved for future use.');
     }
 
-    constructor() {
-        this.socketInterface = <Subject<RhMessage|OdmEvent|IdmEvent>> basicSocket(EventSocketUrl())
+    constructor(restPython: RestPythonService) {
+        this.socketInterface = <Subject<RhMessage|OdmEvent|IdmEvent>> basicSocket(restPython.eventSocketUrl())
             .map((response: MessageEvent): (RhMessage|OdmEvent|IdmEvent) => {
                 let data: any = JSON.parse(response.data);
                 if (data.hasOwnProperty('id') && data.hasOwnProperty('value')) {

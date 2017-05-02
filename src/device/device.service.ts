@@ -8,11 +8,8 @@ import 'rxjs/add/operator/catch';
 import { DeviceManagerService } from '../devicemanager/devicemanager.service';
 import { PortBearingService } from '../port/port.interface';
 
-// URL builders
-import {
-    DeviceUrl,
-    PropertyUrl
-} from '../shared/config.service';
+// URL builder
+import { RestPythonService } from '../shared/rest.python.service';
 
 // This model and helpers
 import {
@@ -29,11 +26,12 @@ export class DeviceService extends PortBearingService<Device> {
 
     constructor(
         protected http: Http,
+        protected restPython: RestPythonService,
         protected dmService: DeviceManagerService
-        ) { super(http); }
+        ) { super(http, restPython); }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = DeviceUrl(this.dmService.getBaseUrl(), url);
+        this._baseUrl = this.restPython.deviceUrl(this.dmService.getBaseUrl(), url);
     }
 
     uniqueQuery$(): Observable<Device> {
@@ -57,7 +55,7 @@ export class DeviceService extends PortBearingService<Device> {
 
     private sendDevicePropertyCommand$(command: DevicePropertyCommand): Observable<IDevicePropertyCommandResponse> {
         return this.http
-            .put(PropertyUrl(this.getBaseUrl()), command)
+            .put(this.restPython.propertyUrl(this.getBaseUrl()), command)
             .map(response => {
                     this.delayedUpdate();
                     return response.json() as IDevicePropertyCommandResponse;

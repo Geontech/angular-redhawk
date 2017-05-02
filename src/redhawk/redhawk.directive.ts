@@ -15,12 +15,15 @@ import { RedhawkService } from './redhawk.service';
 import { Redhawk }        from './redhawk';
 import { RedhawkListenerService } from '../sockets/redhawk.listener.service';
 
+import { RestPythonService } from '../shared/rest.python.service';
+
 export function serviceSelect(
     service: RedhawkService,
     http: Http,
+    restPython: RestPythonService,
     rhls: RedhawkListenerService): RedhawkService {
     if (service === null) {
-        service = new RedhawkService(http, rhls);
+        service = new RedhawkService(http, restPython, rhls);
     }
     return service;
 }
@@ -36,6 +39,7 @@ export function serviceSelect(
             deps: [
                 [RedhawkService, new Optional(), new SkipSelf()],
                 Http,
+                RestPythonService,
                 RedhawkListenerService
             ]
         }

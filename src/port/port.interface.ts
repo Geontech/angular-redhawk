@@ -4,8 +4,6 @@ import 'rxjs/add/operator/catch';
 
 import { BaseService } from '../shared/base.service';
 
-import { PortUrl } from '../shared/config.service';
-
 import {
     Port,
     Ports,
@@ -17,12 +15,12 @@ export abstract class PortBearingService<T> extends BaseService<T> {
     ports$(portName?: string): Observable<Port> | Observable<Ports> {
         if (portName) {
             return this.http
-                .get(PortUrl(this.getBaseUrl(), portName))
+                .get(this.restPython.portUrl(this.getBaseUrl(), portName))
                 .map(response => deserializePort(response.json()))
                 .catch(this.handleError);
         } else {
             return this.http
-                .get(PortUrl(this.getBaseUrl()))
+                .get(this.restPython.portUrl(this.getBaseUrl()))
                 .map(response => deserializePorts(response.json().ports))
                 .catch(this.handleError);
         }

@@ -8,11 +8,8 @@ import 'rxjs/add/operator/catch';
 import { DomainService } from '../domain/domain.service';
 import { PortBearingService } from '../port/port.interface';
 
-// URL Builders
-import {
-    WaveformUrl,
-    ComponentUrl
-} from '../shared/config.service';
+// URL Builder
+import { RestPythonService } from '../shared/rest.python.service';
 
 // This model and helpers
 import {
@@ -31,11 +28,14 @@ export class WaveformService extends PortBearingService<Waveform> {
 
     constructor(
         protected http: Http,
+        protected restPython: RestPythonService,
         protected domainService: DomainService
-        ) { super(http); }
+        ) {
+        super(http, restPython);
+    }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = WaveformUrl(this.domainService.getBaseUrl(), url);
+        this._baseUrl = this.restPython.waveformUrl(this.domainService.getBaseUrl(), url);
     }
 
     uniqueQuery$(): Observable<Waveform> {
@@ -45,12 +45,12 @@ export class WaveformService extends PortBearingService<Waveform> {
     public comps$(componentId?: string): Observable<Component> | Observable<ResourceRefs> {
         if (componentId) {
             return this.http
-                .get(ComponentUrl(this.getBaseUrl(), componentId))
+                .get(this.restPython.componentUrl(this.getBaseUrl(), componentId))
                 .map(response => response.json() as Component)
                 .catch(this.handleError);
         } else {
             return this.http
-                .get(ComponentUrl(this.getBaseUrl()))
+                .get(this.restPython.componentUrl(this.getBaseUrl()))
                 .map(response => response.json().components as ResourceRefs)
                 .catch(this.handleError);
         }

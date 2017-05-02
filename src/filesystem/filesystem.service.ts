@@ -9,7 +9,7 @@ import { DomainService } from '../domain/domain.service';
 import { BaseService } from '../shared/base.service';
 
 // URL Builder
-import { FileSystemUrl } from '../shared/config.service';
+import { RestPythonService } from '../shared/rest.python.service';
 
 // This model
 import { FileSystem } from './filesystem';
@@ -18,11 +18,12 @@ import { FileSystem } from './filesystem';
 export class FilesystemService extends BaseService<FileSystem> {
     constructor(
         protected http: Http,
+        protected restPython: RestPythonService,
         protected domainService: DomainService
-        ) { super(http); }
+        ) { super(http, restPython); }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = FileSystemUrl(this.domainService.getBaseUrl(), url);
+        this._baseUrl = this.restPython.fileSystemUrl(this.domainService.getBaseUrl(), url);
     }
 
     uniqueQuery$(): Observable<FileSystem> {

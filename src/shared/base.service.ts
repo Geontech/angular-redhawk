@@ -2,6 +2,8 @@ import { Http }       from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject }    from 'rxjs/Subject';
 
+import { RestPythonService } from './rest.python.service';
+
 export abstract class BaseService<T> {
 
     // Unique ID of the server-side instance for this service
@@ -19,7 +21,7 @@ export abstract class BaseService<T> {
     // Internal updating flag
     protected _updating: boolean = false;
 
-    constructor(protected http: Http) {
+    constructor(protected http: Http, protected restPython: RestPythonService) {
         this._model = <Subject<T>> new Subject();
     }
 

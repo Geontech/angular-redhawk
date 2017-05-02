@@ -8,8 +8,8 @@ import 'rxjs/add/operator/catch';
 import { DomainService } from '../domain/domain.service';
 import { BaseService } from '../shared/base.service';
 
-// URL Builders
-import { DeviceManagerUrl, ServiceUrl } from '../shared/config.service';
+// URL Builder
+import { RestPythonService } from '../shared/rest.python.service';
 
 // This model
 import { DeviceManager } from './devicemanager';
@@ -24,11 +24,12 @@ export class DeviceManagerService extends BaseService<DeviceManager> {
 
     constructor(
         protected http: Http,
+        protected restPython: RestPythonService,
         protected domainService: DomainService
-        ) { super(http); }
+        ) { super(http, restPython); }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = DeviceManagerUrl(this.domainService.getBaseUrl(), url);
+        this._baseUrl = this.restPython.deviceManagerUrl(this.domainService.getBaseUrl(), url);
     }
 
     uniqueQuery$(): Observable<DeviceManager> {
@@ -42,12 +43,12 @@ export class DeviceManagerService extends BaseService<DeviceManager> {
     public services$(serviceId?: string): Observable<any> | Observable<any[]> {
         if (serviceId) {
             return this.http
-                .get(ServiceUrl(this.getBaseUrl(), serviceId))
+                .get(this.restPython.serviceUrl(this.getBaseUrl(), serviceId))
                 .map(response => response.json())
                 .catch(this.handleError);
         } else {
             return this.http
-                .get(ServiceUrl(this.getBaseUrl()))
+                .get(this.restPython.serviceUrl(this.getBaseUrl()))
                 .map(response => response.json().services)
                 .catch(this.handleError);
         }

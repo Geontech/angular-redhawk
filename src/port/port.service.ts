@@ -12,8 +12,8 @@ import { ComponentService } from '../component/component.service';
 // And base service
 import { BaseService } from '../shared/base.service';
 
-// URL Builders
-import { PortUrl } from '../shared/config.service';
+// URL Builder
+import { RestPythonService } from '../shared/rest.python.service';
 
 // Common port "ref" and the specific ones.
 import {
@@ -56,11 +56,12 @@ export class PortService extends BaseService<Port> {
 
     constructor(
         protected http: Http,
+        protected restPython: RestPythonService,
         @Optional() private _wave: WaveformService,
         @Optional() private _device: DeviceService,
         @Optional() private _component: ComponentService
         ) {
-        super(http);
+        super(http, restPython);
         if (_wave) {
             this.parent = _wave;
         } else if (_device) {
@@ -73,7 +74,7 @@ export class PortService extends BaseService<Port> {
     }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = PortUrl(this.parent.getBaseUrl(), this.getUniqueId());
+        this._baseUrl = this.restPython.portUrl(this.parent.getBaseUrl(), this.getUniqueId());
     }
 
     uniqueQuery$(): Observable<Port> {

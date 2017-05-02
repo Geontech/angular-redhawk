@@ -7,7 +7,7 @@ import { Subject } from 'rxjs/Subject';
 import { map } from 'rxjs/operator/map';
 
 import { basicSocket } from './basic.socket';
-import { RedhawkSocketUrl } from '../shared/config.service';
+import { RestPythonService } from '../shared/rest.python.service';
 
 import { RedhawkEvent } from '../redhawk/redhawk';
 
@@ -22,8 +22,8 @@ export class RedhawkListenerService {
     }
 
     // Constructor
-    constructor() {
-        this.socketInterface = <Subject<RedhawkEvent>> basicSocket(RedhawkSocketUrl())
+    constructor(restPython: RestPythonService) {
+        this.socketInterface = <Subject<RedhawkEvent>> basicSocket(restPython.redhawkSocketUrl())
             .map((response: MessageEvent): RedhawkEvent => {
                 return new RedhawkEvent().deserialize(JSON.parse(response.data));
             });
