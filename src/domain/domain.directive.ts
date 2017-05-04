@@ -16,7 +16,10 @@ import { RedhawkService } from '../redhawk/redhawk.service';
 import { DomainService } from './domain.service';
 import { Domain }        from './domain';
 
-import { OdmListenerService } from '../sockets/odm/odm.listener.service';
+import {
+    OdmListenerService,
+    odmListenerServiceProvider
+} from '../sockets/odm/odm.listener.service';
 
 import { RestPythonService } from '../shared/rest.python.service';
 
@@ -37,7 +40,7 @@ export function serviceSelect(
     selector: '[arDomain]',
     exportAs: 'arDomain',
     providers: [
-        OdmListenerService,
+        odmListenerServiceProvider(),
         {
             provide:    DomainService,
             useFactory: serviceSelect,

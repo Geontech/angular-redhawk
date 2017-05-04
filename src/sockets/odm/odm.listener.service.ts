@@ -21,6 +21,22 @@ import {
 
 export const ODM_CHANNEL_NAME: string = 'ODM_Channel';
 
+export function configureOdmListenerService(ecs: EventChannelService): OdmListenerService {
+    const s = new OdmListenerService(ecs);
+    return s;
+}
+
+export function odmListenerServiceProvider(): any {
+    return [
+        EventChannelService,
+        {
+            provide: OdmListenerService,
+            useFactory: configureOdmListenerService,
+            deps: [ EventChannelService ]
+        }
+    ];
+}
+
 /**
  * The OdmListenerService is similar to the ODMListener in the REDHAWK sandbox.
  */
@@ -76,10 +92,6 @@ export class OdmListenerService {
     private serviceAdded: Subject<DomainManagementObjectAddedEvent>;
     private serviceRemoved: Subject<DomainManagementObjectRemovedEvent>;
 
-    // The event interface
-    private eventChannel: EventChannelService;
-
-
     public connect(domainId: string) {
         this.eventChannel.connect(domainId, ODM_CHANNEL_NAME);
     }
@@ -88,12 +100,7 @@ export class OdmListenerService {
         this.eventChannel.disconnect(domainId, ODM_CHANNEL_NAME);
     }
 
-    constructor(@Optional() eventChannel: EventChannelService) {
-        if (!eventChannel) {
-            let injector = ReflectiveInjector.resolveAndCreate([EventChannelService]);
-            eventChannel = injector.get(EventChannelService);
-        }
-        this.eventChannel = eventChannel;
+    constructor(private eventChannel: EventChannelService) {
 
         this.allEvents = new Subject<OdmEvent>();
         this.deviceManagerAdded = new Subject<DomainManagementObjectAddedEvent>();
