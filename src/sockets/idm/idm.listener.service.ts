@@ -23,6 +23,22 @@ import {
     isAbnormalComponentTerminationEvent
 } from './idm.event';
 
+export function configureIdmListenerService(ecs: EventChannelService): IdmListenerService {
+    const s = new IdmListenerService(ecs);
+    return s;
+}
+
+export function idmListenerServiceProvider(): any {
+    return [
+        EventChannelService,
+        {
+            provide: IdmListenerService,
+            useFactory: configureIdmListenerService,
+            deps: [ EventChannelService ]
+        }
+    ];
+}
+
 /**
  * The IdmListenerService is similar to the IDMListener in the REDHAWK sandbox.
  */
@@ -54,10 +70,6 @@ export class IdmListenerService {
     private usageStateChanged: Subject<UsageStateEvent>;
     private abnormalComponentTerminationChanged: Subject<AbnormalComponentTerminationEvent>;
 
-    // The event interface
-    private eventChannel: EventChannelService;
-
-
     public connect(domainId: string) {
         this.eventChannel.connect(domainId, 'IDM_Channel');
     }
@@ -66,12 +78,7 @@ export class IdmListenerService {
         this.eventChannel.disconnect(domainId, 'IDM_Channel');
     }
 
-    constructor(@Optional() eventChannel: EventChannelService) {
-        if (!eventChannel) {
-            let injector = ReflectiveInjector.resolveAndCreate([EventChannelService]);
-            eventChannel = injector.get(EventChannelService);
-        }
-        this.eventChannel = eventChannel;
+    constructor(private eventChannel: EventChannelService) {
 
         this.allEvents = new Subject<IdmEvent>();
         this.administrativeStateChanged = new Subject<AdministrativeStateEvent>();
