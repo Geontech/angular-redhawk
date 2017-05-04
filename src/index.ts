@@ -93,11 +93,6 @@ export class AngularRedhawkModule {
                     deps: [
                         [ RestPythonService, new Optional(), new SkipSelf() ]
                     ]
-                },
-                {
-                    provide: RestPythonService,
-                    useFactory: configureRestPythonService,
-                    deps: [ REST_PYTHON_CONFIG ]
                 }
             ]
         }
@@ -111,10 +106,4 @@ export function provideRestPythonGuard(service: RestPythonService): any {
         throw new Error('AngularRedhawkModule.forRoot() called twice.');
     }
     return 'guarded';
-}
-
-export function configureRestPythonService(config: IRestPythonConfig): RestPythonService {
-    config = config || {};
-    const s = new RestPythonService(config);
-    return s;
 }

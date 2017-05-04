@@ -15,7 +15,12 @@ import { RedhawkService } from './redhawk.service';
 import { Redhawk }        from './redhawk';
 import { RedhawkListenerService } from '../sockets/redhawk.listener.service';
 
-import { RestPythonService } from '../shared/rest.python.service';
+import {
+    restPythonServiceProvider,
+    RestPythonService
+} from '../shared/rest.python.service';
+
+
 
 export function serviceSelect(
     service: RedhawkService,
@@ -32,6 +37,7 @@ export function serviceSelect(
     selector: '[arRedhawk]',
     exportAs: 'arRedhawk',
     providers: [
+        restPythonServiceProvider(),
         RedhawkListenerService,
         {
             provide: RedhawkService,

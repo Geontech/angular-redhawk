@@ -7,6 +7,22 @@ import { IRestPythonConfig } from './rest.python.config';
 
 export const REST_PYTHON_CONFIG = new InjectionToken<IRestPythonConfig>('REST_PYTHON_CONFIG');
 
+export function configureRestPythonService(config: IRestPythonConfig): RestPythonService {
+    config = config || {};
+    const s = new RestPythonService(config);
+    return s;
+}
+
+export function restPythonServiceProvider(): any {
+    return [
+        {
+            provide: RestPythonService,
+            useFactory: configureRestPythonService,
+            deps: [ REST_PYTHON_CONFIG ]
+        }
+    ];
+}
+
 @Injectable()
 export class RestPythonService {
     private baseUrl: string;
