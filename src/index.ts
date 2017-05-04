@@ -38,10 +38,7 @@ import { ArPropertyPipe, ArPropertiesPipe } from './property/property.pipe';
 // REST Python Service and Configuration
 export { IRestPythonConfig } from './shared/rest.python.config';
 import { IRestPythonConfig } from './shared/rest.python.config';
-import {
-    RestPythonService,
-    REST_PYTHON_CONFIG
-} from './shared/rest.python.service';
+import { REST_PYTHON_CONFIG } from './shared/rest.python.service';
 
 // Guard for providing RP
 export const REST_PYTHON_GUARD = new InjectionToken<void>('REST_PYTHON_GUARD');
@@ -91,18 +88,18 @@ export class AngularRedhawkModule {
                     provide: REST_PYTHON_GUARD,
                     useFactory: provideRestPythonGuard,
                     deps: [
-                        [ RestPythonService, new Optional(), new SkipSelf() ]
+                        [ REST_PYTHON_CONFIG, new Optional(), new SkipSelf() ]
                     ]
                 }
             ]
         }
     }
 
-    constructor(@Inject(REST_PYTHON_GUARD) guard: any, @Optional() service: RestPythonService) { /** */ }
+    constructor(@Inject(REST_PYTHON_GUARD) guard: any) { /** */ }
 }
 
-export function provideRestPythonGuard(service: RestPythonService): any {
-    if (service) {
+export function provideRestPythonGuard(config: IRestPythonConfig): any {
+    if (config) {
         throw new Error('AngularRedhawkModule.forRoot() called twice.');
     }
     return 'guarded';
