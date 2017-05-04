@@ -24,7 +24,7 @@ export class RedhawkService extends BaseService<Redhawk> {
     constructor(
         protected http: Http,
         protected restPython: RestPythonService,
-        @Optional() protected rhListenerService: RedhawkListenerService,) {
+        @Optional() protected rhListenerService: RedhawkListenerService) {
         super(http, restPython);
 
         if (this.rhListenerService === null) {

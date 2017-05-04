@@ -26,37 +26,13 @@ export function restPythonServiceProvider(): any {
 @Injectable()
 export class RestPythonService {
     private baseUrl: string;
-    
+
     constructor(config: IRestPythonConfig) {
         // Defaults
         let host = config.host || window.location.hostname;
         let port = config.port || +window.location.port; // converts to number
         let apiUrl = config.apiUrl || '/redhawk/rest';
         this.baseUrl = host + ':' + port + apiUrl;
-    }
-
-    private baseWebsocketUrl(parentUrl: string, subPath?: string): string {
-        let path = ((window.location.protocol === 'https:') ? 'wss:' : 'ws:') + '//';
-        path += this.baseUrl + parentUrl;
-        if (subPath) {
-            path += subPath;
-        }
-        return path;
-    }
-
-    private baseRestUrl(parentUrl: string, subPath?: string, target?: string): string {
-        let server = window.location.protocol + '//' + this.baseUrl;
-        if (parentUrl.lastIndexOf(server) >= 0) {
-            server = ''; // Already added.
-        }
-
-        if (subPath) {
-            if (target) {
-                return server + parentUrl + subPath + '/' + target;
-            }
-            return server + parentUrl + subPath;
-        }
-        return server + parentUrl;
     }
 
     redhawkUrl(): string {
@@ -113,5 +89,29 @@ export class RestPythonService {
 
     eventSocketUrl(): string {
         return this.baseWebsocketUrl('/events');
+    }
+
+    private baseWebsocketUrl(parentUrl: string, subPath?: string): string {
+        let path = ((window.location.protocol === 'https:') ? 'wss:' : 'ws:') + '//';
+        path += this.baseUrl + parentUrl;
+        if (subPath) {
+            path += subPath;
+        }
+        return path;
+    }
+
+    private baseRestUrl(parentUrl: string, subPath?: string, target?: string): string {
+        let server = window.location.protocol + '//' + this.baseUrl;
+        if (parentUrl.lastIndexOf(server) >= 0) {
+            server = ''; // Already added.
+        }
+
+        if (subPath) {
+            if (target) {
+                return server + parentUrl + subPath + '/' + target;
+            }
+            return server + parentUrl + subPath;
+        }
+        return server + parentUrl;
     }
 }
