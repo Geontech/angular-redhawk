@@ -9,6 +9,10 @@ import {
     BulkioPacket
 } from '../../sockets/sockets.module';
 
+import {
+    RestPythonService
+} from '../../shared/rest.python.service';
+
 /**
  * @interface
  * The PortReceiver interface receives BulkioPacket pushes from
@@ -77,7 +81,7 @@ export class BulkioRef extends PortRef {
         super.release();
     }
 
-    constructor(public url: string) {
+    constructor(public url: string, rp: RestPythonService) {
         super(url);
         /**
          * Get this injector parent, which is likely the PortService, then
@@ -88,7 +92,7 @@ export class BulkioRef extends PortRef {
          * would have instantiated the PortService).
          */
         let parent = ReflectiveInjector.resolveAndCreate([]);
-        let injector = parent.resolveAndCreateChild([BulkioListenerService]);
+        let injector = parent.resolveAndCreateChild([BulkioListenerService, { provide: RestPythonService, useValue: rp }]);
         this.bulkioService = injector.get(BulkioListenerService);
     }
 }

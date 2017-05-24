@@ -63,11 +63,14 @@ export class PortService extends BaseService<Port> {
         ) {
         super(http, restPython);
         if (_wave) {
-            this.parent = _wave;
+            if (_component) {
+                this.parent = _component;
+            }
+            else {
+                this.parent = _wave;
+            }
         } else if (_device) {
             this.parent = _device;
-        } else if (_component) {
-            this.parent = _component;
         } else {
             console.error('Failed to provide a port bearing service');
         }
@@ -86,7 +89,7 @@ export class PortService extends BaseService<Port> {
             if (model.direction === PortDirection.Uses &&
                 model.idl.namespace === PortIDLNameSpace.BULKIO &&
                 model.idl.type !== PortBulkIOType.UNKNOWN) {
-                this._ref = new BulkioRef(this.getBaseUrl());
+                this._ref = new BulkioRef(this.getBaseUrl(), this.restPython);
             } else if (model.direction === PortDirection.Provides &&
                        model.idl.namespace === PortIDLNameSpace.FRONTEND) {
                 switch (model.idl.type) {
