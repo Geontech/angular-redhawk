@@ -2,10 +2,6 @@
   "name": "angular-redhawk",
   "version": "1.0.0",  
   "repository": "git://github.com/GeonTech/angular-redhawk.git",
-  "author": {
-    "name": "Thomas Goodwin",
-    "email": "btgoodwin@geontech.com"
-  },
   "author": "Thomas Goodwin <btgoodwin@geontech.com>",
   "license": "GPL-3.0",
   "keywords": [
@@ -14,7 +10,8 @@
   ],
   "contributors": [
     "Patrick Wolfram <pwolfram@geontech.com>",
-    "Adam Heacock <aheacock@geontech.com>"
+    "Adam Heacock <aheacock@geontech.com>",
+    "Trevor Plumley <tplumley@geontech.com>"
   ],
   "module": "angular-redhawk.js",
   "typings": "angular-redhawk.d.ts",

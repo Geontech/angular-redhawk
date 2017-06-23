@@ -12,6 +12,30 @@ If you are installing Angular-REDHAWK into your application, use `npm` to instal
 
  > **NOTE:** Angular-REDHAWK is currently only available on github.  Therefore `npm install` must point to the github repo.
 
+Import the `AngularRedhawkModule` into your application and configure it:
+
+```
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+
+import { AngularRedhawkModule } from 'angular-redhawk';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AngularRedhawkModule.forRoot({port: 8080})
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+```
+
 ## Developing the Library
 
 If you are developing on Angular-REDHAWK:

@@ -14,7 +14,7 @@ import { RestPythonService } from '../shared/rest.python.service';
 // This model and helpers
 import {
     Waveform,
-    WaveformControlCommand,
+    IWaveformControlCommand,
     IWaveformControlCommandResponse,
     IWaveformReleaseResponse
 } from './waveform';
@@ -57,12 +57,12 @@ export class WaveformService extends PortBearingService<Waveform> {
     }
 
     public start$(): Observable<IWaveformControlCommandResponse> {
-        let command = new WaveformControlCommand(true);
+        let command: IWaveformControlCommand = { started: true };
         return this.controlCommand$(command);
     }
 
     public stop$(): Observable<IWaveformControlCommandResponse> {
-        let command = new WaveformControlCommand(false);
+        let command: IWaveformControlCommand = { started: false };
         return this.controlCommand$(command);
     }
 
@@ -73,7 +73,7 @@ export class WaveformService extends PortBearingService<Waveform> {
             .catch(this.handleError);
     }
 
-    private controlCommand$(command: WaveformControlCommand): Observable<IWaveformControlCommandResponse> {
+    private controlCommand$(command: IWaveformControlCommand): Observable<IWaveformControlCommandResponse> {
         return this.http
             .put(this.getBaseUrl(), command)
             .map(response => response.json() as IWaveformControlCommandResponse)

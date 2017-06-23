@@ -22,7 +22,7 @@ import { Domain } from './domain';
 import {
     Waveform,
     WaveformSADRefs,
-    WaveformLaunchCommand,
+    IWaveformLaunchCommand,
     IWaveformLaunchCommandResponse,
     deserializeWaveformSADRefs
 } from '../waveform/waveform';
@@ -111,7 +111,7 @@ export class DomainService extends BaseService<Domain> {
 
     // Launch a waveform
     public launch$(waveformName: string, started?: boolean): Observable<IWaveformLaunchCommandResponse> {
-        let command = new WaveformLaunchCommand(waveformName, started || false);
+        let command: IWaveformLaunchCommand = { name: waveformName, started: started || false};
         return this.http
             .post(this.restPython.waveformUrl(this.getBaseUrl()), command)
             .map(response => {
