@@ -47,8 +47,9 @@ export function deserializeWaveformSADRefs (inputs?: any): WaveformSADRefs {
 }
 
 // Waveform Launch Command and Response
-export class WaveformLaunchCommand {
-    constructor(name: string, started: boolean) { /** */ }
+export interface IWaveformLaunchCommand {
+    name: string;
+    started: boolean;
 }
 export interface IWaveformLaunchCommandResponse {
     launched: string;
@@ -62,8 +63,8 @@ export interface IWaveformReleaseResponse {
 }
 
 // Waveform Control and  Response
-export class WaveformControlCommand {
-    constructor(started: boolean) { /** */ }
+export class IWaveformControlCommand {
+    started: boolean;
 }
 export interface IWaveformControlCommandResponse {
     id: string;
