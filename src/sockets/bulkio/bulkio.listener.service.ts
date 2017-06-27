@@ -4,9 +4,6 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
 
-import { RestPythonService } from '../../shared/rest.python.service';
-import { PortService } from '../../port/port.service';
-
 import { basicSocket } from '../basic.socket';
 
 import { BulkioPacket } from './bulkio.packet';
@@ -24,7 +21,7 @@ export class BulkioListenerService {
     private socketSubscription: Subscription;
 
     // The amount of time deserializing a packet took.
-    private _deserializeTime: number = 0;
+    private deserializeTime: number = 0;
 
     /**
      * Subscribe to receive the bulkio packets.
@@ -38,7 +35,7 @@ export class BulkioListenerService {
      * The amount of time it took to deserialize the most recent packet.
      * @member {number}
      */
-    public getDeserializeTime(): number { return this._deserializeTime; }
+    public getDeserializeTime(): number { return this.deserializeTime; }
 
     /**
      * Set the output data width
@@ -81,24 +78,23 @@ export class BulkioListenerService {
     public isActive(): boolean { return !this.packet.isStopped; }
 
     /**
-     * Connect to the BULKIO socket at the url.  The URL is optional and takes
-     * precedence over the PortService if one was provided.
-     * @param {string} url - The URL (ws://...) of the BULKIO websocket interface
+     * Connect to the BULKIO socket at the url.
      */
-    public connect(url?: string): void {
+    public connect(connection_id?: string): void {
         this.disconnect();
-
-        // Decide which URL to use
-        let target: string = url || this.getServiceUrl();
-        if (target) {
-            this.socketInterface = <Subject<BulkioSocketTypes>> basicSocket(target)
+        if (this.url) {
+            let connectionUrl: string = this.url;
+            if (connection_id) {
+                connectionUrl += '/' + connection_id;
+            }
+            this.socketInterface = <Subject<BulkioSocketTypes>> basicSocket(connectionUrl)
                 .map((response: MessageEvent): BulkioSocketTypes => {
                     let d = new Date();
                     let start: number = d.getTime();
                     let data: any = JSON.parse(response.data);
                     let packet =  new BulkioPacket().deserialize(data);
                     let end: number = d.getTime();
-                    this._deserializeTime = end - start;
+                    this.deserializeTime = end - start;
                     return packet;
                 });
             this.socketSubscription = this.socketInterface
@@ -117,18 +113,14 @@ export class BulkioListenerService {
             this.socketSubscription.unsubscribe();
             this.socketInterface = null;
             this.socketSubscription = null;
-            this._deserializeTime = 0;
+            this.deserializeTime = 0;
         }
     }
 
-    constructor(@Optional() private portService: PortService, private restPython: RestPythonService) {
+    /**
+     * @param {string} url - The base URL (ws:// or wss://) of the port
+     */
+    constructor(private url: string) {
         this.packet = new Subject<BulkioPacket>();
-    }
-
-    private getServiceUrl(): string {
-        if (this.portService) {
-            return this.restPython.bulkioSocketUrl(this.portService.getBaseUrl());
-        }
-        return null;
     }
 }
