@@ -44,15 +44,8 @@ export class PortService extends BaseService<Port> {
     // Reference to the parent service
     protected parent: WaveformService | DeviceService | ComponentService;
 
-    private _ref: PortRef;
-    private _previousUniqueID: string;
-
-    /**
-     * The port's sub-reference interfaces.  For BulkIO, this will be a
-     * BulkioRef giving connectPort and disconnectPort.  For FEI, these will
-     * be interfaces that look like those defined in the associated IDL.
-     */
-    getRef(): PortRef { return this._ref; }
+    private _ref: PortRef = null;
+    private _previousUniqueId: string;
 
     constructor(
         protected http: Http,
@@ -76,6 +69,19 @@ export class PortService extends BaseService<Port> {
         }
     }
 
+    /**
+     * The port's sub-reference interfaces.  For BulkIO, this will be a
+     * BulkioRef giving connectPort and disconnectPort.  For FEI, these will
+     * be interfaces that look like those defined in the associated IDL.
+     *
+     * Use model.hasBulkioWebsocket to determine if this is a BulkioRef.
+     * Use model.isFEIControllable to determine if this is one of the FEI Refs.
+     * 
+     * Then use model.idl.type to determine the sub-type (either the data type
+     * of the BulkioRef, or the FeiXXXXRef ref type).
+     */
+    getRef(): PortRef { return this._ref; }
+
     setBaseUrl(url: string): void {
         this._baseUrl = this.restPython.portUrl(this.parent.getBaseUrl(), this.getUniqueId());
     }
@@ -85,13 +91,16 @@ export class PortService extends BaseService<Port> {
     }
 
     modelUpdated(model: Port) {
-        if (this._previousUniqueID !== this.getUniqueId()) {
-            if (model.direction === PortDirection.Uses &&
-                model.idl.namespace === PortIDLNameSpace.BULKIO &&
-                model.idl.type !== PortBulkIOType.UNKNOWN) {
+        if (this._previousUniqueId !== this.getUniqueId()) {
+            if (this._ref) {
+                this._ref.release();
+                this._ref = null;
+            }
+
+            if (model.hasBulkioWebsocket) {
                 this._ref = new BulkioRef(this.getBaseUrl(), this.restPython);
-            } else if (model.direction === PortDirection.Provides &&
-                       model.idl.namespace === PortIDLNameSpace.FRONTEND) {
+            }
+            else if (model.isFEIControllable) {
                 switch (model.idl.type) {
                     case PortFEIType.AnalogTuner:
                         this._ref = new FeiAnalogTunerRef(this.getBaseUrl());
@@ -112,13 +121,18 @@ export class PortService extends BaseService<Port> {
                         this._ref = new FeiRFSourceRef(this.getBaseUrl());
                         break;
                     default:
+                        console.warn('Provides (controllable) FEI port has unknown Port Type');
                         break;
                 }
             }
+
+            // Still not set? Use default.
             if (!this._ref) {
                 this._ref = new PortRef(this.getBaseUrl());
             }
-            this._previousUniqueID = this.getUniqueId();
+
+            // Set previousUniqueId to this one.
+            this._previousUniqueId = this.getUniqueId();
         }
         super.modelUpdated(model);
     }

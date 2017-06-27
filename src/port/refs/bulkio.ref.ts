@@ -1,4 +1,3 @@
-import { ReflectiveInjector } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
 
@@ -32,11 +31,12 @@ export class BulkioRef extends PortRef {
     /**
      * Connect to the packet stream of the bulkio service listener
      * @param {PortReceiver} target - The callback for when new packets are received.
+     * @param {string} connection_id - The connection_id (stream_id), if applicable.
      * @return {Subscription} The RxJS Subscription for this connection.
      */
-    connectPort(target: PortReceiver): Subscription {
+    connectPort(target: PortReceiver, connection_id?: string): Subscription {
         if (!this.bulkioService.isConnected()) {
-            this.bulkioService.connect(this.url);
+            this.bulkioService.connect(connection_id);
         }
         return this.bulkioService.getPacket$().subscribe(target);
     }
@@ -72,8 +72,16 @@ export class BulkioRef extends PortRef {
      * as the socket and server will allow).
      * @param {number} pps - The maximum number of packets per second to receive.
      */
-    public setPacketsPerSecond(pps: number): void {
+    setPacketsPerSecond(pps: number): void {
         this.bulkioService.setPacketsPerSecond(pps);
+    }
+
+    /**
+     * Statistic indicating how long it took to deserialize the packet.
+     * @return {number} The time required to deserialize the BulkioPacket
+     */
+    getDeserializeTime(): number {
+        return this.bulkioService.getDeserializeTime();
     }
 
     release(): void {
@@ -83,16 +91,6 @@ export class BulkioRef extends PortRef {
 
     constructor(public url: string, rp: RestPythonService) {
         super(url);
-        /**
-         * Get this injector parent, which is likely the PortService, then
-         * have the parent resolve and create a child of the listener service.
-         * This should allow DI to inject this PortService into this newly
-         * minted BulkioListenerService and cache that provider for down-stream
-         * DI (like a plotter view inside a div with arPort on it, which
-         * would have instantiated the PortService).
-         */
-        let parent = ReflectiveInjector.resolveAndCreate([]);
-        let injector = parent.resolveAndCreateChild([BulkioListenerService, { provide: RestPythonService, useValue: rp }]);
-        this.bulkioService = injector.get(BulkioListenerService);
+        this.bulkioService = new BulkioListenerService(rp.bulkioSocketUrl(url));
     }
 }

@@ -80,6 +80,12 @@ export class RestPythonService {
     }
 
     bulkioSocketUrl(portUrl: string): string {
+        // Pop service off the front, if present.
+        let base_url_re = new RegExp(this.baseUrl.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"));
+        let svc_re = /^https?\:\/{1,2}/i;
+
+        portUrl = portUrl.replace(base_url_re, "");
+        portUrl = portUrl.replace(svc_re, "");
         return this.baseWebsocketUrl(portUrl, '/bulkio');
     }
 

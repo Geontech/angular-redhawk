@@ -10,6 +10,8 @@ import { PortDirective } from './port.directive';
 export { PortService }   from './port.service';
 export { PortDirective } from './port.directive';
 export * from './port';
+export * from './refs/refs.module';
+export * from './enums/enums.module';
 
 @NgModule({
     imports:      [ HttpModule, DeviceModule, ComponentModule, WaveformModule ],
