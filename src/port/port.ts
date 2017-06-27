@@ -1,10 +1,11 @@
 import { ISerializable } from '../shared/serializable';
 
+import { PortIDL } from './port.idl';
+
 // Enumerations and resolvers
 import {
-    PortIDLNameSpace, resolvePortIDLNameSpace,
-    PortDirection,    resolvePortDirection,
-    PortIDLType,      resolvePortIDLType
+    PortDirection, resolvePortDirection,
+    PortBulkIOType, PortFEIType, PortIDLNameSpace
 } from './enums/enums.module';
 
 export class Port implements ISerializable<Port> {
@@ -13,29 +14,24 @@ export class Port implements ISerializable<Port> {
     public direction: PortDirection;
     public idl: PortIDL;
 
+    /** @property {boolean} Indicates this is a BULKIO port that supports the websocket interface. */
+    public hasBulkioWebsocket: boolean = false;
+
+    /** @property {boolean} Indicates this is an FEI port that supports the control interface. */
+    public isFEIControllable: boolean = false;
+
     deserialize(input: any) {
         this.name = input.name;
         this.repId = input.repId;
         this.direction = resolvePortDirection(input.direction);
         this.idl = new PortIDL().deserialize(input.idl);
+
+        this.hasBulkioWebsocket = (this.direction == PortDirection.Uses && this.idl.namespace == PortIDLNameSpace.BULKIO);
+        this.isFEIControllable = (this.direction == PortDirection.Provides && this.idl.namespace == PortIDLNameSpace.FRONTEND);
         return this;
     }
 }
 export type Ports = Array<Port>;
-
-export class PortIDL implements ISerializable<PortIDL> {
-    public namespace: PortIDLNameSpace;
-    public version: string;
-    public type: PortIDLType;
-
-    deserialize(input: any) {
-        this.namespace = resolvePortIDLNameSpace(input.namespace);
-        this.version = input.version;
-        this.type = resolvePortIDLType(input.type);
-        return this;
-    }
-}
-
 
 /**
  * @param {any} input JSON Object representing a port

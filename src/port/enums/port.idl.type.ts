@@ -1,5 +1,5 @@
 // The various IDL types
-enum PortUnknownIDLType {
+export enum PortUnknownIDLType {
     UNKNOWN = -1
 }
 

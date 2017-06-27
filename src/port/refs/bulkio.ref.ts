@@ -72,7 +72,7 @@ export class BulkioRef extends PortRef {
      * as the socket and server will allow).
      * @param {number} pps - The maximum number of packets per second to receive.
      */
-    public setPacketsPerSecond(pps: number): void {
+    setPacketsPerSecond(pps: number): void {
         this.bulkioService.setPacketsPerSecond(pps);
     }
 
