@@ -26,6 +26,7 @@ export interface PortReceiver {
  * BulkioRef is akin to the internal "ref" member found in the Python Shell.
  */
 export class BulkioRef extends PortRef {
+    private connectionId: string;
     private bulkioService: BulkioListenerService;
 
     /**
@@ -35,15 +36,20 @@ export class BulkioRef extends PortRef {
      * @return {Subscription} The RxJS Subscription for this connection.
      */
     connectPort(target: PortReceiver, connection_id?: string): Subscription {
+        if (connection_id !== this.connectionId) {
+            this.disconnectPort();
+        }
         if (!this.bulkioService.isConnected()) {
             this.bulkioService.connect(connection_id);
+            this.connectionId = connection_id;
         }
         return this.bulkioService.getPacket$().subscribe(target);
     }
 
     /**
      * Disconnect this connection.
-     * NOTE: This is equivalent call unsubscribe() on the Subscription
+     * NOTE: This is equivalent call unsubscribe() on the Subscription and
+     *       also disconnects the service from the server.
      * @param {Subscription} connection - The connection (subscription) returned
      *     from the connectPort call.
      */
@@ -51,10 +57,7 @@ export class BulkioRef extends PortRef {
         if (connection) {
             connection.unsubscribe();
         }
-        if (!this.bulkioService.isActive()) {
-            // If nothing is subscribed, close the socket too.
-            this.bulkioService.disconnect();
-        }
+        this.bulkioService.disconnect();
     }
 
     /**

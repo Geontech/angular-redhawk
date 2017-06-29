@@ -26,8 +26,8 @@ export class Port implements ISerializable<Port> {
         this.direction = resolvePortDirection(input.direction);
         this.idl = new PortIDL().deserialize(input.idl);
 
-        this.hasBulkioWebsocket = (this.direction == PortDirection.Uses && this.idl.namespace == PortIDLNameSpace.BULKIO);
-        this.isFEIControllable = (this.direction == PortDirection.Provides && this.idl.namespace == PortIDLNameSpace.FRONTEND);
+        this.hasBulkioWebsocket = (this.direction === PortDirection.Uses && this.idl.namespace === PortIDLNameSpace.BULKIO);
+        this.isFEIControllable = (this.direction === PortDirection.Provides && this.idl.namespace === PortIDLNameSpace.FRONTEND);
         return this;
     }
 }

@@ -58,8 +58,7 @@ export class PortService extends BaseService<Port> {
         if (_wave) {
             if (_component) {
                 this.parent = _component;
-            }
-            else {
+            } else {
                 this.parent = _wave;
             }
         } else if (_device) {
@@ -76,7 +75,7 @@ export class PortService extends BaseService<Port> {
      *
      * Use model.hasBulkioWebsocket to determine if this is a BulkioRef.
      * Use model.isFEIControllable to determine if this is one of the FEI Refs.
-     * 
+     *
      * Then use model.idl.type to determine the sub-type (either the data type
      * of the BulkioRef, or the FeiXXXXRef ref type).
      */
@@ -99,8 +98,7 @@ export class PortService extends BaseService<Port> {
 
             if (model.hasBulkioWebsocket) {
                 this._ref = new BulkioRef(this.getBaseUrl(), this.restPython);
-            }
-            else if (model.isFEIControllable) {
+            } else if (model.isFEIControllable) {
                 switch (model.idl.type) {
                     case PortFEIType.AnalogTuner:
                         this._ref = new FeiAnalogTunerRef(this.getBaseUrl());
