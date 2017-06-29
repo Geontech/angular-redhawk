@@ -3,35 +3,11 @@ import {
     InjectionToken
 } from '@angular/core';
 
-import { IRestPythonConfig } from './rest.python.config';
-
-export const REST_PYTHON_CONFIG = new InjectionToken<IRestPythonConfig>('REST_PYTHON_CONFIG');
-
-export function configureRestPythonService(config: IRestPythonConfig): RestPythonService {
-    config = config || {};
-    const s = new RestPythonService(config);
-    return s;
-}
-
-export function restPythonServiceProvider(): any {
-    return [
-        {
-            provide: RestPythonService,
-            useFactory: configureRestPythonService,
-            deps: [ REST_PYTHON_CONFIG ]
-        }
-    ];
-}
-
 @Injectable()
 export class RestPythonService {
     private baseUrl: string;
 
-    constructor(config: IRestPythonConfig) {
-        // Defaults
-        let host = config.host || window.location.hostname;
-        let port = config.port || +window.location.port; // converts to number
-        let apiUrl = config.apiUrl || '/redhawk/rest';
+    constructor(host: string, port: number, apiUrl: string) {
         this.baseUrl = host + ':' + port + apiUrl;
     }
 
@@ -81,11 +57,11 @@ export class RestPythonService {
 
     bulkioSocketUrl(portUrl: string): string {
         // Pop service off the front, if present.
-        let base_url_re = new RegExp(this.baseUrl.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"));
-        let svc_re = /^https?\:\/{1,2}/i;
+        let baseUrlRE = new RegExp(this.baseUrl.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&'));
+        let svcRE = /^https?\:\/{1,2}/i;
 
-        portUrl = portUrl.replace(base_url_re, "");
-        portUrl = portUrl.replace(svc_re, "");
+        portUrl = portUrl.replace(baseUrlRE, '');
+        portUrl = portUrl.replace(svcRE, '');
         return this.baseWebsocketUrl(portUrl, '/bulkio');
     }
 

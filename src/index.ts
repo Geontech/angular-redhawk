@@ -35,12 +35,18 @@ export { ResourceRef, ResourceRefs } from './shared/resource';
 // Pipes
 import { ArPropertyPipe, ArPropertiesPipe } from './property/property.pipe';
 
-// REST Python Service and Configuration
-export { IRestPythonConfig } from './shared/rest.python.config';
-import { IRestPythonConfig } from './shared/rest.python.config';
-import { REST_PYTHON_CONFIG } from './shared/rest.python.service';
+// REST Python Service
+import { RestPythonService } from './shared/rest.python.service';
+export { RestPythonService } from './shared/rest.python.service';
 
-// Guard for providing RP
+export interface IRestPythonConfig {
+    host?: string;
+    port?: number;
+    apiUrl?: string;
+}
+
+// Tokens for config and guard
+export const REST_PYTHON_CONFIG = new InjectionToken<IRestPythonConfig>('REST_PYTHON_CONFIG');
 export const REST_PYTHON_GUARD = new InjectionToken<void>('REST_PYTHON_GUARD');
 
 @NgModule({
@@ -83,24 +89,43 @@ export class AngularRedhawkModule {
         return {
             ngModule:  AngularRedhawkModule,
             providers: [
-                { provide: REST_PYTHON_CONFIG, useValue: config },
                 {
-                    provide: REST_PYTHON_GUARD,
-                    useFactory: provideRestPythonGuard,
-                    deps: [
-                        [ REST_PYTHON_CONFIG, new Optional(), new SkipSelf() ]
-                    ]
+                    provide:     REST_PYTHON_CONFIG,
+                    useValue:    config ? config : {}
+                },
+                {
+                    provide:     RestPythonService,
+                    useFactory:  configureRestPythonService,
+                    deps:        [ REST_PYTHON_CONFIG ]
+                },
+                {
+                    provide:     REST_PYTHON_GUARD,
+                    useFactory:  provideRestPythonGuard,
+                    deps:        [ [ RestPythonService, new Optional(), new SkipSelf() ] ]
                 }
             ]
         }
     }
 
-    constructor(@Inject(REST_PYTHON_GUARD) guard: any) { /** */ }
+    static forChild(): ModuleWithProviders {
+        return { ngModule: AngularRedhawkModule, providers: [] };
+    }
+
+    constructor(@Optional() @Inject(REST_PYTHON_GUARD) guard: any, @Optional() rpservice: RestPythonService) {}
 }
 
-export function provideRestPythonGuard(config: IRestPythonConfig): any {
-    if (config) {
-        throw new Error('AngularRedhawkModule.forRoot() called twice.');
+export function provideRestPythonGuard(rpservice: RestPythonService): any {
+    if (rpservice) {
+        throw new Error('AngularRedhawkModule.forRoot() called twice.  Lazy-loaded modules should use forChild() instead.');
     }
     return 'guarded';
+}
+
+export function configureRestPythonService(config: IRestPythonConfig): RestPythonService {
+    // Defaults
+    let host = config.host || window.location.hostname;
+    let port = config.port || +window.location.port; // converts to number
+    let apiUrl = config.apiUrl || '/redhawk/rest';
+    const s = new RestPythonService(host, port, apiUrl);
+    return s;
 }
