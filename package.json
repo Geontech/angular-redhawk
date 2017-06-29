@@ -5,8 +5,13 @@
   "scripts": {
     "build": "gulp build",
     "build:watch": "gulp",
-    "lint": "tslint --type-check --project tsconfig.json src/**/*.ts",
-    "lint-fix": "tslint --fix --type-check --project tsconfig.json src/**/*.ts",
+    "docs": "npm run docs:build",
+    "docs:build": "compodoc -p tsconfig.json -n angular-redhawk -d docs --hideGenerator",
+    "docs:serve": "npm run docs:build -- -s",
+    "docs:watch": "npm run docs:build -- -s -w",
+    "lint": "npm run lint:base",
+    "lint:base": "tslint --type-check --project tsconfig.json src/**/*.ts",
+    "lint:fix": "npm run lint:base -- --fix",
     "test": "tsc && karma start"
   },
   "author": "Thomas Goodwin <btgoodwin@geontech.com>",
@@ -17,7 +22,8 @@
   ],
   "contributors": [
     "Patrick Wolfram <pwolfram@geontech.com>",
-    "Adam Heacock <aheacock@geontech.com>"
+    "Adam Heacock <aheacock@geontech.com>",
+    "Trevor Plumley <tplumley@geontech.com>"
   ],
   "repository": "git://github.com/GeonTech/angular-redhawk.git",
   "dependencies": {
@@ -30,12 +36,14 @@
     "@angular/http": "^4.0.0",
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
+    "@compodoc/compodoc": "^1.0.0-beta.10",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
     "codelyzer": "~2.0.0",
     "core-js": "^2.4.1",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
     "gulp-rollup": "^2.11.0",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",
@@ -45,6 +53,8 @@
     "karma-coverage-istanbul-reporter": "^0.2.0",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "node-sass": "^4.5.2",
+    "node-sass-tilde-importer": "^1.0.0",
     "node-watch": "^0.5.2",
     "protractor": "~5.1.0",
     "rollup": "^0.41.6",
