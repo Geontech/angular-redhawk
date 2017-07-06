@@ -12,7 +12,7 @@ const rootFolder = path.join(__dirname);
 const srcFolder = path.join(rootFolder, 'src');
 const tmpFolder = path.join(rootFolder, '.tmp');
 const buildFolder = path.join(rootFolder, 'build');
-const distFolder = path.join(rootFolder, 'dist');
+const distFolder = path.join(rootFolder, '../angular-redhawk-dist');
 
 /**
  * 1. Delete /dist folder
