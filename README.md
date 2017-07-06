@@ -44,12 +44,12 @@ If you are developing on Angular-REDHAWK:
     cd angular-redhawk
     npm install
     npm run build
-    cd dist
+    cd ../angular-redhawk-dist
     npm link
 
 Then, in your application where you want to use it, remove `angular-redhawk from your `node_modules` and `npm link` the library.
 
-    rm -r node_modules/angular-redhawk
+    rm -rf node_modules/angular-redhawk
     npm link angular-redhawk
 
 ### Publishing
