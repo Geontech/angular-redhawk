@@ -12,7 +12,21 @@ const rootFolder = path.join(__dirname);
 const srcFolder = path.join(rootFolder, 'src');
 const tmpFolder = path.join(rootFolder, '.tmp');
 const buildFolder = path.join(rootFolder, 'build');
-const distFolder = path.join(rootFolder, '../angular-redhawk-dist');
+
+/**
+ * This and related IFs against devBuild pertain to @angular/cli 1.0.1 and 
+ * versions greater in how the included version of webpack traverses looking for
+ * node_modules.  In 1.0.1, you could npm link an in-tree dist directory and 
+ * webpack would not read dist/../node_modules into the downstream library or
+ * application.  The next version of @angular/cli went to a new version of 
+ * webpack that does traverse into dist/../node_modules which breaks during
+ * simultaneous development of the library and a downstream consumer.  The fix
+ * is to build outside the tree and link there.  But to get there, you have to
+ * disable "clean" methods for that folder and maintain it manually because 
+ * gulp will not let you delete files outside your own tree.
+ */
+const devBuild = ((process.env.NODE_ENV || 'development').trim().toLowerCase() === 'development');
+const distFolder = (devBuild) ? path.join(rootFolder, '../angular-redhawk-dist') : path.join(rootFolder, 'dist');
 
 /**
  * 1. Delete /dist folder
@@ -21,7 +35,11 @@ gulp.task('clean:dist', function () {
 
   // Delete contents but not dist folder to avoid broken npm links
   // when dist directory is removed while npm link references it.
-  return deleteFolders([distFolder + '/**', '!' + distFolder]);
+  if (!devBuild) {
+    return deleteFolders([distFolder + '/**', '!' + distFolder]);
+  } else {
+    console.info('INFO:\tSkipping clean of distribution directory in development mode');
+  }
 });
 
 /**
@@ -71,8 +89,8 @@ gulp.task('rollup:fesm', function () {
     .pipe(rollup({
 
       // Bundle's entry point
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#entry
-      entry: `${buildFolder}/index.js`,
+      // See "input" in https://rollupjs.org/#core-functionality
+      input: `${buildFolder}/index.js`,
 
       // Allow mixing of hypothetical and actual files. "Actual" files can be files
       // accessed by Rollup or produced by plugins further down the chain.
@@ -81,14 +99,14 @@ gulp.task('rollup:fesm', function () {
       allowRealFiles: true,
 
       // A list of IDs of modules that should remain external to the bundle
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#external
+      // See "external" in https://rollupjs.org/#core-functionality
       external: [
         '@angular/core',
         '@angular/common'
       ],
 
       // Format of generated bundle
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#format
+      // See "format" in https://rollupjs.org/#core-functionality
       format: 'es'
     }))
     .pipe(gulp.dest(distFolder));
@@ -104,8 +122,8 @@ gulp.task('rollup:umd', function () {
     .pipe(rollup({
 
       // Bundle's entry point
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#entry
-      entry: `${buildFolder}/index.js`,
+      // See "input" in https://rollupjs.org/#core-functionality
+      input: `${buildFolder}/index.js`,
 
       // Allow mixing of hypothetical and actual files. "Actual" files can be files
       // accessed by Rollup or produced by plugins further down the chain.
@@ -114,32 +132,32 @@ gulp.task('rollup:umd', function () {
       allowRealFiles: true,
 
       // A list of IDs of modules that should remain external to the bundle
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#external
+      // See "external" in https://rollupjs.org/#core-functionality
       external: [
         '@angular/core',
         '@angular/common'
       ],
 
       // Format of generated bundle
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#format
+      // See "format" in https://rollupjs.org/#core-functionality
       format: 'umd',
 
       // Export mode to use
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#exports
+      // See "exports" in https://rollupjs.org/#danger-zone
       exports: 'named',
 
       // The name to use for the module for UMD/IIFE bundles
       // (required for bundles with exports)
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#modulename
-      moduleName: 'test-yo-lib',
+      // See "name" in https://rollupjs.org/#core-functionality
+      name: 'lib-update',
 
-      // See https://github.com/rollup/rollup/wiki/JavaScript-API#globals
+      // See "globals" in https://rollupjs.org/#core-functionality
       globals: {
         typescript: 'ts'
       }
 
     }))
-    .pipe(rename('test-yo-lib.umd.js'))
+    .pipe(rename('lib-update.umd.js'))
     .pipe(gulp.dest(distFolder));
 });
 
