@@ -12,21 +12,29 @@ export enum SourceCategory {
     UNKNOWN
 }
 
-export function resolve(category: string): SourceCategory {
+function fromString (category: string): SourceCategory {
+    let out = SourceCategory.UNKNOWN;
     switch (category) {
         case 'DEVICE_MANAGER':
-            return SourceCategory.DEVICE_MANAGER;
+            out = SourceCategory.DEVICE_MANAGER;
+            break;
         case 'DEVICE':
-            return SourceCategory.DEVICE;
+            out = SourceCategory.DEVICE;
+            break;
         case 'APPLICATION_FACTORY':
-            return SourceCategory.APPLICATION_FACTORY;
+            out = SourceCategory.APPLICATION_FACTORY;
+            break;
         case 'APPLICATION':
-            return SourceCategory.APPLICATION;
+            out = SourceCategory.APPLICATION;
+            break;
         case 'SERVICE':
-            return SourceCategory.SERVICE;
+            out = SourceCategory.SERVICE;
+            break;
         default:
-            return SourceCategory.UNKNOWN;
+            // Do anything?
+            break;
     }
+    return out;
 }
 
 // Base class for domain management object events (add/remove)
@@ -52,7 +60,7 @@ export class DomainManagementObjectRemovedEvent
 
     deserialize(input: any) {
         super.deserialize(input);
-        this.sourceCategory = resolve(input.sourceCategory.value);
+        this.sourceCategory = fromString(input.sourceCategory.value);
         return this;
     }
 }

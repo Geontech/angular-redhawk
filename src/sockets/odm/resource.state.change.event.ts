@@ -9,15 +9,20 @@ export enum ResourceStateChange {
     UNKNOWN
 }
 
-export function resolve(state: string): ResourceStateChange {
+function fromString(state: string): ResourceStateChange {
+    let out = ResourceStateChange.UNKNOWN;
     switch (state) {
         case 'STOPPED':
-            return ResourceStateChange.STOPPED;
+            out = ResourceStateChange.STOPPED;
+            break;
         case 'STARTED':
-            return ResourceStateChange.STARTED;
+            out = ResourceStateChange.STARTED;
+            break;
         default:
-            return ResourceStateChange.UNKNOWN;
+            // Do anything?
+            break;
     }
+    return out;
 }
 
 export class ResourceStateChangeEvent
@@ -29,8 +34,8 @@ export class ResourceStateChangeEvent
 
     deserialize(input: any) {
         super.deserialize(input);
-        this.stateChangeFrom = resolve(input.stateChangeFrom.value);
-        this.stateChangeTo = resolve(input.stateChangeTo.value);
+        this.stateChangeFrom = fromString(input.stateChangeFrom.value);
+        this.stateChangeTo = fromString(input.stateChangeTo.value);
         return this;
     }
 }

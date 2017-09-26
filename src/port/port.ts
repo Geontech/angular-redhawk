@@ -4,8 +4,9 @@ import { PortIDL } from './port.idl';
 
 // Enumerations and resolvers
 import {
-    PortDirection, resolvePortDirection,
-    PortBulkIOType, PortFEIType, PortIDLNameSpace
+    PortDirection,
+    resolvePortDirection,
+    PortIDLNameSpace
 } from './enums/enums.module';
 
 export class Port implements ISerializable<Port> {
@@ -15,10 +16,10 @@ export class Port implements ISerializable<Port> {
     public idl: PortIDL;
 
     /** @property {boolean} Indicates this is a BULKIO port that supports the websocket interface. */
-    public hasBulkioWebsocket: boolean = false;
+    public hasBulkioWebsocket: boolean;
 
     /** @property {boolean} Indicates this is an FEI port that supports the control interface. */
-    public isFEIControllable: boolean = false;
+    public isFEIControllable: boolean;
 
     deserialize(input: any) {
         this.name = input.name;

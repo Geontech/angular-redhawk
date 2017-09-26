@@ -57,7 +57,7 @@ export abstract class Property implements ISerializable<Property> {
 export type PropertySet = Array<Property>;
 
 export class SimpleCommon extends Property {
-    type: string = 'string';
+    type:         string;
     enumerations: { [key: string]: string };
 }
 
