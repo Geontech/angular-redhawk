@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+import { IdmEvent }      from './idm.event.base';
 import { ISerializable } from '../../shared/serializable';
 import { IdmStateEvent } from './idm.state.event';
 
@@ -10,18 +11,23 @@ export enum AdministrativeState {
     UNKNOWN
 }
 
-export function resolve(category: string): AdministrativeState {
+function fromString(category: string): AdministrativeState {
+    let out = AdministrativeState.UNKNOWN;
     switch (category) {
         case 'LOCKED':
-            return AdministrativeState.LOCKED;
+            out = AdministrativeState.LOCKED;
+            break;
         case 'UNLOCKED':
-            return AdministrativeState.UNLOCKED;
+            out = AdministrativeState.UNLOCKED;
+            break;
         case 'SHUTTING_DOWN':
-            return AdministrativeState.SHUTTING_DOWN;
+            out = AdministrativeState.SHUTTING_DOWN;
+            break;
         default:
             console.error('Unknown AdministrativeState: ' + category);
-            return AdministrativeState.UNKNOWN;
+            break;
     }
+    return out;
 }
 
 export class AdministrativeStateEvent
@@ -29,10 +35,14 @@ export class AdministrativeStateEvent
     implements ISerializable<AdministrativeStateEvent> {
     deserialize(input: any) {
         super.deserialize(input);
-        this.stateChangeFrom = resolve(input.stateChangeFrom.value);
-        this.stateChangeTo = resolve(input.stateChangeTo.value);
+        this.stateChangeFrom = fromString(input.stateChangeFrom.value);
+        this.stateChangeTo = fromString(input.stateChangeTo.value);
         return this;
     }
+}
+
+export function isAdministrativeStateEvent(event: IdmEvent): event is AdministrativeStateEvent {
+    return event instanceof AdministrativeStateEvent;
 }
 
 // Behaves like a toString() operator inside templates for the AdministrativeState

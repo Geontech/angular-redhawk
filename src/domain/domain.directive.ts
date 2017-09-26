@@ -76,7 +76,7 @@ export class DomainDirective implements OnDestroy, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        const domainId: string = 'domainId';
+        const domainId = 'domainId';
         if (changes.hasOwnProperty(domainId)) {
             this.service.setUniqueId(this.domainId);
 

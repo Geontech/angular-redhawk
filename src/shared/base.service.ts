@@ -16,13 +16,15 @@ export abstract class BaseService<T> {
     protected _model: Subject<T>;
 
     // Flag for whether or not this service is setup
-    protected _configured: boolean = false;
+    protected _configured: boolean;
 
     // Internal updating flag
-    protected _updating: boolean = false;
+    protected _updating: boolean;
 
     constructor(protected http: Http, protected restPython: RestPythonService) {
         this._model = <Subject<T>> new Subject();
+        this._configured = false;
+        this._updating = false;
     }
 
     // Returns whether or not the service is in the middle of updating the model.

@@ -9,19 +9,11 @@ import 'rxjs/add/operator/map';
 
 import { EventChannelService } from '../event.channel.service';
 
-import {
-    IdmEvent,
-    isIdmEvent,
-    AdministrativeStateEvent,
-    OperationalStateEvent,
-    UsageStateEvent,
-    AbnormalComponentTerminationEvent,
-    // Type Guards
-    isAdministrativeStateEvent,
-    isOperationalStateEvent,
-    isUsageStateEvent,
-    isAbnormalComponentTerminationEvent
-} from './idm.event';
+import { IdmEvent, isIdmEvent } from './idm.event.base';
+import { UsageStateEvent, isUsageStateEvent } from './usage.state.event';
+import { AdministrativeStateEvent, isAdministrativeStateEvent } from './administrative.state.event';
+import { OperationalStateEvent, isOperationalStateEvent } from './operational.state.event';
+import { AbnormalComponentTerminationEvent, isAbnormalComponentTerminationEvent } from './abnormal.component.termination.event';
 
 export function configureIdmListenerService(ecs: EventChannelService): IdmListenerService {
     const s = new IdmListenerService(ecs);
