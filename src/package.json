@@ -1,7 +1,7 @@
 {
   "name": "angular-redhawk",
   "version": "1.0.0",  
-  "repository": "git://github.com/GeonTech/angular-redhawk.git",
+  "repository": "https://github.com/GeonTech/angular-redhawk.git",
   "author": "Thomas Goodwin <btgoodwin@geontech.com>",
   "license": "GPL-3.0",
   "keywords": [
