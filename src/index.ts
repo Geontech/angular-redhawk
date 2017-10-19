@@ -27,13 +27,10 @@ import { PortModule }          from './port/port.module';
 export * from './port/port.module';
 import { SocketsModule }       from './sockets/sockets.module';
 export * from './sockets/sockets.module';
-
-export * from './property/property';
+import { PropertyModule }      from './property/property.module';
+export * from './property/property.module';
 
 export { ResourceRef, ResourceRefs } from './shared/resource';
-
-// Pipes
-import { ArPropertyPipe, ArPropertiesPipe } from './property/property.pipe';
 
 // REST Python Service
 import { RestPythonService } from './shared/rest.python.service';
@@ -49,39 +46,28 @@ export interface IRestPythonConfig {
 export const REST_PYTHON_CONFIG = new InjectionToken<IRestPythonConfig>('REST_PYTHON_CONFIG');
 export const REST_PYTHON_GUARD = new InjectionToken<void>('REST_PYTHON_GUARD');
 
+const REDHAWK_MODULES = [
+    RedhawkModule,
+    // Submodules
+    DomainModule,
+    FilesystemModule,
+    WaveformModule,
+    DeviceManagerModule,
+    DeviceModule,
+    ComponentModule,
+    PortModule,
+    PropertyModule,
+    SocketsModule
+];
+
 @NgModule({
-    imports:      [
+    imports: [
         CommonModule,
-        RedhawkModule,
-        // Submodules
-        DomainModule,
-        FilesystemModule,
-        WaveformModule,
-        DeviceManagerModule,
-        DeviceModule,
-        ComponentModule,
-        PortModule,
-        SocketsModule
+        ...REDHAWK_MODULES
     ],
-    exports:      [
-        // Submodules
-        RedhawkModule,
-        DomainModule,
-        FilesystemModule,
-        WaveformModule,
-        DeviceManagerModule,
-        DeviceModule,
-        ComponentModule,
-        PortModule,
-        SocketsModule,
-        // Pipes
-        ArPropertyPipe,
-        ArPropertiesPipe
-    ],
-    declarations: [
-        // Pipes
-        ArPropertyPipe,
-        ArPropertiesPipe
+    exports: [
+        CommonModule,
+        ...REDHAWK_MODULES
     ]
 })
 export class AngularRedhawkModule {
