@@ -5,8 +5,8 @@ export * from './property.pipe';
 export * from './property';
 
 // Pipes
-import { ArPropertyPipe } from './property/property.pipe';
-import { ArPropertiesPipe } from './roperty/properties.pipe';
+import { ArPropertyPipe } from './property.pipe';
+import { ArPropertiesPipe } from './properties.pipe';
 
 const PIPES = [ ArPropertiesPipe, ArPropertyPipe ];
 
