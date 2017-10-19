@@ -1,6 +1,6 @@
 {
   "name": "angular-redhawk",
-  "version": "1.0.0",  
+  "version": "0.0.0",  
   "repository": "https://github.com/GeonTech/angular-redhawk.git",
   "author": "Thomas Goodwin <btgoodwin@geontech.com>",
   "license": "GPL-3.0",
@@ -17,6 +17,7 @@
   "typings": "angular-redhawk.d.ts",
   "peerDependencies": {
     "@angular/core": "^4.0.0",
+    "@angular/http": "^4.0.0",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   }

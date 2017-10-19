@@ -1,0 +1,69 @@
+image: node:latest
+
+.docker: &docker
+  tags:
+  - docker
+
+before_script:
+  - npm install
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - build
+  - test
+#  - deploy
+
+# Verify it can build.
+build:
+  <<: *docker
+  stage: build
+  script:
+    - npm run build
+
+# Verify it passes linting.
+test:lint:
+  <<: *docker
+  stage: test
+  script:
+    - npm run lint
+
+# Pass Karma
+# test:karma:
+#   <<: *docker
+#   stage: test
+#   script:
+#     - npm run test
+
+# Push to GITHUB
+# deploy:github:
+#   <<: *docker
+#   stage: deploy
+#   only:
+#     - tags
+#   script:
+#     # Setup ssh with the key and trust the destination.
+#     - eval $(ssh-agent -s)
+#     - echo "${GITHUB_TOKEN}" | ssh-add -
+#     - mkdir -p ~/.ssh
+#     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
+#     # (Re)configure git and push w/ tags.
+#     - git config user.name "${GITHUB_USER_NAME}"
+#     - git config user.email "${GITHUB_USER_EMAIL}"
+#     - git remote set-url origin ${GITHUB_REPO}
+#     - git push origin master --follow-tags
+
+# Push to NPM
+# deploy:npm:
+#   <<: *docker
+#   stage: deploy
+#   only:
+#     - tags
+#   script:
+#     # Build the library, publish dist.
+#     - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+#     - npm run build
+#     - npm run dist

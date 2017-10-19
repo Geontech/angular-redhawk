@@ -44,13 +44,20 @@ If you are developing on Angular-REDHAWK:
     cd angular-redhawk
     npm install
     npm run build
-    cd ../angular-redhawk-dist
+    cd dist
     npm link
 
-Then, in your application where you want to use it, remove `angular-redhawk from your `node_modules` and `npm link` the library.
+Then, in your application where you want to use it, link the library:
 
-    rm -rf node_modules/angular-redhawk
     npm link angular-redhawk
+
+ > **Note:** If you're using `@angular/cli` for your application, you may need to use `--preserve-symlinks` when running tasks such as `ng serve` or `ng build`.  For example, add to the app's `package.json`:
+
+    "scripts": {
+      "start":     "ng serve",
+      "start:dev": "npm run start --preserve-symlinks"
+    }
+
 
 ### Publishing
 

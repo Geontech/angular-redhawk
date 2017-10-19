@@ -1,6 +1,6 @@
 {
   "name": "angular-redhawk",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Angular library for interfacing with REDHAWK SDR via Geon's fork of REST-python",
   "scripts": {
     "build": "gulp build",
@@ -9,6 +9,9 @@
     "docs:build": "compodoc -p tsconfig.json -n angular-redhawk -d docs --hideGenerator",
     "docs:serve": "npm run docs:build -- -s",
     "docs:watch": "npm run docs:build -- -s -w",
+    "version": "npm run version:set && npm run version:add",
+    "version:set": "sed -i -E 's/(\"version\":[[:space:]]*\").+(\")/\\1'$npm_package_version'\\2/g' src/package.json",
+    "version:add": "git add src/package.json",
     "lint": "npm run lint:base",
     "lint:base": "tslint --type-check --project tsconfig.json src/**/*.ts",
     "lint:fix": "npm run lint:base -- --fix",

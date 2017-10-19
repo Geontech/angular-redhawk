@@ -12,34 +12,15 @@ const rootFolder = path.join(__dirname);
 const srcFolder = path.join(rootFolder, 'src');
 const tmpFolder = path.join(rootFolder, '.tmp');
 const buildFolder = path.join(rootFolder, 'build');
-
-/**
- * This and related IFs against devBuild pertain to @angular/cli 1.0.1 and 
- * versions greater in how the included version of webpack traverses looking for
- * node_modules.  In 1.0.1, you could npm link an in-tree dist directory and 
- * webpack would not read dist/../node_modules into the downstream library or
- * application.  The next version of @angular/cli went to a new version of 
- * webpack that does traverse into dist/../node_modules which breaks during
- * simultaneous development of the library and a downstream consumer.  The fix
- * is to build outside the tree and link there.  But to get there, you have to
- * disable "clean" methods for that folder and maintain it manually because 
- * gulp will not let you delete files outside your own tree.
- */
-const devBuild = ((process.env.NODE_ENV || 'development').trim().toLowerCase() === 'development');
-const distFolder = (devBuild) ? path.join(rootFolder, '../angular-redhawk-dist') : path.join(rootFolder, 'dist');
+const distFolder = path.join(rootFolder, 'dist');
 
 /**
  * 1. Delete /dist folder
  */
 gulp.task('clean:dist', function () {
-
   // Delete contents but not dist folder to avoid broken npm links
   // when dist directory is removed while npm link references it.
-  if (!devBuild) {
-    return deleteFolders([distFolder + '/**', '!' + distFolder]);
-  } else {
-    console.info('INFO:\tSkipping clean of distribution directory in development mode');
-  }
+  deleteFolders([distFolder + '/**', '!' + distFolder]);
 });
 
 /**
