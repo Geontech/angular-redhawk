@@ -23,12 +23,12 @@ export class FilesystemService extends BaseService<FileSystem> {
         ) { super(http, restPython); }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = this.restPython.fileSystemUrl(this.domainService.getBaseUrl(), url);
+        this._baseUrl = this.restPython.fileSystemUrl(this.domainService.baseUrl, url);
     }
 
     uniqueQuery$(): Observable<FileSystem> {
         return this.http
-            .get(this.getBaseUrl())
+            .get(this.baseUrl)
             .map(response => new FileSystem().deserialize(response.json()));
     }
 }

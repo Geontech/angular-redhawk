@@ -78,11 +78,11 @@ export class DomainDirective implements OnDestroy, OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         const domainId = 'domainId';
         if (changes.hasOwnProperty(domainId)) {
-            this.service.setUniqueId(this.domainId);
+            this.service.uniqueId = this.domainId;
 
             // Connect to the service if necessary
             if (!this.subscription) {
-                this.subscription = this.service.model$().subscribe(it => {
+                this.subscription = this.service.model$.subscribe(it => {
                     this.model = it;
                     this.modelChange.emit(this.model);
                 });

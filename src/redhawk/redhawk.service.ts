@@ -43,7 +43,7 @@ export class RedhawkService extends BaseService<Redhawk> {
 
     uniqueQuery$(): Observable<Redhawk> {
         return this.http
-            .get(this.restPython.domainUrl(this.getBaseUrl()))
+            .get(this.restPython.domainUrl(this.baseUrl))
             .map(res => new Redhawk().deserialize(res.json()))
             .catch(this.handleError);
     }
@@ -51,7 +51,7 @@ export class RedhawkService extends BaseService<Redhawk> {
     // Get a list of online domain names
     public scan$(): Observable<string[]> {
         return this.http
-            .get(this.restPython.domainUrl(this.getBaseUrl()))
+            .get(this.restPython.domainUrl(this.baseUrl))
             .map(response => response.json().domains as string[])
             .catch(this.handleError);
     }
@@ -59,7 +59,7 @@ export class RedhawkService extends BaseService<Redhawk> {
     // Get the named domain model
     public attach$(domainId: string): Observable<Domain> {
         return this.http
-            .get(this.restPython.domainUrl(this.getBaseUrl(), domainId))
+            .get(this.restPython.domainUrl(this.baseUrl, domainId))
             .map(response => new Domain().deserialize(response.json()))
             .catch(this.handleError);
     }

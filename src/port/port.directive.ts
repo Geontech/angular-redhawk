@@ -73,9 +73,9 @@ export class PortDirective implements OnDestroy, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty('portId')) {
-            this.service.setUniqueId(this.portId);
+            this.service.uniqueId = this.portId;
             if (!this.subscription) {
-                this.subscription = this.service.model$().subscribe(it => {
+                this.subscription = this.service.model$.subscribe(it => {
                     this.model = it;
                     this.modelChange.emit(this.model);
                 });

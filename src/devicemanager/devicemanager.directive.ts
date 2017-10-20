@@ -63,9 +63,9 @@ export class DeviceManagerDirective implements OnDestroy, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty('deviceManagerId')) {
-            this.service.setUniqueId(this.deviceManagerId);
+            this.service.uniqueId = this.deviceManagerId;
             if (!this.subscription) {
-                this.subscription = this.service.model$().subscribe(it => {
+                this.subscription = this.service.model$.subscribe(it => {
                     this.model = it;
                     this.modelChange.emit(this.model);
                 });

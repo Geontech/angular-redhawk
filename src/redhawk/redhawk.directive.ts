@@ -64,8 +64,8 @@ export class RedhawkDirective implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.service.setUniqueId(this.serviceName || 'UI Kit');
-        this.subscription = this.service.model$().subscribe(it => {
+        this.service.uniqueId = this.serviceName || 'UI Kit';
+        this.subscription = this.service.model$.subscribe(it => {
             this.model = it;
             this.modelChange.emit(this.model);
         });

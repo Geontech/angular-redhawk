@@ -63,9 +63,9 @@ export class WaveformDirective implements OnDestroy, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty('waveformId')) {
-            this.service.setUniqueId(this.waveformId);
+            this.service.uniqueId = this.waveformId;
             if (!this.subscription) {
-                this.subscription = this.service.model$().subscribe(it => {
+                this.subscription = this.service.model$.subscribe(it => {
                     this.model = it;
                     this.modelChange.emit(this.model);
                 });

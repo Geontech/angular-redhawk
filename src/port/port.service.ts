@@ -82,41 +82,41 @@ export class PortService extends BaseService<Port> {
     getRef(): PortRef { return this._ref; }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = this.restPython.portUrl(this.parent.getBaseUrl(), this.getUniqueId());
+        this._baseUrl = this.restPython.portUrl(this.parent.baseUrl, this.uniqueId);
     }
 
     uniqueQuery$(): Observable<Port> {
-        return <Observable<Port>> this.parent.ports$(this.getUniqueId());
+        return <Observable<Port>> this.parent.ports$(this.uniqueId);
     }
 
     modelUpdated(model: Port) {
-        if (this._previousUniqueId !== this.getUniqueId()) {
+        if (this._previousUniqueId !== this.uniqueId) {
             if (this._ref) {
                 this._ref.release();
                 this._ref = null;
             }
 
             if (model.hasBulkioWebsocket) {
-                this._ref = new BulkioRef(this.getBaseUrl(), this.restPython);
+                this._ref = new BulkioRef(this.baseUrl, this.restPython);
             } else if (model.isFEIControllable) {
                 switch (model.idl.type) {
                     case PortFEIType.AnalogTuner:
-                        this._ref = new FeiAnalogTunerRef(this.getBaseUrl());
+                        this._ref = new FeiAnalogTunerRef(this.baseUrl);
                         break;
                     case PortFEIType.DigitalTuner:
-                        this._ref = new FeiDigitalTunerRef(this.getBaseUrl());
+                        this._ref = new FeiDigitalTunerRef(this.baseUrl);
                         break;
                     case PortFEIType.GPS:
-                        this._ref = new FeiGPSRef(this.getBaseUrl());
+                        this._ref = new FeiGPSRef(this.baseUrl);
                         break;
                     case PortFEIType.NavData:
-                        this._ref = new FeiNavDataRef(this.getBaseUrl());
+                        this._ref = new FeiNavDataRef(this.baseUrl);
                         break;
                     case PortFEIType.RFInfo:
-                        this._ref = new FeiRFInfoRef(this.getBaseUrl());
+                        this._ref = new FeiRFInfoRef(this.baseUrl);
                         break;
                     case PortFEIType.RFSource:
-                        this._ref = new FeiRFSourceRef(this.getBaseUrl());
+                        this._ref = new FeiRFSourceRef(this.baseUrl);
                         break;
                     default:
                         console.warn('Provides (controllable) FEI port has unknown Port Type');
@@ -126,11 +126,11 @@ export class PortService extends BaseService<Port> {
 
             // Still not set? Use default.
             if (!this._ref) {
-                this._ref = new PortRef(this.getBaseUrl());
+                this._ref = new PortRef(this.baseUrl);
             }
 
             // Set previousUniqueId to this one.
-            this._previousUniqueId = this.getUniqueId();
+            this._previousUniqueId = this.uniqueId;
         }
         super.modelUpdated(model);
     }

@@ -15,12 +15,12 @@ export abstract class PortBearingService<T> extends BaseService<T> {
     ports$(portName?: string): Observable<Port> | Observable<Ports> {
         if (portName) {
             return this.http
-                .get(this.restPython.portUrl(this.getBaseUrl(), portName))
+                .get(this.restPython.portUrl(this.baseUrl, portName))
                 .map(response => deserializePort(response.json()))
                 .catch(this.handleError);
         } else {
             return this.http
-                .get(this.restPython.portUrl(this.getBaseUrl()))
+                .get(this.restPython.portUrl(this.baseUrl))
                 .map(response => deserializePorts(response.json().ports))
                 .catch(this.handleError);
         }

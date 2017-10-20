@@ -29,26 +29,26 @@ export class DeviceManagerService extends BaseService<DeviceManager> {
         ) { super(http, restPython); }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = this.restPython.deviceManagerUrl(this.domainService.getBaseUrl(), url);
+        this._baseUrl = this.restPython.deviceManagerUrl(this.domainService.baseUrl, url);
     }
 
     uniqueQuery$(): Observable<DeviceManager> {
-        return <Observable<DeviceManager>> this.domainService.devMgrs$(this.getUniqueId());
+        return <Observable<DeviceManager>> this.domainService.devMgrs$(this.uniqueId);
     }
 
     public devs$(deviceId?: string): Observable<Device> | Observable<ResourceRefs> {
-        return this.domainService.devices$(this.getUniqueId(), deviceId);
+        return this.domainService.devices$(this.uniqueId, deviceId);
     }
 
     public services$(serviceId?: string): Observable<any> | Observable<any[]> {
         if (serviceId) {
             return this.http
-                .get(this.restPython.serviceUrl(this.getBaseUrl(), serviceId))
+                .get(this.restPython.serviceUrl(this.baseUrl, serviceId))
                 .map(response => response.json())
                 .catch(this.handleError);
         } else {
             return this.http
-                .get(this.restPython.serviceUrl(this.getBaseUrl()))
+                .get(this.restPython.serviceUrl(this.baseUrl))
                 .map(response => response.json().services)
                 .catch(this.handleError);
         }

@@ -5,48 +5,54 @@ import { Subject }    from 'rxjs/Subject';
 import { RestPythonService } from './rest.python.service';
 
 export abstract class BaseService<T> {
+    /** Returns true if this service is in the middle of updating the model */
+    get isUpdating(): boolean { return this._updating; }
 
-    // Unique ID of the server-side instance for this service
+    /** Unique ID of the server-side instance for this service */
     protected _uniqueId: string;
 
-    // Base REST URL of this service instance
+    /** Base REST URL of this service instance */
     protected _baseUrl: string;
 
-    // The internal model managed by this service
+    /** The internal model managed by this service */
     protected _model: Subject<T>;
 
-    // Flag for whether or not this service is setup
+    /** Flag for whether or not this service is setup */
     protected _configured: boolean;
 
-    // Internal updating flag
+    /** Internal updating flag */
     protected _updating: boolean;
+
+    /** 
+     * Set the unique ID of the underlying system
+     * NOTE: This will cause the service to reconfigure (update).
+     */
+    set uniqueId(id: string) {
+        this.reconfigure(id);
+    }
+
+    /** Get the unique ID of the underlying system */
+    get uniqueId(): string {
+        return this._uniqueId;
+    }
+
+    /** Get the Base (REST) URL of this system */
+    get baseUrl(): string {
+        return this._baseUrl;
+    }
+
+    /** Get an observable of this service's model */
+    get model$(): Observable<T> {
+        if (!this._configured) {
+            console.error('UniqueId Not set!');
+        }
+        return this._model.asObservable();
+    }
 
     constructor(protected http: Http, protected restPython: RestPythonService) {
         this._model = <Subject<T>> new Subject();
         this._configured = false;
         this._updating = false;
-    }
-
-    // Returns whether or not the service is in the middle of updating the model.
-    public isUpdating(): boolean { return this._updating; }
-
-    setUniqueId(id: string) {
-        this.reconfigure(id);
-    }
-
-    getUniqueId(): string {
-        return this._uniqueId;
-    }
-
-    getBaseUrl(): string {
-        return this._baseUrl;
-    }
-
-    model$(): Observable<T> {
-        if (!this._configured) {
-            console.error('UniqueId Not set!');
-        }
-        return this._model.asObservable();
     }
 
     /**
