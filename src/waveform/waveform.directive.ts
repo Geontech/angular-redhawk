@@ -12,12 +12,11 @@ import {
 import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
-import { DomainService } from '../domain/domain.service';
-import { WaveformService } from './waveform.service';
-import { Waveform }        from './waveform';
-
+import { Waveform }          from '../models/index';
+import { DomainService }     from '../domain/domain.module';
 import { RestPythonService } from '../rest-python/rest-python.module';
 
+import { WaveformService } from './waveform.service';
 
 export function serviceSelect (
     service: WaveformService,
@@ -30,6 +29,10 @@ export function serviceSelect (
     return service;
 }
 
+/**
+ * The Waveform directive provides the dependency injection start point for
+ * a running Waveform (Application) in the Domain
+ */
 @Directive({
     selector: '[arWaveform]',
     exportAs: 'arWaveform',

@@ -4,24 +4,16 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-// URL Builder
-import { RestPythonService } from '../rest-python/rest-python.module';
+// Model, base class, other external modules
+import { Waveform, Component, ResourceRefs } from '../models/index';
+import { RestPythonService }                 from '../rest-python/rest-python.module';
+import { PortBearingService }                from '../base/index';
+import { DomainService }                     from '../domain/domain.module';
 
-// Parent service & base class
-import { DomainService } from '../domain/domain.service';
-import { PortBearingService } from '../port/port.interface';
-
-// This model and helpers
-import {
-    Waveform,
-    IWaveformControlCommand,
-    IWaveformControlCommandResponse,
-    IWaveformReleaseResponse
-} from './waveform';
-
-// Child models
-import { ResourceRefs } from '../base/resource';
-import { Component } from '../component/component';
+// C&C interfaces
+import { IWaveformControlCommand }         from './waveform-control-command';
+import { IWaveformControlCommandResponse } from './waveform-control-command-response';
+import { IWaveformReleaseResponse }        from './waveform-release-response';
 
 @Injectable()
 export class WaveformService extends PortBearingService<Waveform> {
