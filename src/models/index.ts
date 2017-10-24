@@ -6,5 +6,6 @@
 export * from './component/index';
 export * from './device/index';
 export * from './devicemanager/index';
+export * from './domain/index';
 export * from './serialization/index';
 export * from './resource/index';
