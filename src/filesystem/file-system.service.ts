@@ -4,18 +4,19 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+// This model and base class
+import { FileSystem }  from '../models/index';
+import { BaseService } from '../base/index';
+
 // URL Builder
 import { RestPythonService } from '../rest-python/rest-python.module';
 
-// Parent Service & base class
-import { DomainService } from '../domain/domain.service';
-import { BaseService } from '../base/base.service';
+// Parent Service
+import { DomainService } from '../domain/domain.module';
 
-// This model
-import { FileSystem } from './filesystem';
 
 @Injectable()
-export class FilesystemService extends BaseService<FileSystem> {
+export class FileSystemService extends BaseService<FileSystem> {
     constructor(
         protected http: Http,
         protected restPython: RestPythonService,

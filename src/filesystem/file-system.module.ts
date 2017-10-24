@@ -4,12 +4,15 @@ import { HttpModule } from '@angular/http';
 import { RestPythonModule } from '../rest-python/rest-python.module';
 import { DomainModule } from '../domain/domain.module';
 
-export { FilesystemService } from './filesystem.service';
-export * from './filesystem';
+export { FileSystemService } from './file-system.service';
 
 @NgModule({
-    imports:      [ HttpModule, DomainModule, RestPythonModule.forChild() ],
+    imports:      [
+        HttpModule,
+        RestPythonModule.forChild(),
+        DomainModule
+        ],
     exports:      [ ],
     declarations: [ ]
 })
-export class FilesystemModule {}
+export class FileSystemModule {}
