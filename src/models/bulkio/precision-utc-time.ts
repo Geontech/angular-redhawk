@@ -1,5 +1,8 @@
-import { ISerializable } from '../../base/serializable';
+import { ISerializable } from '../serialization/index';
 
+/**
+ * Serializable REDHAWK BULKIO Precision UTC Time model
+ */
 export class PrecisionUTCTime implements ISerializable<PrecisionUTCTime> {
     tcmode: number;
     tcstatus: number;

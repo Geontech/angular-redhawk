@@ -3,6 +3,7 @@
  * REST-Python server and sockets interfaces that can be retrieved and managed
  * using Angular-REDHAWK's services and directives.
  */
+export * from './bulkio/index';
 export * from './component/index';
 export * from './device/index';
 export * from './devicemanager/index';

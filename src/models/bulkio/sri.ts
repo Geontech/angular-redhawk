@@ -1,28 +1,10 @@
-import { ISerializable, ISerializableFn } from '../../base/serializable';
+import { ISerializable } from '../serialization/index';
 
-export class Keyword implements ISerializable<Keyword> {
-    id: string;
-    value: any;
+import { Keywords, deserializeKeywords } from './keyword';
 
-    deserialize(input: any) {
-        this.id = input.id;
-        this.value = input.value;
-        return this;
-    }
-}
-export type Keywords = Array<Keyword>;
-
-let deserializeKeywords: ISerializableFn<Keywords>;
-deserializeKeywords = function (inputs?: any): Keywords {
-    let keywords: Keywords = [];
-    if (inputs) {
-        for (let input of inputs) {
-            keywords.push(new Keyword().deserialize(input));
-        }
-    }
-    return keywords;
-};
-
+/**
+ * Serializable REDHAWK SRI (Signal Related Information) Structure
+ */
 export class SRI implements ISerializable<SRI> {
     hversion: number;
     xstart: number;
