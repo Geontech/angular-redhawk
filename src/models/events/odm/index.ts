@@ -1,7 +1,6 @@
 /**
  * REDHAWK ODM Event model(s) and interfaces
  */
-
 export * from './enums/index';
 
 export * from './domain-management-object-added-event';

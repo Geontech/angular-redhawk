@@ -1,6 +1,8 @@
 /**
  * REDHAWK IDM Event model(s) and interfaces
  */
+export * from './enums/index';
+
 export * from './abnormal-component-termination-event';
 export * from './administrative-state-event';
 export * from './idm-event-deserialize';
