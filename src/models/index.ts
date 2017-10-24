@@ -9,5 +9,6 @@ export * from './devicemanager/index';
 export * from './domain/index';
 export * from './filesystem/index';
 export * from './port/index';
+export * from './property/index';
 export * from './serialization/index';
 export * from './resource/index';
