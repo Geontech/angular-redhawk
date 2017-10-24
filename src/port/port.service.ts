@@ -4,16 +4,25 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+// Model and Enumerations
+import {
+    Port,
+    PortBulkIOIDLType,
+    PortFEIIDLType,
+    PortIDLNameSpace,
+    PortDirection
+} from '../models/index';
+
 // URL Builder
 import { RestPythonService } from '../rest-python/rest-python.module';
 
 // Possible parent services
-import { WaveformService } from '../waveform/waveform.service';
-import { DeviceService } from '../device/device.service';
-import { ComponentService } from '../component/component.service';
+import { WaveformService } from '../waveform/waveform.module';
+import { DeviceService } from '../device/device.module';
+import { ComponentService } from '../component/component.module';
 
 // And base service
-import { BaseService } from '../base/base.service';
+import { BaseService } from '../base/index';
 
 // Common port "ref" and the specific ones.
 import {
@@ -25,19 +34,13 @@ import {
     FeiNavDataRef,
     FeiRFInfoRef,
     FeiRFSourceRef
-} from './refs/refs.module';
+} from './refs/index';
 
-// Enumerations
-import {
-    PortBulkIOType,
-    PortFEIType,
-    PortIDLNameSpace,
-    PortDirection
-} from './enums/enums.module';
-
-// This model
-import { Port } from './port';
-
+/**
+ * The Port Service provides unique interfaces to different types of ports 
+ * through the 'ref' member.  That member is a sub-service which may
+ * include REST callbacks for FEI ports vs. websocket controls for BULKIO.
+ */
 @Injectable()
 export class PortService extends BaseService<Port> {
 
@@ -100,22 +103,22 @@ export class PortService extends BaseService<Port> {
                 this._ref = new BulkioRef(this.baseUrl, this.restPython);
             } else if (model.isFEIControllable) {
                 switch (model.idl.type) {
-                    case PortFEIType.AnalogTuner:
+                    case PortFEIIDLType.AnalogTuner:
                         this._ref = new FeiAnalogTunerRef(this.baseUrl);
                         break;
-                    case PortFEIType.DigitalTuner:
+                    case PortFEIIDLType.DigitalTuner:
                         this._ref = new FeiDigitalTunerRef(this.baseUrl);
                         break;
-                    case PortFEIType.GPS:
+                    case PortFEIIDLType.GPS:
                         this._ref = new FeiGPSRef(this.baseUrl);
                         break;
-                    case PortFEIType.NavData:
+                    case PortFEIIDLType.NavData:
                         this._ref = new FeiNavDataRef(this.baseUrl);
                         break;
-                    case PortFEIType.RFInfo:
+                    case PortFEIIDLType.RFInfo:
                         this._ref = new FeiRFInfoRef(this.baseUrl);
                         break;
-                    case PortFEIType.RFSource:
+                    case PortFEIIDLType.RFSource:
                         this._ref = new FeiRFSourceRef(this.baseUrl);
                         break;
                     default:

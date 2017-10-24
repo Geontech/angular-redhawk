@@ -12,18 +12,16 @@ import {
 import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
+// This model, rest service, possible parent services
+import { Port }              from '../models/index';
 import { RestPythonService } from '../rest-python/rest-python.module';
+import { WaveformService }   from '../waveform/waveform.module';
+import { ComponentService }  from '../component/component.module';
+import { DeviceService }     from '../device/device.module';
 
 // This service
 import { PortService } from './port.service';
 
-// This model
-import { Port } from './port';
-
-// Possible "parent" dependencies for the PortService
-import { WaveformService } from '../waveform/waveform.service';
-import { ComponentService } from '../component/component.service';
-import { DeviceService } from '../device/device.service';
 
 export function serviceSelect(
     service: PortService,
@@ -38,6 +36,10 @@ export function serviceSelect(
     return service;
 }
 
+/**
+ * The Port directive provides access to the variety of port types in REDHAWK.
+ * Port-specific features can be accessed through the 'service'.
+ */
 @Directive({
     selector: '[arPort]',
     exportAs: 'arPort',
