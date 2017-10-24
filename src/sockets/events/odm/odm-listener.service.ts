@@ -7,17 +7,14 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 
-import { EventChannelService } from '../event.channel.service';
-
-import { OdmEvent, isOdmEvent } from './odm.event';
-
 import {
+    OdmEvent,
     DomainManagementObjectAddedEvent,
     DomainManagementObjectRemovedEvent,
-    isDomainManagementObjectAddedEvent,
-    isDomainManagementObjectRemovedEvent,
     SourceCategory
-} from './domain.management.object.event';
+} from '../../../models/index';
+
+import { EventChannelService } from '../generic/index';
 
 export const ODM_CHANNEL_NAME: string = 'ODM_Channel';
 
@@ -117,11 +114,11 @@ export class OdmListenerService {
         this.eventChannel
             .getEvents$()
             .subscribe((data: any) => {
-                if (isOdmEvent(data)) {
+                if (data instanceof OdmEvent) {
                     this.allEvents.next(data);
-                    if (isDomainManagementObjectAddedEvent(data)) {
+                    if (data instanceof DomainManagementObjectAddedEvent) {
                         this.handleAdd(data);
-                    } else if (isDomainManagementObjectRemovedEvent(data)) {
+                    } else if (data instanceof DomainManagementObjectRemovedEvent) {
                         this.handleRemove(data);
                     }
                 }

@@ -7,13 +7,15 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
 
-import { EventChannelService } from '../event.channel.service';
+import {
+    IdmEvent,
+    UsageStateEvent,
+    AdministrativeStateEvent,
+    OperationalStateEvent,
+    AbnormalComponentTerminationEvent
+} from '../../../models';
 
-import { IdmEvent, isIdmEvent } from './idm.event.base';
-import { UsageStateEvent, isUsageStateEvent } from './usage.state.event';
-import { AdministrativeStateEvent, isAdministrativeStateEvent } from './administrative.state.event';
-import { OperationalStateEvent, isOperationalStateEvent } from './operational.state.event';
-import { AbnormalComponentTerminationEvent, isAbnormalComponentTerminationEvent } from './abnormal.component.termination.event';
+import { EventChannelService } from '../generic/index';
 
 export function configureIdmListenerService(ecs: EventChannelService): IdmListenerService {
     const s = new IdmListenerService(ecs);
@@ -81,15 +83,15 @@ export class IdmListenerService {
         this.eventChannel
             .getEvents$()
             .subscribe((data: any) => {
-                if (isIdmEvent(data)) {
+                if (data instanceof IdmEvent) {
                     this.allEvents.next(data);
-                    if (isAdministrativeStateEvent(data)) {
+                    if (data instanceof AdministrativeStateEvent) {
                         this.administrativeStateChanged.next(data);
-                    } else if (isOperationalStateEvent(data)) {
+                    } else if (data instanceof OperationalStateEvent) {
                         this.operationalStateChanged.next(data);
-                    } else if (isUsageStateEvent(data)) {
+                    } else if (data instanceof UsageStateEvent) {
                         this.usageStateChanged.next(data);
-                    } else if (isAbnormalComponentTerminationEvent(data)) {
+                    } else if (data instanceof AbnormalComponentTerminationEvent) {
                         this.abnormalComponentTerminationChanged.next(data);
                     }
                 }

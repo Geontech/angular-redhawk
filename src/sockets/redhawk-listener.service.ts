@@ -6,18 +6,25 @@ import { Subject } from 'rxjs/Subject';
 // tslint:disable-next-line:no-unused-variable
 import { map } from 'rxjs/operator/map';
 
+import { RedhawkEvent } from '../models/index';
 import { RestPythonService } from '../rest-python/rest-python.module';
 
-import { basicSocket } from './basic.socket';
+import { basicSocket } from './base/basic-socket';
 
-import { RedhawkEvent } from '../redhawk/redhawk';
-
+/**
+ * The REDHAWK Listener Service provides notifications for when Domains are
+ * added and removed to the naming service.
+ */
 @Injectable()
 export class RedhawkListenerService {
 
     // Internal subject for received messages
     private socketInterface: Subject<RedhawkEvent>;
 
+    /**
+     * @return Observable event indicating which domains were added and removed
+     *         as well as the current listing.
+     */
     public getEvents$(): Observable<RedhawkEvent> {
         return this.socketInterface.asObservable();
     }

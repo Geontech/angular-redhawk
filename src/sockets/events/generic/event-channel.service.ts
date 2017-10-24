@@ -6,17 +6,19 @@ import { Subject } from 'rxjs/Subject';
 // tslint:disable-next-line:no-unused-variable
 import { map } from 'rxjs/operator/map';
 
-import { RestPythonService } from '../rest-python/rest-python.module';
+// Models, URL service, and basic socket creator
+import {
+    OdmEvent,
+    deserializeOdmEvent,
+    IdmEvent,
+    deserializeIdmEvent,
+    RhMessage
+} from '../../../models/index';
+import { RestPythonService } from '../../../rest-python/rest-python.module';
+import { basicSocket }          from '../../base/basic-socket';
 
-import { basicSocket } from './basic.socket';
-
-import { IEventChannelCommand } from './event.channel.command';
-
-import { RhMessage } from './message/message';
-
-import { deserializeOdmEvent, OdmEvent } from './odm/odm.event';
-
-import { deserializeIdmEvent, IdmEvent } from './idm/idm.event';
+// ECM command interface.
+import { IEventChannelCommand } from './event-channel-command';
 
 /**
  * The EventChannelService is a basic event channel interface.  You can
@@ -32,7 +34,7 @@ export class EventChannelService {
      * All events coming from this web socket
      */
     public getEvents$(): Observable<OdmEvent|IdmEvent|RhMessage> {
-        return this.socketInterface.asObservable();
+        return <any> this.socketInterface.asObservable();
     }
 
     /**

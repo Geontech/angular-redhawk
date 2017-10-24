@@ -4,10 +4,12 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
 
-import { basicSocket } from '../basic.socket';
+import { BulkioPacket } from '../../models/index';
 
-import { BulkioPacket } from './bulkio.packet';
-import { BulkioControl, ControlType } from './bulkio.control';
+import { basicSocket } from '../base/basic-socket';
+
+import { BulkioControl } from './bulkio-control';
+import { ControlType } from './control-type';
 
 type BulkioSocketTypes = BulkioPacket | BulkioControl;
 
