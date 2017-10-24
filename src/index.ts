@@ -6,8 +6,8 @@ import { RedhawkModule }       from './redhawk/redhawk.module';
 export * from './redhawk/redhawk.module';
 import { DomainModule }        from './domain/domain.module';
 export * from './domain/domain.module';
-import { FilesystemModule }    from './filesystem/filesystem.module';
-export * from './filesystem/filesystem.module';
+import { FileSystemModule }    from './filesystem/file-system.module';
+export * from './filesystem/file-system.module';
 import { DeviceManagerModule } from './devicemanager/devicemanager.module';
 export * from './devicemanager/devicemanager.module';
 import { WaveformModule }      from './waveform/waveform.module';
@@ -25,13 +25,17 @@ export * from './property/property.module';
 import { RestPythonModule } from './rest-python/rest-python.module';
 export * from './rest-python/rest-python.module';
 
-export { ResourceRef, ResourceRefs } from './base/resource';
+// Models
+export * from './models/index';
+
+// Must export this base class module...
+export * from './base/index';
 
 const REDHAWK_MODULES = [
     RedhawkModule,
     // Submodules
     DomainModule,
-    FilesystemModule,
+    FileSystemModule,
     WaveformModule,
     DeviceManagerModule,
     DeviceModule,
@@ -49,7 +53,6 @@ const REDHAWK_MODULES = [
     ],
     exports: [
         CommonModule,
-        RestPythonModule,
         ...REDHAWK_MODULES
     ]
 })
