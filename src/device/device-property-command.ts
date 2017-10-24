@@ -1,12 +1,14 @@
-import * as prop from '../property/index';
+import { PropertySet }     from '../models/index';
+import { PropertyCommand } from '../property/property.module';
 
 import { DevicePropertyCommandType } from './device-property-command-type';
+
 /**
  * DevicePropertyCommand is an extension to the standard PropertyCommand that 
  * adds the device-specific 'method' field to support configure, allocate, and
  * deallocate methods.
  */
-export interface IDevicePropertyCommand extends prop.PropertyCommand {
+export interface IDevicePropertyCommand extends PropertyCommand {
     method: DevicePropertyCommandType;
 }
 
@@ -14,10 +16,10 @@ export interface IDevicePropertyCommand extends prop.PropertyCommand {
  * Concrete implementation of the interface, in case that is preferable.
  */
 export class DevicePropertyCommand
-        extends prop.PropertyCommand
+        extends PropertyCommand
         implements IDevicePropertyCommand {
     constructor(
         public method: DevicePropertyCommandType,
-        properties: prop.PropertySet
+        properties: PropertySet
     ) { super(properties); }
 }

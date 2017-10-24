@@ -4,22 +4,19 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-// URL builder
+// Model
+import { PropertySet, Device } from '../models/index';
+
+// REST interface
 import { RestPythonService } from '../rest-python/rest-python.module';
 
 // Parent service & base class
-import { DeviceManagerService } from '../devicemanager/devicemanager.service';
-import { PortBearingService } from '../port/port.interface';
+import { DeviceManagerService } from '../devicemanager/devicemanager.module';
+import { PortBearingService } from '../port/port.module';
 
 // This model and helpers
-import {
-    Device,
-    DevicePropertyCommand,
-    IDevicePropertyCommandResponse
-} from './device';
-
-// Child models
-import { PropertySet } from '../property/property';
+import { DevicePropertyCommand } from './device-property-command';
+import { IDevicePropertyCommandResponse } from './device-property-command-response';
 
 @Injectable()
 export class DeviceService extends PortBearingService<Device> {

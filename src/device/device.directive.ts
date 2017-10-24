@@ -12,12 +12,19 @@ import {
 import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
-import { RestPythonService } from '../rest-python/rest-python.module';
+// Model
+import { Device } from '../models/index';
 
-import { DeviceManagerService } from '../devicemanager/devicemanager.service';
+// Services from sibling modules
+import { RestPythonService }    from '../rest-python/rest-python.module';
+import { DeviceManagerService } from '../devicemanager/devicemanager.module';
+
+// This service
 import { DeviceService } from './device.service';
-import { Device }        from './device';
 
+/**
+ * Service selection function to bootstrap injection
+ */
 export function serviceSelect (
     service: DeviceService,
     http: Http,
@@ -30,6 +37,11 @@ export function serviceSelect (
     return service;
 }
 
+/**
+ * The Device Directive provides access to a specific Device model including
+ * the configuration, allocation, and deallocation of its properties and access
+ * to its ports.
+ */
 @Directive({
     selector: '[arDevice]',
     exportAs: 'arDevice',
