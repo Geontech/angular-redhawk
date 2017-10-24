@@ -13,3 +13,4 @@ export * from './property/index';
 export * from './redhawk/index';
 export * from './resource/index';
 export * from './serialization/index';
+export * from './waveform/index';
