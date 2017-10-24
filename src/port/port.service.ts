@@ -4,16 +4,16 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+// URL Builder
+import { RestPythonService } from '../rest-python/rest-python.module';
+
 // Possible parent services
 import { WaveformService } from '../waveform/waveform.service';
 import { DeviceService } from '../device/device.service';
 import { ComponentService } from '../component/component.service';
 
 // And base service
-import { BaseService } from '../shared/base.service';
-
-// URL Builder
-import { RestPythonService } from '../shared/rest.python.service';
+import { BaseService } from '../base/base.service';
 
 // Common port "ref" and the specific ones.
 import {

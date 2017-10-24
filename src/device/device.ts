@@ -1,4 +1,4 @@
-import { Resource } from '../shared/resource';
+import { Resource } from '../base/resource';
 import { PropertySet, PropertyCommand } from '../property/property';
 
 // Device model

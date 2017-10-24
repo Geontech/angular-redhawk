@@ -10,7 +10,7 @@ import {
 
 import {
     RestPythonService
-} from '../../shared/rest.python.service';
+} from '../../rest-python/rest-python.module';
 
 /**
  * @interface

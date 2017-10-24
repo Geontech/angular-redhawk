@@ -8,12 +8,12 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+// URL Builder
+import { RestPythonService } from '../rest-python/rest-python.module';
+
 // Parent service & base class
 import { RedhawkService } from '../redhawk/redhawk.service';
-import { BaseService }    from '../shared/base.service';
-
-// URL Builder
-import { RestPythonService } from '../shared/rest.python.service';
+import { BaseService }    from '../base/base.service';
 
 // This model
 import { Domain } from './domain';
@@ -38,7 +38,7 @@ import { Device } from '../device/device';
 import {
     ResourceRefs,
     deserializeResourceRefs
-} from '../shared/resource';
+} from '../base/resource';
 
 import { PropertySet, PropertyCommand } from '../property/property';
 

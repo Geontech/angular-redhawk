@@ -2,8 +2,18 @@ import { Http }       from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject }    from 'rxjs/Subject';
 
-import { RestPythonService } from './rest.python.service';
+import { RestPythonService } from '../rest-python/rest-python.module';
 
+/**
+ * The BaseService class is an abstract base class for all REST-Python -facing
+ * service interfaces back to the REDHAWK system.  The premise of these classes
+ * is that once injected, setting the uniqueId begins a process of pulling the 
+ * initial state of the model (which can be observed at model$).  There 
+ * forward, calling update() should be enough to maintain the model.
+ *
+ * Derived classes may also instantiate additional websocket service interfaces.
+ * Please refer to the associated class for more information.
+ */
 export abstract class BaseService<T> {
     /** Returns true if this service is in the middle of updating the model */
     get isUpdating(): boolean { return this._updating; }

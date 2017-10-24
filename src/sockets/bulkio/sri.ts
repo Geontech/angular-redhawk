@@ -1,4 +1,4 @@
-import { ISerializable, ISerializableFn } from '../../shared/serializable';
+import { ISerializable, ISerializableFn } from '../../base/serializable';
 
 export class Keyword implements ISerializable<Keyword> {
     id: string;

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
+import { RestPythonModule } from '../rest-python/rest-python.module';
 import { RedhawkModule } from '../redhawk/redhawk.module';
 import { SocketsModule } from '../sockets/sockets.module';
 
@@ -14,7 +15,8 @@ export * from './domain';
     imports:      [
         HttpModule,
         RedhawkModule,
-        SocketsModule
+        SocketsModule,
+        RestPythonModule.forChild()
         ],
     exports:      [ DomainDirective ],
     declarations: [ DomainDirective ]

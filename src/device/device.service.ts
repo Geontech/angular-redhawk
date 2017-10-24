@@ -4,12 +4,12 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+// URL builder
+import { RestPythonService } from '../rest-python/rest-python.module';
+
 // Parent service & base class
 import { DeviceManagerService } from '../devicemanager/devicemanager.service';
 import { PortBearingService } from '../port/port.interface';
-
-// URL builder
-import { RestPythonService } from '../shared/rest.python.service';
 
 // This model and helpers
 import {

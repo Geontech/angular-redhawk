@@ -1,4 +1,4 @@
-import { ISerializableFn } from '../../shared/serializable';
+import { ISerializableFn } from '../../base/serializable';
 
 import { IdmEvent } from './idm.event.base';
 import { StateChangeCategory, fromString } from './idm.state.event';

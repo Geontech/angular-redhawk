@@ -1,4 +1,4 @@
-import { ISerializable } from '../../shared/serializable';
+import { ISerializable } from '../../base/serializable';
 
 import { SRI } from './sri';
 import { PrecisionUTCTime } from './precision.utc.time';

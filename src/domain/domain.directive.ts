@@ -12,6 +12,8 @@ import {
 import { Http }       from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
+import { RestPythonService } from '../rest-python/rest-python.module';
+
 import { RedhawkService } from '../redhawk/redhawk.service';
 import { DomainService } from './domain.service';
 import { Domain }        from './domain';
@@ -21,7 +23,6 @@ import {
     odmListenerServiceProvider
 } from '../sockets/odm/odm.listener.service';
 
-import { RestPythonService } from '../shared/rest.python.service';
 
 export function serviceSelect(
         service: DomainService,

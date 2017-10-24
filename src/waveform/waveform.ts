@@ -2,9 +2,9 @@ import {
     Resource,
     ResourceRefs,
     deserializeResourceRefs
-} from '../shared/resource';
+} from '../base/resource';
 
-import { ISerializable } from '../shared/serializable';
+import { ISerializable } from '../base/serializable';
 
 // Waveform model
 export class Waveform extends Resource implements ISerializable<Waveform> {

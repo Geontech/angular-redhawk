@@ -12,11 +12,11 @@ import {
 import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
+import { RestPythonService } from '../rest-python/rest-python.module';
+
 import { DeviceManagerService } from '../devicemanager/devicemanager.service';
 import { DeviceService } from './device.service';
 import { Device }        from './device';
-
-import { RestPythonService } from '../shared/rest.python.service';
 
 export function serviceSelect (
     service: DeviceService,

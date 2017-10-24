@@ -1,4 +1,4 @@
-import { ISerializable } from '../shared/serializable';
+import { ISerializable } from '../base/serializable';
 
 // Represents the REDHAWK model returned from the REST interface.
 export class Redhawk implements ISerializable<Redhawk> {

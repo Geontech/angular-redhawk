@@ -1,4 +1,4 @@
-import { ISerializable } from '../shared/serializable';
+import { ISerializable } from '../base/serializable';
 
 export class FileSystem implements ISerializable<FileSystem> {
     files: IFileSystemPath[];

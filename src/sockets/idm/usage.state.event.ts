@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { IdmEvent }      from './idm.event.base';
-import { ISerializable } from '../../shared/serializable';
+import { ISerializable } from '../../base/serializable';
 import { IdmStateEvent } from './idm.state.event';
 
 export enum UsageState {

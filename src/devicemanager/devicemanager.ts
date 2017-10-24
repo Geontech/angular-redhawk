@@ -6,9 +6,9 @@ import {
     ResourceRef,
     ResourceRefs,
     deserializeResourceRefs
-} from '../shared/resource';
+} from '../base/resource';
 
-import { ISerializable } from '../shared/serializable';
+import { ISerializable } from '../base/serializable';
 
 // Reference to a device manager (Node)
 export class DeviceManagerRef extends ResourceRef {}

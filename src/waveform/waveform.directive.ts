@@ -16,7 +16,7 @@ import { DomainService } from '../domain/domain.service';
 import { WaveformService } from './waveform.service';
 import { Waveform }        from './waveform';
 
-import { RestPythonService } from '../shared/rest.python.service';
+import { RestPythonService } from '../rest-python/rest-python.module';
 
 
 export function serviceSelect (

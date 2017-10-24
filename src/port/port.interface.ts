@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { BaseService } from '../shared/base.service';
+import { BaseService } from '../base/base.service';
 
 import {
     Port,

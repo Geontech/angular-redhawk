@@ -1,4 +1,4 @@
-import { ISerializableFn } from '../../shared/serializable';
+import { ISerializableFn } from '../../base/serializable';
 
 // Base class and children to deserialize.
 import { OdmEvent } from './odm.event.base';

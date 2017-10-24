@@ -4,12 +4,12 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+// URL Builder
+import { RestPythonService } from '../rest-python/rest-python.module';
+
 // Parent service & base class
 import { DomainService } from '../domain/domain.service';
 import { PortBearingService } from '../port/port.interface';
-
-// URL Builder
-import { RestPythonService } from '../shared/rest.python.service';
 
 // This model and helpers
 import {
@@ -20,7 +20,7 @@ import {
 } from './waveform';
 
 // Child models
-import { ResourceRefs } from '../shared/resource';
+import { ResourceRefs } from '../base/resource';
 import { Component } from '../component/component';
 
 @Injectable()

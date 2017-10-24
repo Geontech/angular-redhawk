@@ -1,4 +1,4 @@
-import { ISerializable } from '../shared/serializable';
+import { ISerializable } from '../base/serializable';
 
 // SCA Types
 export type ScaType = 'simple' | 'simpleSeq' | 'struct' | 'structSeq';

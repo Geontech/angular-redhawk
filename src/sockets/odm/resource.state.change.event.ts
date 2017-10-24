@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { ISerializable } from '../../shared/serializable';
+import { ISerializable } from '../../base/serializable';
 import { OdmEvent } from './odm.event.base';
 
 export enum ResourceStateChange {

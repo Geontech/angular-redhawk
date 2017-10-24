@@ -12,11 +12,11 @@ import {
 import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
+import { RestPythonService } from '../rest-python/rest-python.module';
+
 import { WaveformService } from '../waveform/waveform.service';
 import { ComponentService } from './component.service';
 import { Component } from './component';
-
-import { RestPythonService } from '../shared/rest.python.service';
 
 export function serviceSelect(
     service: ComponentService,

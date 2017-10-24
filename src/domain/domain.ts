@@ -5,13 +5,13 @@ import {
 import {
     ResourceRefs,
     deserializeResourceRefs
-} from '../shared/resource';
+} from '../base/resource';
 import {
     DeviceManagerRefs,
     deserializeDeviceManagerRefs
 } from '../devicemanager/devicemanager';
 
-import { ISerializable } from '../shared/serializable';
+import { ISerializable } from '../base/serializable';
 
 // REST Domain object
 export class Domain implements ISerializable<Domain> {

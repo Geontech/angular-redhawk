@@ -6,8 +6,9 @@ import { Subject } from 'rxjs/Subject';
 // tslint:disable-next-line:no-unused-variable
 import { map } from 'rxjs/operator/map';
 
+import { RestPythonService } from '../rest-python/rest-python.module';
+
 import { basicSocket } from './basic.socket';
-import { RestPythonService } from '../shared/rest.python.service';
 
 import { RedhawkEvent } from '../redhawk/redhawk';
 

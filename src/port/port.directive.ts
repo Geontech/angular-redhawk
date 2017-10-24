@@ -12,6 +12,8 @@ import {
 import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
+import { RestPythonService } from '../rest-python/rest-python.module';
+
 // This service
 import { PortService } from './port.service';
 
@@ -22,8 +24,6 @@ import { Port } from './port';
 import { WaveformService } from '../waveform/waveform.service';
 import { ComponentService } from '../component/component.service';
 import { DeviceService } from '../device/device.service';
-
-import { RestPythonService } from '../shared/rest.python.service';
 
 export function serviceSelect(
     service: PortService,

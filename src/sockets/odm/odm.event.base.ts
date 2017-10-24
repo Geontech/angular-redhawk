@@ -1,4 +1,4 @@
-import { ISerializable } from '../../shared/serializable';
+import { ISerializable } from '../../base/serializable';
 
 // All ODM Events have the same basic two properties: sourceId and sourceName
 // This is a base class and only partially deserializes the event.

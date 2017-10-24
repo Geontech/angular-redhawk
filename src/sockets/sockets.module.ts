@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 
+// Service interface to REST-Python
+import { RestPythonModule } from '../rest-python/rest-python.module';
+
 // General socket
 export { basicSocket, WebSocketBinaryType } from './basic.socket';
 
@@ -31,6 +34,9 @@ import {
 } from './odm/odm.event.pipes';
 
 @NgModule({
+    imports: [
+        RestPythonModule.forChild()
+    ],
     exports: [
         // IDM
         AdministrativeStatePipe,
