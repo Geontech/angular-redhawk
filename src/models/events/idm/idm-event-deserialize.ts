@@ -1,11 +1,13 @@
-import { ISerializableFn } from '../../base/serializable';
+import { ISerializableFn } from '../../serialization/index';
 
-import { IdmEvent } from './idm.event.base';
-import { StateChangeCategory, fromString } from './idm.state.event';
-import { UsageStateEvent } from './usage.state.event';
-import { AdministrativeStateEvent } from './administrative.state.event';
-import { OperationalStateEvent } from './operational.state.event';
-import { AbnormalComponentTerminationEvent } from './abnormal.component.termination.event';
+import { StateChangeCategory } from './enums/index';
+
+import { IdmEvent } from './idm-event';
+
+import { UsageStateEvent } from './usage-state-event';
+import { AdministrativeStateEvent } from './administrative-state-event';
+import { OperationalStateEvent } from './operational-state-event';
+import { AbnormalComponentTerminationEvent } from './abnormal-component-termination-event';
 
 // Deserialization function for all IdmEvent types
 let deserializeIdmEvent: ISerializableFn<IdmEvent>;
@@ -38,3 +40,25 @@ deserializeIdmEvent = function (input: any): IdmEvent {
 };
 
 export { deserializeIdmEvent };
+
+/**
+ * Helper function for converting StateChangeCategory to the enumeration
+ */
+function fromString(category: string): StateChangeCategory {
+    let out = StateChangeCategory.UNKNOWN;
+    switch (category) {
+        case 'ADMINISTRATIVE_STATE_EVENT':
+            out = StateChangeCategory.ADMINISTRATIVE_STATE_EVENT;
+            break;
+        case 'OPERATIONAL_STATE_EVENT':
+            out = StateChangeCategory.OPERATIONAL_STATE_EVENT;
+            break;
+        case 'USAGE_STATE_EVENT':
+            out = StateChangeCategory.USAGE_STATE_EVENT;
+            break;
+        default:
+            console.error('Unknown StateChangeCategory: ' + category);
+            break;
+    }
+    return out;
+}

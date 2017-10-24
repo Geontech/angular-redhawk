@@ -1,5 +1,4 @@
 /**
- * @class IdmEvent
  * This is a false "type" since AbnormalComponentTerminationEvent shares
  * nothing with the *StateEvent types.  We're doing this here because there is
  * no other appopriate way to describe this fact that Angular will accept

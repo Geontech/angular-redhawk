@@ -1,7 +1,10 @@
-import { ISerializable } from '../../base/serializable';
+import { ISerializable } from '../../serialization/index';
 
-import { IdmEvent } from './idm.event.base';
+import { IdmEvent } from './idm-event';
 
+/**
+ * Serializable REDHAWK IDM Abnormal Component Termination Event model
+ */
 export class AbnormalComponentTerminationEvent
     extends IdmEvent
     implements ISerializable<AbnormalComponentTerminationEvent> {
@@ -16,8 +19,4 @@ export class AbnormalComponentTerminationEvent
             this.applicationId = input.applicationId;
             return this;
         }
-}
-
-export function isAbnormalComponentTerminationEvent(event: IdmEvent): event is AbnormalComponentTerminationEvent {
-    return event instanceof AbnormalComponentTerminationEvent;
 }
