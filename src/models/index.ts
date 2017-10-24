@@ -10,5 +10,6 @@ export * from './domain/index';
 export * from './filesystem/index';
 export * from './port/index';
 export * from './property/index';
-export * from './serialization/index';
+export * from './redhawk/index';
 export * from './resource/index';
+export * from './serialization/index';
