@@ -1,9 +1,13 @@
-import { ISerializable } from '../base/serializable';
+import { ISerializable } from '../serialization/index';
+import { IFileSystemPath } from './file-system-path';
 
+/**
+ * Serializable REDHAWK Model of the SCA FileSystem interface.
+ */
 export class FileSystem implements ISerializable<FileSystem> {
-    files: IFileSystemPath[];
-    directories: IFileSystemPath[];
-    contents: string;
+    files:       Array<IFileSystemPath>;
+    directories: Array<IFileSystemPath>;
+    contents:    string;
 
     constructor() {
         this.files = [];
@@ -16,11 +20,4 @@ export class FileSystem implements ISerializable<FileSystem> {
         this.contents = input.contents;
         return this;
     }
-}
-
-export interface IFileSystemPath {
-    read_only: boolean;
-    executable: boolean;
-    name: string;
-    size: number;
 }
