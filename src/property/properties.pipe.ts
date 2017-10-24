@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { PropertySet } from './property';
+import { PropertySet } from '../models/index';
 
 /**
  * Returns a sub-list of properties from a list of properties using an array of IDs.

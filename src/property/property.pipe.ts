@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Property, PropertySet } from './property';
+import { Property, PropertySet } from '../models/index';
 
 /**
  * Returns a specific property by its ID out of a list.

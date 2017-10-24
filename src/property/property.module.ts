@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 export * from './properties.pipe';
 export * from './property.pipe';
-export * from './property';
+export * from './property-command';
 
 // Pipes
 import { ArPropertyPipe } from './property.pipe';
