@@ -10,11 +10,12 @@ import {
 } from '@angular/core';
 import { Http }       from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
-import { RestPythonService } from '../rest-python/rest-python.module';
+
+import { Redhawk }                from '../models/index';
+import { RestPythonService }      from '../rest-python/rest-python.module';
+import { RedhawkListenerService } from '../sockets/sockets.module';
 
 import { RedhawkService } from './redhawk.service';
-import { Redhawk }        from './redhawk';
-import { RedhawkListenerService } from '../sockets/redhawk.listener.service';
 
 export function serviceSelect(
     service: RedhawkService,
@@ -27,6 +28,10 @@ export function serviceSelect(
     return service;
 }
 
+/**
+ * The REDHAWK Directive is the entry point, top-level directive for dependency
+ * injection when accessing the REST services for a REDHAWK Domain.
+ */
 @Directive({
     selector: '[arRedhawk]',
     exportAs: 'arRedhawk',

@@ -8,16 +8,10 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { RestPythonService } from '../rest-python/rest-python.module';
-
-import { BaseService } from '../base/base.service';
-import { Redhawk, RedhawkEvent } from './redhawk';
-
-// Other models
-import { Domain }     from '../domain/domain';
-
-// Websocket service
-import { RedhawkListenerService } from '../sockets/redhawk.listener.service';
+import { Domain, Redhawk, RedhawkEvent } from '../models/index';
+import { RestPythonService }             from '../rest-python/rest-python.module';
+import { BaseService }                   from '../base/index';
+import { RedhawkListenerService }        from '../sockets/sockets.module';
 
 @Injectable()
 export class RedhawkService extends BaseService<Redhawk> {
