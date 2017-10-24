@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
-import { RestPythonModule } from '../rest-python/rest-python.module';
+import { RestPythonModule }    from '../rest-python/rest-python.module';
 import { DeviceManagerModule } from '../devicemanager/devicemanager.module';
-import { PortModule } from '../port/port.module';
 
 import { DeviceDirective } from './device.directive';
 
@@ -18,9 +17,8 @@ export * from './device-property-command-type';
 @NgModule({
     imports: [
         HttpModule,
-        DeviceManagerModule,
         RestPythonModule.forChild(),
-        PortModule
+        DeviceManagerModule
         ],
     exports:      [ DeviceDirective ],
     declarations: [ DeviceDirective ]

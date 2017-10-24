@@ -4,15 +4,13 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-// Model
+// Base class, served model and properties
 import { PropertySet, Device } from '../models/index';
-
-// REST interface
+import { PortBearingService } from '../base/index';
 import { RestPythonService } from '../rest-python/rest-python.module';
 
-// Parent service & base class
+// Parent service
 import { DeviceManagerService } from '../devicemanager/devicemanager.module';
-import { PortBearingService } from '../port/port.module';
 
 // This model and helpers
 import { DevicePropertyCommand } from './device-property-command';
