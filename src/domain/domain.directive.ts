@@ -12,17 +12,15 @@ import {
 import { Http }       from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
+import { Domain } from '../models/index';
 import { RestPythonService } from '../rest-python/rest-python.module';
-
-import { RedhawkService } from '../redhawk/redhawk.service';
-import { DomainService } from './domain.service';
-import { Domain }        from './domain';
-
-import {
+import { RedhawkService } from '../redhawk/redhawk.module';
+import { 
     OdmListenerService,
     odmListenerServiceProvider
-} from '../sockets/odm/odm.listener.service';
+} from '../sockets/sockets.module';
 
+import { DomainService } from './domain.service';
 
 export function serviceSelect(
         service: DomainService,
