@@ -4,21 +4,14 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import { DeviceManager, ResourceRefs, Device } from '../models/index';
+
 // URL Builder
 import { RestPythonService } from '../rest-python/rest-python.module';
 
-
 // Parent service & base class
-import { DomainService } from '../domain/domain.service';
-import { BaseService } from '../base/base.service';
-
-// This model
-import { DeviceManager } from './devicemanager';
-
-// Child models
-import { ResourceRefs } from '../base/resource';
-import { Device } from '../device/device';
-
+import { DomainService } from '../domain/domain.module';
+import { BaseService } from '../base/index';
 
 @Injectable()
 export class DeviceManagerService extends BaseService<DeviceManager> {
