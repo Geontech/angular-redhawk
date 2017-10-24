@@ -4,5 +4,6 @@
  * using Angular-REDHAWK's services and directives.
  */
 export * from './component/index';
+export * from './device/index';
 export * from './serialization/index';
 export * from './resource/index';
