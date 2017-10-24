@@ -3,5 +3,6 @@
  * REST-Python server and sockets interfaces that can be retrieved and managed
  * using Angular-REDHAWK's services and directives.
  */
-export * from './resource/index';
+export * from './component/index';
 export * from './serialization/index';
+export * from './resource/index';
