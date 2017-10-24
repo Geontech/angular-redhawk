@@ -12,11 +12,12 @@ import {
 import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
+import { Component } from '../models/index';
 import { RestPythonService } from '../rest-python/rest-python.module';
+import { WaveformService } from '../waveform/waveform.module';
 
-import { WaveformService } from '../waveform/waveform.service';
+// This service
 import { ComponentService } from './component.service';
-import { Component } from './component';
 
 export function serviceSelect(
     service: ComponentService,
@@ -29,6 +30,10 @@ export function serviceSelect(
     return service;
 }
 
+/**
+ * The Component Directive provides access to a specific Component model including
+ * the configuration of its properties and access to its ports.
+ */
 @Directive({
     selector: '[arComponent]',
     exportAs: 'arComponent',

@@ -3,15 +3,20 @@ import { HttpModule } from '@angular/http';
 
 import { RestPythonModule } from '../rest-python/rest-python.module';
 import { WaveformModule } from '../waveform/waveform.module';
+import { PortModule } from '../port/port.module';
 
 import { ComponentDirective } from './component.directive';
 
 export { ComponentService }   from './component.service';
 export { ComponentDirective } from './component.directive';
-export * from './component';
 
 @NgModule({
-    imports:      [ HttpModule, WaveformModule, RestPythonModule.forChild() ],
+    imports: [
+        HttpModule,
+        WaveformModule,
+        RestPythonModule.forChild(),
+        PortModule
+        ],
     exports:      [ ComponentDirective ],
     declarations: [ ComponentDirective ]
 })

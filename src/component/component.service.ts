@@ -4,19 +4,21 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+// This model and properties
+import { Component, PropertySet } from '../models/index';
+import { PropertyCommand } from '../property/property.module';
+
 // URL Builder
 import { RestPythonService } from '../rest-python/rest-python.module';
 
 // Parent service & base class
-import { WaveformService } from '../waveform/waveform.service';
-import { PortBearingService } from '../port/port.interface';
+import { WaveformService } from '../waveform/waveform.module';
+import { PortBearingService } from '../port/port.module';
 
-// This model
-import { Component }  from './component';
-
-// Child models
-import { PropertySet, PropertyCommand } from '../property/property';
-
+/**
+ * The Component Service provides the service interface to a specific Component
+ * model in a REDHAWK system
+ */
 @Injectable()
 export class ComponentService extends PortBearingService<Component> {
 
