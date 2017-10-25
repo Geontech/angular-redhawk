@@ -2,6 +2,8 @@ import { Http }       from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject }    from 'rxjs/Subject';
 
+import 'rxjs/add/observable/throw';
+
 import { RestPythonService } from '../rest-python/rest-python.module';
 
 /**
@@ -90,7 +92,6 @@ export abstract class BaseService<T> {
 
     protected handleError(error: any): Observable<any> {
         let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-        console.error(errMsg); // log to console instead
         return Observable.throw(errMsg);
     }
 
