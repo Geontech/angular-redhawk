@@ -15,7 +15,7 @@ export type PropertySet = Array<Property>;
  *
  * @param [inputs] A JSON Object that is a PropertySet
  */
-export function deserializeProperties(inputs?: any): PropertySet {
+export function deserializeProperties(inputs: any = []): PropertySet {
     let props: PropertySet = [];
     for (let input of inputs) {
         if (input !== undefined) {

@@ -17,10 +17,7 @@ export type ResourceRefs = ResourceRef[];
 /**
  * Utility function for deserializing a list of resource refs.
  */
-export function deserializeResourceRefs(inputs?: any): ResourceRefs {
-    if (!inputs) {
-        return [];
-    }
+export function deserializeResourceRefs(inputs: any = []): ResourceRefs {
     let refs: ResourceRefs = [];
     for (let ref of inputs) {
         refs.push(new ResourceRef().deserialize(ref));
