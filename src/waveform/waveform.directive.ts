@@ -12,12 +12,11 @@ import {
 import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
-import { DomainService } from '../domain/domain.service';
+import { Waveform }          from '../models/index';
+import { DomainService }     from '../domain/domain.module';
+import { RestPythonService } from '../rest-python/rest-python.module';
+
 import { WaveformService } from './waveform.service';
-import { Waveform }        from './waveform';
-
-import { RestPythonService } from '../shared/rest.python.service';
-
 
 export function serviceSelect (
     service: WaveformService,
@@ -30,6 +29,10 @@ export function serviceSelect (
     return service;
 }
 
+/**
+ * The Waveform directive provides the dependency injection start point for
+ * a running Waveform (Application) in the Domain
+ */
 @Directive({
     selector: '[arWaveform]',
     exportAs: 'arWaveform',
@@ -63,9 +66,9 @@ export class WaveformDirective implements OnDestroy, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty('waveformId')) {
-            this.service.setUniqueId(this.waveformId);
+            this.service.uniqueId = this.waveformId;
             if (!this.subscription) {
-                this.subscription = this.service.model$().subscribe(it => {
+                this.subscription = this.service.model$.subscribe(it => {
                     this.model = it;
                     this.modelChange.emit(this.model);
                 });

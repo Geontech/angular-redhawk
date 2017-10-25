@@ -12,16 +12,15 @@ import {
 import { Http }       from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
-import { RedhawkService } from '../redhawk/redhawk.service';
-import { DomainService } from './domain.service';
-import { Domain }        from './domain';
-
+import { Domain } from '../models/index';
+import { RestPythonService } from '../rest-python/rest-python.module';
+import { RedhawkService } from '../redhawk/redhawk.module';
 import {
     OdmListenerService,
     odmListenerServiceProvider
-} from '../sockets/odm/odm.listener.service';
+} from '../sockets/sockets.module';
 
-import { RestPythonService } from '../shared/rest.python.service';
+import { DomainService } from './domain.service';
 
 export function serviceSelect(
         service: DomainService,
@@ -78,11 +77,11 @@ export class DomainDirective implements OnDestroy, OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         const domainId = 'domainId';
         if (changes.hasOwnProperty(domainId)) {
-            this.service.setUniqueId(this.domainId);
+            this.service.uniqueId = this.domainId;
 
             // Connect to the service if necessary
             if (!this.subscription) {
-                this.subscription = this.service.model$().subscribe(it => {
+                this.subscription = this.service.model$.subscribe(it => {
                     this.model = it;
                     this.modelChange.emit(this.model);
                 });

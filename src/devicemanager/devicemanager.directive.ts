@@ -12,11 +12,12 @@ import {
 import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
-import { DomainService } from '../domain/domain.service';
-import { DeviceManagerService } from './devicemanager.service';
-import { DeviceManager }        from './devicemanager';
+import { DeviceManager }     from '../models/index';
+import { RestPythonService } from '../rest-python/rest-python.module';
+import { DomainService }        from '../domain/domain.module';
 
-import { RestPythonService } from '../shared/rest.python.service';
+import { DeviceManagerService } from './devicemanager.service';
+
 
 export function serviceSelect(
         service: DeviceManagerService,
@@ -63,9 +64,9 @@ export class DeviceManagerDirective implements OnDestroy, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty('deviceManagerId')) {
-            this.service.setUniqueId(this.deviceManagerId);
+            this.service.uniqueId = this.deviceManagerId;
             if (!this.subscription) {
-                this.subscription = this.service.model$().subscribe(it => {
+                this.subscription = this.service.model$.subscribe(it => {
                     this.model = it;
                     this.modelChange.emit(this.model);
                 });

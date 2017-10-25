@@ -4,24 +4,16 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-// Parent service & base class
-import { DomainService } from '../domain/domain.service';
-import { PortBearingService } from '../port/port.interface';
+// Model, base class, other external modules
+import { Waveform, Component, ResourceRefs } from '../models/index';
+import { RestPythonService }                 from '../rest-python/rest-python.module';
+import { PortBearingService }                from '../base/index';
+import { DomainService }                     from '../domain/domain.module';
 
-// URL Builder
-import { RestPythonService } from '../shared/rest.python.service';
-
-// This model and helpers
-import {
-    Waveform,
-    IWaveformControlCommand,
-    IWaveformControlCommandResponse,
-    IWaveformReleaseResponse
-} from './waveform';
-
-// Child models
-import { ResourceRefs } from '../shared/resource';
-import { Component } from '../component/component';
+// C&C interfaces
+import { IWaveformControlCommand }         from './waveform-control-command';
+import { IWaveformControlCommandResponse } from './waveform-control-command-response';
+import { IWaveformReleaseResponse }        from './waveform-release-response';
 
 @Injectable()
 export class WaveformService extends PortBearingService<Waveform> {
@@ -35,22 +27,22 @@ export class WaveformService extends PortBearingService<Waveform> {
     }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = this.restPython.waveformUrl(this.domainService.getBaseUrl(), url);
+        this._baseUrl = this.restPython.waveformUrl(this.domainService.baseUrl, url);
     }
 
     uniqueQuery$(): Observable<Waveform> {
-        return <Observable<Waveform>> this.domainService.apps$(this.getUniqueId());
+        return <Observable<Waveform>> this.domainService.apps$(this.uniqueId);
     }
 
     public comps$(componentId?: string): Observable<Component> | Observable<ResourceRefs> {
         if (componentId) {
             return this.http
-                .get(this.restPython.componentUrl(this.getBaseUrl(), componentId))
+                .get(this.restPython.componentUrl(this.baseUrl, componentId))
                 .map(response => response.json() as Component)
                 .catch(this.handleError);
         } else {
             return this.http
-                .get(this.restPython.componentUrl(this.getBaseUrl()))
+                .get(this.restPython.componentUrl(this.baseUrl))
                 .map(response => response.json().components as ResourceRefs)
                 .catch(this.handleError);
         }
@@ -68,14 +60,14 @@ export class WaveformService extends PortBearingService<Waveform> {
 
     public release$(): Observable<IWaveformReleaseResponse> {
         return this.http
-            .delete(this.getBaseUrl())
+            .delete(this.baseUrl)
             .map(response => response.json() as IWaveformReleaseResponse)
             .catch(this.handleError);
     }
 
     private controlCommand$(command: IWaveformControlCommand): Observable<IWaveformControlCommandResponse> {
         return this.http
-            .put(this.getBaseUrl(), command)
+            .put(this.baseUrl, command)
             .map(response => response.json() as IWaveformControlCommandResponse)
             .catch(this.handleError);
     }

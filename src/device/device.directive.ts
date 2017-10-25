@@ -12,12 +12,19 @@ import {
 import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
-import { DeviceManagerService } from '../devicemanager/devicemanager.service';
+// Model
+import { Device } from '../models/index';
+
+// Services from sibling modules
+import { RestPythonService }    from '../rest-python/rest-python.module';
+import { DeviceManagerService } from '../devicemanager/devicemanager.module';
+
+// This service
 import { DeviceService } from './device.service';
-import { Device }        from './device';
 
-import { RestPythonService } from '../shared/rest.python.service';
-
+/**
+ * Service selection function to bootstrap injection
+ */
 export function serviceSelect (
     service: DeviceService,
     http: Http,
@@ -30,6 +37,11 @@ export function serviceSelect (
     return service;
 }
 
+/**
+ * The Device Directive provides access to a specific Device model including
+ * the configuration, allocation, and deallocation of its properties and access
+ * to its ports.
+ */
 @Directive({
     selector: '[arDevice]',
     exportAs: 'arDevice',
@@ -64,9 +76,9 @@ export class DeviceDirective implements OnDestroy, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty('deviceId')) {
-            this.service.setUniqueId(this.deviceId);
+            this.service.uniqueId = this.deviceId;
             if (!this.subscription) {
-                this.subscription = this.service.model$().subscribe(it => {
+                this.subscription = this.service.model$.subscribe(it => {
                     this.model = it;
                     this.modelChange.emit(this.model);
                 });

@@ -1,53 +1,25 @@
 import { NgModule } from '@angular/core';
 
-// General socket
-export { basicSocket, WebSocketBinaryType } from './basic.socket';
+// Service interface to REST-Python
+import { RestPythonModule } from '../rest-python/rest-python.module';
 
-// BULKIO service and data types
-export { BulkioListenerService }from './bulkio/bulkio.listener.service';
-export { BulkioPacket } from './bulkio/bulkio.packet';
-export { SRI } from './bulkio/sri';
-export { PrecisionUTCTime } from './bulkio/precision.utc.time';
+import { EventChannelModule } from './events/event-channel.module';
+export * from './events/event-channel.module';
 
-// Event and derived services and types
-export { EventChannelService } from './event.channel.service';
-export * from './odm/odm.listener.service';
-export * from './idm/idm.listener.service';
-export * from './redhawk.listener.service';
-export * from './odm/odm.event';
-export * from './idm/idm.event';
-export { RhMessage, isRhMessage } from './message/message';
+export * from './bulkio/index';
+export * from './redhawk-listener.service';
 
-// Pipes for enumerations
-import {
-    AdministrativeStatePipe,
-    OperationalStatePipe,
-    UsageStatePipe
-} from './idm/idm.event.pipes';
-
-import {
-    SourceCategoryPipe,
-    ResourceStateChangePipe
-} from './odm/odm.event.pipes';
-
+/**
+ * The SocketsModule provides access to other modules involving websockets 
+ * including the event services and BULKIO data transfers.
+ */
 @NgModule({
-    exports: [
-        // IDM
-        AdministrativeStatePipe,
-        OperationalStatePipe,
-        UsageStatePipe,
-        // ODM
-        SourceCategoryPipe,
-        ResourceStateChangePipe
+    imports: [
+        RestPythonModule,
+        EventChannelModule
     ],
-    declarations: [
-        // IDM
-        AdministrativeStatePipe,
-        OperationalStatePipe,
-        UsageStatePipe,
-        // ODM
-        SourceCategoryPipe,
-        ResourceStateChangePipe
+    exports: [
+        EventChannelModule,
     ]
 })
 export class SocketsModule {}

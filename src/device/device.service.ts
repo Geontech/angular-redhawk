@@ -4,22 +4,17 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-// Parent service & base class
-import { DeviceManagerService } from '../devicemanager/devicemanager.service';
-import { PortBearingService } from '../port/port.interface';
+// Base class, served model and properties
+import { PropertySet, Device } from '../models/index';
+import { PortBearingService } from '../base/index';
+import { RestPythonService } from '../rest-python/rest-python.module';
 
-// URL builder
-import { RestPythonService } from '../shared/rest.python.service';
+// Parent service
+import { DeviceManagerService } from '../devicemanager/devicemanager.module';
 
 // This model and helpers
-import {
-    Device,
-    DevicePropertyCommand,
-    IDevicePropertyCommandResponse
-} from './device';
-
-// Child models
-import { PropertySet } from '../property/property';
+import { DevicePropertyCommand } from './device-property-command';
+import { IDevicePropertyCommandResponse } from './device-property-command-response';
 
 @Injectable()
 export class DeviceService extends PortBearingService<Device> {
@@ -31,11 +26,11 @@ export class DeviceService extends PortBearingService<Device> {
         ) { super(http, restPython); }
 
     setBaseUrl(url: string): void {
-        this._baseUrl = this.restPython.deviceUrl(this.dmService.getBaseUrl(), url);
+        this._baseUrl = this.restPython.deviceUrl(this.dmService.baseUrl, url);
     }
 
     uniqueQuery$(): Observable<Device> {
-        return <Observable<Device>> this.dmService.devs$(this.getUniqueId());
+        return <Observable<Device>> this.dmService.devs$(this.uniqueId);
     }
 
     public configure$(properties: PropertySet): Observable<IDevicePropertyCommandResponse> {
@@ -55,7 +50,7 @@ export class DeviceService extends PortBearingService<Device> {
 
     private sendDevicePropertyCommand$(command: DevicePropertyCommand): Observable<IDevicePropertyCommandResponse> {
         return this.http
-            .put(this.restPython.propertyUrl(this.getBaseUrl()), command)
+            .put(this.restPython.propertyUrl(this.baseUrl), command)
             .map(response => {
                     this.delayedUpdate();
                     return response.json() as IDevicePropertyCommandResponse;

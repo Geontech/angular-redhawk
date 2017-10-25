@@ -1,19 +1,17 @@
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
 
+import { BulkioPacket } from '../../models/index';
+
 import { PortRef } from './port.ref';
 
-import {
-    BulkioListenerService,
-    BulkioPacket
-} from '../../sockets/sockets.module';
+import { BulkioListenerService } from '../../sockets/sockets.module';
 
 import {
     RestPythonService
-} from '../../shared/rest.python.service';
+} from '../../rest-python/rest-python.module';
 
 /**
- * @interface
  * The PortReceiver interface receives BulkioPacket pushes from
  * the bulkio port service.
  */

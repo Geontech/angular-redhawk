@@ -12,11 +12,12 @@ import {
 import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
-import { WaveformService } from '../waveform/waveform.service';
-import { ComponentService } from './component.service';
-import { Component } from './component';
+import { Component } from '../models/index';
+import { RestPythonService } from '../rest-python/rest-python.module';
+import { WaveformService } from '../waveform/waveform.module';
 
-import { RestPythonService } from '../shared/rest.python.service';
+// This service
+import { ComponentService } from './component.service';
 
 export function serviceSelect(
     service: ComponentService,
@@ -29,6 +30,10 @@ export function serviceSelect(
     return service;
 }
 
+/**
+ * The Component Directive provides access to a specific Component model including
+ * the configuration of its properties and access to its ports.
+ */
 @Directive({
     selector: '[arComponent]',
     exportAs: 'arComponent',
@@ -62,9 +67,9 @@ export class ComponentDirective implements OnDestroy, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty('componentId')) {
-            this.service.setUniqueId(this.componentId);
+            this.service.uniqueId = this.componentId;
             if (!this.subscription) {
-                this.subscription = this.service.model$().subscribe(it => {
+                this.subscription = this.service.model$.subscribe(it => {
                     this.model = it;
                     this.modelChange.emit(this.model);
                 });
