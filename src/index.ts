@@ -24,8 +24,8 @@ import { PropertyModule }      from './property/property.module';
 export * from './property/property.module';
 import { RestPythonModule } from './rest-python/rest-python.module';
 export * from './rest-python/rest-python.module';
-
-import { ResourceRefPipe } from './base/index';
+import { ResourceModule } from './resource/resource.module';
+export * from './resource/resource.module';
 
 // Models
 export * from './models/index';
@@ -45,6 +45,7 @@ const REDHAWK_MODULES = [
     ComponentModule,
     PortModule,
     PropertyModule,
+    ResourceModule,
     SocketsModule
 ];
 
@@ -56,11 +57,7 @@ const REDHAWK_MODULES = [
     ],
     exports: [
         CommonModule,
-        ...REDHAWK_MODULES,
-        ResourceRefPipe
-    ],
-    declarations: [
-        ResourceRefPipe
+        ...REDHAWK_MODULES
     ]
 })
 export class AngularRedhawkModule {}
