@@ -16,7 +16,7 @@ export * from './generic/index';
  */
 @NgModule({
     imports: [
-        RestPythonModule.forChild(),
+        RestPythonModule,
         IdmEventModule,
         OdmEventModule
     ],

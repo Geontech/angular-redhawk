@@ -15,7 +15,7 @@ export * from './redhawk-listener.service';
  */
 @NgModule({
     imports: [
-        RestPythonModule.forChild(),
+        RestPythonModule,
         EventChannelModule
     ],
     exports: [

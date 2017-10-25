@@ -31,6 +31,7 @@ export * from './models/index';
 // Must export this base class module...
 export * from './base/index';
 
+// These have exports
 const REDHAWK_MODULES = [
     RedhawkModule,
     // Submodules
@@ -48,7 +49,7 @@ const REDHAWK_MODULES = [
 @NgModule({
     imports: [
         CommonModule,
-        RestPythonModule.forChild(),
+        RestPythonModule,
         ...REDHAWK_MODULES
     ],
     exports: [

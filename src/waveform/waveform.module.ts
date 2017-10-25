@@ -17,7 +17,7 @@ export * from './waveform-release-response';
 @NgModule({
     imports:      [
     HttpModule,
-    RestPythonModule.forChild(),
+    RestPythonModule,
     DomainModule
     ],
     exports:      [ WaveformDirective ],

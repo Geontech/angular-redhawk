@@ -12,7 +12,7 @@ export { ComponentDirective } from './component.directive';
 @NgModule({
     imports: [
         HttpModule,
-        RestPythonModule.forChild(),
+        RestPythonModule,
         WaveformModule
         ],
     exports:      [ ComponentDirective ],

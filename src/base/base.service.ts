@@ -1,6 +1,7 @@
-import { Http }       from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { Subject }    from 'rxjs/Subject';
+import { Http }         from '@angular/http';
+import { Observable }   from 'rxjs/Observable';
+import { Subject }      from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 
 import 'rxjs/add/observable/throw';
 
@@ -35,6 +36,9 @@ export abstract class BaseService<T> {
     /** Internal updating flag */
     protected _updating: boolean;
 
+    /** Internal subscription to RP Service Updates */
+    protected _rpChanged: Subscription;
+
     /** 
      * Set the unique ID of the underlying system
      * NOTE: This will cause the service to reconfigure (update).
@@ -65,6 +69,11 @@ export abstract class BaseService<T> {
         this._model = <Subject<T>> new Subject();
         this._configured = false;
         this._updating = false;
+        this._rpChanged = this.restPython.changed$.subscribe(() => {
+            // Ensures that when RP URL is changed, the service tries to 
+            // reconnect to the server.            
+            this.reconfigure(this.uniqueId);
+        });
     }
 
     /**

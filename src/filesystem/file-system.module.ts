@@ -9,7 +9,7 @@ export { FileSystemService } from './file-system.service';
 @NgModule({
     imports:      [
         HttpModule,
-        RestPythonModule.forChild(),
+        RestPythonModule,
         DomainModule
         ],
     exports:      [ ],

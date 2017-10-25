@@ -12,7 +12,7 @@ export { RedhawkService }   from './redhawk.service';
 @NgModule({
     imports:      [
         HttpModule,
-        RestPythonModule.forChild(),
+        RestPythonModule,
         SocketsModule
         ],
     exports:      [ RedhawkDirective ],

@@ -12,7 +12,7 @@ export { DeviceManagerDirective } from './devicemanager.directive';
 @NgModule({
     imports:      [
         HttpModule,
-        RestPythonModule.forChild(),
+        RestPythonModule,
         DomainModule
     ],
     exports:      [ DeviceManagerDirective ],

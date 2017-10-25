@@ -1,11 +1,81 @@
-import { Injectable } from '@angular/core';
+import {
+    Optional,
+    Inject,
+    Injectable
+} from '@angular/core';
+import { Subject }    from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+
+import {
+    IRestPythonConfig,
+    REST_PYTHON_CONFIG
+} from './rest-python-config';
 
 @Injectable()
 export class RestPythonService {
-    private baseUrl: string;
+    // Storage for setters
+    private _host:   string;
+    private _port:   number;
+    private _apiUrl: string;
 
-    constructor(host: string, port: number, apiUrl: string) {
-        this.baseUrl = host + ':' + port + apiUrl;
+    private _changed = new Subject<void>();
+
+    private get baseUrl(): string {
+        return this.host + ':' + this.port + this.apiUrl;
+    }
+
+    /**
+     * Be notified when the REST Python Service's URL changes in any way.
+     */
+    get changed$(): Observable<void> { return this._changed.asObservable(); }
+
+    /** The configured host address for the REST-Python server */
+    get host(): string { return this._host; }
+
+    /** The configured port for the REST-Python server */
+    get port(): number { return this._port; }
+
+    /** The configured API URL for the REST-Python server */
+    get apiUrl(): string { return this._apiUrl; }
+
+    constructor(@Optional() @Inject(REST_PYTHON_CONFIG) config: IRestPythonConfig) {
+        this.setConfiguration(config);
+    }
+
+    /**
+     * Reconfigure the REST-Python Service to a new service address
+     */
+    setConfiguration(config: IRestPythonConfig) {
+        let changed = false;
+        config = config || {};
+
+        if (config.host !== undefined && config.host !== this.host) {
+            changed = true;
+            this._host = config.host;
+        } else if (this.host === undefined) {
+            changed = true;
+            this._host = window.location.hostname;
+        }
+
+        if (config.port !== undefined && config.port !== this.port) {
+            changed = true;
+            this._port = config.port;
+        } else if (this.port === undefined) {
+            changed = true;
+            this._port = 8080;
+        }
+
+        if (config.apiUrl !== undefined && config.apiUrl !== this.apiUrl) {
+            changed = true;
+            this._apiUrl = config.apiUrl;
+        } else if (this.apiUrl === undefined) {
+            changed = true;
+            this._apiUrl = '/redhawk/rest';
+        }
+
+        if (changed === true) {
+            this._changed.next();
+        }
     }
 
     redhawkUrl(): string {

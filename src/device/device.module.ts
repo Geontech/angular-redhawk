@@ -17,7 +17,7 @@ export * from './device-property-command-type';
 @NgModule({
     imports: [
         HttpModule,
-        RestPythonModule.forChild(),
+        RestPythonModule,
         DeviceManagerModule
         ],
     exports:      [ DeviceDirective ],

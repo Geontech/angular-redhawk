@@ -13,7 +13,7 @@ export { DomainDirective } from './domain.directive';
 @NgModule({
     imports:      [
         HttpModule,
-        RestPythonModule.forChild(),
+        RestPythonModule,
         RedhawkModule,
         SocketsModule
         ],

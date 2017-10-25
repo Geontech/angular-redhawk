@@ -15,7 +15,7 @@ export { PortService }   from './port.service';
 @NgModule({
     imports:      [
         HttpModule,
-        RestPythonModule.forChild(),
+        RestPythonModule,
         DeviceModule,
         ComponentModule,
         WaveformModule,
