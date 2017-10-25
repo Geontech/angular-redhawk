@@ -6,7 +6,7 @@ import { PropertySet } from '../models/index';
  * Returns a sub-list of properties from a list of properties using an array of IDs.
  */
 @Pipe({name: 'arProperties'})
-export class ArPropertiesPipe implements PipeTransform {
+export class PropertiesPipe implements PipeTransform {
     transform(properties: PropertySet, ids: Array<string>): PropertySet {
         let set: PropertySet = [];
         properties.filter(prop => {
