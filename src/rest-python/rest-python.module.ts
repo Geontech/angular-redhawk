@@ -53,7 +53,7 @@ export class RestPythonModule {
                     deps:        [ [ RestPythonService, new Optional(), new SkipSelf() ] ]
                 }
             ]
-        }
+        };
     }
 
     /**

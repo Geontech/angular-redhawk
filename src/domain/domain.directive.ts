@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Domain } from '../models/index';
 import { RestPythonService } from '../rest-python/rest-python.module';
 import { RedhawkService } from '../redhawk/redhawk.module';
-import { 
+import {
     OdmListenerService,
     odmListenerServiceProvider
 } from '../sockets/sockets.module';
