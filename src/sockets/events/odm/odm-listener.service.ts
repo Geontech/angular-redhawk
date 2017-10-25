@@ -40,37 +40,37 @@ export function odmListenerServiceProvider(): any {
 @Injectable()
 export class OdmListenerService {
 
-    public getAllEvents$(): Observable<OdmEvent> {
+    public get allEvents$(): Observable<OdmEvent> {
         return this.allEvents.asObservable();
     }
-    public getDeviceManagerAdded$(): Observable<DomainManagementObjectAddedEvent> {
+    public get deviceManagerAdded$(): Observable<DomainManagementObjectAddedEvent> {
         return this.deviceManagerAdded.asObservable();
     }
-    public getDeviceManagerRemoved$(): Observable<DomainManagementObjectRemovedEvent> {
+    public get deviceManagerRemoved$(): Observable<DomainManagementObjectRemovedEvent> {
         return this.deviceManagerRemoved.asObservable();
     }
-    public getDeviceAdded$(): Observable<DomainManagementObjectAddedEvent> {
+    public get deviceAdded$(): Observable<DomainManagementObjectAddedEvent> {
         return this.deviceAdded.asObservable();
     }
-    public getDeviceRemoved$(): Observable<DomainManagementObjectRemovedEvent> {
+    public get deviceRemoved$(): Observable<DomainManagementObjectRemovedEvent> {
         return this.deviceRemoved.asObservable();
     }
-    public getApplicationFactoryAdded$(): Observable<DomainManagementObjectAddedEvent> {
+    public get applicationFactoryAdded$(): Observable<DomainManagementObjectAddedEvent> {
         return this.applicationFactoryAdded.asObservable();
     }
-    public getApplicationFactoryRemoved$(): Observable<DomainManagementObjectRemovedEvent> {
+    public get applicationFactoryRemoved$(): Observable<DomainManagementObjectRemovedEvent> {
         return this.applicationFactoryRemoved.asObservable();
     }
-    public getApplicationAdded$(): Observable<DomainManagementObjectAddedEvent> {
+    public get applicationAdded$(): Observable<DomainManagementObjectAddedEvent> {
         return this.applicationAdded.asObservable();
     }
-    public getApplicationRemoved$(): Observable<DomainManagementObjectRemovedEvent> {
+    public get applicationRemoved$(): Observable<DomainManagementObjectRemovedEvent> {
         return this.applicationRemoved.asObservable();
     }
-    public getServiceAdded$(): Observable<DomainManagementObjectAddedEvent> {
+    public get serviceAdded$(): Observable<DomainManagementObjectAddedEvent> {
         return this.serviceAdded.asObservable();
     }
-    public getServiceRemoved$(): Observable<DomainManagementObjectRemovedEvent> {
+    public get serviceRemoved$(): Observable<DomainManagementObjectRemovedEvent> {
         return this.serviceRemoved.asObservable();
     }
 
@@ -112,7 +112,7 @@ export class OdmListenerService {
         this.serviceRemoved = new Subject<DomainManagementObjectRemovedEvent>();
 
         this.eventChannel
-            .getEvents$()
+            .events$
             .subscribe((data: any) => {
                 if (data instanceof OdmEvent) {
                     this.allEvents.next(data);

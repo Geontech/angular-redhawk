@@ -49,12 +49,12 @@ export class DomainService extends BaseService<models.Domain> {
         }
 
         // Bind update() to apps, factories, and device manager changes.
-        this.odmListener.getApplicationAdded$().subscribe(o => this.update());
-        this.odmListener.getApplicationRemoved$().subscribe(o => this.update());
-        this.odmListener.getApplicationFactoryAdded$().subscribe(o => this.update());
-        this.odmListener.getApplicationFactoryRemoved$().subscribe(o => this.update());
-        this.odmListener.getDeviceManagerAdded$().subscribe(o => this.update());
-        this.odmListener.getDeviceManagerRemoved$().subscribe(o => this.update());
+        this.odmListener.applicationAdded$.subscribe(o => this.update());
+        this.odmListener.applicationRemoved$.subscribe(o => this.update());
+        this.odmListener.applicationFactoryAdded$.subscribe(o => this.update());
+        this.odmListener.applicationFactoryRemoved$.subscribe(o => this.update());
+        this.odmListener.deviceManagerAdded$.subscribe(o => this.update());
+        this.odmListener.deviceManagerRemoved$.subscribe(o => this.update());
     }
 
     setBaseUrl(url: string): void {

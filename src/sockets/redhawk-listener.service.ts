@@ -25,7 +25,7 @@ export class RedhawkListenerService {
      * @return Observable event indicating which domains were added and removed
      *         as well as the current listing.
      */
-    public getEvents$(): Observable<RedhawkEvent> {
+    public get events$(): Observable<RedhawkEvent> {
         return this.socketInterface.asObservable();
     }
 
