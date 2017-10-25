@@ -17,7 +17,7 @@ import { Device } from '../models/index';
 
 // Services from sibling modules
 import { RestPythonService }    from '../rest-python/rest-python.module';
-import { DeviceManagerService } from '../devicemanager/devicemanager.module';
+import { DeviceManagerService } from '../devicemanager/device-manager.module';
 
 // This service
 import { DeviceService } from './device.service';

@@ -16,7 +16,7 @@ import { DeviceManager }     from '../models/index';
 import { RestPythonService } from '../rest-python/rest-python.module';
 import { DomainService }        from '../domain/domain.module';
 
-import { DeviceManagerService } from './devicemanager.service';
+import { DeviceManagerService } from './device-manager.service';
 
 
 export function serviceSelect(

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
 import { RestPythonModule }    from '../rest-python/rest-python.module';
-import { DeviceManagerModule } from '../devicemanager/devicemanager.module';
+import { DeviceManagerModule } from '../devicemanager/device-manager.module';
 
 import { DeviceDirective } from './device.directive';
 

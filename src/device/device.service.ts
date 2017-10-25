@@ -10,7 +10,7 @@ import { PortBearingService } from '../base/index';
 import { RestPythonService } from '../rest-python/rest-python.module';
 
 // Parent service
-import { DeviceManagerService } from '../devicemanager/devicemanager.module';
+import { DeviceManagerService } from '../devicemanager/device-manager.module';
 
 // This model and helpers
 import { DevicePropertyCommand } from './device-property-command';
