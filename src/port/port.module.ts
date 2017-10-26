@@ -7,10 +7,11 @@ import { DeviceModule }     from '../device/device.module';
 import { ComponentModule }  from '../component/component.module';
 import { WaveformModule }   from '../waveform/waveform.module';
 
-import { PortDirective } from './port.directive';
-export { PortDirective } from './port.directive';
-export *                 from './refs/index';
-export { PortService }   from './port.service';
+import { PortDirective }       from './port.directive';
+export { PortDirective }       from './port.directive';
+export *                       from './refs/index';
+export { PortService }         from './port.service';
+export { portServiceProvider } from './port-service-provider';
 
 @NgModule({
     imports:      [

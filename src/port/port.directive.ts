@@ -21,20 +21,7 @@ import { DeviceService }     from '../device/device.module';
 
 // This service
 import { PortService } from './port.service';
-
-
-export function serviceSelect(
-    service: PortService,
-    http: Http,
-    restPython: RestPythonService,
-    waveform: WaveformService,
-    device: DeviceService,
-    component: ComponentService): PortService {
-    if (service === null) {
-        service = new PortService(http, restPython, waveform, device, component);
-    }
-    return service;
-}
+import { portServiceProvider } from './port-service-provider';
 
 /**
  * The Port directive provides access to the variety of port types in REDHAWK.
@@ -43,18 +30,7 @@ export function serviceSelect(
 @Directive({
     selector: '[arPort]',
     exportAs: 'arPort',
-    providers: [{
-        provide:    PortService,
-        useFactory: serviceSelect,
-        deps: [
-            [PortService, new Optional(), new SkipSelf()],
-            Http,
-            RestPythonService,
-            [WaveformService, new Optional()],
-            [DeviceService, new Optional()],
-            [ComponentService, new Optional()]
-        ]
-    }]
+    providers: [ portServiceProvider() ]
 })
 export class PortDirective implements OnDestroy, OnChanges {
 

@@ -21,36 +21,14 @@ import {
 } from '../sockets/sockets.module';
 
 import { DomainService } from './domain.service';
-
-export function serviceSelect(
-        service: DomainService,
-        http: Http,
-        restPython: RestPythonService,
-        rh: RedhawkService,
-        odm: OdmListenerService
-    ): DomainService {
-    if (service === null) {
-        service = new DomainService(http, restPython, rh, odm);
-    }
-    return service;
-}
+import { domainServiceProvider } from './domain-service-provider';
 
 @Directive({
     selector: '[arDomain]',
     exportAs: 'arDomain',
     providers: [
         odmListenerServiceProvider(),
-        {
-            provide:    DomainService,
-            useFactory: serviceSelect,
-            deps: [
-                [DomainService, new Optional(), new SkipSelf()],
-                Http,
-                RestPythonService,
-                RedhawkService,
-                OdmListenerService
-            ]
-        }
+        domainServiceProvider()
         ]
 })
 export class DomainDirective implements OnDestroy, OnChanges {

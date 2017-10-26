@@ -6,8 +6,9 @@ import { DeviceManagerModule } from '../devicemanager/device-manager.module';
 
 import { DeviceDirective } from './device.directive';
 
-export { DeviceService }   from './device.service';
-export { DeviceDirective } from './device.directive';
+export { DeviceService }         from './device.service';
+export { DeviceDirective }       from './device.directive';
+export { deviceServiceProvider } from './device-service-provider';
 
 // Interfaces
 export * from './device-property-command';

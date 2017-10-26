@@ -6,8 +6,9 @@ import { SocketsModule }    from '../sockets/sockets.module';
 
 import { RedhawkDirective } from './redhawk.directive';
 
-export { RedhawkDirective } from './redhawk.directive';
-export { RedhawkService }   from './redhawk.service';
+export { RedhawkDirective }       from './redhawk.directive';
+export { RedhawkService }         from './redhawk.service';
+export { redhawkServiceProvider } from './redhawk-service-provider';
 
 @NgModule({
     imports:      [

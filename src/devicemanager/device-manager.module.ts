@@ -6,8 +6,9 @@ import { DomainModule }     from '../domain/domain.module';
 
 import { DeviceManagerDirective } from './device-manager.directive';
 
-export { DeviceManagerService }   from './device-manager.service';
-export { DeviceManagerDirective } from './device-manager.directive';
+export { DeviceManagerService }         from './device-manager.service';
+export { DeviceManagerDirective }       from './device-manager.directive';
+export { deviceManagerServiceProvider } from './device-manager-service-provider';
 
 @NgModule({
     imports:      [
