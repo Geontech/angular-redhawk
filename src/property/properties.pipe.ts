@@ -10,7 +10,7 @@ export class PropertiesPipe implements PipeTransform {
     transform(properties: PropertySet, ids: Array<string>): PropertySet {
         let set: PropertySet = [];
         properties.filter(prop => {
-            for (let id in ids) {
+            for (let id of ids) {
                 if (prop.id === id) {
                     set.push(prop);
                 }
