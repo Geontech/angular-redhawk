@@ -5,20 +5,12 @@ import {
     SimpleChanges,
     Input,
     Output,
-    EventEmitter,
-    Optional,
-    SkipSelf
+    EventEmitter
 } from '@angular/core';
-import { Http }       from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Domain } from '../models/index';
-import { RestPythonService } from '../rest-python/rest-python.module';
-import { RedhawkService } from '../redhawk/redhawk.module';
-import {
-    OdmListenerService,
-    odmListenerServiceProvider
-} from '../sockets/sockets.module';
+import { odmListenerServiceProvider } from '../sockets/sockets.module';
 
 import { DomainService } from './domain.service';
 import { domainServiceProvider } from './domain-service-provider';

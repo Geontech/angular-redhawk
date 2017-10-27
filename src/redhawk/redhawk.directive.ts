@@ -4,16 +4,11 @@ import {
     OnDestroy,
     Input,
     Output,
-    EventEmitter,
-    Optional,
-    SkipSelf
+    EventEmitter
 } from '@angular/core';
-import { Http }       from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Redhawk }                from '../models/index';
-import { RestPythonService }      from '../rest-python/rest-python.module';
-import { RedhawkListenerService } from '../sockets/sockets.module';
 
 import { RedhawkService } from './redhawk.service';
 import { redhawkServiceProvider } from './redhawk-service-provider';

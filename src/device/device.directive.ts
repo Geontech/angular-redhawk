@@ -5,19 +5,12 @@ import {
     SimpleChanges,
     Input,
     Output,
-    EventEmitter,
-    Optional,
-    SkipSelf
+    EventEmitter
 } from '@angular/core';
-import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
 // Model
 import { Device } from '../models/index';
-
-// Services from sibling modules
-import { RestPythonService }    from '../rest-python/rest-python.module';
-import { DeviceManagerService } from '../devicemanager/device-manager.module';
 
 // This service
 import { DeviceService }         from './device.service';

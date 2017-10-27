@@ -5,16 +5,11 @@ import {
     SimpleChanges,
     Input,
     Output,
-    EventEmitter,
-    Optional,
-    SkipSelf
+    EventEmitter
 } from '@angular/core';
-import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Waveform }          from '../models/index';
-import { DomainService }     from '../domain/domain.module';
-import { RestPythonService } from '../rest-python/rest-python.module';
 
 import { WaveformService }         from './waveform.service';
 import { waveformServiceProvider } from './waveform-service-provider';

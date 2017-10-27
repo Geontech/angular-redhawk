@@ -5,22 +5,13 @@ import {
     SimpleChanges,
     Input,
     Output,
-    EventEmitter,
-    Optional,
-    SkipSelf
+    EventEmitter
 } from '@angular/core';
-import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
-// This model, rest service, possible parent services
-import { Port }              from '../models/index';
-import { RestPythonService } from '../rest-python/rest-python.module';
-import { WaveformService }   from '../waveform/waveform.module';
-import { ComponentService }  from '../component/component.module';
-import { DeviceService }     from '../device/device.module';
-
-// This service
-import { PortService } from './port.service';
+// This model, rest service, and provider
+import { Port }                from '../models/index';
+import { PortService }         from './port.service';
 import { portServiceProvider } from './port-service-provider';
 
 /**
