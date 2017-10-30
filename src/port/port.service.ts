@@ -74,7 +74,7 @@ export class PortService extends BaseService<Port> {
      * Then use model.idl.type to determine the sub-type (either the data type
      * of the BulkioRef, or the FeiXXXXRef ref type).
      */
-    getRef(): PortRef { return this._ref; }
+    get ref(): PortRef { return this._ref; }
 
     setBaseUrl(url: string): void {
         this._baseUrl = this.restPython.portUrl(this.parent.baseUrl, this.uniqueId);

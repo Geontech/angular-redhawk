@@ -37,11 +37,11 @@ export class BulkioRef extends PortRef {
         if (connection_id !== this.connectionId) {
             this.disconnectPort();
         }
-        if (!this.bulkioService.isConnected()) {
+        if (!this.bulkioService.connected) {
             this.bulkioService.connect(connection_id);
             this.connectionId = connection_id;
         }
-        return this.bulkioService.getPacket$().subscribe(target);
+        return this.bulkioService.packet$.subscribe(target);
     }
 
     /**
@@ -64,7 +64,7 @@ export class BulkioRef extends PortRef {
      * Setting the width to less than or equal to 0 will disable this feature.
      * @param {number} width - Desired data width.
      */
-    setDataWidth(width: number): void { this.bulkioService.setDataWidth(width); }
+    set dataWidth(width: number) { this.bulkioService.dataWidth = width; }
 
     /**
      * Set the data update rate of the connection.  This is a maximum update
@@ -73,16 +73,16 @@ export class BulkioRef extends PortRef {
      * as the socket and server will allow).
      * @param {number} pps - The maximum number of packets per second to receive.
      */
-    setPacketsPerSecond(pps: number): void {
-        this.bulkioService.setPacketsPerSecond(pps);
+    set packetsPerSecond(pps: number) {
+        this.bulkioService.packetsPerSecond = pps;
     }
 
     /**
      * Statistic indicating how long it took to deserialize the packet.
      * @return {number} The time required to deserialize the BulkioPacket
      */
-    getDeserializeTime(): number {
-        return this.bulkioService.getDeserializeTime();
+    get deserializeTime(): number {
+        return this.bulkioService.deserializeTime;
     }
 
     release(): void {
