@@ -30,8 +30,8 @@ export class BulkioPacket implements ISerializable<BulkioPacket> {
 
 function resolve(dataType: string): BulkioDataType {
     switch (dataType) {
-        case 'dataChar':
-            return BulkioDataType.dataChar;
+        // case 'dataOctet':
+        //     return BulkioDataType.dataOctet;
         case 'dataShort':
             return BulkioDataType.dataShort;
         case 'dataLong':
