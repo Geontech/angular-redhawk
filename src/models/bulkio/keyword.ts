@@ -1,33 +1,13 @@
-import { ISerializable, ISerializableFn } from '../serialization/index';
+import { ISerializableFn } from '../serialization/index';
 
 /**
- * Serializable REDHAWK SRI Keyword
+ * Keywords are just a map, basically.
  */
-export class Keyword implements ISerializable<Keyword> {
-    id: string;
-    value: any;
-
-    deserialize(input: any) {
-        this.id = input.id;
-        this.value = input.value;
-        return this;
-    }
-}
-
-/**
- * List of Keywords
- */
-export type Keywords = Array<Keyword>;
+export type Keywords = Map<string, any>;
 
 let deserializeKeywords: ISerializableFn<Keywords>;
 deserializeKeywords = function (inputs?: any): Keywords {
-    let keywords: Keywords = [];
-    if (inputs) {
-        for (let input of inputs) {
-            keywords.push(new Keyword().deserialize(input));
-        }
-    }
-    return keywords;
+    return <Keywords> inputs;
 };
 
 export { deserializeKeywords }
