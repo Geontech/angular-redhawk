@@ -4,29 +4,14 @@ import {
     OnDestroy,
     Input,
     Output,
-    EventEmitter,
-    Optional,
-    SkipSelf
+    EventEmitter
 } from '@angular/core';
-import { Http }       from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Redhawk }                from '../models/index';
-import { RestPythonService }      from '../rest-python/rest-python.module';
-import { RedhawkListenerService } from '../sockets/sockets.module';
 
 import { RedhawkService } from './redhawk.service';
-
-export function serviceSelect(
-    service: RedhawkService,
-    http: Http,
-    restPython: RestPythonService,
-    rhls: RedhawkListenerService): RedhawkService {
-    if (service === null) {
-        service = new RedhawkService(http, restPython, rhls);
-    }
-    return service;
-}
+import { redhawkServiceProvider } from './redhawk-service-provider';
 
 /**
  * The REDHAWK Directive is the entry point, top-level directive for dependency
@@ -36,17 +21,7 @@ export function serviceSelect(
     selector: '[arRedhawk]',
     exportAs: 'arRedhawk',
     providers: [
-        RedhawkListenerService,
-        {
-            provide: RedhawkService,
-            useFactory: serviceSelect,
-            deps: [
-                [RedhawkService, new Optional(), new SkipSelf()],
-                Http,
-                RestPythonService,
-                RedhawkListenerService
-            ]
-        }
+        redhawkServiceProvider()
     ]
 })
 export class RedhawkDirective implements OnInit, OnDestroy {

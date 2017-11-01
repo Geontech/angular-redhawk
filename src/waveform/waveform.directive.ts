@@ -5,29 +5,14 @@ import {
     SimpleChanges,
     Input,
     Output,
-    EventEmitter,
-    Optional,
-    SkipSelf
+    EventEmitter
 } from '@angular/core';
-import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Waveform }          from '../models/index';
-import { DomainService }     from '../domain/domain.module';
-import { RestPythonService } from '../rest-python/rest-python.module';
 
-import { WaveformService } from './waveform.service';
-
-export function serviceSelect (
-    service: WaveformService,
-    http: Http,
-    restPython: RestPythonService,
-    domain: DomainService): WaveformService {
-    if (service === null) {
-        service = new WaveformService(http, restPython, domain);
-    }
-    return service;
-}
+import { WaveformService }         from './waveform.service';
+import { waveformServiceProvider } from './waveform-service-provider';
 
 /**
  * The Waveform directive provides the dependency injection start point for
@@ -36,16 +21,7 @@ export function serviceSelect (
 @Directive({
     selector: '[arWaveform]',
     exportAs: 'arWaveform',
-    providers: [{
-        provide:    WaveformService,
-        useFactory: serviceSelect,
-        deps: [
-            [WaveformService, new Optional(), new SkipSelf()],
-            Http,
-            RestPythonService,
-            DomainService
-        ]
-    }]
+    providers: [ waveformServiceProvider() ]
 })
 export class WaveformDirective implements OnDestroy, OnChanges {
 

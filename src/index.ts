@@ -8,8 +8,8 @@ import { DomainModule }        from './domain/domain.module';
 export * from './domain/domain.module';
 import { FileSystemModule }    from './filesystem/file-system.module';
 export * from './filesystem/file-system.module';
-import { DeviceManagerModule } from './devicemanager/devicemanager.module';
-export * from './devicemanager/devicemanager.module';
+import { DeviceManagerModule } from './devicemanager/device-manager.module';
+export * from './devicemanager/device-manager.module';
 import { WaveformModule }      from './waveform/waveform.module';
 export * from './waveform/waveform.module';
 import { DeviceModule }        from './device/device.module';
@@ -24,6 +24,8 @@ import { PropertyModule }      from './property/property.module';
 export * from './property/property.module';
 import { RestPythonModule } from './rest-python/rest-python.module';
 export * from './rest-python/rest-python.module';
+import { ResourceModule } from './resource/resource.module';
+export * from './resource/resource.module';
 
 // Models
 export * from './models/index';
@@ -43,6 +45,7 @@ const REDHAWK_MODULES = [
     ComponentModule,
     PortModule,
     PropertyModule,
+    ResourceModule,
     SocketsModule
 ];
 

@@ -13,6 +13,7 @@ export * from './waveform-control-command';
 export * from './waveform-launch-command-response';
 export * from './waveform-launch-command';
 export * from './waveform-release-response';
+export { waveformServiceProvider } from './waveform-service-provider';
 
 @NgModule({
     imports:      [

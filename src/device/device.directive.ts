@@ -5,37 +5,16 @@ import {
     SimpleChanges,
     Input,
     Output,
-    EventEmitter,
-    Optional,
-    SkipSelf
+    EventEmitter
 } from '@angular/core';
-import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
 // Model
 import { Device } from '../models/index';
 
-// Services from sibling modules
-import { RestPythonService }    from '../rest-python/rest-python.module';
-import { DeviceManagerService } from '../devicemanager/devicemanager.module';
-
 // This service
-import { DeviceService } from './device.service';
-
-/**
- * Service selection function to bootstrap injection
- */
-export function serviceSelect (
-    service: DeviceService,
-    http: Http,
-    restPython: RestPythonService,
-    dm: DeviceManagerService
-    ): DeviceService {
-    if (service === null) {
-        service = new DeviceService(http, restPython, dm);
-    }
-    return service;
-}
+import { DeviceService }         from './device.service';
+import { deviceServiceProvider } from './device-service-provider';
 
 /**
  * The Device Directive provides access to a specific Device model including
@@ -45,16 +24,7 @@ export function serviceSelect (
 @Directive({
     selector: '[arDevice]',
     exportAs: 'arDevice',
-    providers: [{
-        provide:    DeviceService,
-        useFactory: serviceSelect,
-        deps: [
-            [DeviceService, new Optional(), new SkipSelf()],
-            Http,
-            RestPythonService,
-            DeviceManagerService
-        ]
-    }]
+    providers: [ deviceServiceProvider() ]
 })
 
 export class DeviceDirective implements OnDestroy, OnChanges {
