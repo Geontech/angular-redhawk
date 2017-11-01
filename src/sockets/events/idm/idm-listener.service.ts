@@ -9,7 +9,7 @@ import {
     AdministrativeStateEvent,
     OperationalStateEvent,
     AbnormalComponentTerminationEvent
-} from '../../../models';
+} from '../../../models/index';
 
 import { EventChannelService } from '../generic/index';
 
