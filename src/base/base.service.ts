@@ -1,7 +1,7 @@
-import { Http }         from '@angular/http';
-import { Observable }   from 'rxjs/Observable';
-import { Subject }      from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
+import { Http }          from '@angular/http';
+import { Observable }    from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subscription }  from 'rxjs/Subscription';
 
 import 'rxjs/add/observable/throw';
 
@@ -28,7 +28,7 @@ export abstract class BaseService<T> {
     protected _baseUrl: string;
 
     /** The internal model managed by this service */
-    protected _model: Subject<T>;
+    protected _model: ReplaySubject<T>;
 
     /** Flag for whether or not this service is setup */
     protected _configured: boolean;
@@ -66,7 +66,7 @@ export abstract class BaseService<T> {
     }
 
     constructor(protected http: Http, protected restPython: RestPythonService) {
-        this._model = <Subject<T>> new Subject();
+        this._model = new ReplaySubject<T>();
         this._configured = false;
         this._updating = false;
         this._rpChanged = this.restPython.changed$.subscribe(() => {
