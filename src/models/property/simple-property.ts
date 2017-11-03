@@ -18,4 +18,9 @@ export class SimpleProperty extends SimpleCommon implements ISerializable<Simple
         this.value = input.value;
         return this;
     }
+
+    copy(): SimpleProperty {
+        let p = new SimpleProperty().deserialize(super.copy());
+        return p;
+    }
 }
