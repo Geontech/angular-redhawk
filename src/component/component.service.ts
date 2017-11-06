@@ -15,6 +15,12 @@ import { RestPythonService } from '../rest-python/rest-python.module';
 import { WaveformService } from '../waveform/waveform.module';
 
 /**
+ * The default delay in checking for a server response when using configure,
+ * allocate, or deallocate.
+ */
+let DEFAULT_DELAY_RESPONSE_MS = 10000;
+
+/**
  * The Component Service provides the service interface to a specific Component
  * model in a REDHAWK system
  */
@@ -35,9 +41,15 @@ export class ComponentService extends PortBearingService<Component> {
         return <Observable<Component>> this.waveformService.comps$(this.uniqueId);
     }
 
-    configure(properties: PropertySet): void {
+    /**
+     * Calls 'configure' on the Device and then pulls an update of the model.
+     * @param properties The properties to 'configure' on the Device
+     * @param responseDelayMs The optional model update delay after sending the 
+     * changes.
+     */
+    configure(properties: PropertySet, delayResponseMs?: number): void {
         let command = new PropertyCommand(properties);
         this.http.put(this.restPython.propertyUrl(this.baseUrl), command);
-        this.delayedUpdate();
+        this.delayedUpdate(delayResponseMs || DEFAULT_DELAY_RESPONSE_MS);
     }
 }
