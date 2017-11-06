@@ -18,7 +18,7 @@ export class ResourceRefPipe implements PipeTransform {
     transform(refs: ResourceRefs, target: IRefFilter, key?: string): ResourceRef | string {
         let id   = new RegExp(target.id || '.*');
         let name = new RegExp(target.name || '.*');
-        let ref = refs.filter(r => { return (id.test(r.id) || name.test(r.name)); })[0] || undefined;
+        let ref = refs.filter(r => { return (id.test(r.id) && name.test(r.name)); })[0] || undefined;
         if (ref !== undefined && key !== undefined) {
             return ref[key]; // Returns the key.
         }
