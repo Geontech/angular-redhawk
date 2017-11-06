@@ -16,7 +16,7 @@ export class ResourceRefsPipe implements PipeTransform {
         let id   = new RegExp(target.id || '.*');
         let name = new RegExp(target.name || '.*');
         return refs.filter(r => {
-            return (id.test(r.id) || name.test(r.name));
+            return (id.test(r.id) && name.test(r.name));
         });
     }
 }
