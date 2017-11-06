@@ -31,4 +31,9 @@ export abstract class Property implements ISerializable<Property> {
         this.kinds = input.kinds;
         return this;
     }
+
+    /**
+     * Create a copy of this Property.
+     */
+    abstract copy(): Property;
 }
