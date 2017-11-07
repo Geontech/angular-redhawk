@@ -1,4 +1,4 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
@@ -33,11 +33,14 @@ export class BulkioListenerService {
     /** Set the URL.  If connected, this will disconnect and reconnect */
     public set url(url: string) {
         this._url = url;
-        if (this.connected()) {
+        if (this.connected) {
             this.disconnect();
             this.connect(this._connectionId);
         }
     }
+
+    /** Get the current URL */
+    public get url(): string { return this._url; }
 
     /**
      * Subscribe to receive the bulkio packets.
@@ -85,13 +88,13 @@ export class BulkioListenerService {
      * Returns whether the service is already connected.
      * @return {boolean} True: WebSocket is connected, False: it is not.
      */
-    public connected(): boolean { return this.socketSubscription != null; }
+    public get connected(): boolean { return this.socketSubscription != null; }
 
     /**
      * Returns whether anything is actually subscribed to receive packets.
      * @return {boolean} True: Subscribers are present, False: No subscribers.
      */
-    public active(): boolean { return !this.packet.isStopped; }
+    public get active(): boolean { return !this.packet.isStopped; }
 
     /**
      * Connect to the BULKIO socket at the url.
@@ -125,7 +128,7 @@ export class BulkioListenerService {
      * Disconnect from the websocket
      */
     public disconnect(): void {
-        if (this.connected()) {
+        if (this.connected) {
             // Close the websocket by unsubscribing, and clear the interfaces.
             this.socketSubscription.unsubscribe();
             this.socketInterface = null;
