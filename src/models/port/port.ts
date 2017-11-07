@@ -15,7 +15,8 @@ export class Port implements ISerializable<Port> {
     public get hasBulkioWebsocket(): boolean {
         return (
             this.direction === enums.PortDirection.Uses &&
-            this.idl.namespace === enums.PortIDLNameSpace.BULKIO
+            this.idl.namespace === enums.PortIDLNameSpace.BULKIO &&
+            this.idl.type !== enums.PortBulkIOIDLType.dataOctet
             );
     }
 

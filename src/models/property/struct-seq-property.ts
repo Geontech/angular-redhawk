@@ -36,4 +36,10 @@ export class StructSeqProperty extends Property implements ISerializable<StructS
         }
         return this;
     }
+
+    copy(): StructSeqProperty {
+        const p = new StructSeqProperty().deserialize(this);
+        p.kinds = (this.kinds instanceof Array) ? this.kinds.slice() : this.kinds;
+        return p;
+    }
 }

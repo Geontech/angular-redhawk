@@ -4,10 +4,11 @@ import { HttpModule } from '@angular/http';
 import { RestPythonModule } from '../rest-python/rest-python.module';
 import { DomainModule }     from '../domain/domain.module';
 
-import { DeviceManagerDirective } from './devicemanager.directive';
+import { DeviceManagerDirective } from './device-manager.directive';
 
-export { DeviceManagerService }   from './devicemanager.service';
-export { DeviceManagerDirective } from './devicemanager.directive';
+export { DeviceManagerService }         from './device-manager.service';
+export { DeviceManagerDirective }       from './device-manager.directive';
+export { deviceManagerServiceProvider } from './device-manager-service-provider';
 
 @NgModule({
     imports:      [

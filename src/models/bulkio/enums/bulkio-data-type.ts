@@ -2,7 +2,7 @@
  * REDHAWK BULKIO DataType enumeration
  */
 export enum BulkioDataType {
-    dataChar,
+    // dataOctet,
     dataShort,
     dataLong,
     dataLongLong,

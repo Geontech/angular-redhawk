@@ -18,4 +18,9 @@ export class SimpleSeqProperty extends SimpleCommon implements ISerializable<Sim
         this.value = input.value || [];
         return this;
     }
+
+    copy(): SimpleSeqProperty {
+        const p = new SimpleSeqProperty().deserialize(super.copy());
+        return p;
+    }
 }

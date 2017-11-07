@@ -1,8 +1,4 @@
-import {
-    Injectable,
-    ReflectiveInjector,
-    Optional
-} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
@@ -13,7 +9,7 @@ import {
     AdministrativeStateEvent,
     OperationalStateEvent,
     AbnormalComponentTerminationEvent
-} from '../../../models';
+} from '../../../models/index';
 
 import { EventChannelService } from '../generic/index';
 
@@ -39,19 +35,19 @@ export function idmListenerServiceProvider(): any {
 @Injectable()
 export class IdmListenerService {
 
-    public getAllEvents$(): Observable<IdmEvent> {
+    public get allEvents$(): Observable<IdmEvent> {
         return this.allEvents.asObservable();
     }
-    public getAdministrativeStateChanged$(): Observable<AdministrativeStateEvent> {
+    public get administrativeStateChanged$(): Observable<AdministrativeStateEvent> {
         return this.administrativeStateChanged.asObservable();
     }
-    public getOperationalStateChanged$(): Observable<OperationalStateEvent> {
+    public get operationalStateChanged$(): Observable<OperationalStateEvent> {
         return this.operationalStateChanged.asObservable();
     }
-    public getUsageStateChanged$(): Observable<UsageStateEvent> {
+    public get usageStateChanged$(): Observable<UsageStateEvent> {
         return this.usageStateChanged.asObservable();
     }
-    public getAbnormalComponentTerminationChanged$(): Observable<AbnormalComponentTerminationEvent> {
+    public get abnormalComponentTerminationChanged$(): Observable<AbnormalComponentTerminationEvent> {
         return this.abnormalComponentTerminationChanged.asObservable();
     }
 
@@ -81,7 +77,7 @@ export class IdmListenerService {
         this.abnormalComponentTerminationChanged = new Subject<AbnormalComponentTerminationEvent>();
 
         this.eventChannel
-            .getEvents$()
+            .events$
             .subscribe((data: any) => {
                 if (data instanceof IdmEvent) {
                     this.allEvents.next(data);

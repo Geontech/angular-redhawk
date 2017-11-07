@@ -1,4 +1,4 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
@@ -16,6 +16,11 @@ type BulkioSocketTypes = BulkioPacket | BulkioControl;
 
 @Injectable()
 export class BulkioListenerService {
+    /** The URL of the bulkio websocket */
+    private _url: string;
+
+    /** The most recent connection ID */
+    private _connectionId: string;
 
     // Internal packet relay and socket interface
     private packet: Subject<BulkioPacket>;
@@ -23,13 +28,25 @@ export class BulkioListenerService {
     private socketSubscription: Subscription;
 
     // The amount of time deserializing a packet took.
-    private deserializeTime: number = 0;
+    private _deserializeTime: number = 0;
+
+    /** Set the URL.  If connected, this will disconnect and reconnect */
+    public set url(url: string) {
+        this._url = url;
+        if (this.connected) {
+            this.disconnect();
+            this.connect(this._connectionId);
+        }
+    }
+
+    /** Get the current URL */
+    public get url(): string { return this._url; }
 
     /**
      * Subscribe to receive the bulkio packets.
      * @member {Observable<BulkioPacket>} 
      */
-    public getPacket$(): Observable<BulkioPacket> {
+    public get packet$(): Observable<BulkioPacket> {
         return <Observable<BulkioPacket>> this.packet.asObservable();
     }
 
@@ -37,13 +54,13 @@ export class BulkioListenerService {
      * The amount of time it took to deserialize the most recent packet.
      * @member {number}
      */
-    public getDeserializeTime(): number { return this.deserializeTime; }
+    public get deserializeTime(): number { return this._deserializeTime; }
 
     /**
      * Set the output data width
      * @param {number} width - The maximum "width" of the data stream (< 0 to disable)
      */
-    public setDataWidth(width: number): void {
+    public set dataWidth(width: number) {
         if (this.socketInterface) {
             let msg: BulkioControl = {
                 type: ControlType.MaxWidth,
@@ -57,7 +74,7 @@ export class BulkioListenerService {
      * Set the (maximum) socket data rate (packets per second)
      * @param {number} pps - The (maximum) number of packets per second to receive (< 0 to disable)
      */
-    public setPacketsPerSecond(pps: number): void {
+    public set packetsPerSecond(pps: number) {
         if (this.socketInterface) {
             let msg: BulkioControl = {
                 type: ControlType.MaxPPS,
@@ -71,23 +88,24 @@ export class BulkioListenerService {
      * Returns whether the service is already connected.
      * @return {boolean} True: WebSocket is connected, False: it is not.
      */
-    public isConnected(): boolean { return this.socketSubscription != null; }
+    public get connected(): boolean { return this.socketSubscription != null; }
 
     /**
      * Returns whether anything is actually subscribed to receive packets.
      * @return {boolean} True: Subscribers are present, False: No subscribers.
      */
-    public isActive(): boolean { return !this.packet.isStopped; }
+    public get active(): boolean { return !this.packet.isStopped; }
 
     /**
      * Connect to the BULKIO socket at the url.
      */
-    public connect(connection_id?: string): void {
+    public connect(connectionId?: string): void {
         this.disconnect();
         if (this.url) {
-            let connectionUrl: string = this.url;
-            if (connection_id) {
-                connectionUrl += '/' + connection_id;
+            this._connectionId = connectionId;
+            let connectionUrl   = this.url;
+            if (this._connectionId) {
+                connectionUrl += '/' + this._connectionId;
             }
             this.socketInterface = <Subject<BulkioSocketTypes>> basicSocket(connectionUrl)
                 .map((response: MessageEvent): BulkioSocketTypes => {
@@ -96,7 +114,7 @@ export class BulkioListenerService {
                     let data: any = JSON.parse(response.data);
                     let packet =  new BulkioPacket().deserialize(data);
                     let end: number = d.getTime();
-                    this.deserializeTime = end - start;
+                    this._deserializeTime = end - start;
                     return packet;
                 });
             this.socketSubscription = this.socketInterface
@@ -110,19 +128,20 @@ export class BulkioListenerService {
      * Disconnect from the websocket
      */
     public disconnect(): void {
-        if (this.isConnected()) {
+        if (this.connected) {
             // Close the websocket by unsubscribing, and clear the interfaces.
             this.socketSubscription.unsubscribe();
             this.socketInterface = null;
             this.socketSubscription = null;
-            this.deserializeTime = 0;
+            this._deserializeTime = 0;
         }
     }
 
     /**
      * @param {string} url - The base URL (ws:// or wss://) of the port
      */
-    constructor(private url: string) {
+    constructor(url: string) {
+        this._url = url;
         this.packet = new Subject<BulkioPacket>();
     }
 }

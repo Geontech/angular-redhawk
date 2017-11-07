@@ -33,7 +33,7 @@ export class EventChannelService {
     /**
      * All events coming from this web socket
      */
-    public getEvents$(): Observable<OdmEvent|IdmEvent|RhMessage> {
+    public get events$(): Observable<OdmEvent|IdmEvent|RhMessage> {
         return <any> this.socketInterface.asObservable();
     }
 

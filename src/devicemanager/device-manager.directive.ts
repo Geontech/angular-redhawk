@@ -5,45 +5,19 @@ import {
     SimpleChanges,
     Input,
     Output,
-    EventEmitter,
-    Optional,
-    SkipSelf
+    EventEmitter
 } from '@angular/core';
-import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
 import { DeviceManager }     from '../models/index';
-import { RestPythonService } from '../rest-python/rest-python.module';
-import { DomainService }        from '../domain/domain.module';
 
-import { DeviceManagerService } from './devicemanager.service';
-
-
-export function serviceSelect(
-        service: DeviceManagerService,
-        http: Http,
-        restPython: RestPythonService,
-        domain: DomainService
-    ): DeviceManagerService {
-    if (service === null) {
-        service = new DeviceManagerService(http, restPython, domain);
-    }
-    return service;
-}
+import { DeviceManagerService } from './device-manager.service';
+import { deviceManagerServiceProvider } from './device-manager-service-provider';
 
 @Directive({
     selector: '[arDeviceManager]',
     exportAs: 'arDeviceManager',
-    providers: [ {
-        provide: DeviceManagerService,
-        useFactory: serviceSelect,
-        deps: [
-            [DeviceManagerService, new Optional(), new SkipSelf()],
-            Http,
-            RestPythonService,
-            DomainService
-        ]
-    } ]
+    providers: [ deviceManagerServiceProvider() ]
 })
 export class DeviceManagerDirective implements OnDestroy, OnChanges {
 

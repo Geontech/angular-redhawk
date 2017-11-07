@@ -5,10 +5,15 @@ export * from './property.pipe';
 export * from './property-command';
 
 // Pipes
-import { ArPropertyPipe } from './property.pipe';
-import { ArPropertiesPipe } from './properties.pipe';
+import { PropertyPipe } from './property.pipe';
+import { PropertiesPipe } from './properties.pipe';
+import { PropretiesOfKindPipe } from './properties-of-kind.pipe';
 
-const PIPES = [ ArPropertiesPipe, ArPropertyPipe ];
+const PIPES = [
+    PropretiesOfKindPipe,
+    PropertiesPipe,
+    PropertyPipe
+    ];
 
 @NgModule({
     imports:      [ ],

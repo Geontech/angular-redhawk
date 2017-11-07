@@ -27,7 +27,7 @@ export class RedhawkService extends BaseService<Redhawk> {
             this.rhListenerService = injector.get(RedhawkListenerService);
         }
 
-        this.rhListenerService.getEvents$().subscribe((rh: RedhawkEvent) => {
+        this.rhListenerService.events$.subscribe((rh: RedhawkEvent) => {
             this._model.next(rh);
         });
     }

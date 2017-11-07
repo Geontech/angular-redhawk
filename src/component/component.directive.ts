@@ -5,30 +5,15 @@ import {
     SimpleChanges,
     Input,
     Output,
-    EventEmitter,
-    Optional,
-    SkipSelf
+    EventEmitter
 } from '@angular/core';
-import { Http } from '@angular/http';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Component } from '../models/index';
-import { RestPythonService } from '../rest-python/rest-python.module';
-import { WaveformService } from '../waveform/waveform.module';
 
 // This service
 import { ComponentService } from './component.service';
-
-export function serviceSelect(
-    service: ComponentService,
-    http: Http,
-    restPython: RestPythonService,
-    waveform: WaveformService): ComponentService {
-    if (service === null) {
-        service = new ComponentService(http, restPython, waveform);
-    }
-    return service;
-}
+import { componentServiceProvider } from './component-service-provider';
 
 /**
  * The Component Directive provides access to a specific Component model including
@@ -37,16 +22,7 @@ export function serviceSelect(
 @Directive({
     selector: '[arComponent]',
     exportAs: 'arComponent',
-    providers: [{
-        provide:    ComponentService,
-        useFactory: serviceSelect,
-        deps: [
-            [ComponentService, new Optional(), new SkipSelf()],
-            Http,
-            RestPythonService,
-            WaveformService
-        ]
-    }]
+    providers: [ componentServiceProvider() ]
 })
 export class ComponentDirective implements OnDestroy, OnChanges {
 
