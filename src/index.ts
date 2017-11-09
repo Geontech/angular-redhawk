@@ -26,6 +26,8 @@ import { RestPythonModule } from './rest-python/rest-python.module';
 export * from './rest-python/rest-python.module';
 import { ResourceModule } from './resource/resource.module';
 export * from './resource/resource.module';
+import { SystemBuilderModule } from './system-builder/system-builder.module';
+export * from './system-builder/system-builder.module';
 
 // Models
 export * from './models/index';
@@ -46,7 +48,8 @@ const REDHAWK_MODULES = [
     PortModule,
     PropertyModule,
     ResourceModule,
-    SocketsModule
+    SocketsModule,
+    SystemBuilderModule
 ];
 
 @NgModule({
