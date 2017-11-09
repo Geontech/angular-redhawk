@@ -23,6 +23,7 @@ export class RedhawkService extends BaseService<Redhawk> {
     ) {
         super(http, restPython);
         this.modelUpdated(new Redhawk());
+        this.setBaseUrl('');
 
         if (this.rhListenerService === null) {
             let injector = ReflectiveInjector.resolveAndCreate([RedhawkListenerService]);
