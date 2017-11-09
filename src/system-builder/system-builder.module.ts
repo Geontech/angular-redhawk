@@ -19,7 +19,7 @@ const REDHAWK_MODULES = [
   DeviceManagerModule,
   RestPythonModule,
   SocketsModule
-]
+];
 
 /**
  * The SystemBuilder module is designed to bootstrap the dependency injection
