@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, InjectionToken, Inject } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
@@ -13,6 +13,7 @@ import { ControlType } from './control-type';
 
 type BulkioSocketTypes = BulkioPacket | BulkioControl;
 
+export let BULKIO_SOCKET_URL = new InjectionToken<string>('bulkio.url');
 
 @Injectable()
 export class BulkioListenerService {
@@ -140,7 +141,7 @@ export class BulkioListenerService {
     /**
      * @param {string} url - The base URL (ws:// or wss://) of the port
      */
-    constructor(url: string) {
+    constructor(@Inject(BULKIO_SOCKET_URL) url: string) {
         this._url = url;
         this.packet = new Subject<BulkioPacket>();
     }
