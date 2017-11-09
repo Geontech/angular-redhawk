@@ -21,7 +21,10 @@ export class FileSystemService extends BaseService<FileSystem> {
         protected http: Http,
         protected restPython: RestPythonService,
         protected domainService: DomainService
-        ) { super(http, restPython); }
+    ) {
+        super(http, restPython);
+        this.modelUpdated(new FileSystem());
+    }
 
     setBaseUrl(url: string): void {
         this._baseUrl = this.restPython.fileSystemUrl(this.domainService.baseUrl, url);

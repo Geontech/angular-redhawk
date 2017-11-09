@@ -19,8 +19,10 @@ export class RedhawkService extends BaseService<Redhawk> {
     constructor(
         protected http: Http,
         protected restPython: RestPythonService,
-        @Optional() protected rhListenerService: RedhawkListenerService) {
+        @Optional() protected rhListenerService: RedhawkListenerService
+    ) {
         super(http, restPython);
+        this.modelUpdated(new Redhawk());
 
         if (this.rhListenerService === null) {
             let injector = ReflectiveInjector.resolveAndCreate([RedhawkListenerService]);
