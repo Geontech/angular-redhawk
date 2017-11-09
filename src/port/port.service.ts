@@ -48,8 +48,9 @@ export class PortService extends BaseService<Port> {
         @Optional() private _wave: WaveformService,
         @Optional() private _device: DeviceService,
         @Optional() private _component: ComponentService
-        ) {
+    ) {
         super(http, restPython);
+        this.modelUpdated(new Port());
         if (_wave) {
             if (_component) {
                 this.parent = _component;

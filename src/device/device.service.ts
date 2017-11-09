@@ -28,7 +28,10 @@ export class DeviceService extends PortBearingService<Device> {
         protected http: Http,
         protected restPython: RestPythonService,
         protected dmService: DeviceManagerService
-        ) { super(http, restPython); }
+    ) {
+        super(http, restPython);
+        this.modelUpdated(new Device());
+    }
 
     setBaseUrl(url: string): void {
         this._baseUrl = this.restPython.deviceUrl(this.dmService.baseUrl, url);
