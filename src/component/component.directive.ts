@@ -38,24 +38,19 @@ export class ComponentDirective implements OnDestroy, OnChanges {
 
     constructor(public service: ComponentService) {
         this.modelChange = new EventEmitter<Component>();
-        this.model = new Component();
+        this.subscription = this.service.model$.subscribe(it => {
+            this.model = it;
+            this.modelChange.emit(this.model);
+        });
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.hasOwnProperty('componentId')) {
+        if (changes.hasOwnProperty('componentId') && this.componentId) {
             this.service.uniqueId = this.componentId;
-            if (!this.subscription) {
-                this.subscription = this.service.model$.subscribe(it => {
-                    this.model = it;
-                    this.modelChange.emit(this.model);
-                });
-            }
         }
     }
 
     ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+        this.subscription.unsubscribe();
     }
 }
