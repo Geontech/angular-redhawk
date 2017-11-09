@@ -59,9 +59,6 @@ export abstract class BaseService<T> {
 
     /** Get an observable of this service's model */
     get model$(): Observable<T> {
-        if (!this._configured) {
-            console.error('UniqueId Not set!');
-        }
         return this._model.asObservable();
     }
 
