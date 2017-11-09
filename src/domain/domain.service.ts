@@ -40,8 +40,9 @@ export class DomainService extends BaseService<models.Domain> {
         protected restPython: RestPythonService,
         protected redhawkService: RedhawkService,
         @Optional() protected odmListener: OdmListenerService
-        ) {
+    ) {
         super(http, restPython);
+        this.modelUpdated(new models.Domain());
 
         if (!this.odmListener) {
             let injector = ReflectiveInjector.resolveAndCreate([OdmListenerService]);

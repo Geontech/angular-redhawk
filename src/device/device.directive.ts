@@ -26,7 +26,6 @@ import { deviceServiceProvider } from './device-service-provider';
     exportAs: 'arDevice',
     providers: [ deviceServiceProvider() ]
 })
-
 export class DeviceDirective implements OnDestroy, OnChanges {
 
     @Input('arDevice') deviceId: string;
@@ -41,24 +40,19 @@ export class DeviceDirective implements OnDestroy, OnChanges {
 
     constructor(public service: DeviceService) {
         this.modelChange = new EventEmitter<Device>();
-        this.model = new Device();
+        this.subscription = this.service.model$.subscribe(it => {
+            this.model = it;
+            this.modelChange.emit(this.model);
+        });
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.hasOwnProperty('deviceId')) {
+        if (changes.hasOwnProperty('deviceId') && this.deviceId) {
             this.service.uniqueId = this.deviceId;
-            if (!this.subscription) {
-                this.subscription = this.service.model$.subscribe(it => {
-                    this.model = it;
-                    this.modelChange.emit(this.model);
-                });
-            }
         }
     }
 
     ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
+        this.subscription.unsubscribe();
     }
 }

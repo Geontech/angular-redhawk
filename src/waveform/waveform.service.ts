@@ -22,8 +22,9 @@ export class WaveformService extends PortBearingService<Waveform> {
         protected http: Http,
         protected restPython: RestPythonService,
         protected domainService: DomainService
-        ) {
+    ) {
         super(http, restPython);
+        this.modelUpdated(new Waveform());
     }
 
     setBaseUrl(url: string): void {

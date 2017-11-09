@@ -20,7 +20,10 @@ export class DeviceManagerService extends BaseService<DeviceManager> {
         protected http: Http,
         protected restPython: RestPythonService,
         protected domainService: DomainService
-        ) { super(http, restPython); }
+    ) {
+        super(http, restPython);
+        this.modelUpdated(new DeviceManager());
+    }
 
     setBaseUrl(url: string): void {
         this._baseUrl = this.restPython.deviceManagerUrl(this.domainService.baseUrl, url);

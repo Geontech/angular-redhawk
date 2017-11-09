@@ -31,7 +31,10 @@ export class ComponentService extends PortBearingService<Component> {
         protected http: Http,
         protected restPython: RestPythonService,
         protected waveformService: WaveformService
-        ) { super(http, restPython); }
+    ) {
+        super(http, restPython);
+        this.modelUpdated(new Component());
+    }
 
     setBaseUrl(url: string): void {
         this._baseUrl = this.restPython.componentUrl(this.waveformService.baseUrl, url);
