@@ -21,6 +21,12 @@ export abstract class BaseService<T> {
     /** Returns true if this service is in the middle of updating the model */
     get isUpdating(): boolean { return this._updating; }
 
+    /**
+     * Indicates the 'configured' state of the service.  This will be 'true' if
+     * the URL is set.
+     */
+    get configured$(): Observable<boolean> { return this._configured.asObservable(); }
+
     /** Unique ID of the server-side instance for this service */
     protected _uniqueId: string;
 
@@ -31,7 +37,7 @@ export abstract class BaseService<T> {
     protected _model: ReplaySubject<T>;
 
     /** Flag for whether or not this service is setup */
-    protected _configured: boolean;
+    protected _configured: ReplaySubject<boolean>;
 
     /** Internal updating flag */
     protected _updating: boolean;
@@ -62,9 +68,14 @@ export abstract class BaseService<T> {
         return this._model.asObservable();
     }
 
+    /**
+     * @param http The HTTP service for server callbacks
+     * @param restPython The REST Python service for URL serialization
+     */
     constructor(protected http: Http, protected restPython: RestPythonService) {
         this._model = new ReplaySubject<T>();
-        this._configured = false;
+        this._configured = new ReplaySubject<boolean>();
+        this._configured.next(false);
         this._updating = false;
         this._rpChanged = this.restPython.changed$.subscribe(() => {
             // Ensures that when RP URL is changed, the service tries to 
@@ -83,51 +94,61 @@ export abstract class BaseService<T> {
     public update(obj?: Observable<T>) {
         this._updating = true;
         let inst: Observable<T> = obj || this.uniqueQuery$();
-        inst.subscribe(o => {
-            this.modelUpdated(o);
-            this._updating = false;
-        });
+        inst.subscribe(
+            o => {
+                this.modelUpdated(o);
+                this._configured.next(true);
+            },
+            error => {
+                this._configured.next(false);
+            },
+            () => {
+                this._updating = false;
+            }
+        );
     }
 
-    // Get an instance of the _model and configure any automated maintenance of
-    // that instance.  Also setup _baseUrl to this instance.
+    /**
+     *  Get an instance of the _model and configure any automated maintenance of
+     *  that instance.  Also setup _baseUrl to this instance.
+     */
     protected abstract uniqueQuery$(): Observable<T>;
 
-    // Update _baseUrl
+    /** Update _baseUrl */
     protected abstract setBaseUrl(url: string): void;
 
+    /** Generic error handler */
     protected handleError(error: any): Observable<any> {
         let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : 'Server error';
         return Observable.throw(errMsg);
     }
 
     /**
-     * @member
      * Call this method from a function that needs a slight delay (for the server)
      * before calling update.
+     * @param msec The number of milliseconds to delay
      */
     protected delayedUpdate(msec?: number) {
         setTimeout(() => { this.update(); }, msec || 1000);
     }
 
     /**
-     * @member
      * This method is called when the uniqueId is set and begins the update cycle
      * which includes reconfiguring the base URL and retrieving a fresh copy
      * of the model for any subscribers to $model.
+     * @param id The new Unique ID to set for reconfiguration.
      */
     protected reconfigure(id: string) {
         this._uniqueId = id;
         this.setBaseUrl(id);
         this.update();
-        this._configured = true;
     }
 
     /**
-     * @member
      * This method is called during update() calls and pushes the model to any
      * subscribers of $model.  Subclasses can overload this method to either
      * call it before or after internal changes are made related to the model.
+     * @param model The model maintained by this service.
      */
     protected modelUpdated(model: T) {
         this._model.next(model);
