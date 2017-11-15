@@ -7,14 +7,19 @@ import { DeviceManagerService } from '../devicemanager/device-manager.module';
 import { DeviceService } from './device.service';
 
 /**
- * Service selection function to bootstrap injection
+ * This method instantiates a new instance for service if none is provided.
+ * @internal
+ * @param [service] An existing instance of the service
+ * @param http The HTTP service for server callbacks
+ * @param restPython The REST Python service for URL serialization
+ * @param dm The DeviceManager service that has this Device in it
  */
 export function serviceSelect (
     service: DeviceService,
     http: Http,
     restPython: RestPythonService,
     dm: DeviceManagerService
-    ): DeviceService {
+): DeviceService {
     if (service === null) {
         service = new DeviceService(http, restPython, dm);
     }

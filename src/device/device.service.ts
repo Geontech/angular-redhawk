@@ -24,6 +24,11 @@ let DEFAULT_DELAY_RESPONSE_MS = 10000;
 
 @Injectable()
 export class DeviceService extends PortBearingService<Device> {
+    /**
+     * @param http The HTTP service for server callbacks
+     * @param restPython The REST Python service for URL serialization
+     * @param dmService The DeviceManager service that has this Device in it
+     */
     constructor(
         protected http: Http,
         protected restPython: RestPythonService,
@@ -33,10 +38,18 @@ export class DeviceService extends PortBearingService<Device> {
         this.modelUpdated(new Device());
     }
 
+    /**
+     * Internal, sets up the base URL
+     * @param url Sets the base URL for this service
+     */
     setBaseUrl(url: string): void {
         this._baseUrl = this.restPython.deviceUrl(this.dmService.baseUrl, url);
     }
 
+    /**
+     * Internal, initiates the server call that uniquely identifies this entity
+     * to retrieve its model.
+     */
     uniqueQuery$(): Observable<Device> {
         return <Observable<Device>> this.dmService.devs$(this.uniqueId);
     }

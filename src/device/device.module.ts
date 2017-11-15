@@ -15,6 +15,10 @@ export * from './device-property-command';
 export * from './device-property-command-response';
 export * from './device-property-command-type';
 
+/**
+ * The DeviceModule includes a directive and service for interfacing with a
+ * Device on the REST server.
+ */
 @NgModule({
     imports: [
         HttpModule,
