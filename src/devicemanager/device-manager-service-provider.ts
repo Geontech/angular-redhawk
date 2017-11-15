@@ -6,12 +6,20 @@ import { DomainService } from '../domain/domain.module';
 
 import { DeviceManagerService } from './device-manager.service';
 
+/**
+ * This method instantiates a new instance for service if none is provided.
+ * @internal
+ * @param [service] An existing instance of the service
+ * @param http The HTTP service for server callbacks
+ * @param restPython The REST Python service for URL serialization
+ * @param domain The Domain service that has this DeviceManager in it
+ */
 export function serviceSelect(
         service: DeviceManagerService,
         http: Http,
         restPython: RestPythonService,
         domain: DomainService
-    ): DeviceManagerService {
+): DeviceManagerService {
     if (service === null) {
         service = new DeviceManagerService(http, restPython, domain);
     }
