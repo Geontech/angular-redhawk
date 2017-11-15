@@ -35,6 +35,12 @@ import { OdmListenerService } from '../sockets/sockets.module';
  */
 @Injectable()
 export class DomainService extends BaseService<models.Domain> {
+    /**
+     * @param http The HTTP service for server callbacks
+     * @param restPython The REST Python service for URL serialization
+     * @param redhawkService The REDHAWK service that can contains this Domain
+     * @param [odmListener] The ODM Listener Service for tracking Domain events
+     */
     constructor(
         protected http: Http,
         protected restPython: RestPythonService,
@@ -58,10 +64,18 @@ export class DomainService extends BaseService<models.Domain> {
         this.odmListener.deviceManagerRemoved$.subscribe(o => this.update());
     }
 
+    /**
+     * Internal, sets up the base URL
+     * @param url Sets the base URL for this service
+     */
     setBaseUrl(url: string): void {
         this._baseUrl = this.restPython.domainUrl(this.redhawkService.baseUrl, url);
     }
 
+    /**
+     * Internal, initiates the server call that uniquely identifies this entity
+     * to retrieve its model.
+     */
     uniqueQuery$(): Observable<models.Domain> {
         return this.redhawkService.attach$(this.uniqueId);
     }

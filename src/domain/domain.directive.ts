@@ -15,6 +15,12 @@ import { odmListenerServiceProvider } from '../sockets/sockets.module';
 import { DomainService } from './domain.service';
 import { domainServiceProvider } from './domain-service-provider';
 
+/**
+ * The Domain Directive provides access to a specific Domain model
+ * 
+ * @example
+ * <div [arDomain]="'DCE:...'" [(arModel)]="my_model">
+ */
 @Directive({
     selector: '[arDomain]',
     exportAs: 'arDomain',
@@ -25,6 +31,9 @@ import { domainServiceProvider } from './domain-service-provider';
 })
 export class DomainDirective implements OnDestroy, OnChanges {
 
+    /**
+     * Sets the ID for the underlying service
+     */
     @Input('arDomain') domainId: string;
 
     /**
@@ -33,11 +42,12 @@ export class DomainDirective implements OnDestroy, OnChanges {
     @Input('arModel') model: Domain;
     @Output('arModelChange') modelChange: EventEmitter<Domain>;
 
+    /** Internal subscription for the model */
     private subscription: Subscription = null;
 
     /**
-     * The directive tries to use the parent's DomainService, if provided.
-     * If not, it injects its own.
+     * @param service The service either imported from up the hierarchy or instantiated
+     *                by this directive.
      */
     constructor(public service: DomainService) {
         this.modelChange = new EventEmitter<Domain>();
