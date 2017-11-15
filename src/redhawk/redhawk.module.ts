@@ -10,6 +10,10 @@ export { RedhawkDirective }       from './redhawk.directive';
 export { RedhawkService }         from './redhawk.service';
 export { redhawkServiceProvider } from './redhawk-service-provider';
 
+/**
+ * The RedhawkModule includes a directive and service for interfacing the
+ * REDHAWK System (in the general sense).
+ */
 @NgModule({
     imports:      [
         HttpModule,
