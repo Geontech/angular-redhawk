@@ -22,11 +22,16 @@ let DEFAULT_DELAY_RESPONSE_MS = 10000;
 
 /**
  * The Component Service provides the service interface to a specific Component
- * model in a REDHAWK system
+ * model in a REDHAWK system.
  */
 @Injectable()
 export class ComponentService extends PortBearingService<Component> {
 
+    /**
+     * @param http The HTTP service for server callbacks
+     * @param restPython The REST Python service for URL serialization
+     * @param waveformService The Waveform service that has this Component in it
+     */
     constructor(
         protected http: Http,
         protected restPython: RestPythonService,
@@ -36,10 +41,18 @@ export class ComponentService extends PortBearingService<Component> {
         this.modelUpdated(new Component());
     }
 
+    /**
+     * Internal, sets up the base URL
+     * @param url Sets the base URL for this service
+     */
     setBaseUrl(url: string): void {
         this._baseUrl = this.restPython.componentUrl(this.waveformService.baseUrl, url);
     }
 
+    /**
+     * Internal, initiates the server call that uniquely identifies this entity
+     * to retrieve its model.
+     */
     uniqueQuery$(): Observable<Component> {
         return <Observable<Component>> this.waveformService.comps$(this.uniqueId);
     }
@@ -47,7 +60,7 @@ export class ComponentService extends PortBearingService<Component> {
     /**
      * Calls 'configure' on the Device and then pulls an update of the model.
      * @param properties The properties to 'configure' on the Device
-     * @param responseDelayMs The optional model update delay after sending the 
+     * @param delayResponseMs The optional model update delay after sending the 
      * changes.
      */
     configure(properties: PropertySet, delayResponseMs?: number): void {

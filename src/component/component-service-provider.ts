@@ -6,6 +6,14 @@ import { WaveformService } from '../waveform/waveform.module';
 
 import { ComponentService } from './component.service';
 
+/**
+ * This method instantiates a new instance for service if none is provided.
+ * @internal
+ * @param [service] An existing instance of the service
+ * @param http The HTTP service for server callbacks
+ * @param restPython The REST Python service for URL serialization
+ * @param waveformService The Waveform service that has this Component in it
+ */
 export function serviceSelect(
     service: ComponentService,
     http: Http,
