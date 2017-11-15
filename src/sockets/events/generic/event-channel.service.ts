@@ -72,6 +72,9 @@ export class EventChannelService {
         alert('This method is reserved for future use.');
     }
 
+    /**
+     * @param restPython The REST Python service for mapping to the socket interface
+     */
     constructor(restPython: RestPythonService) {
         this.socketInterface = <Subject<RhMessage|OdmEvent|IdmEvent>> basicSocket(restPython.eventSocketUrl())
             .map((response: MessageEvent): (RhMessage|OdmEvent|IdmEvent) => {
