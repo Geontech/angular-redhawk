@@ -11,7 +11,15 @@ import {
     deserializePorts
 } from '../models/index';
 
+/**
+ * Abstract service extension that adds the ability to fetch the Port model.
+ */
 export abstract class PortBearingService<T> extends BaseService<T> {
+
+    /**
+     * Gets the port via its name or a port listing if no name is provided.
+     * @param portName The name of the port
+     */
     ports$(portName?: string): Observable<Port> | Observable<Ports> {
         if (portName) {
             return this.http
