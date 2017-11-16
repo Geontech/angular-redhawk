@@ -108,7 +108,7 @@ export class DomainService extends BaseService<models.Domain> {
     // Get a list of launchable waveforms
     public catalogSads$(): Observable<models.WaveformSADRefs> {
         return this.http
-            .get(this.restPython.waveformUrl(this.baseUrl))
+            .get(this.baseUrl)
             .map(response => models.deserializeWaveformSADRefs(response.json().waveforms))
             .catch(this.handleError);
     }
