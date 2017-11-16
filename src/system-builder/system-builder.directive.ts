@@ -3,8 +3,10 @@ import { RedhawkService } from '../redhawk/redhawk.module';
 import { DomainService } from '../domain/domain.module';
 import { DeviceService } from '../device/device.module';
 import { DeviceManagerService } from '../devicemanager/device-manager.module';
+import { WaveformService } from '../waveform/waveform.module';
+import { ComponentService } from '../component/component.module';
 
-import { Redhawk, Domain, DeviceManager } from '../models/index';
+import { Redhawk, Domain, DeviceManager, Waveform } from '../models/index';
 
 import {
   DeviceManagerSubsystem,
@@ -12,6 +14,7 @@ import {
   SystemBuilderConfig,
   Subsystem
 } from './config/index';
+import { WaveformSubsystem } from './config/waveform-subsystem';
 
 /**
  * Checks the subsystem config to see if the ID and name are considered a match.
@@ -25,6 +28,13 @@ function subsystemMatches(id: string, name: string, subsys: Subsystem): boolean 
   return (idTest.test(id) && nameTest.test(name));
 }
 
+/**
+ * This Directive must be instantiated once in your application where the 'provideSystemBuilderConfig' was
+ * added to the providers.  This directive serves two purposes.  First, it is a nice visual queue in your 
+ * template that you're using the SystemBuilder.  Second, it acts as a background service for updating
+ * your services.  If you need to know whether your service is up or down, observe the 'configured$'
+ * member.
+ */
 @Directive({
   selector: '[arSystemBuilder]',
   exportAs: 'arSystemBuilder'
@@ -69,7 +79,10 @@ export class SystemBuilderDirective {
       this.redhawk.attach$(domName).subscribe((d) => {
         if (subsystemMatches(d.id, d.name, this.config.domain)) {
           domainService.uniqueId = d.name; // 'name' is not a mistake
-          domainService.model$.subscribe((domain) => this.checkDeviceManagers(domain));
+          domainService.model$.subscribe((domain) => {
+            this.checkDeviceManagers(domain);
+            this.checkWaveforms(domain);
+          });
         }
       });
     }
@@ -81,17 +94,19 @@ export class SystemBuilderDirective {
    * @param domain The domain model to check
    */
   checkDeviceManagers(domain: Domain) {
-    for (const dmConfig of this.config.domain.deviceManagers) {
-      const dmService = this.injector.get(dmConfig.token) as DeviceManagerService;
-      if (dmService.uniqueId !== undefined) {
-        continue; // Skip, already configured.
-      } else {
-        // Cross-reference it against domain's listing.
-        for (const dmRef of domain.deviceManagers) {
-          if (subsystemMatches(dmRef.id, dmRef.name, dmConfig)) {
-            dmService.uniqueId = dmRef.id;
-            dmService.model$.subscribe((dm) => this.checkDevices(dm, dmConfig));
-            break;
+    if (this.config.domain.deviceManagers) {
+      for (const dmConfig of this.config.domain.deviceManagers) {
+        const dmService = this.injector.get(dmConfig.token) as DeviceManagerService;
+        if (dmService.uniqueId !== undefined) {
+          continue; // Skip, already configured.
+        } else {
+          // Cross-reference it against domain's listing.
+          for (const dmRef of domain.deviceManagers) {
+            if (subsystemMatches(dmRef.id, dmRef.name, dmConfig)) {
+              dmService.uniqueId = dmRef.id;
+              dmService.model$.subscribe((dm) => this.checkDevices(dm, dmConfig));
+              break;
+            }
           }
         }
       }
@@ -105,15 +120,65 @@ export class SystemBuilderDirective {
    * @param config The device manager configuration related to this model.
    */
   checkDevices(dm: DeviceManager, config: DeviceManagerSubsystem) {
-    for (const devConfig of config.devices) {
-      const deviceService = this.injector.get(devConfig.token) as DeviceService;
-      if (deviceService.uniqueId !== undefined) {
-        continue; // Skip, already configured.
-      } else {
-        // Cross-reference the config against the devices list
-        for (const devRef of dm.devices) {
-          if (subsystemMatches(devRef.id, devRef.name, devConfig)) {
-            deviceService.uniqueId = devRef.id;
+    if (config.devices) {
+      for (const devConfig of config.devices) {
+        const deviceService = this.injector.get(devConfig.token) as DeviceService;
+        if (deviceService.uniqueId !== undefined) {
+          continue; // Skip, already configured.
+        } else {
+          // Cross-reference the config against the devices list
+          for (const devRef of dm.devices) {
+            if (subsystemMatches(devRef.id, devRef.name, devConfig)) {
+              deviceService.uniqueId = devRef.id;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * This method checks the waveform configurations against the updated
+   * domain model and configures the services as needed.
+   * @param domain The domain model to check
+   */
+  checkWaveforms(domain: Domain) {
+    if (this.config.domain.waveforms) {
+      for (const waveConfig of this.config.domain.waveforms) {
+        const waveService = this.injector.get(waveConfig.token) as WaveformService;
+        if (waveService.uniqueId !== undefined) {
+          continue; // Skip, already configured.
+        } else {
+          // Cross-reference it against the domain's listing.
+          for (const waveRef of domain.applications) {
+            if (subsystemMatches(waveRef.id, waveRef.name, waveConfig)) {
+              waveService.uniqueId = waveRef.id;
+              waveService.model$.subscribe((wave) => this.checkComponents(wave, waveConfig));
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * This method checks the component configurations in the waveform's config
+   * against the components listing in the waveform model (wave).
+   * @param wave The waveform model
+   * @param config The waveform configuration related to the model
+   */
+  checkComponents(wave: Waveform, config: WaveformSubsystem) {
+    if (config.components) {
+      for (const compConfig of config.components) {
+        const compService = this.injector.get(compConfig.token as ComponentService);
+        if (compService.uniqueId !== undefined) {
+          continue; // Skip, already configured.
+        } else {
+          // Cross-reference the config against the components list
+          for (const compRef of wave.components) {
+            if (subsystemMatches(compRef.id, compRef.name, compConfig)) {
+              compService.uniqueId = compRef.id;
+            }
           }
         }
       }
