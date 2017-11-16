@@ -18,18 +18,20 @@ import { basicSocket } from './base/basic-socket';
 @Injectable()
 export class RedhawkListenerService {
 
-    // Internal subject for received messages
+    /** Internal subject for received messages */
     private socketInterface: Subject<RedhawkEvent>;
 
     /**
-     * @return Observable event indicating which domains were added and removed
-     *         as well as the current listing.
+     * Observable event indicating which domains were added and removed as well as 
+     * the current listing of Domains.
      */
     public get events$(): Observable<RedhawkEvent> {
         return this.socketInterface.asObservable();
     }
 
-    // Constructor
+    /**
+     * @param restPython The REST Python service that provides the URL mapping to REST Python
+     */
     constructor(restPython: RestPythonService) {
         this.socketInterface = <Subject<RedhawkEvent>> basicSocket(restPython.redhawkSocketUrl())
             .map((response: MessageEvent): RedhawkEvent => {

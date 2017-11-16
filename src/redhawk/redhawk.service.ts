@@ -35,10 +35,18 @@ export class RedhawkService extends BaseService<Redhawk> {
         });
     }
 
+    /**
+     * Internal, sets up the base URL
+     * @param url IGNORED
+     */
     setBaseUrl(url: string): void {
         this._baseUrl = this.restPython.redhawkUrl();
     }
 
+    /**
+     * Internal, initiates the server call that uniquely identifies this entity
+     * to retrieve its model.
+     */
     uniqueQuery$(): Observable<Redhawk> {
         return this.http
             .get(this.restPython.domainUrl(this.baseUrl))
@@ -46,7 +54,7 @@ export class RedhawkService extends BaseService<Redhawk> {
             .catch(this.handleError);
     }
 
-    // Get a list of online domain names
+    /** Get a list of online domain names */
     public scan$(): Observable<string[]> {
         return this.http
             .get(this.restPython.domainUrl(this.baseUrl))
@@ -54,7 +62,10 @@ export class RedhawkService extends BaseService<Redhawk> {
             .catch(this.handleError);
     }
 
-    // Get the named domain model
+    /**
+     * Retrieves a Domain model
+     * @param domainId The Domain model to fetch (this corresponds to the Domain's "name")
+     */
     public attach$(domainId: string): Observable<Domain> {
         return this.http
             .get(this.restPython.domainUrl(this.baseUrl, domainId))
@@ -62,7 +73,7 @@ export class RedhawkService extends BaseService<Redhawk> {
             .catch(this.handleError);
     }
 
-    // Get a list of online Event Channels
+    /** Get a list of online Event Channels */
     public scanChannels$(): Observable<string[]> {
         return this.http
             .get(this.restPython.eventChannelsUrl())

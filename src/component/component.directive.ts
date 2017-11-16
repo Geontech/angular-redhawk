@@ -18,6 +18,9 @@ import { componentServiceProvider } from './component-service-provider';
 /**
  * The Component Directive provides access to a specific Component model including
  * the configuration of its properties and access to its ports.
+ * 
+ * @example
+ * <div [arComponent]="'DCE:...'" [(arModel)]="my_model">
  */
 @Directive({
     selector: '[arComponent]',
@@ -26,6 +29,9 @@ import { componentServiceProvider } from './component-service-provider';
 })
 export class ComponentDirective implements OnDestroy, OnChanges {
 
+    /**
+     * Sets the ID for the underlying service
+     */
     @Input('arComponent') componentId: string;
 
     /**
@@ -34,8 +40,13 @@ export class ComponentDirective implements OnDestroy, OnChanges {
     @Input('arModel') model: Component;
     @Output('arModelChange') modelChange: EventEmitter<Component>;
 
+    /** Internal subscription for the model */
     private subscription: Subscription = null;
 
+    /**
+     * @param service The service either imported from up the hierarchy or instantiated
+     *                by this directive.
+     */
     constructor(public service: ComponentService) {
         this.modelChange = new EventEmitter<Component>();
         this.subscription = this.service.model$.subscribe(it => {

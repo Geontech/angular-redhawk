@@ -20,6 +20,9 @@ import { deviceServiceProvider } from './device-service-provider';
  * The Device Directive provides access to a specific Device model including
  * the configuration, allocation, and deallocation of its properties and access
  * to its ports.
+ * 
+ * @example
+ * <div [arDevice]="'DCE:...'" [(arModel)]="my_model">
  */
 @Directive({
     selector: '[arDevice]',
@@ -28,6 +31,9 @@ import { deviceServiceProvider } from './device-service-provider';
 })
 export class DeviceDirective implements OnDestroy, OnChanges {
 
+    /**
+     * Sets the ID for the underlying service
+     */
     @Input('arDevice') deviceId: string;
 
     /**
@@ -36,8 +42,13 @@ export class DeviceDirective implements OnDestroy, OnChanges {
     @Input('arModel') model: Device;
     @Output('arModelChange') modelChange: EventEmitter<Device>;
 
+    /** Internal subscription for the model */
     private subscription: Subscription = null;
 
+    /**
+     * @param service The service either imported from up the hierarchy or instantiated
+     *                by this directive.
+     */
     constructor(public service: DeviceService) {
         this.modelChange = new EventEmitter<Device>();
         this.subscription = this.service.model$.subscribe(it => {

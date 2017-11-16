@@ -6,7 +6,14 @@ import { RedhawkService }     from '../redhawk/redhawk.module';
 import { OdmListenerService } from '../sockets/sockets.module';
 
 import { DomainService } from './domain.service';
-
+/**
+ * This method instantiates a new instance for service if none is provided.
+ * @param [service] An existing instance of the service
+ * @param http The HTTP service for server callbacks
+ * @param restPython The REST Python service for URL serialization
+ * @param rh The REDHAWK service that has this Domain in it
+ * @param odm The ODM Listener services for the ODM Event Channel
+ */
 export function serviceSelect(
         service: DomainService,
         http: Http,

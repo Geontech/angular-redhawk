@@ -31,6 +31,11 @@ export class BulkioListenerService {
     // The amount of time deserializing a packet took.
     private _deserializeTime: number = 0;
 
+    // The statistics on the most recent packet
+    private _packetLength: number = 0;
+    private _packetSubsize: number = 0;
+    private _packetMode: number = 0;
+
     /** Set the URL.  If connected, this will disconnect and reconnect */
     public set url(url: string) {
         this._url = url;
@@ -45,7 +50,7 @@ export class BulkioListenerService {
 
     /**
      * Subscribe to receive the bulkio packets.
-     * @member {Observable<BulkioPacket>} 
+     * @member {Observable<BulkioPacket>}
      */
     public get packet$(): Observable<BulkioPacket> {
         return <Observable<BulkioPacket>> this.packet.asObservable();
@@ -58,17 +63,187 @@ export class BulkioListenerService {
     public get deserializeTime(): number { return this._deserializeTime; }
 
     /**
-     * Set the output data width
-     * @param {number} width - The maximum "width" of the data stream (< 0 to disable)
+     * The number of data words in the most recent packet.
+     * @member {number}
      */
-    public set dataWidth(width: number) {
-        if (this.socketInterface) {
-            let msg: BulkioControl = {
-                type: ControlType.MaxWidth,
-                value: width
-            };
-            this.socketInterface.next(msg);
-        }
+    public get packetLength(): number { return this._packetLength; }
+
+    /**
+     * The frame size of the most recent packet.
+     *      0 - One dimensional data (no frames)
+     *     >0 - Two dimensional data
+     * @member {number}
+     */
+    public get packetSubsize(): number { return this._packetSubsize; }
+
+    /**
+     * The complex flag for the most recent packet.
+     *     0 - Scalar data
+     *     1 - Complex data
+     * @member {number}
+     */
+    public get packetMode(): number { return this._packetMode; }
+
+    /**
+     * Set the max number of samples for the X axis (causes inter-sample
+     * averaging).  The REST Python server will try to adjust to near this limit
+     * based on the data size. Setting the width to less than or equal to 0 will
+     * disable this feature.
+     * @param {number} value
+     */
+    public set xMax(value: number) {
+      if (this.socketInterface) {
+         let msg: BulkioControl = {
+             type: ControlType.xMax,
+             value: value
+         };
+         this.socketInterface.next(msg);
+      }
+    }
+
+    /**
+     * Set the beginning index of the zoom region for the X axis. The index is
+     * inclusive and based on data available at the UI (the server will adjust
+     * the index for the actual packet size). The zoom will not be enabled until
+     * the zoom level is set.
+     * @param {number} value
+     */
+    public set xBegin(value: number) {
+      if (this.socketInterface) {
+         let msg: BulkioControl = {
+             type: ControlType.xBegin,
+             value: value
+         };
+         this.socketInterface.next(msg);
+      }
+    }
+
+    /**
+     * Set the ending index of the zoom region for the X axis. The index is
+     * inclusive and based on data available at the UI (the server will adjust
+     * the index for the actual packet size). The zoom will not be enabled until
+     * the zoom level is set.
+     * @param {number} value
+     */
+    public set xEnd(value: number) {
+      if (this.socketInterface) {
+         let msg: BulkioControl = {
+             type: ControlType.xEnd,
+             value: value
+         };
+         this.socketInterface.next(msg);
+      }
+    }
+
+    /**
+     * Command a zoom in on the X axis. Command will be executed
+     * regardless of the value set.
+     * @param {number} value
+     */
+    public set xZoomIn(value: number) {
+      if (this.socketInterface) {
+         let msg: BulkioControl = {
+             type: ControlType.xZoomIn,
+             value: value
+         };
+         this.socketInterface.next(msg);
+      }
+    }
+
+    /**
+     * Command a zoom reset on the X axis. Command will be executed
+     * regardless of the value set.
+     * @param {number} value
+     */
+    public set xZoomReset(value: number) {
+      if (this.socketInterface) {
+         let msg: BulkioControl = {
+             type: ControlType.xZoomReset,
+             value: value
+         };
+         this.socketInterface.next(msg);
+      }
+    }
+
+    /**
+     * Set the max number of samples for the Y axis (causes inter-sample
+     * averaging).  The REST Python server will try to adjust to near this limit
+     * based on the data size. Setting the width to less than or equal to 0 will
+     * disable this feature.
+     * @param {number} value
+     */
+    public set yMax(value: number) {
+      if (this.socketInterface) {
+         let msg: BulkioControl = {
+             type: ControlType.yMax,
+             value: value
+         };
+         this.socketInterface.next(msg);
+      }
+    }
+
+    /**
+     * Set the beginning index of the zoom region for the Y axis. The index is
+     * inclusive and based on data available at the UI (the server will adjust
+     * the index for the actual packet size). The zoom will not be enabled until
+     * the zoom level is set.
+     * @param {number} value
+     */
+    public set yBegin(value: number) {
+      if (this.socketInterface) {
+         let msg: BulkioControl = {
+             type: ControlType.yBegin,
+             value: value
+         };
+         this.socketInterface.next(msg);
+      }
+    }
+
+    /**
+     * Set the ending index of the zoom region for the Y axis. The index is
+     * inclusive and based on data available at the UI (the server will adjust
+     * the index for the actual packet size). The zoom will not be enabled until
+     * the zoom level is set.
+     * @param {number} value
+     */
+    public set yEnd(value: number) {
+      if (this.socketInterface) {
+         let msg: BulkioControl = {
+             type: ControlType.yEnd,
+             value: value
+         };
+         this.socketInterface.next(msg);
+      }
+    }
+
+    /**
+     * Command a zoom in on the Y axis. Command will be executed
+     * regardless of the value set.
+     * @param {number} value
+     */
+    public set yZoomIn(value: number) {
+      if (this.socketInterface) {
+         let msg: BulkioControl = {
+             type: ControlType.yZoomIn,
+             value: value
+         };
+         this.socketInterface.next(msg);
+      }
+    }
+
+    /**
+     * Command a zoom reset on the Y axis. Command will be executed
+     * regardless of the value set.
+     * @param {number} value
+     */
+    public set yZoomReset(value: number) {
+      if (this.socketInterface) {
+         let msg: BulkioControl = {
+             type: ControlType.yZoomReset,
+             value: value
+         };
+         this.socketInterface.next(msg);
+      }
     }
 
     /**
@@ -116,6 +291,9 @@ export class BulkioListenerService {
                     let packet =  new BulkioPacket().deserialize(data);
                     let end: number = d.getTime();
                     this._deserializeTime = end - start;
+                    this._packetLength = packet.dataBuffer.length;
+                    this._packetSubsize = packet.SRI.subsize;
+                    this._packetMode = packet.SRI.mode;
                     return packet;
                 });
             this.socketSubscription = this.socketInterface
@@ -126,16 +304,19 @@ export class BulkioListenerService {
     }
 
     /**
-     * Disconnect from the websocket
+     * Disconnect from the BULKIO socket.
      */
     public disconnect(): void {
-        if (this.connected) {
-            // Close the websocket by unsubscribing, and clear the interfaces.
+        if (this.socketSubscription) {
             this.socketSubscription.unsubscribe();
-            this.socketInterface = null;
-            this.socketSubscription = null;
-            this._deserializeTime = 0;
         }
+
+        if (this.socketInterface) {
+            this.socketInterface.complete();
+        }
+        this.socketInterface = null;
+        this.socketSubscription = null;
+        this._deserializeTime = 0;
     }
 
     /**
@@ -144,5 +325,6 @@ export class BulkioListenerService {
     constructor(@Inject(BULKIO_SOCKET_URL) url: string) {
         this._url = url;
         this.packet = new Subject<BulkioPacket>();
+        this.disconnect();
     }
 }

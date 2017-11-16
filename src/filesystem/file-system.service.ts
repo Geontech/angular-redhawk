@@ -17,6 +17,11 @@ import { DomainService } from '../domain/domain.module';
 
 @Injectable()
 export class FileSystemService extends BaseService<FileSystem> {
+    /**
+     * @param http The HTTP service for server callbacks
+     * @param restPython The REST Python service for URL serialization
+     * @param domainService The Domain service that has this FileSystem in it
+     */
     constructor(
         protected http: Http,
         protected restPython: RestPythonService,
@@ -26,10 +31,18 @@ export class FileSystemService extends BaseService<FileSystem> {
         this.modelUpdated(new FileSystem());
     }
 
+    /**
+     * Internal, sets up the base URL
+     * @param url Sets the base URL for this service
+     */
     setBaseUrl(url: string): void {
         this._baseUrl = this.restPython.fileSystemUrl(this.domainService.baseUrl, url);
     }
 
+    /**
+     * Internal, initiates the server call that uniquely identifies this entity
+     * to retrieve its model.
+     */
     uniqueQuery$(): Observable<FileSystem> {
         return this.http
             .get(this.baseUrl)

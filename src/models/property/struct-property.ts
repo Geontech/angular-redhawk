@@ -50,6 +50,9 @@ export class StructProperty extends Property implements ISerializable<StructProp
         return this;
     }
 
+    /**
+     * Create a copy of the property
+     */
     copy(): StructProperty {
         const p = new StructProperty().deserialize(this);
         p.kinds = (this.kinds instanceof Array) ? this.kinds.slice() : this.kinds;

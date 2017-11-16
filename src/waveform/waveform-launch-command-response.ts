@@ -7,6 +7,8 @@ import { ResourceRefs } from '../models/index';
  * instances's ID.
  */
 export interface IWaveformLaunchCommandResponse {
+    /** The newly launched Waveform's ID */
     launched: string;
+    /** A list of all running applications (Waveforms) */
     applications: ResourceRefs;
 }

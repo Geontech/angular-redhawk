@@ -10,6 +10,10 @@ export { DeviceManagerService }         from './device-manager.service';
 export { DeviceManagerDirective }       from './device-manager.directive';
 export { deviceManagerServiceProvider } from './device-manager-service-provider';
 
+/**
+ * The DeviceManagerModule includes a directive and service for interfacing with a
+ * DeviceManager on the REST server.
+ */
 @NgModule({
     imports:      [
         HttpModule,

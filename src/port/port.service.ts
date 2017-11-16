@@ -36,12 +36,20 @@ import {
 @Injectable()
 export class PortService extends BaseService<Port> {
 
-    // Reference to the parent service
+    /** Reference to the parent service */
     protected parent: WaveformService | DeviceService | ComponentService;
 
     private _ref: PortRef = null;
     private _previousUniqueId: string;
 
+    /**
+     * NOTE: _wave, _device, or _compnent must be provided!
+     * @param http The HTTP service for server callbacks
+     * @param restPython The REST Python service for URL serialization
+     * @param [_wave] The Waveform service that has this Port in it
+     * @param [_device] The Device service that has this Port in it
+     * @param [_component] The Component service that has this Port in it
+     */
     constructor(
         protected http: Http,
         protected restPython: RestPythonService,
@@ -77,14 +85,26 @@ export class PortService extends BaseService<Port> {
      */
     get ref(): PortRef { return this._ref; }
 
+    /**
+     * Internal, sets up the base URL
+     * @param url Sets the base URL for this service
+     */
     setBaseUrl(url: string): void {
         this._baseUrl = this.restPython.portUrl(this.parent.baseUrl, this.uniqueId);
     }
 
+    /**
+     * Internal, initiates the server call that uniquely identifies this entity
+     * to retrieve its model.
+     */
     uniqueQuery$(): Observable<Port> {
         return <Observable<Port>> this.parent.ports$(this.uniqueId);
     }
 
+    /**
+     * Scans the model to determine the type of 'ref' to create for any subfeatures.
+     * @param model The new Port model from the recent refresh
+     */
     modelUpdated(model: Port) {
         if (this._previousUniqueId !== this.uniqueId) {
             if (this._ref) {

@@ -15,6 +15,10 @@ export *                       from './refs/index';
 export { PortService }         from './port.service';
 export { portServiceProvider } from './port-service-provider';
 
+/**
+ * The PortModule provides directives and sub-interfaces (refs) for managing a
+ * Port instance on a Component, Waveform, or Device.
+ */
 @NgModule({
     imports:      [
         HttpModule,

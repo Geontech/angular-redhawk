@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Provider } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
@@ -12,14 +12,24 @@ import {
 
 import { EventChannelService } from '../generic/index';
 
+/**
+ * The ODM Event Channel name
+ */
 export const ODM_CHANNEL_NAME: string = 'ODM_Channel';
 
+/**
+ * Provides an instantiation of the ODM Listener Service
+ * @param ecs An EventChannelService instance to utilize
+ */
 export function configureOdmListenerService(ecs: EventChannelService): OdmListenerService {
     const s = new OdmListenerService(ecs);
     return s;
 }
 
-export function odmListenerServiceProvider(): any {
+/**
+ * Returns providers for a pre-configured ODM Listener Service
+ */
+export function odmListenerServiceProvider(): Provider[] {
     return [
         EventChannelService,
         {
@@ -36,44 +46,87 @@ export function odmListenerServiceProvider(): any {
 @Injectable()
 export class OdmListenerService {
 
+    /**
+     * Obsevable for all possible events on the ODM Event Channel
+     */
     public get allEvents$(): Observable<OdmEvent> {
         return this.allEvents.asObservable();
     }
+
+    /**
+     * Observable for specifically Device Manager Added events.
+     */
     public get deviceManagerAdded$(): Observable<DomainManagementObjectAddedEvent> {
         return this.deviceManagerAdded.asObservable();
     }
+
+    /**
+     * Observable for specifically DeviceManager Removed events.
+     */
     public get deviceManagerRemoved$(): Observable<DomainManagementObjectRemovedEvent> {
         return this.deviceManagerRemoved.asObservable();
     }
-    public get deviceAdded$(): Observable<DomainManagementObjectAddedEvent> {
+
+    /**
+     * Observable for specifically Device Added events.
+     */
+     public get deviceAdded$(): Observable<DomainManagementObjectAddedEvent> {
         return this.deviceAdded.asObservable();
     }
+
+    /**
+     * Observable for specifically Device Removed events.
+     */
     public get deviceRemoved$(): Observable<DomainManagementObjectRemovedEvent> {
         return this.deviceRemoved.asObservable();
     }
+
+    /**
+     * Observable for specifically Application Factory Added events.
+     */
     public get applicationFactoryAdded$(): Observable<DomainManagementObjectAddedEvent> {
         return this.applicationFactoryAdded.asObservable();
     }
+
+    /**
+     * Observable for specifically Application Factory Removed events.
+     */
     public get applicationFactoryRemoved$(): Observable<DomainManagementObjectRemovedEvent> {
         return this.applicationFactoryRemoved.asObservable();
     }
+
+    /**
+     * Observable for specifically Application Added events.
+     */
     public get applicationAdded$(): Observable<DomainManagementObjectAddedEvent> {
         return this.applicationAdded.asObservable();
     }
+
+    /**
+     * Observable for specifically Application Removed events.
+     */
     public get applicationRemoved$(): Observable<DomainManagementObjectRemovedEvent> {
         return this.applicationRemoved.asObservable();
     }
+
+    /**
+     * Observable for specifically Service Added events.
+     */
     public get serviceAdded$(): Observable<DomainManagementObjectAddedEvent> {
         return this.serviceAdded.asObservable();
     }
+
+    /**
+     * Observable for specifically Service Removed events.
+     */
     public get serviceRemoved$(): Observable<DomainManagementObjectRemovedEvent> {
         return this.serviceRemoved.asObservable();
     }
 
-    // All events
+    // @internal All events
     private allEvents: Subject<OdmEvent>;
 
-    // Add/remove for individual elements.
+    // @internal Add/remove for individual elements.
     private deviceManagerAdded: Subject<DomainManagementObjectAddedEvent>;
     private deviceManagerRemoved: Subject<DomainManagementObjectRemovedEvent>;
     private deviceAdded: Subject<DomainManagementObjectAddedEvent>;
@@ -85,14 +138,25 @@ export class OdmListenerService {
     private serviceAdded: Subject<DomainManagementObjectAddedEvent>;
     private serviceRemoved: Subject<DomainManagementObjectRemovedEvent>;
 
+    /**
+     * Connect to a Domain's ODM Event Channel
+     * @param domainId The Domain ID (Name)
+     */
     public connect(domainId: string) {
         this.eventChannel.connect(domainId, ODM_CHANNEL_NAME);
     }
 
+    /**
+     * Disconnect from a Domain's ODM Event Channel
+     * @param domainId The Domain ID (Name)
+     */
     public disconnect(domainId: string) {
         this.eventChannel.disconnect(domainId, ODM_CHANNEL_NAME);
     }
 
+    /**
+     * @param eventChannel The Event Channel (Service) to use for connections
+     */
     constructor(private eventChannel: EventChannelService) {
 
         this.allEvents = new Subject<OdmEvent>();
@@ -121,6 +185,11 @@ export class OdmListenerService {
             });
     }
 
+    /**
+     * @internal
+     * Uses the event's source category to determine the subject to update.
+     * @param event The Event to handle
+     */
     private handleAdd(event: DomainManagementObjectAddedEvent) {
         switch (event.sourceCategory) {
             case SourceCategory.DEVICE_MANAGER:
@@ -143,6 +212,11 @@ export class OdmListenerService {
         }
     }
 
+    /**
+     * @internal
+     * Uses the event's source category to determine the subject to update.
+     * @param event The Event to handle
+     */
     private handleRemove(event: DomainManagementObjectRemovedEvent) {
         switch (event.sourceCategory) {
             case SourceCategory.DEVICE_MANAGER:

@@ -59,12 +59,86 @@ export class BulkioRef extends PortRef {
     }
 
     /**
-     * Set the data width limit (causes inter-sample averaging).  The REST Python
-     * server will try to adjust to near this limit based on the data size.
-     * Setting the width to less than or equal to 0 will disable this feature.
-     * @param {number} width - Desired data width.
+     * Set the max number of samples for the X axis (causes inter-sample
+     * averaging).  The REST Python server will try to adjust to near this limit
+     * based on the data size. Setting the width to less than or equal to 0 will
+     * disable this feature.
+     * @param {number} value
      */
-    set dataWidth(width: number) { this.bulkioService.dataWidth = width; }
+    set xMax(value: number) { this.bulkioService.xMax = value; }
+
+    /**
+     * Set the beginning index of the zoom region for the X axis. The index is
+     * inclusive and based on data available at the UI (the server will adjust
+     * the index for the actual packet size). The zoom will not be enabled until
+     * the zoom level is set.
+     * @param {number} value
+     */
+    set xBegin(value: number) { this.bulkioService.xBegin = value; }
+
+    /**
+     * Set the ending index of the zoom region for the X axis. The index is
+     * inclusive and based on data available at the UI (the server will adjust
+     * the index for the actual packet size). The zoom will not be enabled until
+     * the zoom level is set.
+     * @param {number} value
+     */
+    set xEnd(value: number) { this.bulkioService.xEnd = value; }
+
+    /**
+     * Command a zoom in on the X axis. Command will be executed
+     * regardless of the value set.
+     * @param {number} value
+     */
+    set xZoomIn(value: number) { this.bulkioService.xZoomIn = value; }
+
+    /**
+     * Command a zoom reset on the X axis. Command will be executed
+     * regardless of the value set.
+     * @param {number} value
+     */
+    set xZoomReset(value: number) { this.bulkioService.xZoomReset = value; }
+
+    /**
+     * Set the max number of samples for the Y axis (causes inter-sample
+     * averaging).  The REST Python server will try to adjust to near this limit
+     * based on the data size. Setting the width to less than or equal to 0 will
+     * disable this feature.
+     * @param {number} value
+     */
+    set yMax(value: number) { this.bulkioService.yMax = value; }
+
+    /**
+     * Set the beginning index of the zoom region for the Y axis. The index is
+     * inclusive and based on data available at the UI (the server will adjust
+     * the index for the actual packet size). The zoom will not be enabled until
+     * the zoom level is set.
+     * @param {number} value
+     */
+    set yBegin(value: number) { this.bulkioService.yBegin = value; }
+
+    /**
+     * Set the ending index of the zoom region for the Y axis. The index is
+     * inclusive and based on data available at the UI (the server will adjust
+     * the index for the actual packet size). The zoom will not be enabled until
+     * the zoom level is set.
+     * @param {number} value
+     */
+    set yEnd(value: number) { this.bulkioService.yEnd = value; }
+
+    /**
+     * Command a zoom in on the Y axis. Command will be executed
+     * regardless of the value set.
+     * @param {number} value
+     */
+    set yZoomIn(value: number) { this.bulkioService.yZoomIn = value; }
+
+    /**
+     * Command a zoom reset on the Y axis. Command will be executed
+     * regardless of the value set.
+     * @param {number} value
+     */
+    set yZoomReset(value: number) { this.bulkioService.yZoomReset = value; }
 
     /**
      * Set the data update rate of the connection.  This is a maximum update
@@ -83,6 +157,34 @@ export class BulkioRef extends PortRef {
      */
     get deserializeTime(): number {
         return this.bulkioService.deserializeTime;
+    }
+
+    /**
+     * The number of data words in the most recent packet.
+     * @return {number}
+     */
+    get packetLength(): number {
+        return this.bulkioService.packetLength;
+    }
+
+    /**
+     * The frame size of the most recent packet.
+     *      0 - One dimensional data (no frames)
+     *     >0 - Two dimensional data
+     * @return {number}
+     */
+    get packetSubsize(): number {
+        return this.bulkioService.packetSubsize;
+    }
+
+    /**
+     * The complex flag for the most recent packet.
+     *     0 - Scalar data
+     *     1 - Complex data
+     * @return {number}
+     */
+    get packetMode(): number {
+        return this.bulkioService.packetMode;
     }
 
     release(): void {
