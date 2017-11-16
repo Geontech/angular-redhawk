@@ -15,6 +15,10 @@ export * from './waveform-launch-command';
 export * from './waveform-release-response';
 export { waveformServiceProvider } from './waveform-service-provider';
 
+/**
+ * The WaveformModule includes a directive and service for interfacing with a
+ * Waveform on the REST server.
+ */
 @NgModule({
     imports:      [
     HttpModule,

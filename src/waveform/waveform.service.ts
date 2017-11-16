@@ -18,6 +18,11 @@ import { IWaveformReleaseResponse }        from './waveform-release-response';
 @Injectable()
 export class WaveformService extends PortBearingService<Waveform> {
 
+    /**
+     * @param http The HTTP service for server callbacks
+     * @param restPython The REST Python service for URL serialization
+     * @param domainService The Domain service that can contains this Waveform
+     */
     constructor(
         protected http: Http,
         protected restPython: RestPythonService,
@@ -27,14 +32,28 @@ export class WaveformService extends PortBearingService<Waveform> {
         this.modelUpdated(new Waveform());
     }
 
+    /**
+     * Internal, sets up the base URL
+     * @param url Sets the base URL for this service
+     */
     setBaseUrl(url: string): void {
         this._baseUrl = this.restPython.waveformUrl(this.domainService.baseUrl, url);
     }
 
+    /**
+     * Internal, initiates the server call that uniquely identifies this entity
+     * to retrieve its model.
+     */
     uniqueQuery$(): Observable<Waveform> {
         return <Observable<Waveform>> this.domainService.apps$(this.uniqueId);
     }
 
+    /**
+     * Returns an observable Component model if the Component ID is provided and exists.
+     * If no ID is provided, this provides a reference listing of the components in the
+     * Waveform.
+     * @param [componentId] The Component ID to retrieve
+     */
     public comps$(componentId?: string): Observable<Component> | Observable<ResourceRefs> {
         if (componentId) {
             return this.http
@@ -49,16 +68,25 @@ export class WaveformService extends PortBearingService<Waveform> {
         }
     }
 
+    /**
+     * Starts the Waveform and returns the success/failure of that command.
+     */
     public start$(): Observable<IWaveformControlCommandResponse> {
         let command: IWaveformControlCommand = { started: true };
         return this.controlCommand$(command);
     }
 
+    /**
+     * Stops the Waveform and returns the success/failure of that command.
+     */
     public stop$(): Observable<IWaveformControlCommandResponse> {
         let command: IWaveformControlCommand = { started: false };
         return this.controlCommand$(command);
     }
 
+    /**
+     * Releases (removes) the Waveform and returns confirmation.
+     */
     public release$(): Observable<IWaveformReleaseResponse> {
         return this.http
             .delete(this.baseUrl)
@@ -66,6 +94,11 @@ export class WaveformService extends PortBearingService<Waveform> {
             .catch(this.handleError);
     }
 
+    /**
+     * Common method shared by start and stop for issuing the command to the server.
+     * @internal
+     * @param command The command to issue (start/stop)
+     */
     private controlCommand$(command: IWaveformControlCommand): Observable<IWaveformControlCommandResponse> {
         return this.http
             .put(this.baseUrl, command)
