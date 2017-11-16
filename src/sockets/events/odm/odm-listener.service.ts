@@ -14,7 +14,6 @@ import { EventChannelService } from '../generic/index';
 
 /**
  * The ODM Event Channel name
- * @internal
  */
 export const ODM_CHANNEL_NAME: string = 'ODM_Channel';
 
