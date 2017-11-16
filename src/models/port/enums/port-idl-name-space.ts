@@ -1,3 +1,6 @@
+/**
+ * PORT IDL Namespace Enumeration
+ */
 export enum PortIDLNameSpace {
     UNKNOWN,
     BULKIO,
@@ -6,6 +9,11 @@ export enum PortIDLNameSpace {
     CosEventChannelAdmin
 };
 
+/**
+ * Function for converting a string name to the port IDL namespace enumeration.
+ * @internal
+ * @param val The value to resolve to the enumeration
+ */
 export function resolvePortIDLNameSpace(val: string): PortIDLNameSpace {
     let namespace: PortIDLNameSpace = PortIDLNameSpace.UNKNOWN;
     switch (val) {
