@@ -16,6 +16,9 @@ const PIPES = [
     UsageStatePipe
 ];
 
+/**
+ * The IDM Event Module
+ */
 @NgModule({
     exports:      PIPES,
     declarations: PIPES

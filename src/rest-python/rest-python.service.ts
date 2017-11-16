@@ -78,50 +78,62 @@ export class RestPythonService {
         }
     }
 
+    /** URL for the REDHAWK interface */
     redhawkUrl(): string {
         return this.baseRestUrl('');
     }
 
+    /** URL for the Event Channels listing */
     eventChannelsUrl(): string {
         return this.baseRestUrl('/events/');
     }
 
+    /** URL for the/a Domain's interface */
     domainUrl(parentUrl: string, domainId?: string): string {
         return this.baseRestUrl(parentUrl, '/domains', domainId);
     }
 
+    /** URL for a FIle System interface */
     fileSystemUrl(parentUrl: string, path?: string): string {
         return this.baseRestUrl(parentUrl, '/fs', path);
     }
 
+    /** URL for a Device Manager listing or a specific instance */
     deviceManagerUrl(parentUrl: string, deviceManagerId?: string): string {
         return this.baseRestUrl(parentUrl, '/deviceManagers', deviceManagerId);
     }
 
+    /** URL for a Device listing or a specific instance */
     deviceUrl(parentUrl: string, deviceId?: string): string {
         return this.baseRestUrl(parentUrl, '/devices', deviceId);
     }
 
+    /** URL for a Service listing or a specific instance */
     serviceUrl(parentUrl: string, serviceId?: string): string {
         return this.baseRestUrl(parentUrl, '/services', serviceId);
     }
 
+    /** URL for a Waveform listing or a specific instance */
     waveformUrl(parentUrl: string, waveformId?: string): string {
         return this.baseRestUrl(parentUrl, '/applications', waveformId);
     }
 
+    /** URL for a Component listing or a specific instance */
     componentUrl(parentUrl: string, componentId?: string): string {
         return this.baseRestUrl(parentUrl, '/components', componentId);
     }
 
+    /** URL for the properties listing on an interface */
     propertyUrl(parentUrl: string): string {
         return this.baseRestUrl(parentUrl, '/properties');
     }
 
+    /** URL for a Port listing or a specific instance */
     portUrl(parentUrl: string, portId?: string): string {
         return this.baseRestUrl(parentUrl, '/ports', portId);
     }
 
+    /** URL for a port's BULKIO WebSocket interface (if applicable) */
     bulkioSocketUrl(portUrl: string): string {
         // Pop service off the front, if present.
         let baseUrlRE = new RegExp(this.baseUrl.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&'));
@@ -132,10 +144,12 @@ export class RestPythonService {
         return this.baseWebsocketUrl(portUrl, '/bulkio');
     }
 
+    /** URL of the REDHAWK (Domain) Listener WebSocket (i.e., Domains coming and going) */
     redhawkSocketUrl(): string {
         return this.baseWebsocketUrl('/redhawk');
     }
 
+    /** URL for subscribing to Event Channels (WebSocket) */
     eventSocketUrl(): string {
         return this.baseWebsocketUrl('/events');
     }

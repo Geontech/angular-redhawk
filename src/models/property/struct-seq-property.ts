@@ -12,7 +12,7 @@ export class StructSeqProperty extends Property implements ISerializable<StructS
     scaType: ScaStructSeqType = 'structSeq';
 
     /**
-     * @description Find a StructProperty having a field whose value matches the provided one.
+     * Find a StructProperty having a field whose value matches the provided one.
      *
      * @param { string } fieldId The field ID in the StructProprety to use in the match.
      * @param { string } value The value to locate at fieldId
@@ -37,6 +37,9 @@ export class StructSeqProperty extends Property implements ISerializable<StructS
         return this;
     }
 
+    /**
+     * Create a copy of the property.
+     */
     copy(): StructSeqProperty {
         const p = new StructSeqProperty().deserialize(this);
         p.kinds = (this.kinds instanceof Array) ? this.kinds.slice() : this.kinds;

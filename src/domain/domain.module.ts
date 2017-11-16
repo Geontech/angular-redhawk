@@ -11,6 +11,10 @@ export { DomainService }         from './domain.service';
 export { DomainDirective }       from './domain.directive';
 export { domainServiceProvider } from './domain-service-provider';
 
+/**
+ * The DomainModule includes a directive and service for interfacing with a
+ * Domain on the REST server.
+ */
 @NgModule({
     imports:      [
         HttpModule,

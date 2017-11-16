@@ -15,6 +15,10 @@ const PIPES = [
     PropertyPipe
     ];
 
+/**
+ * The PropertyModule provides a number of pipes to facilitate in-template
+ * sorting of Property types and subclasses.
+ */
 @NgModule({
     imports:      [ ],
     exports:      PIPES,

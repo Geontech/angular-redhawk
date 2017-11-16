@@ -16,6 +16,11 @@ import { BaseService } from '../base/index';
 @Injectable()
 export class DeviceManagerService extends BaseService<DeviceManager> {
 
+    /**
+     * @param http The HTTP service for server callbacks
+     * @param restPython The REST Python service for URL serialization
+     * @param domainService The Domain service that has this DeviceManager in it
+     */
     constructor(
         protected http: Http,
         protected restPython: RestPythonService,
@@ -25,10 +30,18 @@ export class DeviceManagerService extends BaseService<DeviceManager> {
         this.modelUpdated(new DeviceManager());
     }
 
+    /**
+     * Internal, sets up the base URL
+     * @param url Sets the base URL for this service
+     */
     setBaseUrl(url: string): void {
         this._baseUrl = this.restPython.deviceManagerUrl(this.domainService.baseUrl, url);
     }
 
+    /**
+     * Internal, initiates the server call that uniquely identifies this entity
+     * to retrieve its model.
+     */
     uniqueQuery$(): Observable<DeviceManager> {
         return <Observable<DeviceManager>> this.domainService.devMgrs$(this.uniqueId);
     }

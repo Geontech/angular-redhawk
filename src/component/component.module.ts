@@ -10,6 +10,10 @@ export { ComponentService }   from './component.service';
 export { ComponentDirective } from './component.directive';
 export { componentServiceProvider } from './component-service-provider';
 
+/**
+ * The ComponentModule includes a directive and service for interfacing with a
+ * Component on the REST server.
+ */
 @NgModule({
     imports: [
         HttpModule,

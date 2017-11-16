@@ -1,7 +1,7 @@
 import { PropertySet } from '../models/index';
 
 /**
- * @interface Property command structure
+ * Property command structure
  */
 export interface IPropertyCommand {
     properties: PropertySet;

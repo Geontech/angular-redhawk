@@ -4,6 +4,8 @@
  * the waveform is started.
  */
 export interface IWaveformControlCommandResponse {
+    /** Waveform's ID */
     id: string;
+    /** true if the Waveform is started, false otherwise */
     started: boolean;
 }

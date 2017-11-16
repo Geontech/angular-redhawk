@@ -4,7 +4,7 @@ import { SimpleSeqValueType } from './simple-seq-value-type';
 import { ScaSimpleSeqType } from './sca-types';
 
 /**
- * @class A 'simpleSeq' Property
+ *  A 'simpleSeq' Property
  */
 export class SimpleSeqProperty extends SimpleCommon implements ISerializable<SimpleSeqProperty> {
     value: SimpleSeqValueType;
@@ -19,6 +19,9 @@ export class SimpleSeqProperty extends SimpleCommon implements ISerializable<Sim
         return this;
     }
 
+    /**
+     * Create a copy of the property.
+     */
     copy(): SimpleSeqProperty {
         const p = new SimpleSeqProperty().deserialize(super.copy());
         return p;

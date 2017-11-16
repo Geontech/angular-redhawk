@@ -14,6 +14,12 @@ import { DeviceManager }     from '../models/index';
 import { DeviceManagerService } from './device-manager.service';
 import { deviceManagerServiceProvider } from './device-manager-service-provider';
 
+/**
+ * The DeviceManager Directive provides access to a specific DeviceManager model
+ * 
+ * @example
+ * <div [arDeviceManager]="'DCE:...'" [(arModel)]="my_model">
+ */
 @Directive({
     selector: '[arDeviceManager]',
     exportAs: 'arDeviceManager',
@@ -21,6 +27,9 @@ import { deviceManagerServiceProvider } from './device-manager-service-provider'
 })
 export class DeviceManagerDirective implements OnDestroy, OnChanges {
 
+    /**
+     * Sets the ID for the underlying service
+     */
     @Input('arDeviceManager') deviceManagerId: string;
 
     /**
@@ -29,8 +38,13 @@ export class DeviceManagerDirective implements OnDestroy, OnChanges {
     @Input('arModel') model: DeviceManager;
     @Output('arModelChange') modelChange: EventEmitter<DeviceManager>;
 
+    /** Internal subscription for the model */
     private subscription: Subscription = null;
 
+    /**
+     * @param service The service either imported from up the hierarchy or instantiated
+     *                by this directive.
+     */
     constructor(public service: DeviceManagerService) {
         this.modelChange = new EventEmitter<DeviceManager>();
         this.subscription = this.service.model$.subscribe(it => {

@@ -6,6 +6,13 @@ import { DomainService }     from '../domain/domain.module';
 
 import { WaveformService } from './waveform.service';
 
+/**
+ * This method instantiates a new instance for service if none is provided.
+ * @param [service] An existing instance of the service 
+ * @param http The HTTP service for server callbacks
+ * @param restPython The REST Python service for URL serialization
+ * @param domainService The Domain service that can contains this Waveform
+ */
 export function serviceSelect (
     service: WaveformService,
     http: Http,

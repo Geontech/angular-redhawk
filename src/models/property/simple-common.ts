@@ -8,6 +8,9 @@ export class SimpleCommon extends Property {
     type:         string;
     enumerations: { [key: string]: string };
 
+    /**
+     * Create a copy of the property
+     */
     copy(): SimpleCommon {
         let p = new SimpleCommon().deserialize(this);
         p.kinds = (this.kinds instanceof Array) ? this.kinds.slice() : this.kinds;

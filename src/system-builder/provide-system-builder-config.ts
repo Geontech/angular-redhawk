@@ -4,7 +4,9 @@ import { SYSTEM_BUILDER_CONFIG, SystemBuilderConfig } from './config/index';
 import {
   deviceManagerProvider,
   deviceProvider,
-  domainProvider
+  domainProvider,
+  waveformProvider,
+  componentProvider
 } from './providers/index';
 
 /**
@@ -26,14 +28,32 @@ export function provideSystemBuilderConfig(config: SystemBuilderConfig): Provide
   providers.push(domainProvider(config.domain.token));
 
   // Loop over the configuration and add the providers referencing one another.
-  for (const node of config.domain.deviceManagers) {
-    node.id = node.id || '.*';
-    node.name = node.name || '.*';
-    providers.push(deviceManagerProvider(node.token, config.domain.token));
-    for (const device of node.devices) {
-      device.id = device.id || '.*';
-      device.name = device.name || '.*';
-      providers.push(deviceProvider(device.token, node.token));
+  if (config.domain.deviceManagers) {
+    for (const node of config.domain.deviceManagers) {
+      node.id = node.id || '.*';
+      node.name = node.name || '.*';
+      providers.push(deviceManagerProvider(node.token, config.domain.token));
+      if (node.devices) {
+        for (const device of node.devices) {
+          device.id = device.id || '.*';
+          device.name = device.name || '.*';
+          providers.push(deviceProvider(device.token, node.token));
+        }
+      }
+    }
+  }
+  if (config.domain.waveforms) {
+    for (const wave of config.domain.waveforms) {
+      wave.id = wave.id || '.*';
+      wave.name = wave.name || '.*';
+      providers.push(waveformProvider(wave.token, config.domain.token));
+      if (wave.components) {
+      for (const component of wave.components) {
+          component.id = component.id || '.*';
+          component.name = component.name || '.*';
+          providers.push(componentProvider(component.token, wave.token));
+        }
+      }
     }
   }
 
