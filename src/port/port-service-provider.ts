@@ -9,7 +9,6 @@ import { ComponentService }  from '../component/component.module';
 import { PortService } from './port.service';
 /**
  * This method instantiates a new instance for service if none is provided.
- * @internal
  * @param [service] An existing instance of the service
  * @param http The HTTP service for server callbacks
  * @param restPython The REST Python service for URL serialization
