@@ -126,16 +126,19 @@ export class BulkioListenerService {
     }
 
     /**
-     * Disconnect from the websocket
+     * Disconnect from the BULKIO socket.
      */
     public disconnect(): void {
-        if (this.connected) {
-            // Close the websocket by unsubscribing, and clear the interfaces.
+        if (this.socketSubscription) {
             this.socketSubscription.unsubscribe();
-            this.socketInterface = null;
-            this.socketSubscription = null;
-            this._deserializeTime = 0;
         }
+
+        if (this.socketInterface) {
+            this.socketInterface.complete();
+        }
+        this.socketInterface = null;
+        this.socketSubscription = null;
+        this._deserializeTime = 0;
     }
 
     /**
@@ -144,5 +147,6 @@ export class BulkioListenerService {
     constructor(@Inject(BULKIO_SOCKET_URL) url: string) {
         this._url = url;
         this.packet = new Subject<BulkioPacket>();
+        this.disconnect();
     }
 }
