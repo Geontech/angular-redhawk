@@ -13,9 +13,20 @@ import { RestPythonService }             from '../rest-python/rest-python.module
 import { BaseService }                   from '../base/index';
 import { RedhawkListenerService }        from '../sockets/sockets.module';
 
+/**
+ * The REDHAWK Service provides access to the REDHAWK Model on the REST server as well as
+ * serves as the starting point for the Depenency Injection (DI) hierarchy of other services
+ * such as {@link DomainService}, {@link DeviceManagerService}, and so on.
+ */
 @Injectable()
 export class RedhawkService extends BaseService<Redhawk> {
 
+    /**
+     * Constructor
+     * @param http The HTTP service for REST calls
+     * @param restPython The REST Python URL service
+     * @param rhListenerService The REDHAWK (Domain) Listener Service
+     */
     constructor(
         protected http: Http,
         protected restPython: RestPythonService,

@@ -1131,7 +1131,7 @@ the bulkio port service.</p>
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                        <a href="#call-declaration-1510866070216">Unamed property</a>
+                                        <a href="#call-declaration-1510937507441">Unamed property</a>
                                 </li>
                             </ul>
                         </td>
@@ -1150,7 +1150,7 @@ the bulkio port service.</p>
                                     <tr>
                                         <td class="col-md-4">
                                             <i>Signature :</i>
-                                            <a name="call-declaration-1510866070216"></a>
+                                            <a name="call-declaration-1510937507441"></a>
                                             <code>
                                                 <!--ts.SyntaxKind.CallSignature-->
                                                     [packet: BulkioPacket]
@@ -1174,6 +1174,12 @@ the bulkio port service.</p>
                                         </td>
                                     </tr>
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Callback for when a packet is received on the socket </p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -1199,15 +1205,17 @@ import {
  * the bulkio port service.
  */
 export interface PortReceiver {
+    /** Callback for when a packet is received on the socket */
     (packet: BulkioPacket): void;
 }
 
 /**
- * @class
  * BulkioRef is akin to the internal &quot;ref&quot; member found in the Python Shell.
  */
 export class BulkioRef extends PortRef {
+    /** The connection (or allocation) ID for the stream */
     private connectionId: string;
+    /** The socket service for this port ref. */
     private bulkioService: BulkioListenerService;
 
     /**
@@ -1370,11 +1378,19 @@ export class BulkioRef extends PortRef {
         return this.bulkioService.packetMode;
     }
 
+    /**
+     * Release the port&#x27;s underlying socket service.
+     */
     release(): void {
         this.bulkioService.disconnect();
         super.release();
     }
 
+    /**
+     * Constructor
+     * @param url The REST URL for the port
+     * @param rp the REST Python service
+     */
     constructor(public url: string, rp: RestPythonService) {
         super(url);
         this.bulkioService &#x3D; new BulkioListenerService(rp.bulkioSocketUrl(url));

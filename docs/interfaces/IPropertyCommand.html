@@ -1170,10 +1170,16 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/property/property-command.ts:7</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/property/property-command.ts:8</a></div>
                                         </td>
                                     </tr>
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The properties to submit </p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -1187,6 +1193,7 @@
  * Property command structure
  */
 export interface IPropertyCommand {
+    /** The properties to submit */
     properties: PropertySet;
 }
 
@@ -1194,6 +1201,10 @@ export interface IPropertyCommand {
  * Standard &#x27;command&#x27; interface for controlling properties on most entities.
  */
 export class PropertyCommand implements IPropertyCommand {
+    /**
+     * Constructor
+     * @param properties The Properties to include in the command
+     */
     constructor(public properties: PropertySet) {}
 }
 </code></pre>

@@ -1192,12 +1192,14 @@ resource entities at the server.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/models/resource/resource-ref.ts:17</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/models/resource/resource-ref.ts:20</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1266,10 +1268,16 @@ resource entities at the server.</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/models/resource/resource-ref.ts:15</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/models/resource/resource-ref.ts:17</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Unique ID of the resource </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1295,10 +1303,16 @@ resource entities at the server.</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/resource/resource-ref.ts:14</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/models/resource/resource-ref.ts:15</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Name of the resource </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1320,9 +1334,12 @@ resource entities at the server.</p>
  * resource entities at the server.
  */
 export class ResourceRef implements ISerializable&lt;ResourceRef&gt; {
+    /** Name of the resource */
     public name: string;
+    /** Unique ID of the resource */
     public id: string;
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         this.name &#x3D; input.name;
         this.id &#x3D; input.id;

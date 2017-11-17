@@ -1163,12 +1163,14 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/device/device-property-command.ts:20</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/device/device-property-command.ts:21</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Constructor</p>
+            </div>
                                         <div>
                                                 <b>Parameters :</b>
                                                 <table class="params">
@@ -1237,10 +1239,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/device/device-property-command.ts:22</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/device/device-property-command.ts:29</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The method to apply to the properties (configure, allocate, deallocate)</p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1260,6 +1268,7 @@ import { DevicePropertyCommandType } from &#x27;./device-property-command-type&#
  * deallocate methods.
  */
 export interface IDevicePropertyCommand extends PropertyCommand {
+    /** The method to try (configure, allocate, deallcoate) */
     method: DevicePropertyCommandType;
 }
 
@@ -1267,12 +1276,20 @@ export interface IDevicePropertyCommand extends PropertyCommand {
  * Concrete implementation of the interface, in case that is preferable.
  */
 export class DevicePropertyCommand
-        extends PropertyCommand
-        implements IDevicePropertyCommand {
+    extends PropertyCommand
+    implements IDevicePropertyCommand {
+
+    /** 
+     * Constructor
+     * @param method The method to apply to the properties (configure, allocate, deallocate)
+     * @param properties The list of properties to manipulate
+     */
     constructor(
         public method: DevicePropertyCommandType,
         properties: PropertySet
-    ) { super(properties); }
+    ) {
+        super(properties);
+    }
 }
 </code></pre>
     </div>

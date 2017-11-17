@@ -39,11 +39,15 @@ export class PortService extends BaseService<Port> {
     /** Reference to the parent service */
     protected parent: WaveformService | DeviceService | ComponentService;
 
+    /** The internal port "reference" controller */
     private _ref: PortRef = null;
+    /** Cached previous Unique ID for managing a change in the ref */
     private _previousUniqueId: string;
 
     /**
-     * NOTE: _wave, _device, or _compnent must be provided!
+     * Constructor
+     * **NOTE:** One of _wave, _device, or _component must be provided!
+     * 
      * @param http The HTTP service for server callbacks
      * @param restPython The REST Python service for URL serialization
      * @param [_wave] The Waveform service that has this Port in it

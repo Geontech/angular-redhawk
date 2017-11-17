@@ -8,14 +8,22 @@ import { PrecisionUTCTime } from './precision-utc-time';
  * Serializable REDHAWK BULKIO Packet model
  */
 export class BulkioPacket implements ISerializable<BulkioPacket> {
+    /** Stream ID */
     streamID: string;
+    /** Precision Time Stamp */
     T: PrecisionUTCTime;
+    /** End of Stream (EOS) flag */
     EOS: boolean;
+    /** Flag for if the SRI has changed */
     sriChanged: boolean;
+    /**  The Signal Related Information (SRI) structure */
     SRI: SRI;
+    /** The Data Type of the buffer */
     type: BulkioDataType;
+    /** The data buffer of the stream */
     dataBuffer: Array<number>;
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         this.streamID = input.streamID;
         this.T = new PrecisionUTCTime().deserialize(input.T);

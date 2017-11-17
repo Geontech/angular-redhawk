@@ -1181,7 +1181,7 @@ changes (added, removed, current listing)</p>
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/models/redhawk/redhawk-event.ts:10</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/redhawk/redhawk-event.ts:12</a></div>
                                         </td>
                                     </tr>
             
@@ -1211,12 +1211,14 @@ changes (added, removed, current listing)</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/models/redhawk/redhawk-event.ts:18</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/models/redhawk/redhawk-event.ts:22</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1285,10 +1287,16 @@ changes (added, removed, current listing)</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/models/redhawk/redhawk-event.ts:9</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/models/redhawk/redhawk-event.ts:10</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>List of Domain Names that were added </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1314,10 +1322,16 @@ changes (added, removed, current listing)</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/models/redhawk/redhawk-event.ts:10</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/redhawk/redhawk-event.ts:12</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>List of Domain Names that were removed </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1334,15 +1348,19 @@ import { Redhawk } from &#x27;./redhawk&#x27;;
  * changes (added, removed, current listing)
  */
 export class RedhawkEvent extends Redhawk implements ISerializable&lt;RedhawkEvent&gt; {
+    /** List of Domain Names that were added */
     public added: Array&lt;string&gt;;
+    /** List of Domain Names that were removed */
     public removed: Array&lt;string&gt;;
 
+    /** Constructor */
     constructor() {
         super();
         this.added &#x3D; [];
         this.removed &#x3D; [];
     }
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.added &#x3D; input.added;

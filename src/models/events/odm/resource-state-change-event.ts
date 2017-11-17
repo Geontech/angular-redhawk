@@ -10,9 +10,12 @@ export class ResourceStateChangeEvent
     extends OdmEvent
     implements ISerializable<ResourceStateChangeEvent> {
 
+    /** Original state of the resource */
     public stateChangeFrom: ResourceStateChange;
+    /** New state of the resource */
     public stateChangeTo:   ResourceStateChange;
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.stateChangeFrom = fromString(input.stateChangeFrom.value);

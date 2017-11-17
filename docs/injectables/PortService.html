@@ -1178,13 +1178,14 @@ include REST callbacks for FEI ports vs. websocket controls for BULKIO.</p>
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/port/port.service.ts:43</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/port/port.service.ts:45</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
-                                        <div class="io-description"><p>NOTE: _wave, _device, or _compnent must be provided!</p>
+                                        <div class="io-description"><p>Constructor
+            <strong>NOTE:</strong> One of _wave, _device, or _component must be provided!</p>
             </div>
                                         <div>
                                                 <b>Parameters :</b>
@@ -1279,7 +1280,7 @@ include REST callbacks for FEI ports vs. websocket controls for BULKIO.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="108" class="link-to-prism">src/port/port.service.ts:108</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="112" class="link-to-prism">src/port/port.service.ts:112</a></div>
                                         </td>
                                     </tr>
             
@@ -1343,7 +1344,7 @@ include REST callbacks for FEI ports vs. websocket controls for BULKIO.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">src/port/port.service.ts:92</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">src/port/port.service.ts:96</a></div>
                                         </td>
                                     </tr>
             
@@ -1407,7 +1408,7 @@ include REST callbacks for FEI ports vs. websocket controls for BULKIO.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="100" class="link-to-prism">src/port/port.service.ts:100</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="104" class="link-to-prism">src/port/port.service.ts:104</a></div>
                                         </td>
                                     </tr>
             
@@ -1454,10 +1455,16 @@ include REST callbacks for FEI ports vs. websocket controls for BULKIO.</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/port/port.service.ts:43</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/port/port.service.ts:45</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Cached previous Unique ID for managing a change in the ref </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1483,10 +1490,16 @@ include REST callbacks for FEI ports vs. websocket controls for BULKIO.</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/port/port.service.ts:42</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/port/port.service.ts:43</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The internal port &quot;reference&quot; controller </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1547,7 +1560,7 @@ include REST callbacks for FEI ports vs. websocket controls for BULKIO.</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/port/port.service.ts:86</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/port/port.service.ts:90</a></div>
                                         </td>
                                     </tr>
             
@@ -1612,11 +1625,15 @@ export class PortService extends BaseService&lt;Port&gt; {
     /** Reference to the parent service */
     protected parent: WaveformService | DeviceService | ComponentService;
 
+    /** The internal port &quot;reference&quot; controller */
     private _ref: PortRef &#x3D; null;
+    /** Cached previous Unique ID for managing a change in the ref */
     private _previousUniqueId: string;
 
     /**
-     * NOTE: _wave, _device, or _compnent must be provided!
+     * Constructor
+     * **NOTE:** One of _wave, _device, or _component must be provided!
+     * 
      * @param http The HTTP service for server callbacks
      * @param restPython The REST Python service for URL serialization
      * @param [_wave] The Waveform service that has this Port in it

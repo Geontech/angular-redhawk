@@ -1195,7 +1195,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/models/property/simple-property.ts:25</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/models/property/simple-property.ts:28</a></div>
                                         </td>
                                     </tr>
             
@@ -1229,12 +1229,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/property/simple-property.ts:13</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/models/property/simple-property.ts:16</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1308,10 +1310,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/models/property/simple-property.ts:11</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/property/simple-property.ts:13</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>SCA Type (&#39;simple&#39;) </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1337,10 +1345,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/models/property/simple-property.ts:10</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/models/property/simple-property.ts:11</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>value of the property </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1358,9 +1372,12 @@ import { ScaSimpleType } from &#x27;./sca-types&#x27;;
  * Serializable REDHAWK &#x27;simple&#x27; Property Model
  */
 export class SimpleProperty extends SimpleCommon implements ISerializable&lt;SimpleProperty&gt; {
+    /** value of the property */
     value:   SimpleValueType;
+    /** SCA Type (&#x27;simple&#x27;) */
     scaType: ScaSimpleType &#x3D; &#x27;simple&#x27;;
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.scaType &#x3D; input.scaType;

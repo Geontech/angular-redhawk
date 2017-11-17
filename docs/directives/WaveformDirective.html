@@ -1237,12 +1237,14 @@ a running Waveform (Application) in the Domain</p>
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/waveform/waveform.directive.ts:43</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/waveform/waveform.directive.ts:42</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Constructor</p>
+            </div>
                                         <div>
                                                 <b>Parameters :</b>
                                                 <table class="params">
@@ -1283,7 +1285,7 @@ a running Waveform (Application) in the Domain</p>
                                     <code>arModel</code>
                                 </td>
                                 <td class="col-md-10">
-                                    <div><p>&quot;Banana Syntax&quot; [()] for accessing the model externally.</p>
+                                    <div><p>Setter for &quot;Banana in a Box Syntax&quot;  </p>
 </div>
                                       <p>
                                         <em>Type:</em>    <code><a href="../classes/Waveform.html" target="_self" >Waveform</a></code>
@@ -1293,7 +1295,7 @@ a running Waveform (Application) in the Domain</p>
                             </tr>
                                     <tr>
                                         <td class="col-md-2" colspan="2">
-                                            <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/waveform/waveform.directive.ts:39</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/waveform/waveform.directive.ts:37</a></div>
                                         </td>
                                     </tr>
                         </tbody>
@@ -1333,13 +1335,15 @@ a running Waveform (Application) in the Domain</p>
                                     <code>arModelChange</code>
                                 </td>
                                 <td class="col-md-10">
+                                    <div><p>Emitter for &quot;Banana in a Box Syntax&quot;  </p>
+</div>
                                     <em><code>$event</code> type:</em>    <code><a href="../classes/Waveform.html" target="_self" >EventEmitter&lt;Waveform&gt;</a></code>
 
                                 </td>
                             </tr>
                                     <tr>
                                         <td class="col-md-2" colspan="2">
-                                            <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/waveform/waveform.directive.ts:40</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/waveform/waveform.directive.ts:39</a></div>
                                         </td>
                                     </tr>
                         </tbody>
@@ -1370,12 +1374,14 @@ a running Waveform (Application) in the Domain</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/waveform/waveform.directive.ts:57</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/waveform/waveform.directive.ts:61</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Implementation of the OnChanges interface updates the service&#39;s uniqueID</p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1396,7 +1402,8 @@ a running Waveform (Application) in the Domain</p>
                                                               </td>
                                                               <td>
                                                               </td>
-                                                              <td></td>
+                                                              <td><p>The changes made to this component</p>
+            </td>
                                                             </tr>
                                                     </tbody>
                                                 </table>
@@ -1431,12 +1438,14 @@ a running Waveform (Application) in the Domain</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/waveform/waveform.directive.ts:63</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/waveform/waveform.directive.ts:70</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Implementation of the OnDestroy interface unsubscribes from the model observable.</p>
+            </div>
             
                                         <div class="io-description">
                                             <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -1511,7 +1520,7 @@ a running Waveform (Application) in the Domain</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/waveform/waveform.directive.ts:43</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/waveform/waveform.directive.ts:42</a></div>
                                         </td>
                                     </tr>
             
@@ -1565,16 +1574,16 @@ export class WaveformDirective implements OnDestroy, OnChanges {
      */
     @Input(&#x27;arWaveform&#x27;) waveformId: string;
 
-    /**
-     * &quot;Banana Syntax&quot; [()] for accessing the model externally.
-     */
+    /** Setter for &quot;Banana in a Box Syntax&quot;  */
     @Input(&#x27;arModel&#x27;) model: Waveform;
+    /** Emitter for &quot;Banana in a Box Syntax&quot;  */
     @Output(&#x27;arModelChange&#x27;) modelChange: EventEmitter&lt;Waveform&gt;;
 
     /** Internal subscription for the model */
     private subscription: Subscription &#x3D; null;
 
     /**
+     * Constructor
      * @param service The service either imported from up the hierarchy or instantiated
      *                by this directive.
      */
@@ -1586,12 +1595,19 @@ export class WaveformDirective implements OnDestroy, OnChanges {
         });
     }
 
+    /**
+     * Implementation of the OnChanges interface updates the service&#x27;s uniqueID
+     * @param changes The changes made to this component
+     */
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty(&#x27;waveformId&#x27;) &amp;&amp; this.waveformId) {
             this.service.uniqueId &#x3D; this.waveformId;
         }
     }
 
+    /**
+     * Implementation of the OnDestroy interface unsubscribes from the model observable.
+     */
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }

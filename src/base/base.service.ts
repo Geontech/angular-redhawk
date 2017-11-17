@@ -48,6 +48,7 @@ export abstract class BaseService<T> {
     /** 
      * Set the unique ID of the underlying system
      * NOTE: This will cause the service to reconfigure (update).
+     * @param id The new UniqueID
      */
     set uniqueId(id: string) {
         this.reconfigure(id);
@@ -69,6 +70,7 @@ export abstract class BaseService<T> {
     }
 
     /**
+     * Constructor
      * @param http The HTTP service for server callbacks
      * @param restPython The REST Python service for URL serialization
      */

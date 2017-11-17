@@ -9,10 +9,13 @@ import { SimpleSeqProperty } from './simple-seq-property';
  * Serializable REDHAWK 'struct' Property Model
  */
 export class StructProperty extends Property implements ISerializable<StructProperty> {
+    /** The value (fields listing) of the structure */
     value:   StructValueType;
+    /** The SCA Type of the property ('struct') */
     scaType: ScaStructType = 'struct';
 
     /**
+     * Get the structure's fields (members) IDs.
      * @return {string[]} List of field IDs in this structure
      */
     getFields(): string[] {
@@ -36,6 +39,7 @@ export class StructProperty extends Property implements ISerializable<StructProp
         return undefined;
     }
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.scaType = input.scaType;

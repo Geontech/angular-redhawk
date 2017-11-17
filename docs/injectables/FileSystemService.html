@@ -1105,6 +1105,14 @@
             <code>src/filesystem/file-system.service.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>TBD
+The FileSystemService provides access to the Domain&#39;s File System.</p>
+
+            </p>
 
 
             <section>
@@ -1143,12 +1151,14 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/filesystem/file-system.service.ts:19</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/filesystem/file-system.service.ts:22</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Constructor</p>
+            </div>
                                         <div>
                                                 <b>Parameters :</b>
                                                 <table class="params">
@@ -1222,7 +1232,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/filesystem/file-system.service.ts:38</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/filesystem/file-system.service.ts:42</a></div>
                                         </td>
                                     </tr>
             
@@ -1286,7 +1296,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/filesystem/file-system.service.ts:46</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/filesystem/file-system.service.ts:50</a></div>
                                         </td>
                                     </tr>
             
@@ -1326,10 +1336,14 @@ import { RestPythonService } from &#x27;../rest-python/rest-python.module&#x27;;
 // Parent Service
 import { DomainService } from &#x27;../domain/domain.module&#x27;;
 
-
+/**
+ * TBD
+ * The FileSystemService provides access to the Domain&#x27;s File System.
+ */
 @Injectable()
 export class FileSystemService extends BaseService&lt;FileSystem&gt; {
     /**
+     * Constructor
      * @param http The HTTP service for server callbacks
      * @param restPython The REST Python service for URL serialization
      * @param domainService The Domain service that has this FileSystem in it

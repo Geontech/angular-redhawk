@@ -6,12 +6,16 @@ import { PortIDL } from './port-idl';
  * Serializable REDHAWK Port Model
  */
 export class Port implements ISerializable<Port> {
+    /** Port Name */
     public name:      string;
+    /** Representation ID  (of the interface) */
     public repId:     string;
+    /** Port Direction (Uses/Provides) */
     public direction: enums.PortDirection;
+    /** IDL expansion of repID */
     public idl:       PortIDL;
 
-    /** @property {boolean} Indicates this is a BULKIO port that supports the websocket interface. */
+    /** Indicates this is a BULKIO port that supports the websocket interface. */
     public get hasBulkioWebsocket(): boolean {
         return (
             this.direction === enums.PortDirection.Uses &&
@@ -20,7 +24,7 @@ export class Port implements ISerializable<Port> {
             );
     }
 
-    /** @property {boolean} Indicates this is an FEI port that supports the control interface. */
+    /** Indicates this is an FEI port that supports the control interface. */
     public get isFEIControllable(): boolean {
         return (
             this.direction === enums.PortDirection.Provides &&
@@ -28,6 +32,7 @@ export class Port implements ISerializable<Port> {
             );
     }
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         this.name = input.name;
         this.repId = input.repId;

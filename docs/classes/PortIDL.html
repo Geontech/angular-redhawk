@@ -1189,12 +1189,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/port/port-idl.ts:13</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/models/port/port-idl.ts:17</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1257,10 +1259,16 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/models/port/port-idl.ts:9</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/models/port/port-idl.ts:10</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Port IDL Namespace </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1280,10 +1288,16 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/models/port/port-idl.ts:11</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/port/port-idl.ts:14</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>IDL Type </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1309,10 +1323,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/models/port/port-idl.ts:10</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/port/port-idl.ts:12</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>IDL Version </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1329,10 +1349,14 @@ import * as enums from &#x27;./enums/index&#x27;;
  * Serializable REDHAWK Port IDL Model
  */
 export class PortIDL implements ISerializable&lt;PortIDL&gt; {
+    /** Port IDL Namespace */
     public namespace: enums.PortIDLNameSpace;
+    /** IDL Version */
     public version: string;
+    /** IDL Type */
     public type: enums.PortIDLType;
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         this.namespace &#x3D; enums.resolvePortIDLNameSpace(input.namespace);
         this.version &#x3D; input.version;

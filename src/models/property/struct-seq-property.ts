@@ -8,7 +8,9 @@ import { StructProperty } from './struct-property';
  * Serializable REDHAWK 'structSeq' Property Model
  */
 export class StructSeqProperty extends Property implements ISerializable<StructSeqProperty> {
+    /** The list of StructPropertys for this struct sequence */
     value: StructSeqValueType;
+    /** The SCA Type ('structseq') */
     scaType: ScaStructSeqType = 'structSeq';
 
     /**
@@ -27,6 +29,7 @@ export class StructSeqProperty extends Property implements ISerializable<StructS
         return undefined;
     }
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.scaType = input.scaType;

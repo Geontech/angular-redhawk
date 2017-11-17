@@ -1179,10 +1179,16 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/system-builder/config/domain-subsystem.ts:9</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/system-builder/config/domain-subsystem.ts:10</a></div>
                                         </td>
                                     </tr>
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Device Manager configurations in this domain </p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -1212,10 +1218,16 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/system-builder/config/domain-subsystem.ts:10</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/system-builder/config/domain-subsystem.ts:12</a></div>
                                         </td>
                                     </tr>
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Waveform configurations in this domain </p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -1231,7 +1243,9 @@ import { WaveformSubsystem } from &#x27;./waveform-subsystem&#x27;;
  * Domain Subsystem configuration
  */
 export interface DomainSubsystem extends Subsystem {
+  /** Device Manager configurations in this domain */
   deviceManagers?: DeviceManagerSubsystem[];
+  /** Waveform configurations in this domain */
   waveforms?: WaveformSubsystem[];
 }
 </code></pre>

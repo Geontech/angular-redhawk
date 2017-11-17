@@ -7,9 +7,15 @@ import { ScaSimpleSeqType } from './sca-types';
  *  A 'simpleSeq' Property
  */
 export class SimpleSeqProperty extends SimpleCommon implements ISerializable<SimpleSeqProperty> {
+    /** Array of values for the property */
     value: SimpleSeqValueType;
+    /** SCA Type ('simpleSeq') */
     scaType: ScaSimpleSeqType = 'simpleSeq';
 
+    /**
+     * Deserializes a JSON object into this class
+     * @param input JSON Object
+     */
     deserialize(input: any) {
         super.deserialize(input);
         this.scaType = input.scaType;

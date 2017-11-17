@@ -123,19 +123,32 @@ export class OdmListenerService {
         return this.serviceRemoved.asObservable();
     }
 
-    // @internal All events
+    /** All events */
     private allEvents: Subject<OdmEvent>;
 
-    // @internal Add/remove for individual elements.
+    /** device manager added */
     private deviceManagerAdded: Subject<DomainManagementObjectAddedEvent>;
+    /** device manager removed */
     private deviceManagerRemoved: Subject<DomainManagementObjectRemovedEvent>;
+
+    /** device added */
     private deviceAdded: Subject<DomainManagementObjectAddedEvent>;
+    /** device removed */
     private deviceRemoved: Subject<DomainManagementObjectRemovedEvent>;
+
+    /** application factory added */
     private applicationFactoryAdded: Subject<DomainManagementObjectAddedEvent>;
+    /** application factory removed */
     private applicationFactoryRemoved: Subject<DomainManagementObjectRemovedEvent>;
+
+    /** application added */
     private applicationAdded: Subject<DomainManagementObjectAddedEvent>;
+    /** application removed */
     private applicationRemoved: Subject<DomainManagementObjectRemovedEvent>;
+
+    /** servce added */
     private serviceAdded: Subject<DomainManagementObjectAddedEvent>;
+    /** service removed */
     private serviceRemoved: Subject<DomainManagementObjectRemovedEvent>;
 
     /**
@@ -155,6 +168,7 @@ export class OdmListenerService {
     }
 
     /**
+     * Constructor
      * @param eventChannel The Event Channel (Service) to use for connections
      */
     constructor(private eventChannel: EventChannelService) {
@@ -186,7 +200,6 @@ export class OdmListenerService {
     }
 
     /**
-     * @internal
      * Uses the event's source category to determine the subject to update.
      * @param event The Event to handle
      */
@@ -213,7 +226,6 @@ export class OdmListenerService {
     }
 
     /**
-     * @internal
      * Uses the event's source category to determine the subject to update.
      * @param event The Event to handle
      */

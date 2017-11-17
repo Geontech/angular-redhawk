@@ -1187,7 +1187,7 @@ the ability to express values as enumerations</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/property/simple-common.ts:14</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/models/property/simple-common.ts:16</a></div>
                                         </td>
                                     </tr>
             
@@ -1234,10 +1234,16 @@ the ability to express values as enumerations</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/models/property/simple-common.ts:9</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/models/property/simple-common.ts:11</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Enumeration map related to the value, if any </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1263,10 +1269,16 @@ the ability to express values as enumerations</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/models/property/simple-common.ts:8</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/models/property/simple-common.ts:9</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The data type of the value </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1282,7 +1294,9 @@ the ability to express values as enumerations</p>
  * the ability to express values as enumerations
  */
 export class SimpleCommon extends Property {
+    /** The data type of the value */
     type:         string;
+    /** Enumeration map related to the value, if any */
     enumerations: { [key: string]: string };
 
     /**

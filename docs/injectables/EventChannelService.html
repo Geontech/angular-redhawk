@@ -1171,12 +1171,14 @@ subscribe to any channel (WebSocket topics) based on domain ID.</p>
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/sockets/events/generic/event-channel.service.ts:73</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/sockets/events/generic/event-channel.service.ts:74</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Constructor</p>
+            </div>
                                         <div>
                                                 <b>Parameters :</b>
                                                 <table class="params">
@@ -1381,7 +1383,7 @@ subscribe to any channel (WebSocket topics) based on domain ID.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/sockets/events/generic/event-channel.service.ts:71</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/sockets/events/generic/event-channel.service.ts:72</a></div>
                                         </td>
                                     </tr>
             
@@ -1409,7 +1411,8 @@ subscribe to any channel (WebSocket topics) based on domain ID.</p>
                                                               </td>
                                                               <td>
                                                               </td>
-                                                              <td></td>
+                                                              <td><p>The object to send across the socket.</p>
+            </td>
                                                             </tr>
                                                     </tbody>
                                                 </table>
@@ -1495,6 +1498,12 @@ subscribe to any channel (WebSocket topics) based on domain ID.</p>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>All events and &quot;send&quot; interface </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1532,7 +1541,7 @@ import { IEventChannelCommand } from &#x27;./event-channel-command&#x27;;
 @Injectable()
 export class EventChannelService {
 
-    // All events and &quot;send&quot; interface
+    /** All events and &quot;send&quot; interface */
     private socketInterface: Subject&lt;OdmEvent|IdmEvent|RhMessage|IEventChannelCommand&gt;;
 
     /**
@@ -1572,12 +1581,14 @@ export class EventChannelService {
 
     /**
      * FUTURE USE
+     * @param payload The object to send across the socket.
      */
     public send(payload: Object) {
         alert(&#x27;This method is reserved for future use.&#x27;);
     }
 
     /**
+     * Constructor
      * @param restPython The REST Python service for mapping to the socket interface
      */
     constructor(restPython: RestPythonService) {

@@ -1189,12 +1189,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/events/odm/domain-management-object-event.ts:14</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/models/events/odm/domain-management-object-event.ts:16</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1263,10 +1265,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/events/odm/domain-management-object-event.ts:12</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/events/odm/domain-management-object-event.ts:13</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Entity that produced this event </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1286,8 +1294,10 @@ export class DomainManagementObjectEvent
     extends OdmEvent
     implements ISerializable&lt;DomainManagementObjectEvent&gt; {
 
+    /** Entity that produced this event */
     public producerId: string;
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.producerId &#x3D; input.producerId;

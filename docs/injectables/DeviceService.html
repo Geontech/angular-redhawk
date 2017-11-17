@@ -1105,6 +1105,14 @@
             <code>src/device/device.service.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The Device Service provides access to the Device Model on the REST server as well as
+serves as methods for controlling it and its ports and properties.</p>
+
+            </p>
 
 
             <section>
@@ -1155,12 +1163,14 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/device/device.service.ts:26</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/device/device.service.ts:30</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Constructor</p>
+            </div>
                                         <div>
                                                 <b>Parameters :</b>
                                                 <table class="params">
@@ -1235,7 +1245,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/device/device.service.ts:77</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/device/device.service.ts:82</a></div>
                                         </td>
                                     </tr>
             
@@ -1312,7 +1322,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/device/device.service.ts:63</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/device/device.service.ts:68</a></div>
                                         </td>
                                     </tr>
             
@@ -1389,7 +1399,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">src/device/device.service.ts:91</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">src/device/device.service.ts:96</a></div>
                                         </td>
                                     </tr>
             
@@ -1466,12 +1476,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="99" class="link-to-prism">src/device/device.service.ts:99</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">src/device/device.service.ts:110</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Common device property command method</p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1492,7 +1504,8 @@
                                                               </td>
                                                               <td>
                                                               </td>
-                                                              <td></td>
+                                                              <td><p>The command to issue</p>
+            </td>
                                                             </tr>
                                                             <tr>
                                                               <td>responseDelayMs</td>
@@ -1502,7 +1515,8 @@
                                                               <td>
                                                                   true
                                                               </td>
-                                                              <td></td>
+                                                              <td><p>Any delay (milliseconds to delay before the model is updated)</p>
+            </td>
                                                             </tr>
                                                     </tbody>
                                                 </table>
@@ -1537,7 +1551,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/device/device.service.ts:45</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/device/device.service.ts:50</a></div>
                                         </td>
                                     </tr>
             
@@ -1601,7 +1615,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/device/device.service.ts:53</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/device/device.service.ts:58</a></div>
                                         </td>
                                     </tr>
             
@@ -1649,9 +1663,14 @@ import { IDevicePropertyCommandResponse } from &#x27;./device-property-command-r
  */
 let DEFAULT_DELAY_RESPONSE_MS &#x3D; 10000;
 
+/**
+ * The Device Service provides access to the Device Model on the REST server as well as
+ * serves as methods for controlling it and its ports and properties.
+ */
 @Injectable()
 export class DeviceService extends PortBearingService&lt;Device&gt; {
     /**
+     * Constructor
      * @param http The HTTP service for server callbacks
      * @param restPython The REST Python service for URL serialization
      * @param dmService The DeviceManager service that has this Device in it
@@ -1723,6 +1742,12 @@ export class DeviceService extends PortBearingService&lt;Device&gt; {
         return this.sendDevicePropertyCommand$(command);
     }
 
+    /**
+     * Common device property command method
+     * @internal
+     * @param command The command to issue
+     * @param responseDelayMs Any delay (milliseconds to delay before the model is updated)
+     */
     private sendDevicePropertyCommand$(
         command: DevicePropertyCommand,
         responseDelayMs?: number

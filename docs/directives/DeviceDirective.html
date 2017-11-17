@@ -1238,12 +1238,14 @@ to its ports.</p>
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/device/device.directive.ts:46</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/device/device.directive.ts:45</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Constructor</p>
+            </div>
                                         <div>
                                                 <b>Parameters :</b>
                                                 <table class="params">
@@ -1307,7 +1309,7 @@ to its ports.</p>
                                     <code>arModel</code>
                                 </td>
                                 <td class="col-md-10">
-                                    <div><p>&quot;Banana Syntax&quot; [()] for accessing the model externally.</p>
+                                    <div><p>Setter for &quot;Banana in a Box Syntax&quot;  </p>
 </div>
                                       <p>
                                         <em>Type:</em>    <code><a href="../classes/Device.html" target="_self" >Device</a></code>
@@ -1317,7 +1319,7 @@ to its ports.</p>
                             </tr>
                                     <tr>
                                         <td class="col-md-2" colspan="2">
-                                            <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/device/device.directive.ts:42</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/device/device.directive.ts:40</a></div>
                                         </td>
                                     </tr>
                         </tbody>
@@ -1334,13 +1336,15 @@ to its ports.</p>
                                     <code>arModelChange</code>
                                 </td>
                                 <td class="col-md-10">
+                                    <div><p>Emitter for &quot;Banana in a Box Syntax&quot;  </p>
+</div>
                                     <em><code>$event</code> type:</em>    <code><a href="../classes/Device.html" target="_self" >EventEmitter&lt;Device&gt;</a></code>
 
                                 </td>
                             </tr>
                                     <tr>
                                         <td class="col-md-2" colspan="2">
-                                            <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/device/device.directive.ts:43</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/device/device.directive.ts:42</a></div>
                                         </td>
                                     </tr>
                         </tbody>
@@ -1371,12 +1375,14 @@ to its ports.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/device/device.directive.ts:60</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/device/device.directive.ts:64</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Implementation of the OnChanges interface updates the service&#39;s uniqueID</p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1397,7 +1403,8 @@ to its ports.</p>
                                                               </td>
                                                               <td>
                                                               </td>
-                                                              <td></td>
+                                                              <td><p>The changes made to this component</p>
+            </td>
                                                             </tr>
                                                     </tbody>
                                                 </table>
@@ -1432,12 +1439,14 @@ to its ports.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/device/device.directive.ts:66</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/device/device.directive.ts:73</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Implementation of the OnDestroy interface unsubscribes from the model observable.</p>
+            </div>
             
                                         <div class="io-description">
                                             <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -1512,7 +1521,7 @@ to its ports.</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/device/device.directive.ts:46</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/device/device.directive.ts:45</a></div>
                                         </td>
                                     </tr>
             
@@ -1569,16 +1578,16 @@ export class DeviceDirective implements OnDestroy, OnChanges {
      */
     @Input(&#x27;arDevice&#x27;) deviceId: string;
 
-    /**
-     * &quot;Banana Syntax&quot; [()] for accessing the model externally.
-     */
+    /** Setter for &quot;Banana in a Box Syntax&quot;  */
     @Input(&#x27;arModel&#x27;) model: Device;
+    /** Emitter for &quot;Banana in a Box Syntax&quot;  */
     @Output(&#x27;arModelChange&#x27;) modelChange: EventEmitter&lt;Device&gt;;
 
     /** Internal subscription for the model */
     private subscription: Subscription &#x3D; null;
 
     /**
+     * Constructor
      * @param service The service either imported from up the hierarchy or instantiated
      *                by this directive.
      */
@@ -1590,12 +1599,19 @@ export class DeviceDirective implements OnDestroy, OnChanges {
         });
     }
 
+    /**
+     * Implementation of the OnChanges interface updates the service&#x27;s uniqueID
+     * @param changes The changes made to this component
+     */
     ngOnChanges(changes: SimpleChanges) {
         if (changes.hasOwnProperty(&#x27;deviceId&#x27;) &amp;&amp; this.deviceId) {
             this.service.uniqueId &#x3D; this.deviceId;
         }
     }
 
+    /**
+     * Implementation of the OnDestroy interface unsubscribes from the model observable.
+     */
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }
