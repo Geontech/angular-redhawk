@@ -1,6 +1,6 @@
 {
   "name": "angular-redhawk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Angular library for interfacing with REDHAWK SDR via Geon's fork of REST-python",
   "scripts": {
     "build": "gulp build",
