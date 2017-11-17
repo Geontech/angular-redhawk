@@ -27,7 +27,7 @@ import { IEventChannelCommand } from './event-channel-command';
 @Injectable()
 export class EventChannelService {
 
-    // All events and "send" interface
+    /** All events and "send" interface */
     private socketInterface: Subject<OdmEvent|IdmEvent|RhMessage|IEventChannelCommand>;
 
     /**
@@ -67,12 +67,14 @@ export class EventChannelService {
 
     /**
      * FUTURE USE
+     * @param payload The object to send across the socket.
      */
     public send(payload: Object) {
         alert('This method is reserved for future use.');
     }
 
     /**
+     * Constructor
      * @param restPython The REST Python service for mapping to the socket interface
      */
     constructor(restPython: RestPythonService) {

@@ -1,15 +1,15 @@
 import { ISerializable } from '../../serialization/index';
 
-import { IdmEvent }      from './idm-event';
 import { IdmStateEvent } from './idm-state-event';
 import { OperationalState } from './enums/index';
 
 /**
  * Serializable REDHAWK IDM Operational State Event model
  */
-export class OperationalStateEvent 
-    extends IdmStateEvent<OperationalState> 
+export class OperationalStateEvent
+    extends IdmStateEvent<OperationalState>
     implements ISerializable<OperationalStateEvent> {
+    /** Deserializes a JSON object into this data type. */
     deserialize(input: any) {
         super.deserialize(input);
         this.stateChangeFrom = fromString(input.stateChangeFrom.value);

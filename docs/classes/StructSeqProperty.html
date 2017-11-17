@@ -1198,7 +1198,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/models/property/struct-seq-property.ts:43</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/models/property/struct-seq-property.ts:46</a></div>
                                         </td>
                                     </tr>
             
@@ -1232,12 +1232,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/models/property/struct-seq-property.ts:30</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/models/property/struct-seq-property.ts:33</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1293,7 +1295,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/models/property/struct-seq-property.ts:20</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/models/property/struct-seq-property.ts:22</a></div>
                                         </td>
                                     </tr>
             
@@ -1385,10 +1387,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/property/struct-seq-property.ts:12</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/property/struct-seq-property.ts:14</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The SCA Type (&#39;structseq&#39;) </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1414,10 +1422,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/models/property/struct-seq-property.ts:11</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/property/struct-seq-property.ts:12</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The list of StructPropertys for this struct sequence </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1436,7 +1450,9 @@ import { StructProperty } from &#x27;./struct-property&#x27;;
  * Serializable REDHAWK &#x27;structSeq&#x27; Property Model
  */
 export class StructSeqProperty extends Property implements ISerializable&lt;StructSeqProperty&gt; {
+    /** The list of StructPropertys for this struct sequence */
     value: StructSeqValueType;
+    /** The SCA Type (&#x27;structseq&#x27;) */
     scaType: ScaStructSeqType &#x3D; &#x27;structSeq&#x27;;
 
     /**
@@ -1455,6 +1471,7 @@ export class StructSeqProperty extends Property implements ISerializable&lt;Stru
         return undefined;
     }
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.scaType &#x3D; input.scaType;

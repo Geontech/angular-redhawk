@@ -1237,12 +1237,14 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/domain/domain.directive.ts:46</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/domain/domain.directive.ts:45</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Constructor</p>
+            </div>
                                         <div>
                                                 <b>Parameters :</b>
                                                 <table class="params">
@@ -1306,7 +1308,7 @@
                                     <code>arModel</code>
                                 </td>
                                 <td class="col-md-10">
-                                    <div><p>&quot;Banana Syntax&quot; [()] for accessing the model externally.</p>
+                                    <div><p>Setter for &quot;Banana in a Box Syntax&quot;  </p>
 </div>
                                       <p>
                                         <em>Type:</em>    <code><a href="../classes/Domain.html" target="_self" >Domain</a></code>
@@ -1316,7 +1318,7 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-2" colspan="2">
-                                            <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/domain/domain.directive.ts:42</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/domain/domain.directive.ts:40</a></div>
                                         </td>
                                     </tr>
                         </tbody>
@@ -1333,13 +1335,15 @@
                                     <code>arModelChange</code>
                                 </td>
                                 <td class="col-md-10">
+                                    <div><p>Emitter for &quot;Banana in a Box Syntax&quot;  </p>
+</div>
                                     <em><code>$event</code> type:</em>    <code><a href="../classes/Domain.html" target="_self" >EventEmitter&lt;Domain&gt;</a></code>
 
                                 </td>
                             </tr>
                                     <tr>
                                         <td class="col-md-2" colspan="2">
-                                            <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/domain/domain.directive.ts:43</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/domain/domain.directive.ts:42</a></div>
                                         </td>
                                     </tr>
                         </tbody>
@@ -1370,12 +1374,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/domain/domain.directive.ts:60</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/domain/domain.directive.ts:64</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Implementation of the OnChanges interface updates the service&#39;s uniqueID</p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1396,7 +1402,8 @@
                                                               </td>
                                                               <td>
                                                               </td>
-                                                              <td></td>
+                                                              <td><p>The changes made to this component</p>
+            </td>
                                                             </tr>
                                                     </tbody>
                                                 </table>
@@ -1431,12 +1438,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/domain/domain.directive.ts:67</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/domain/domain.directive.ts:74</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Implementation of the OnDestroy interface unsubscribes from the model observable.</p>
+            </div>
             
                                         <div class="io-description">
                                             <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -1511,7 +1520,7 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/domain/domain.directive.ts:46</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/domain/domain.directive.ts:45</a></div>
                                         </td>
                                     </tr>
             
@@ -1568,16 +1577,16 @@ export class DomainDirective implements OnDestroy, OnChanges {
      */
     @Input(&#x27;arDomain&#x27;) domainId: string;
 
-    /**
-     * &quot;Banana Syntax&quot; [()] for accessing the model externally.
-     */
+    /** Setter for &quot;Banana in a Box Syntax&quot;  */
     @Input(&#x27;arModel&#x27;) model: Domain;
+    /** Emitter for &quot;Banana in a Box Syntax&quot;  */
     @Output(&#x27;arModelChange&#x27;) modelChange: EventEmitter&lt;Domain&gt;;
 
     /** Internal subscription for the model */
     private subscription: Subscription &#x3D; null;
 
     /**
+     * Constructor
      * @param service The service either imported from up the hierarchy or instantiated
      *                by this directive.
      */
@@ -1589,6 +1598,10 @@ export class DomainDirective implements OnDestroy, OnChanges {
         });
     }
 
+    /**
+     * Implementation of the OnChanges interface updates the service&#x27;s uniqueID
+     * @param changes The changes made to this component
+     */
     ngOnChanges(changes: SimpleChanges) {
         const domainId &#x3D; &#x27;domainId&#x27;;
         if (changes.hasOwnProperty(domainId) &amp;&amp; this.domainId !&#x3D;&#x3D; undefined) {
@@ -1596,6 +1609,9 @@ export class DomainDirective implements OnDestroy, OnChanges {
         }
     }
 
+    /**
+     * Implementation of the OnDestroy interface unsubscribes from the model observable.
+     */
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }

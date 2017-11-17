@@ -9,8 +9,13 @@ import { PortRef } from './port.ref';
  * extended information.  This is simply a base class for the other FEI types.
  */
 export class FeiRef extends PortRef {
+    /** The HTTP service being used with this port reference */
     public http: Http;
 
+    /**
+     * Constructor
+     * @param url The URL of the port.
+     */
     constructor (public url: string) {
         super(url);
         let providers = ReflectiveInjector.resolve([Http]);
@@ -18,8 +23,9 @@ export class FeiRef extends PortRef {
         this.http = injector.get(Http);
     }
 
-    release() { /** INTENTIONALLY EMPTY */ }
-
+    /**
+     * Queries the FEI port for the named parameter.
+     */
     protected query$(param?: string): Observable<any> {
         let target: string = this.url;
         if (param) {

@@ -1177,7 +1177,7 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/models/filesystem/file-system.ts:10</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/filesystem/file-system.ts:13</a></div>
                                         </td>
                                     </tr>
             
@@ -1207,12 +1207,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/models/filesystem/file-system.ts:17</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/models/filesystem/file-system.ts:22</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1281,10 +1283,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/models/filesystem/file-system.ts:10</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/filesystem/file-system.ts:13</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Contents of the path (if it&#39;s a file) </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1310,10 +1318,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/models/filesystem/file-system.ts:9</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/models/filesystem/file-system.ts:11</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Directories in the path </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1339,10 +1353,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/models/filesystem/file-system.ts:8</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/models/filesystem/file-system.ts:9</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Files in the path </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1358,15 +1378,20 @@ import { IFileSystemPath } from &#x27;./file-system-path&#x27;;
  * Serializable REDHAWK Model of the SCA FileSystem interface.
  */
 export class FileSystem implements ISerializable&lt;FileSystem&gt; {
+    /** Files in the path */
     files:       Array&lt;IFileSystemPath&gt;;
+    /** Directories in the path */
     directories: Array&lt;IFileSystemPath&gt;;
+    /** Contents of the path (if it&#x27;s a file) */
     contents:    string;
 
+    /** Constructor */
     constructor() {
         this.files &#x3D; [];
         this.directories &#x3D; [];
     }
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         this.files &#x3D; input.files;
         this.directories &#x3D; input.directories;

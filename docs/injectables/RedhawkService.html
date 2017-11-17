@@ -1105,6 +1105,15 @@
             <code>src/redhawk/redhawk.service.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The REDHAWK Service provides access to the REDHAWK Model on the REST server as well as
+serves as the starting point for the Depenency Injection (DI) hierarchy of other services
+such as <a href="../injectables/DomainService.html">DomainService</a>, <a href="../injectables/DeviceManagerService.html">DeviceManagerService</a>, and so on.</p>
+
+            </p>
 
 
             <section>
@@ -1152,12 +1161,14 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/redhawk/redhawk.service.ts:17</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/redhawk/redhawk.service.ts:22</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Constructor</p>
+            </div>
                                         <div>
                                                 <b>Parameters :</b>
                                                 <table class="params">
@@ -1177,7 +1188,8 @@
                                                               </td>
                                                               <td>
                                                               </td>
-                                                              <td></td>
+                                                              <td><p>The HTTP service for REST calls</p>
+            </td>
                                                             </tr>
                                                             <tr>
                                                               <td>restPython</td>
@@ -1186,7 +1198,8 @@
                                                               </td>
                                                               <td>
                                                               </td>
-                                                              <td></td>
+                                                              <td><p>The REST Python URL service</p>
+            </td>
                                                             </tr>
                                                             <tr>
                                                               <td>rhListenerService</td>
@@ -1195,7 +1208,8 @@
                                                               </td>
                                                               <td>
                                                               </td>
-                                                              <td></td>
+                                                              <td><p>The REDHAWK (Domain) Listener Service</p>
+            </td>
                                                             </tr>
                                                     </tbody>
                                                 </table>
@@ -1229,7 +1243,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/redhawk/redhawk.service.ts:69</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/redhawk/redhawk.service.ts:80</a></div>
                                         </td>
                                     </tr>
             
@@ -1294,7 +1308,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/redhawk/redhawk.service.ts:58</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/redhawk/redhawk.service.ts:69</a></div>
                                         </td>
                                     </tr>
             
@@ -1329,7 +1343,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/redhawk/redhawk.service.ts:77</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">src/redhawk/redhawk.service.ts:88</a></div>
                                         </td>
                                     </tr>
             
@@ -1363,7 +1377,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/redhawk/redhawk.service.ts:42</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/redhawk/redhawk.service.ts:53</a></div>
                                         </td>
                                     </tr>
             
@@ -1427,7 +1441,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/redhawk/redhawk.service.ts:50</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/redhawk/redhawk.service.ts:61</a></div>
                                         </td>
                                     </tr>
             
@@ -1466,9 +1480,20 @@ import { RestPythonService }             from &#x27;../rest-python/rest-python.m
 import { BaseService }                   from &#x27;../base/index&#x27;;
 import { RedhawkListenerService }        from &#x27;../sockets/sockets.module&#x27;;
 
+/**
+ * The REDHAWK Service provides access to the REDHAWK Model on the REST server as well as
+ * serves as the starting point for the Depenency Injection (DI) hierarchy of other services
+ * such as {@link DomainService}, {@link DeviceManagerService}, and so on.
+ */
 @Injectable()
 export class RedhawkService extends BaseService&lt;Redhawk&gt; {
 
+    /**
+     * Constructor
+     * @param http The HTTP service for REST calls
+     * @param restPython The REST Python URL service
+     * @param rhListenerService The REDHAWK (Domain) Listener Service
+     */
     constructor(
         protected http: Http,
         protected restPython: RestPythonService,

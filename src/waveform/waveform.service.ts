@@ -14,11 +14,15 @@ import { DomainService }                     from '../domain/domain.module';
 import { IWaveformControlCommand }         from './waveform-control-command';
 import { IWaveformControlCommandResponse } from './waveform-control-command-response';
 import { IWaveformReleaseResponse }        from './waveform-release-response';
-
+/**
+ * The Waveform Service provides access to the Waveform Model on the REST server as well as
+ * access to its components, ports, and properties.
+ */
 @Injectable()
 export class WaveformService extends PortBearingService<Waveform> {
 
     /**
+     * Constructor
      * @param http The HTTP service for server callbacks
      * @param restPython The REST Python service for URL serialization
      * @param domainService The Domain service that can contains this Waveform
@@ -96,7 +100,6 @@ export class WaveformService extends PortBearingService<Waveform> {
 
     /**
      * Common method shared by start and stop for issuing the command to the server.
-     * @internal
      * @param command The command to issue (start/stop)
      */
     private controlCommand$(command: IWaveformControlCommand): Observable<IWaveformControlCommandResponse> {

@@ -1,6 +1,5 @@
 import { ISerializable }       from '../../serialization/index';
 
-import { IdmEvent }            from './idm-event';
 import { IdmStateEvent }       from './idm-state-event';
 import { AdministrativeState } from './enums/index';
 
@@ -10,6 +9,8 @@ import { AdministrativeState } from './enums/index';
 export class AdministrativeStateEvent
     extends IdmStateEvent<AdministrativeState>
     implements ISerializable<AdministrativeStateEvent> {
+
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.stateChangeFrom = fromString(input.stateChangeFrom.value);

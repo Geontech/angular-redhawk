@@ -1195,12 +1195,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/models/events/idm/abnormal-component-termination-event.ts:16</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/models/events/idm/abnormal-component-termination-event.ts:20</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1269,10 +1271,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/events/idm/abnormal-component-termination-event.ts:14</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/models/events/idm/abnormal-component-termination-event.ts:17</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Application ID where the Component was </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1298,10 +1306,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/events/idm/abnormal-component-termination-event.ts:13</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/models/events/idm/abnormal-component-termination-event.ts:15</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Component ID that terminated </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1327,10 +1341,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/events/idm/abnormal-component-termination-event.ts:12</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/events/idm/abnormal-component-termination-event.ts:13</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Device ID that was executing the component </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1349,11 +1369,15 @@ import { IdmEvent } from &#x27;./idm-event&#x27;;
 export class AbnormalComponentTerminationEvent
     extends IdmEvent
     implements ISerializable&lt;AbnormalComponentTerminationEvent&gt; {
-        
+
+        /** Device ID that was executing the component */
         public deviceId: string;
+        /** Component ID that terminated */
         public componentId: string;
+        /** Application ID where the Component was */
         public applicationId: string;
 
+        /** Deserializes a JSON object into this class */
         deserialize(input: any) {
             this.deviceId      &#x3D; input.deviceId;
             this.componentId   &#x3D; input.componentId;

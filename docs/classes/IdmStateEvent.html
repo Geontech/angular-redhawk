@@ -1195,12 +1195,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/models/events/idm/idm-state-event.ts:17</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/models/events/idm/idm-state-event.ts:20</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1273,6 +1275,12 @@
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Source ID of the event </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1298,10 +1306,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/events/idm/idm-state-event.ts:14</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/models/events/idm/idm-state-event.ts:15</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The original state of the source </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1327,10 +1341,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/models/events/idm/idm-state-event.ts:15</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/models/events/idm/idm-state-event.ts:17</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The new state of the source </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1342,7 +1362,6 @@
         <pre class="line-numbers"><code class="language-typescript">import { ISerializable } from &#x27;../../serialization/index&#x27;;
 
 import { IdmEvent }            from &#x27;./idm-event&#x27;;
-import { StateChangeCategory } from &#x27;./enums/index&#x27;;
 
 /**
  * Serializable, Generic IDM state event base class
@@ -1351,10 +1370,14 @@ export class IdmStateEvent&lt;T&gt;
     extends IdmEvent
     implements ISerializable&lt;IdmStateEvent&lt;T&gt;&gt; {
 
+        /** Source ID of the event */
         sourceId: string;
+        /** The original state of the source */
         stateChangeFrom: T;
+        /** The new state of the source */
         stateChangeTo: T;
 
+        /** Deserializes a JSON object into this class */
         deserialize(input: any) {
             this.sourceId &#x3D; input.sourceId;
             return this;

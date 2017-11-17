@@ -36,6 +36,7 @@ import { OdmListenerService } from '../sockets/sockets.module';
 @Injectable()
 export class DomainService extends BaseService<models.Domain> {
     /**
+     * Constructor
      * @param http The HTTP service for server callbacks
      * @param restPython The REST Python service for URL serialization
      * @param redhawkService The REDHAWK service that can contains this Domain
@@ -81,7 +82,10 @@ export class DomainService extends BaseService<models.Domain> {
     }
 
 
-    // Configure properties
+    /**
+     * Configures the domain's properties properties
+     * @param properties The list of properties to configure
+     */
     public configure(properties: models.PropertySet): void {
         let command = new PropertyCommand(properties);
         this.http
@@ -90,7 +94,11 @@ export class DomainService extends BaseService<models.Domain> {
         this.delayedUpdate();
     }
 
-    // Get a list of running apps or a specific instance
+    /**
+     * Get a list of running apps or a specific instance
+     * @param [waveformId] The ID of the waveform model to get.  If none provided, a list is returned.
+     * @returns Observable Waveform or ResourceRefs
+     */
     public apps$(waveformId?: string): Observable<models.Waveform> | Observable<models.ResourceRefs> {
         if (waveformId) {
             return this.http
@@ -105,7 +113,11 @@ export class DomainService extends BaseService<models.Domain> {
         }
     }
 
-    // Get a list of launchable waveforms
+    /**
+     * Get a list of launchable waveforms
+     * Note: this is also on the [Domain's model]{@link Domain#waveforms}
+     * @returns Observable WaveformSADRefs
+     */
     public catalogSads$(): Observable<models.WaveformSADRefs> {
         return this.http
             .get(this.baseUrl)
@@ -113,7 +125,12 @@ export class DomainService extends BaseService<models.Domain> {
             .catch(this.handleError);
     }
 
-    // Launch a waveform
+    /**
+     * Launch a waveform
+     * @param waveformName The [name]{@link WaveformSAD#name} of the Waveform
+     * @param [started] Whether or not to also start (or not) the waveform (default stopped).
+     * @returns Obsevable IWaveformLaunchCommandResponse
+     */
     public launch$(waveformName: string, started?: boolean): Observable<IWaveformLaunchCommandResponse> {
         let command: IWaveformLaunchCommand = { name: waveformName, started: started || false};
         return this.http
@@ -125,7 +142,11 @@ export class DomainService extends BaseService<models.Domain> {
             .catch(this.handleError);
     }
 
-    // Get a list of device managers or a specific instance
+    /**
+     * Get a list of device managers or a specific instance
+     * @param [deviceManagerId] The device manager model to retrieve.  If none provided, returns a listing.
+     * @returns Observable DeviceManager or DeviceManagerRefs
+     */
     public devMgrs$(deviceManagerId?: string): Observable<models.DeviceManager> | Observable<models.DeviceManagerRefs> {
         if (deviceManagerId) {
             return this.http
@@ -140,7 +161,12 @@ export class DomainService extends BaseService<models.Domain> {
         }
     }
 
-    // Get a list of devices or a specific instance
+    /**
+     * Get a device model or a listing of available devices
+     * @param deviceManagerId The device manager's ID containing the Device(s)
+     * @param [deviceId] The device ID to retrieve.  If none, a listing is returned.
+     * @returns Observable Device or ResourceRefs
+     */
     public devices$(deviceManagerId: string, deviceId?: string): Observable<models.Device> | Observable<models.ResourceRefs> {
         let devMgrUrl = this.restPython.deviceManagerUrl(this.baseUrl, deviceManagerId);
         if (deviceId) {
@@ -156,6 +182,7 @@ export class DomainService extends BaseService<models.Domain> {
         }
     }
 
+    /** Common 'reconfigure' method to reconnect to the ODM listener when the uniqueID changes. */
     protected reconfigure(id: string) {
         if (this._uniqueId) {
             this.odmListener.disconnect(this._uniqueId);

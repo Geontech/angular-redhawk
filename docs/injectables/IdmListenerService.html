@@ -1191,12 +1191,14 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="103" class="link-to-prism">src/sockets/events/idm/idm-listener.service.ts:103</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="106" class="link-to-prism">src/sockets/events/idm/idm-listener.service.ts:106</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Constructor</p>
+            </div>
                                         <div>
                                                 <b>Parameters :</b>
                                                 <table class="params">
@@ -1251,7 +1253,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">src/sockets/events/idm/idm-listener.service.ts:93</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">src/sockets/events/idm/idm-listener.service.ts:96</a></div>
                                         </td>
                                     </tr>
             
@@ -1316,7 +1318,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">src/sockets/events/idm/idm-listener.service.ts:101</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="104" class="link-to-prism">src/sockets/events/idm/idm-listener.service.ts:104</a></div>
                                         </td>
                                     </tr>
             
@@ -1392,10 +1394,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/sockets/events/idm/idm-listener.service.ts:87</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/sockets/events/idm/idm-listener.service.ts:90</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Abnormal termination events </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1460,6 +1468,12 @@
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Administrative state events </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1524,6 +1538,12 @@
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>All events </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1584,10 +1604,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">src/sockets/events/idm/idm-listener.service.ts:85</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/sockets/events/idm/idm-listener.service.ts:86</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Operational state events </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1648,10 +1674,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/sockets/events/idm/idm-listener.service.ts:86</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">src/sockets/events/idm/idm-listener.service.ts:88</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Usage State events </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1774,13 +1806,16 @@ export class IdmListenerService {
         return this.abnormalComponentTerminationChanged.asObservable();
     }
 
-    // All events
+    /** All events */
     private allEvents: Subject&lt;IdmEvent&gt;;
 
-    // Administrative, Operational, and Usage State events
+    /** Administrative state events */
     private administrativeStateChanged: Subject&lt;AdministrativeStateEvent&gt;;
+    /** Operational state events */
     private operationalStateChanged: Subject&lt;OperationalStateEvent&gt;;
+    /** Usage State events */
     private usageStateChanged: Subject&lt;UsageStateEvent&gt;;
+    /** Abnormal termination events */
     private abnormalComponentTerminationChanged: Subject&lt;AbnormalComponentTerminationEvent&gt;;
 
     /**
@@ -1800,6 +1835,7 @@ export class IdmListenerService {
     }
 
     /**
+     * Constructor
      * @param eventChannel The Event Channel (Service) to use for connections
      */
     constructor(private eventChannel: EventChannelService) {

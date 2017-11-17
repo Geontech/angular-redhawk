@@ -40,10 +40,19 @@ function subsystemMatches(id: string, name: string, subsys: Subsystem): boolean 
   exportAs: 'arSystemBuilder'
 })
 export class SystemBuilderDirective {
+  /** The Injector for fetching services */
   private injector: Injector;
+  /** The SystemBuilder configuration being managed */
   private config: SystemBuilderConfig;
+  /** The REDHAWK service used for model look-ups */
   private redhawk: RedhawkService;
 
+  /**
+   * Constructor
+   * @param injector The parent injector for finding the pre-loaded services
+   * @param redhawk The REDHAWK Service for locating the entities related to the services
+   * @param config The user's SystemBuilder configuration for this directive to manage
+   */
   constructor(
     injector: Injector,
     redhawk: RedhawkService,

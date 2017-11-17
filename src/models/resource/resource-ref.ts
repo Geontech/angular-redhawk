@@ -11,9 +11,12 @@ import { ISerializable } from '../serialization/index';
  * resource entities at the server.
  */
 export class ResourceRef implements ISerializable<ResourceRef> {
+    /** Name of the resource */
     public name: string;
+    /** Unique ID of the resource */
     public id: string;
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         this.name = input.name;
         this.id = input.id;

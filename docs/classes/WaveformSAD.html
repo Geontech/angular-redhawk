@@ -1187,12 +1187,14 @@ available Waveform/Application that can be launched).</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/models/waveform/waveform-sad.ts:11</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/waveform/waveform-sad.ts:14</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1261,10 +1263,16 @@ available Waveform/Application that can be launched).</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/models/waveform/waveform-sad.ts:8</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/models/waveform/waveform-sad.ts:9</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Name of the Waveform for use with the <a href="../injectables/DomainService.html#launch$">DomainService</a> </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1290,10 +1298,16 @@ available Waveform/Application that can be launched).</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/models/waveform/waveform-sad.ts:9</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/models/waveform/waveform-sad.ts:11</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The SAD location in the Domain&#39;s SCA File System <a href="../injectables/FileSystemService.html">FileSystemService</a> </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1309,9 +1323,12 @@ available Waveform/Application that can be launched).</p>
  * available Waveform/Application that can be launched).
  */
 export class WaveformSAD implements ISerializable&lt;WaveformSAD&gt; {
+    /** Name of the Waveform for use with the {@link DomainService#launch$} */
     public name: string;
+    /** The SAD location in the Domain&#x27;s SCA File System {@link FileSystemService} */
     public sad: string;
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         this.name &#x3D; input.name;
         this.sad &#x3D; input.sad;

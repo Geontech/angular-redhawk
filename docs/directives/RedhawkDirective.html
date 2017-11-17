@@ -1243,6 +1243,8 @@ injection when accessing the REST services for a REDHAWK Domain.</p>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Constructor</p>
+            </div>
                                         <div>
                                                 <b>Parameters :</b>
                                                 <table class="params">
@@ -1283,7 +1285,7 @@ injection when accessing the REST services for a REDHAWK Domain.</p>
                                     <code>arModel</code>
                                 </td>
                                 <td class="col-md-10">
-                                    <div><p>&quot;Banana Syntax&quot; [()] for accessing the model externally.</p>
+                                    <div><p>Setter for &quot;Banana in a Box Syntax&quot;  </p>
 </div>
                                       <p>
                                         <em>Type:</em>    <code><a href="../classes/Redhawk.html" target="_self" >Redhawk</a></code>
@@ -1293,7 +1295,7 @@ injection when accessing the REST services for a REDHAWK Domain.</p>
                             </tr>
                                     <tr>
                                         <td class="col-md-2" colspan="2">
-                                            <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/redhawk/redhawk.directive.ts:36</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/redhawk/redhawk.directive.ts:35</a></div>
                                         </td>
                                     </tr>
                         </tbody>
@@ -1306,6 +1308,8 @@ injection when accessing the REST services for a REDHAWK Domain.</p>
                                     <code>serviceName</code>
                                 </td>
                                 <td class="col-md-10">
+                                    <div><p>The name to apply to the REDHAWK Service </p>
+</div>
                                       <p>
                                         <em>Type:</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 
@@ -1314,7 +1318,7 @@ injection when accessing the REST services for a REDHAWK Domain.</p>
                             </tr>
                                     <tr>
                                         <td class="col-md-2" colspan="2">
-                                            <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/redhawk/redhawk.directive.ts:31</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/redhawk/redhawk.directive.ts:32</a></div>
                                         </td>
                                     </tr>
                         </tbody>
@@ -1331,6 +1335,8 @@ injection when accessing the REST services for a REDHAWK Domain.</p>
                                     <code>arModelChange</code>
                                 </td>
                                 <td class="col-md-10">
+                                    <div><p>Emitter for &quot;Banana in a Box Syntax&quot; </p>
+</div>
                                     <em><code>$event</code> type:</em>    <code><a href="../classes/Redhawk.html" target="_self" >EventEmitter&lt;Redhawk&gt;</a></code>
 
                                 </td>
@@ -1368,12 +1374,14 @@ injection when accessing the REST services for a REDHAWK Domain.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/redhawk/redhawk.directive.ts:58</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/redhawk/redhawk.directive.ts:66</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Implementation of the OnDestroy interface unsubscribes from the model observable.</p>
+            </div>
             
                                         <div class="io-description">
                                             <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -1400,12 +1408,14 @@ injection when accessing the REST services for a REDHAWK Domain.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/redhawk/redhawk.directive.ts:54</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/redhawk/redhawk.directive.ts:59</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Implementation of the OnChanges interface updates the service&#39;s uniqueID</p>
+            </div>
             
                                         <div class="io-description">
                                             <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -1444,7 +1454,7 @@ injection when accessing the REST services for a REDHAWK Domain.</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/redhawk/redhawk.directive.ts:46</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/redhawk/redhawk.directive.ts:47</a></div>
                                         </td>
                                     </tr>
             
@@ -1529,18 +1539,19 @@ import { redhawkServiceProvider } from &#x27;./redhawk-service-provider&#x27;;
     ]
 })
 export class RedhawkDirective implements OnInit, OnDestroy {
+    /** The name to apply to the REDHAWK Service */
     @Input() serviceName: string;
 
-    /**
-     * &quot;Banana Syntax&quot; [()] for accessing the model externally.
-     */
+    /** Setter for &quot;Banana in a Box Syntax&quot;  */
     @Input(&#x27;arModel&#x27;) model: Redhawk;
+    /** Emitter for &quot;Banana in a Box Syntax&quot; */
     @Output(&#x27;arModelChange&#x27;) modelChange: EventEmitter&lt;Redhawk&gt;;
 
     /** Internal subscription for the model */
     private subscription: Subscription;
 
     /**
+     * Constructor
      * @param service The service either imported from up the hierarchy or instantiated
      *                by this directive.
      */
@@ -1552,10 +1563,17 @@ export class RedhawkDirective implements OnInit, OnDestroy {
         });
     }
 
+    /**
+     * Implementation of the OnChanges interface updates the service&#x27;s uniqueID
+     * @param changes The changes made to this component
+     */
     ngOnInit() {
         this.service.uniqueId &#x3D; this.serviceName || &#x27;Default&#x27;;
     }
 
+    /**
+     * Implementation of the OnDestroy interface unsubscribes from the model observable.
+     */
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }

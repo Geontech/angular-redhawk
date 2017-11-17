@@ -1183,7 +1183,7 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/devicemanager/device-manager.ts:13</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/models/devicemanager/device-manager.ts:16</a></div>
                                         </td>
                                     </tr>
             
@@ -1213,12 +1213,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/models/devicemanager/device-manager.ts:22</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/models/devicemanager/device-manager.ts:27</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1281,10 +1283,16 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/devicemanager/device-manager.ts:12</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/devicemanager/device-manager.ts:14</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Devices listing </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1304,10 +1312,16 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/models/devicemanager/device-manager.ts:11</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/devicemanager/device-manager.ts:12</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Properties listing </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1327,10 +1341,16 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/devicemanager/device-manager.ts:13</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/models/devicemanager/device-manager.ts:16</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Services listing </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1349,10 +1369,14 @@ import { DeviceManagerRef } from &#x27;./device-manager-ref&#x27;;
  * Serializable REDHAWK Device manager model
  */
 export class DeviceManager extends DeviceManagerRef implements ISerializable&lt;DeviceManager&gt; {
+    /** Properties listing */
     properties: prop.PropertySet;
+    /** Devices listing */
     devices: resource.ResourceRefs;
+    /** Services listing */
     services: resource.ResourceRefs;
 
+    /** Constructor */
     constructor() {
         super();
         this.properties &#x3D; [];
@@ -1360,6 +1384,7 @@ export class DeviceManager extends DeviceManagerRef implements ISerializable&lt;
         this.services &#x3D; [];
     }
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.properties &#x3D; prop.deserializeProperties(input.properties);

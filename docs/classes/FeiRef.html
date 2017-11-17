@@ -1157,9 +1157,6 @@ extended information.  This is simply a base class for the other FEI types.</p>
                                     <li>
                                         <span class="modifier">Protected</span> <a href="#query$">query$</a>
                                     </li>
-                                    <li>
-                                         <a href="#release">release</a>
-                                    </li>
                                 </ul>
                             </td>
                         </tr>
@@ -1178,12 +1175,14 @@ extended information.  This is simply a base class for the other FEI types.</p>
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/port/refs/fei.ref.ts:12</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/port/refs/fei.ref.ts:13</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Constructor</p>
+            </div>
                                         <div>
                                                 <b>Parameters :</b>
                                                 <table class="params">
@@ -1237,12 +1236,14 @@ extended information.  This is simply a base class for the other FEI types.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/port/refs/fei.ref.ts:23</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/port/refs/fei.ref.ts:29</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Queries the FEI port for the named parameter.</p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1282,38 +1283,6 @@ extended information.  This is simply a base class for the other FEI types.</p>
                             </tr>
                         </tbody>
                     </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td class="col-md-4">
-                                    <a name="release"></a>
-                                    <span class="name"><b> release</b><a href="#release"><span class="fa fa-link"></span></a></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-4">
-            <code>release()</code>
-                                </td>
-                            </tr>
-            
-            
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/port/refs/fei.ref.ts:21</a></div>
-                                        </td>
-                                    </tr>
-            
-                            <tr>
-                                <td class="col-md-4">
-            
-                                        <div class="io-description">
-                                            <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-            
-                                        </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
             </section>
 
 
@@ -1344,10 +1313,16 @@ extended information.  This is simply a base class for the other FEI types.</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/port/refs/fei.ref.ts:12</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/port/refs/fei.ref.ts:13</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The HTTP service being used with this port reference </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1373,10 +1348,16 @@ extended information.  This is simply a base class for the other FEI types.</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/port/refs/fei.ref.ts:14</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/port/refs/fei.ref.ts:19</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The URL of the port.</p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1396,8 +1377,13 @@ import { PortRef } from &#x27;./port.ref&#x27;;
  * extended information.  This is simply a base class for the other FEI types.
  */
 export class FeiRef extends PortRef {
+    /** The HTTP service being used with this port reference */
     public http: Http;
 
+    /**
+     * Constructor
+     * @param url The URL of the port.
+     */
     constructor (public url: string) {
         super(url);
         let providers &#x3D; ReflectiveInjector.resolve([Http]);
@@ -1405,8 +1391,9 @@ export class FeiRef extends PortRef {
         this.http &#x3D; injector.get(Http);
     }
 
-    release() { /** INTENTIONALLY EMPTY */ }
-
+    /**
+     * Queries the FEI port for the named parameter.
+     */
     protected query$(param?: string): Observable&lt;any&gt; {
         let target: string &#x3D; this.url;
         if (param) {

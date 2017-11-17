@@ -30,6 +30,7 @@ export class RedhawkListenerService {
     }
 
     /**
+     * Constructor
      * @param restPython The REST Python service that provides the URL mapping to REST Python
      */
     constructor(restPython: RestPythonService) {

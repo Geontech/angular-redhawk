@@ -1201,7 +1201,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/models/property/struct-property.ts:56</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/models/property/struct-property.ts:60</a></div>
                                         </td>
                                     </tr>
             
@@ -1235,12 +1235,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/models/property/struct-property.ts:39</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/models/property/struct-property.ts:43</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1296,7 +1298,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/models/property/struct-property.ts:30</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/models/property/struct-property.ts:33</a></div>
                                         </td>
                                     </tr>
             
@@ -1360,12 +1362,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/models/property/struct-property.ts:18</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/models/property/struct-property.ts:21</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Get the structure&#39;s fields (members) IDs.</p>
+            </div>
             
                                         <div class="io-description">
                                             <b>Returns : </b>    <code>string[]</code>
@@ -1410,10 +1414,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/property/struct-property.ts:13</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/models/property/struct-property.ts:15</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The SCA Type of the property (&#39;struct&#39;) </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1439,10 +1449,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/property/struct-property.ts:12</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/property/struct-property.ts:13</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The value (fields listing) of the structure </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1462,10 +1478,13 @@ import { SimpleSeqProperty } from &#x27;./simple-seq-property&#x27;;
  * Serializable REDHAWK &#x27;struct&#x27; Property Model
  */
 export class StructProperty extends Property implements ISerializable&lt;StructProperty&gt; {
+    /** The value (fields listing) of the structure */
     value:   StructValueType;
+    /** The SCA Type of the property (&#x27;struct&#x27;) */
     scaType: ScaStructType &#x3D; &#x27;struct&#x27;;
 
     /**
+     * Get the structure&#x27;s fields (members) IDs.
      * @return {string[]} List of field IDs in this structure
      */
     getFields(): string[] {
@@ -1489,6 +1508,7 @@ export class StructProperty extends Property implements ISerializable&lt;StructP
         return undefined;
     }
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.scaType &#x3D; input.scaType;

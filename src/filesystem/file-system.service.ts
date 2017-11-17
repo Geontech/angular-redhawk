@@ -14,10 +14,14 @@ import { RestPythonService } from '../rest-python/rest-python.module';
 // Parent Service
 import { DomainService } from '../domain/domain.module';
 
-
+/**
+ * TBD
+ * The FileSystemService provides access to the Domain's File System.
+ */
 @Injectable()
 export class FileSystemService extends BaseService<FileSystem> {
     /**
+     * Constructor
      * @param http The HTTP service for server callbacks
      * @param restPython The REST Python service for URL serialization
      * @param domainService The Domain service that has this FileSystem in it

@@ -1157,12 +1157,14 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/property/property-command.ts:13</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/property/property-command.ts:14</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Constructor</p>
+            </div>
                                         <div>
                                                 <b>Parameters :</b>
                                                 <table class="params">
@@ -1222,10 +1224,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/property/property-command.ts:14</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/property/property-command.ts:19</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The Properties to include in the command</p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1240,6 +1248,7 @@
  * Property command structure
  */
 export interface IPropertyCommand {
+    /** The properties to submit */
     properties: PropertySet;
 }
 
@@ -1247,6 +1256,10 @@ export interface IPropertyCommand {
  * Standard &#x27;command&#x27; interface for controlling properties on most entities.
  */
 export class PropertyCommand implements IPropertyCommand {
+    /**
+     * Constructor
+     * @param properties The Properties to include in the command
+     */
     constructor(public properties: PropertySet) {}
 }
 </code></pre>

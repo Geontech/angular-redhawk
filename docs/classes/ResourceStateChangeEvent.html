@@ -1192,12 +1192,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/models/events/odm/resource-state-change-event.ts:16</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/models/events/odm/resource-state-change-event.ts:19</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1266,10 +1268,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/events/odm/resource-state-change-event.ts:13</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/events/odm/resource-state-change-event.ts:14</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Original state of the resource </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1295,10 +1303,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/events/odm/resource-state-change-event.ts:14</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/models/events/odm/resource-state-change-event.ts:16</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>New state of the resource </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1319,9 +1333,12 @@ export class ResourceStateChangeEvent
     extends OdmEvent
     implements ISerializable&lt;ResourceStateChangeEvent&gt; {
 
+    /** Original state of the resource */
     public stateChangeFrom: ResourceStateChange;
+    /** New state of the resource */
     public stateChangeTo:   ResourceStateChange;
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.stateChangeFrom &#x3D; fromString(input.stateChangeFrom.value);

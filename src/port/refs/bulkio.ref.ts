@@ -16,15 +16,17 @@ import {
  * the bulkio port service.
  */
 export interface PortReceiver {
+    /** Callback for when a packet is received on the socket */
     (packet: BulkioPacket): void;
 }
 
 /**
- * @class
  * BulkioRef is akin to the internal "ref" member found in the Python Shell.
  */
 export class BulkioRef extends PortRef {
+    /** The connection (or allocation) ID for the stream */
     private connectionId: string;
+    /** The socket service for this port ref. */
     private bulkioService: BulkioListenerService;
 
     /**
@@ -187,11 +189,19 @@ export class BulkioRef extends PortRef {
         return this.bulkioService.packetMode;
     }
 
+    /**
+     * Release the port's underlying socket service.
+     */
     release(): void {
         this.bulkioService.disconnect();
         super.release();
     }
 
+    /**
+     * Constructor
+     * @param url The REST URL for the port
+     * @param rp the REST Python service
+     */
     constructor(public url: string, rp: RestPythonService) {
         super(url);
         this.bulkioService = new BulkioListenerService(rp.bulkioSocketUrl(url));

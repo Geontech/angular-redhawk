@@ -1181,6 +1181,8 @@
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this data type. </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1228,16 +1230,16 @@
     <div class="tab-pane fade tab-source-code" id="source">
         <pre class="line-numbers"><code class="language-typescript">import { ISerializable } from &#x27;../../serialization/index&#x27;;
 
-import { IdmEvent }      from &#x27;./idm-event&#x27;;
 import { IdmStateEvent } from &#x27;./idm-state-event&#x27;;
 import { OperationalState } from &#x27;./enums/index&#x27;;
 
 /**
  * Serializable REDHAWK IDM Operational State Event model
  */
-export class OperationalStateEvent 
-    extends IdmStateEvent&lt;OperationalState&gt; 
+export class OperationalStateEvent
+    extends IdmStateEvent&lt;OperationalState&gt;
     implements ISerializable&lt;OperationalStateEvent&gt; {
+    /** Deserializes a JSON object into this data type. */
     deserialize(input: any) {
         super.deserialize(input);
         this.stateChangeFrom &#x3D; fromString(input.stateChangeFrom.value);
@@ -1260,7 +1262,8 @@ function fromString(category: string): OperationalState {
             break;
     }
     return out;
-}</code></pre>
+}
+</code></pre>
     </div>
 </div>
 

@@ -5,7 +5,9 @@ import { Property } from './property';
  * the ability to express values as enumerations
  */
 export class SimpleCommon extends Property {
+    /** The data type of the value */
     type:         string;
+    /** Enumeration map related to the value, if any */
     enumerations: { [key: string]: string };
 
     /**

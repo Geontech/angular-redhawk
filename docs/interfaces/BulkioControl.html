@@ -1177,6 +1177,12 @@
                                         </td>
                                     </tr>
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The &#39;type&#39; (feature) To control </p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -1206,10 +1212,16 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/sockets/bulkio/bulkio-control.ts:11</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/sockets/bulkio/bulkio-control.ts:12</a></div>
                                         </td>
                                     </tr>
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The parameter setting for the feature </p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -1221,12 +1233,13 @@
 
 /**
  * BULKIO Control Message format
- * @interface
  * @property {ControlType} type - The type of control requested.
- * @property {number} value - The adjustment to make.  @see {@link ControlType}.
+ * @property {number} value - The adjustment to make.
  */
 export interface BulkioControl {
+    /** The &#x27;type&#x27; (feature) To control */
     type: ControlType;
+    /** The parameter setting for the feature */
     value: number;
 }
 </code></pre>
