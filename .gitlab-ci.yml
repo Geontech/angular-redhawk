@@ -14,7 +14,7 @@ cache:
 stages:
   - build
   - test
-#  - deploy
+  - deploy
 
 # Verify it can build.
 build:
@@ -60,7 +60,7 @@ deploy:github:
     - git remote set-url origin ${GITHUB_REPO}
     - git push origin master --follow-tags
 
-Push to NPM
+# Push to NPM
 deploy:npm:
   <<: *docker
   stage: deploy
