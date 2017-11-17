@@ -1176,10 +1176,16 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/system-builder/config/waveform-subsystem.ts:7</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/system-builder/config/waveform-subsystem.ts:8</a></div>
                                         </td>
                                     </tr>
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Components in this waveform </p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -1193,6 +1199,7 @@
  * Waveform (Application) Subsystem configuration
  */
 export interface WaveformSubsystem extends Subsystem {
+  /** Components in this waveform */
   components?: Subsystem[];
 }
 </code></pre>

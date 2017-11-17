@@ -22,9 +22,14 @@ import { IDevicePropertyCommandResponse } from './device-property-command-respon
  */
 let DEFAULT_DELAY_RESPONSE_MS = 10000;
 
+/**
+ * The Device Service provides access to the Device Model on the REST server as well as
+ * serves as methods for controlling it and its ports and properties.
+ */
 @Injectable()
 export class DeviceService extends PortBearingService<Device> {
     /**
+     * Constructor
      * @param http The HTTP service for server callbacks
      * @param restPython The REST Python service for URL serialization
      * @param dmService The DeviceManager service that has this Device in it
@@ -96,6 +101,12 @@ export class DeviceService extends PortBearingService<Device> {
         return this.sendDevicePropertyCommand$(command);
     }
 
+    /**
+     * Common device property command method
+     * @internal
+     * @param command The command to issue
+     * @param responseDelayMs Any delay (milliseconds to delay before the model is updated)
+     */
     private sendDevicePropertyCommand$(
         command: DevicePropertyCommand,
         responseDelayMs?: number

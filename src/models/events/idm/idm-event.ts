@@ -6,6 +6,7 @@
  * for the sake of simplifying downstream logic.
  */
 export abstract class IdmEvent {
+    /** Deserializes a JSON object into this class */
     abstract deserialize(v: any);
 }
 

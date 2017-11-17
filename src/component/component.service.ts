@@ -28,6 +28,7 @@ let DEFAULT_DELAY_RESPONSE_MS = 10000;
 export class ComponentService extends PortBearingService<Component> {
 
     /**
+     * Constructor
      * @param http The HTTP service for server callbacks
      * @param restPython The REST Python service for URL serialization
      * @param waveformService The Waveform service that has this Component in it

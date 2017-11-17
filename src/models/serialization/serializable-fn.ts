@@ -3,5 +3,6 @@
  * some object of type T.
  */
 export interface ISerializableFn<T> {
+    /** The deserialization function */
     (jsonObj: Object): T;
 }

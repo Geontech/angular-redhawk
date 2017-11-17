@@ -77,13 +77,16 @@ export class IdmListenerService {
         return this.abnormalComponentTerminationChanged.asObservable();
     }
 
-    // All events
+    /** All events */
     private allEvents: Subject<IdmEvent>;
 
-    // Administrative, Operational, and Usage State events
+    /** Administrative state events */
     private administrativeStateChanged: Subject<AdministrativeStateEvent>;
+    /** Operational state events */
     private operationalStateChanged: Subject<OperationalStateEvent>;
+    /** Usage State events */
     private usageStateChanged: Subject<UsageStateEvent>;
+    /** Abnormal termination events */
     private abnormalComponentTerminationChanged: Subject<AbnormalComponentTerminationEvent>;
 
     /**
@@ -103,6 +106,7 @@ export class IdmListenerService {
     }
 
     /**
+     * Constructor
      * @param eventChannel The Event Channel (Service) to use for connections
      */
     constructor(private eventChannel: EventChannelService) {

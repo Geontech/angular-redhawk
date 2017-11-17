@@ -1194,12 +1194,14 @@ pairs we&#39;re calling ISimpleProperties.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/events/message/rh-message.ts:14</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/models/events/message/rh-message.ts:17</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into a REDHAWK Message format </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1255,7 +1257,7 @@ pairs we&#39;re calling ISimpleProperties.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/models/events/message/rh-message.ts:41</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/models/events/message/rh-message.ts:45</a></div>
                                         </td>
                                     </tr>
             
@@ -1319,12 +1321,14 @@ pairs we&#39;re calling ISimpleProperties.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/models/events/message/rh-message.ts:29</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/models/events/message/rh-message.ts:33</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Get the field IDs of the structure</p>
+            </div>
             
                                         <div class="io-description">
                                             <b>Returns : </b>    <code>string[]</code>
@@ -1364,10 +1368,16 @@ pairs we&#39;re calling ISimpleProperties.</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/models/events/message/rh-message.ts:11</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/events/message/rh-message.ts:12</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>ID of the related property defining the message </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1393,10 +1403,16 @@ pairs we&#39;re calling ISimpleProperties.</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/events/message/rh-message.ts:12</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/events/message/rh-message.ts:14</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>the fields of this message </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1415,9 +1431,12 @@ import { ISimpleProperty, ISimpleProperties } from &#x27;./simple-property&#x27;
  * pairs we&#x27;re calling ISimpleProperties.
  */
 export class RhMessage implements ISerializable&lt;RhMessage&gt; {
+    /** ID of the related property defining the message */
     id: string;
+    /** the fields of this message */
     value: ISimpleProperties;
 
+    /** Deserializes a JSON object into a REDHAWK Message format */
     deserialize(input: any) {
         this.id &#x3D; input.id;
         this.value &#x3D; [];
@@ -1431,6 +1450,7 @@ export class RhMessage implements ISerializable&lt;RhMessage&gt; {
     }
 
     /**
+     * Get the field IDs of the structure
      * @return {string[]} List of field IDs in this structure
      */
     getFields(): string[] {

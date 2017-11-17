@@ -9,10 +9,14 @@ import { ResourceRef } from './resource-ref';
  * actual server-side model (properties, etc.).
  */
 export class Resource extends ResourceRef implements ISerializable<Resource> {
+    /** Indicates if the resource is started */
     public started: boolean;
+    /** Property listing of the resource */
     public properties: prop.PropertySet;
+    /** Port listing of the resource */
     public ports: port.Ports;
 
+    /** Constructor */
     constructor() {
         super();
         this.properties = [];
@@ -47,6 +51,7 @@ export class Resource extends ResourceRef implements ISerializable<Resource> {
         return undefined;
     }
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.started = input.started;

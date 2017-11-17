@@ -1198,12 +1198,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/models/port/port.ts:31</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/models/port/port.ts:36</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1266,10 +1268,16 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/models/port/port.ts:11</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/port/port.ts:14</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Port Direction (Uses/Provides) </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1295,10 +1303,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/models/port/port.ts:15</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/models/port/port.ts:19</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Indicates this is a BULKIO port that supports the websocket interface. </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1324,10 +1338,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/port/port.ts:12</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/models/port/port.ts:16</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>IDL expansion of repID </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1353,10 +1373,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/models/port/port.ts:24</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/models/port/port.ts:28</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Indicates this is an FEI port that supports the control interface. </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1382,10 +1408,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/models/port/port.ts:9</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/models/port/port.ts:10</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Port Name </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1411,10 +1443,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/models/port/port.ts:10</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/port/port.ts:12</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Representation ID  (of the interface) </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1431,12 +1469,16 @@ import { PortIDL } from &#x27;./port-idl&#x27;;
  * Serializable REDHAWK Port Model
  */
 export class Port implements ISerializable&lt;Port&gt; {
+    /** Port Name */
     public name:      string;
+    /** Representation ID  (of the interface) */
     public repId:     string;
+    /** Port Direction (Uses/Provides) */
     public direction: enums.PortDirection;
+    /** IDL expansion of repID */
     public idl:       PortIDL;
 
-    /** @property {boolean} Indicates this is a BULKIO port that supports the websocket interface. */
+    /** Indicates this is a BULKIO port that supports the websocket interface. */
     public get hasBulkioWebsocket(): boolean {
         return (
             this.direction &#x3D;&#x3D;&#x3D; enums.PortDirection.Uses &amp;&amp;
@@ -1445,7 +1487,7 @@ export class Port implements ISerializable&lt;Port&gt; {
             );
     }
 
-    /** @property {boolean} Indicates this is an FEI port that supports the control interface. */
+    /** Indicates this is an FEI port that supports the control interface. */
     public get isFEIControllable(): boolean {
         return (
             this.direction &#x3D;&#x3D;&#x3D; enums.PortDirection.Provides &amp;&amp;
@@ -1453,6 +1495,7 @@ export class Port implements ISerializable&lt;Port&gt; {
             );
     }
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         this.name &#x3D; input.name;
         this.repId &#x3D; input.repId;

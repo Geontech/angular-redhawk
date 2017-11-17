@@ -1105,6 +1105,14 @@
             <code>src/waveform/waveform.service.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The Waveform Service provides access to the Waveform Model on the REST server as well as
+access to its components, ports, and properties.</p>
+
+            </p>
 
 
             <section>
@@ -1158,12 +1166,14 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/waveform/waveform.service.ts:19</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/waveform/waveform.service.ts:22</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Constructor</p>
+            </div>
                                         <div>
                                                 <b>Parameters :</b>
                                                 <table class="params">
@@ -1238,7 +1248,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/waveform/waveform.service.ts:57</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/waveform/waveform.service.ts:61</a></div>
                                         </td>
                                     </tr>
             
@@ -1306,7 +1316,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">src/waveform/waveform.service.ts:102</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="105" class="link-to-prism">src/waveform/waveform.service.ts:105</a></div>
                                         </td>
                                     </tr>
             
@@ -1371,7 +1381,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/waveform/waveform.service.ts:90</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">src/waveform/waveform.service.ts:94</a></div>
                                         </td>
                                     </tr>
             
@@ -1405,7 +1415,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/waveform/waveform.service.ts:39</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/waveform/waveform.service.ts:43</a></div>
                                         </td>
                                     </tr>
             
@@ -1470,7 +1480,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/waveform/waveform.service.ts:74</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/waveform/waveform.service.ts:78</a></div>
                                         </td>
                                     </tr>
             
@@ -1505,7 +1515,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/waveform/waveform.service.ts:82</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/waveform/waveform.service.ts:86</a></div>
                                         </td>
                                     </tr>
             
@@ -1539,7 +1549,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/waveform/waveform.service.ts:47</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/waveform/waveform.service.ts:51</a></div>
                                         </td>
                                     </tr>
             
@@ -1579,11 +1589,15 @@ import { DomainService }                     from &#x27;../domain/domain.module&
 import { IWaveformControlCommand }         from &#x27;./waveform-control-command&#x27;;
 import { IWaveformControlCommandResponse } from &#x27;./waveform-control-command-response&#x27;;
 import { IWaveformReleaseResponse }        from &#x27;./waveform-release-response&#x27;;
-
+/**
+ * The Waveform Service provides access to the Waveform Model on the REST server as well as
+ * access to its components, ports, and properties.
+ */
 @Injectable()
 export class WaveformService extends PortBearingService&lt;Waveform&gt; {
 
     /**
+     * Constructor
      * @param http The HTTP service for server callbacks
      * @param restPython The REST Python service for URL serialization
      * @param domainService The Domain service that can contains this Waveform
@@ -1661,7 +1675,6 @@ export class WaveformService extends PortBearingService&lt;Waveform&gt; {
 
     /**
      * Common method shared by start and stop for issuing the command to the server.
-     * @internal
      * @param command The command to issue (start/stop)
      */
     private controlCommand$(command: IWaveformControlCommand): Observable&lt;IWaveformControlCommandResponse&gt; {

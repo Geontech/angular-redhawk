@@ -1175,12 +1175,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/events/idm/usage-state-event.ts:13</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/events/idm/usage-state-event.ts:14</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1228,7 +1230,6 @@
     <div class="tab-pane fade tab-source-code" id="source">
         <pre class="line-numbers"><code class="language-typescript">import { ISerializable } from &#x27;../../serialization/index&#x27;;
 
-import { IdmEvent }      from &#x27;./idm-event&#x27;;
 import { IdmStateEvent } from &#x27;./idm-state-event&#x27;;
 import { UsageState }    from &#x27;./enums/index&#x27;;
 
@@ -1238,6 +1239,8 @@ import { UsageState }    from &#x27;./enums/index&#x27;;
 export class UsageStateEvent
     extends IdmStateEvent&lt;UsageState&gt;
     implements ISerializable&lt;UsageStateEvent&gt; {
+
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.stateChangeFrom &#x3D; fromString(input.stateChangeFrom.value);

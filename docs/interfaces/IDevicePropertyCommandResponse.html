@@ -1180,10 +1180,16 @@ exception is thrown.</p>
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/device/device-property-command-response.ts:12</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/device/device-property-command-response.ts:15</a></div>
                                         </td>
                                     </tr>
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Any extra messsages that wre returned </p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -1213,10 +1219,16 @@ exception is thrown.</p>
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/device/device-property-command-response.ts:10</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/device/device-property-command-response.ts:11</a></div>
                                         </td>
                                     </tr>
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The method attempted: configure, allocate, or deallocate </p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -1246,10 +1258,16 @@ exception is thrown.</p>
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/device/device-property-command-response.ts:11</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/device/device-property-command-response.ts:13</a></div>
                                         </td>
                                     </tr>
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The return status of the command </p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -1266,8 +1284,11 @@ exception is thrown.</p>
  * exception is thrown.
  */
 export interface IDevicePropertyCommandResponse {
+    /** The method attempted: configure, allocate, or deallocate */
     method: DevicePropertyCommandType;
+    /** The return status of the command */
     status: boolean;
+    /** Any extra messsages that wre returned */
     message: string;
 }
 </code></pre>

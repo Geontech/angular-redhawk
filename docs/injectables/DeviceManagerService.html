@@ -1105,6 +1105,14 @@
             <code>src/devicemanager/device-manager.service.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The DeviceManagerService provides access to methods for retrieving the DeviceManager model
+as well as models of its devices and services.</p>
+
+            </p>
 
 
             <section>
@@ -1149,12 +1157,14 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/devicemanager/device-manager.service.ts:17</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/devicemanager/device-manager.service.ts:21</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Constructor</p>
+            </div>
                                         <div>
                                                 <b>Parameters :</b>
                                                 <table class="params">
@@ -1229,12 +1239,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/devicemanager/device-manager.service.ts:49</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/devicemanager/device-manager.service.ts:60</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Retrieve a specific device or a list of devices in the Device Manager</p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1256,7 +1268,8 @@
                                                               <td>
                                                                   true
                                                               </td>
-                                                              <td></td>
+                                                              <td><p>The Device model to fetch.  If none, a list is returned.</p>
+            </td>
                                                             </tr>
                                                     </tbody>
                                                 </table>
@@ -1268,7 +1281,8 @@
             
                                         </div>
                                             <div class="io-description">
-                                                
+                                                <p>Observable Device or ResourceRefs</p>
+            
                                             </div>
                                 </td>
                             </tr>
@@ -1292,12 +1306,15 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/devicemanager/device-manager.service.ts:53</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/devicemanager/device-manager.service.ts:71</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Retrieve a specific service model or list of services in the Device Manager
+            <strong>Note:</strong> Services are not fully supported at this time.</p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1319,7 +1336,8 @@
                                                               <td>
                                                                   true
                                                               </td>
-                                                              <td></td>
+                                                              <td><p>The Service model to fetch.  If none, a list is returned.</p>
+            </td>
                                                             </tr>
                                                     </tbody>
                                                 </table>
@@ -1331,7 +1349,8 @@
             
                                         </div>
                                             <div class="io-description">
-                                                
+                                                <p>Observable any or list of anys.</p>
+            
                                             </div>
                                 </td>
                             </tr>
@@ -1354,7 +1373,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/devicemanager/device-manager.service.ts:37</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/devicemanager/device-manager.service.ts:42</a></div>
                                         </td>
                                     </tr>
             
@@ -1418,7 +1437,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/devicemanager/device-manager.service.ts:45</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/devicemanager/device-manager.service.ts:51</a></div>
                                         </td>
                                     </tr>
             
@@ -1428,10 +1447,16 @@
             to retrieve its model.</p>
             </div>
             
+                                        <div>
+                                        </div>
                                         <div class="io-description">
                                             <b>Returns : </b>    <code>Observable&lt;&gt;</code>
             
                                         </div>
+                                            <div class="io-description">
+                                                <p>Observable DeviceManager</p>
+            
+                                            </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -1457,10 +1482,15 @@ import { RestPythonService } from &#x27;../rest-python/rest-python.module&#x27;;
 import { DomainService } from &#x27;../domain/domain.module&#x27;;
 import { BaseService } from &#x27;../base/index&#x27;;
 
+/**
+ * The DeviceManagerService provides access to methods for retrieving the DeviceManager model
+ * as well as models of its devices and services.
+ */
 @Injectable()
 export class DeviceManagerService extends BaseService&lt;DeviceManager&gt; {
 
     /**
+     * Constructor
      * @param http The HTTP service for server callbacks
      * @param restPython The REST Python service for URL serialization
      * @param domainService The Domain service that has this DeviceManager in it
@@ -1485,15 +1515,28 @@ export class DeviceManagerService extends BaseService&lt;DeviceManager&gt; {
     /**
      * Internal, initiates the server call that uniquely identifies this entity
      * to retrieve its model.
+     * @returns Observable DeviceManager
      */
     uniqueQuery$(): Observable&lt;DeviceManager&gt; {
         return &lt;Observable&lt;DeviceManager&gt;&gt; this.domainService.devMgrs$(this.uniqueId);
     }
 
+    /**
+     * Retrieve a specific device or a list of devices in the Device Manager
+     * @param [deviceId] The Device model to fetch.  If none, a list is returned.
+     * @returns Observable Device or ResourceRefs
+     */
     public devs$(deviceId?: string): Observable&lt;Device&gt; | Observable&lt;ResourceRefs&gt; {
         return this.domainService.devices$(this.uniqueId, deviceId);
     }
 
+    /**
+     * Retrieve a specific service model or list of services in the Device Manager
+     * **Note:** Services are not fully supported at this time.
+     * 
+     * @param [serviceId] The Service model to fetch.  If none, a list is returned.
+     * @returns Observable any or list of anys.
+     */
     public services$(serviceId?: string): Observable&lt;any&gt; | Observable&lt;any[]&gt; {
         if (serviceId) {
             return this.http

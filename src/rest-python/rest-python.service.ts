@@ -11,15 +11,25 @@ import {
     REST_PYTHON_CONFIG
 } from './rest-python-config';
 
+/**
+ * The REST Python (URL) Service provides generation of the URL end points of the
+ * REST Python server.  Aided by dependency injection between services, this service
+ * builds URL structures so that a Device Manager can infer its Domain's end point,
+ * a Device can infer the Device Manager's end point, and so on.
+ */
 @Injectable()
 export class RestPythonService {
-    // Storage for setters
+    /** REST Python host address */
     private _host:   string;
+    /** REST Python host port */
     private _port:   number;
+    /** REST Python API URL (top-level endpoint) */
     private _apiUrl: string;
 
+    /** Subject for indicating if the REST configuration changed at runtime */
     private _changed = new Subject<void>();
 
+    /** Base URL of the REST Python Service */
     private get baseUrl(): string {
         return this.host + ':' + this.port + this.apiUrl;
     }
@@ -38,6 +48,10 @@ export class RestPythonService {
     /** The configured API URL for the REST-Python server */
     get apiUrl(): string { return this._apiUrl; }
 
+    /**
+     * Constructor
+     * @param config The REST Python Configuration
+     */
     constructor(@Optional() @Inject(REST_PYTHON_CONFIG) config: IRestPythonConfig) {
         this.setConfiguration(config);
     }
@@ -154,6 +168,11 @@ export class RestPythonService {
         return this.baseWebsocketUrl('/events');
     }
 
+    /**
+     * Returns a websocket URL from the provided URL and path
+     * @param parentUrl The parent (service) URL
+     * @param [subPath] A sub-path to extend on the URL
+     */
     private baseWebsocketUrl(parentUrl: string, subPath?: string): string {
         let path = ((window.location.protocol === 'https:') ? 'wss:' : 'ws:') + '//';
         path += this.baseUrl + parentUrl;
@@ -163,6 +182,12 @@ export class RestPythonService {
         return path;
     }
 
+    /**
+     * Creates a URL from the parent's and some new end point details.
+     * @param parentUrl The parent (service's) URL
+     * @param [subPath] A sub-path extending off the parent's URL 
+     * @param [target] A REST end point combining the above URL elements.
+     */
     private baseRestUrl(parentUrl: string, subPath?: string, target?: string): string {
         let server = window.location.protocol + '//' + this.baseUrl;
         if (parentUrl.lastIndexOf(server) >= 0) {

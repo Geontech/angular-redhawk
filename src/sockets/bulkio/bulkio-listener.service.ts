@@ -15,6 +15,11 @@ type BulkioSocketTypes = BulkioPacket | BulkioControl;
 
 export let BULKIO_SOCKET_URL = new InjectionToken<string>('bulkio.url');
 
+/**
+ * The BULKIO Listener Service provides access to BULKIO sockets including control
+ * interfaces that allow additional server-side processing to lighten the network
+ * and UI load (for plotting data, etc.).
+ */
 @Injectable()
 export class BulkioListenerService {
     /** The URL of the bulkio websocket */
@@ -23,17 +28,20 @@ export class BulkioListenerService {
     /** The most recent connection ID */
     private _connectionId: string;
 
-    // Internal packet relay and socket interface
+    /** Packet relay from the socket */
     private packet: Subject<BulkioPacket>;
+    /** Socket Interface */
     private socketInterface: Subject<BulkioSocketTypes>;
+    /** Socket subscription for managing the interface connection */
     private socketSubscription: Subscription;
 
-    // The amount of time deserializing a packet took.
+    /** The amount of time deserializing a packet took (diagnostics. */
     private _deserializeTime: number = 0;
-
-    // The statistics on the most recent packet
+    /** Length of the packet */
     private _packetLength: number = 0;
+    /** Packet's subsize */
     private _packetSubsize: number = 0;
+    /** Mode of the packet */
     private _packetMode: number = 0;
 
     /** Set the URL.  If connected, this will disconnect and reconnect */
@@ -274,6 +282,8 @@ export class BulkioListenerService {
 
     /**
      * Connect to the BULKIO socket at the url.
+     * @param [connectionId] The connection ID to issue (also, the allocation ID if connecting to 
+     *        an allocated multi-port FEI Device).
      */
     public connect(connectionId?: string): void {
         this.disconnect();
@@ -320,6 +330,7 @@ export class BulkioListenerService {
     }
 
     /**
+     * Constructor
      * @param {string} url - The base URL (ws:// or wss://) of the port
      */
     constructor(@Inject(BULKIO_SOCKET_URL) url: string) {

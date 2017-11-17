@@ -1171,7 +1171,7 @@
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/models/redhawk/redhawk.ts:7</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/models/redhawk/redhawk.ts:8</a></div>
                                         </td>
                                     </tr>
             
@@ -1201,12 +1201,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/redhawk/redhawk.ts:13</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/models/redhawk/redhawk.ts:16</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1275,10 +1277,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/models/redhawk/redhawk.ts:7</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/models/redhawk/redhawk.ts:8</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>List of Domain Names seen by this naming service </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1293,12 +1301,15 @@
  * Serializable REDHAWK &#x27;Redhawk&#x27; top-level model which is a domain listing.
  */
 export class Redhawk implements ISerializable&lt;Redhawk&gt; {
+    /** List of Domain Names seen by this naming service */
     public domains: Array&lt;string&gt;;
 
+    /** constructor */
     constructor() {
         this.domains &#x3D; [];
     }
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         this.domains &#x3D; input.domains;
         return this;

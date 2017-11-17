@@ -7,9 +7,12 @@ import { ScaSimpleType } from './sca-types';
  * Serializable REDHAWK 'simple' Property Model
  */
 export class SimpleProperty extends SimpleCommon implements ISerializable<SimpleProperty> {
+    /** value of the property */
     value:   SimpleValueType;
+    /** SCA Type ('simple') */
     scaType: ScaSimpleType = 'simple';
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.scaType = input.scaType;

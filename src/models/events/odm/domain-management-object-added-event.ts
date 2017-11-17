@@ -9,8 +9,10 @@ export class DomainManagementObjectAddedEvent
     extends DomainManagementObjectRemovedEvent
     implements ISerializable<DomainManagementObjectAddedEvent> {
 
+    /** Source IOR (unused) */
     public sourceIOR: any;
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.sourceIOR = {};

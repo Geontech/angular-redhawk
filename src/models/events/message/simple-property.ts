@@ -1,9 +1,16 @@
 /**
+ * Possible values of the simple property type
+ */
+export type ISimplePropertyValueType = string | number | boolean;
+
+/**
  * Message's convey these simplified properties which are id-value pairs
  */
 export interface ISimpleProperty {
+    /** ID of the field */
     id: string;
-    value: any;
+    /** Value of the field */
+    value: ISimplePropertyValueType | Array<ISimplePropertyValueType>;
 }
 
 /**

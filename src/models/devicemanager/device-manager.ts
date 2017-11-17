@@ -8,10 +8,14 @@ import { DeviceManagerRef } from './device-manager-ref';
  * Serializable REDHAWK Device manager model
  */
 export class DeviceManager extends DeviceManagerRef implements ISerializable<DeviceManager> {
+    /** Properties listing */
     properties: prop.PropertySet;
+    /** Devices listing */
     devices: resource.ResourceRefs;
+    /** Services listing */
     services: resource.ResourceRefs;
 
+    /** Constructor */
     constructor() {
         super();
         this.properties = [];
@@ -19,6 +23,7 @@ export class DeviceManager extends DeviceManagerRef implements ISerializable<Dev
         this.services = [];
     }
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.properties = prop.deserializeProperties(input.properties);

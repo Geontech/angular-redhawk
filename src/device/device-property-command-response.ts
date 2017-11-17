@@ -7,7 +7,10 @@ import { DevicePropertyCommandType } from './device-property-command-type';
  * exception is thrown.
  */
 export interface IDevicePropertyCommandResponse {
+    /** The method attempted: configure, allocate, or deallocate */
     method: DevicePropertyCommandType;
+    /** The return status of the command */
     status: boolean;
+    /** Any extra messsages that wre returned */
     message: string;
 }

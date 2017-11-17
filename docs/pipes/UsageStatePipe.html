@@ -1107,6 +1107,13 @@
             <code>src/sockets/events/idm/usage-state.pipe.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Behaves like a toString() operator inside templates for the UsageState enumeration</p>
+
+            </p>
 
 
     </div>
@@ -1117,8 +1124,9 @@
 
 import { UsageState } from &#x27;../../../models/index&#x27;;
 
-// Behaves like a toString() operator inside templates for the UsageState
-// enumeration.
+/**
+ *  Behaves like a toString() operator inside templates for the UsageState enumeration
+ */
 @Pipe({name: &#x27;usageState&#x27;})
 export class UsageStatePipe implements PipeTransform {
     transform(state: UsageState): string {

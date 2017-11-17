@@ -1189,12 +1189,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/models/events/odm/domain-management-object-removed-event.ts:15</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/models/events/odm/domain-management-object-removed-event.ts:17</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1263,10 +1265,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/events/odm/domain-management-object-removed-event.ts:13</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/events/odm/domain-management-object-removed-event.ts:14</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Category of this event (i.e., the type of REDHAWK entity producing it) </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1287,8 +1295,10 @@ export class DomainManagementObjectRemovedEvent
     extends DomainManagementObjectEvent
     implements ISerializable&lt;DomainManagementObjectRemovedEvent&gt; {
 
+    /** Category of this event (i.e., the type of REDHAWK entity producing it) */
     public sourceCategory: SourceCategory;
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.sourceCategory &#x3D; fromString(input.sourceCategory.value);

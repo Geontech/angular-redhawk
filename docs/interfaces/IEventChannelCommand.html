@@ -1176,10 +1176,16 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/sockets/events/generic/event-channel-command.ts:7</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/sockets/events/generic/event-channel-command.ts:9</a></div>
                                         </td>
                                     </tr>
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>ADD or REMOVE access to a channel </p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -1209,10 +1215,16 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/sockets/events/generic/event-channel-command.ts:8</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/sockets/events/generic/event-channel-command.ts:11</a></div>
                                         </td>
                                     </tr>
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The Domain ID (Name) </p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -1242,10 +1254,16 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/sockets/events/generic/event-channel-command.ts:9</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/sockets/events/generic/event-channel-command.ts:13</a></div>
                                         </td>
                                     </tr>
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The name of the channel </p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -1259,8 +1277,11 @@
  * The command interface for adding or removing event channels to the socket.
  */
 export interface IEventChannelCommand {
+    /** ADD or REMOVE access to a channel */
     command: CommandType;
+    /** The Domain ID (Name) */
     domainId: string;
+    /** The name of the channel */
     topic: string;
 }
 </code></pre>

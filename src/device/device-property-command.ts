@@ -9,6 +9,7 @@ import { DevicePropertyCommandType } from './device-property-command-type';
  * deallocate methods.
  */
 export interface IDevicePropertyCommand extends PropertyCommand {
+    /** The method to try (configure, allocate, deallcoate) */
     method: DevicePropertyCommandType;
 }
 
@@ -16,10 +17,18 @@ export interface IDevicePropertyCommand extends PropertyCommand {
  * Concrete implementation of the interface, in case that is preferable.
  */
 export class DevicePropertyCommand
-        extends PropertyCommand
-        implements IDevicePropertyCommand {
+    extends PropertyCommand
+    implements IDevicePropertyCommand {
+
+    /** 
+     * Constructor
+     * @param method The method to apply to the properties (configure, allocate, deallocate)
+     * @param properties The list of properties to manipulate
+     */
     constructor(
         public method: DevicePropertyCommandType,
         properties: PropertySet
-    ) { super(properties); }
+    ) {
+        super(properties);
+    }
 }

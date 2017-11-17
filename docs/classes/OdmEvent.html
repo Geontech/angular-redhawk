@@ -1107,6 +1107,14 @@
             <code>src/models/events/odm/odm-event.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>All ODM Events have the same basic two properties: sourceId and sourceName.
+This is a base class and only partially deserializes the event.</p>
+
+            </p>
 
 
             <p class="comment">
@@ -1179,12 +1187,14 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/models/events/odm/odm-event.ts:9</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/events/odm/odm-event.ts:14</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1253,10 +1263,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/models/events/odm/odm-event.ts:6</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/models/events/odm/odm-event.ts:9</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Source ID of the entity related to this event </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1282,10 +1298,16 @@
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/models/events/odm/odm-event.ts:7</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/models/events/odm/odm-event.ts:11</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Source Name of the entity related to this event </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1296,12 +1318,17 @@
     <div class="tab-pane fade tab-source-code" id="source">
         <pre class="line-numbers"><code class="language-typescript">import { ISerializable } from &#x27;../../serialization/index&#x27;;
 
-// All ODM Events have the same basic two properties: sourceId and sourceName
-// This is a base class and only partially deserializes the event.
+/**
+ * All ODM Events have the same basic two properties: sourceId and sourceName.
+ * This is a base class and only partially deserializes the event.
+ */
 export class OdmEvent implements ISerializable&lt;OdmEvent&gt; {
+    /** Source ID of the entity related to this event */
     sourceId:     string;
+    /** Source Name of the entity related to this event */
     sourceName:   string;
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         this.sourceId   &#x3D; input.sourceId;
         this.sourceName &#x3D; input.sourceName;

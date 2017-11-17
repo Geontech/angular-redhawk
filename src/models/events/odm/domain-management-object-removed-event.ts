@@ -10,8 +10,10 @@ export class DomainManagementObjectRemovedEvent
     extends DomainManagementObjectEvent
     implements ISerializable<DomainManagementObjectRemovedEvent> {
 
+    /** Category of this event (i.e., the type of REDHAWK entity producing it) */
     public sourceCategory: SourceCategory;
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.sourceCategory = fromString(input.sourceCategory.value);

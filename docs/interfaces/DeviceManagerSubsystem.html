@@ -1176,10 +1176,16 @@
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/system-builder/config/device-manager-subsystem.ts:7</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/system-builder/config/device-manager-subsystem.ts:8</a></div>
                                         </td>
                                     </tr>
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Devices in this Device Manager </p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -1193,6 +1199,7 @@
  * Device Manager (Node) Subsystem configuration
  */
 export interface DeviceManagerSubsystem extends Subsystem {
+  /** Devices in this Device Manager */
   devices?: Subsystem[];
 }
 </code></pre>

@@ -1190,7 +1190,7 @@ actual server-side model (properties, etc.).</p>
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/resource/resource.ts:14</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/models/resource/resource.ts:17</a></div>
                                         </td>
                                     </tr>
             
@@ -1220,12 +1220,14 @@ actual server-side model (properties, etc.).</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/models/resource/resource.ts:50</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/models/resource/resource.ts:55</a></div>
                                         </td>
                                     </tr>
             
                             <tr>
                                 <td class="col-md-4">
+                                        <div class="io-description"><p>Deserializes a JSON object into this class </p>
+            </div>
             
                                         <div class="io-description">
                                                 <b>Parameters :</b>
@@ -1282,7 +1284,7 @@ actual server-side model (properties, etc.).</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/models/resource/resource.ts:41</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/models/resource/resource.ts:45</a></div>
                                         </td>
                                     </tr>
             
@@ -1340,7 +1342,7 @@ actual server-side model (properties, etc.).</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/models/resource/resource.ts:27</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/models/resource/resource.ts:31</a></div>
                                         </td>
                                     </tr>
             
@@ -1404,10 +1406,16 @@ actual server-side model (properties, etc.).</p>
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/models/resource/resource.ts:14</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/models/resource/resource.ts:17</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Port listing of the resource </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1427,10 +1435,16 @@ actual server-side model (properties, etc.).</p>
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/resource/resource.ts:13</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/models/resource/resource.ts:15</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Property listing of the resource </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1456,10 +1470,16 @@ actual server-side model (properties, etc.).</p>
                                 </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/models/resource/resource.ts:12</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/models/resource/resource.ts:13</a></div>
                                         </td>
                                     </tr>
             
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Indicates if the resource is started </p>
+            </div>
+                                </td>
+                            </tr>
             
                         </tbody>
                     </table>
@@ -1479,10 +1499,14 @@ import { ResourceRef } from &#x27;./resource-ref&#x27;;
  * actual server-side model (properties, etc.).
  */
 export class Resource extends ResourceRef implements ISerializable&lt;Resource&gt; {
+    /** Indicates if the resource is started */
     public started: boolean;
+    /** Property listing of the resource */
     public properties: prop.PropertySet;
+    /** Port listing of the resource */
     public ports: port.Ports;
 
+    /** Constructor */
     constructor() {
         super();
         this.properties &#x3D; [];
@@ -1517,6 +1541,7 @@ export class Resource extends ResourceRef implements ISerializable&lt;Resource&g
         return undefined;
     }
 
+    /** Deserializes a JSON object into this class */
     deserialize(input: any) {
         super.deserialize(input);
         this.started &#x3D; input.started;
