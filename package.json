@@ -13,6 +13,7 @@
     "version:set": "sed -i .bak -E 's/(\"version\":[[:space:]]*\").+(\")/\\1'$npm_package_version'\\2/g' src/package.json",
     "version:nobak": "rm src/package.json.bak",
     "version:add": "git add src/package.json",
+    "dist": "cd dist && npm publish",
     "lint": "npm run lint:base",
     "lint:base": "tslint --type-check --project tsconfig.json src/**/*.ts",
     "lint:fix": "npm run lint:base -- --fix",
