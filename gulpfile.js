@@ -6,7 +6,10 @@ var gulp = require('gulp'),
   rename = require('gulp-rename'),
   del = require('del'),
   runSequence = require('run-sequence'),
-  inlineResources = require('./tools/gulp/inline-resources');
+  inlineResources = require('./tools/gulp/inline-resources'),
+  syncJson = require('sync-json'),
+  readJsonSync = require('read-json-sync'),
+  util = require('util');
 
 const rootFolder = path.join(__dirname);
 const srcFolder = path.join(rootFolder, 'src');
@@ -18,9 +21,10 @@ const distFolder = path.join(rootFolder, 'dist');
  * 1. Delete /dist folder
  */
 gulp.task('clean:dist', function () {
+
   // Delete contents but not dist folder to avoid broken npm links
   // when dist directory is removed while npm link references it.
-  deleteFolders([distFolder + '/**', '!' + distFolder]);
+  return deleteFolders([distFolder + '/**', '!' + distFolder]);
 });
 
 /**
@@ -46,18 +50,12 @@ gulp.task('inline-resources', function () {
 /**
  * 4. Run the Angular compiler, ngc, on the /.tmp folder. This will output all
  *    compiled modules to the /build folder.
+ *
+ *    As of Angular 5, ngc accepts an array and no longer returns a promise.
  */
 gulp.task('ngc', function () {
-  return ngc({
-    project: `${tmpFolder}/tsconfig.es5.json`
-  })
-    .then((exitCode) => {
-      if (exitCode === 1) {
-        // This error is caught in the 'compile' task by the runSequence method callback
-        // so that when ngc fails to compile, the whole compile process stops running
-        throw new Error('ngc compilation failed');
-      }
-    });
+  ngc([ '--project', `${tmpFolder}/tsconfig.es5.json` ]);
+  return Promise.resolve()
 });
 
 /**
@@ -83,7 +81,8 @@ gulp.task('rollup:fesm', function () {
       // See "external" in https://rollupjs.org/#core-functionality
       external: [
         '@angular/core',
-        '@angular/common'
+        '@angular/common',
+        '@angular/http'
       ],
 
       // Format of generated bundle
@@ -116,7 +115,8 @@ gulp.task('rollup:umd', function () {
       // See "external" in https://rollupjs.org/#core-functionality
       external: [
         '@angular/core',
-        '@angular/common'
+        '@angular/common',
+        '@angular/http'
       ],
 
       // Format of generated bundle
@@ -130,7 +130,7 @@ gulp.task('rollup:umd', function () {
       // The name to use for the module for UMD/IIFE bundles
       // (required for bundles with exports)
       // See "name" in https://rollupjs.org/#core-functionality
-      name: 'lib-update',
+      name: 'angular-redhawk',
 
       // See "globals" in https://rollupjs.org/#core-functionality
       globals: {
@@ -138,7 +138,7 @@ gulp.task('rollup:umd', function () {
       }
 
     }))
-    .pipe(rename('lib-update.umd.js'))
+    .pipe(rename('angular-redhawk.umd.js'))
     .pipe(gulp.dest(distFolder));
 });
 
@@ -152,6 +152,48 @@ gulp.task('copy:build', function () {
     .pipe(gulp.dest(distFolder));
 });
 
+function syncJsonCallback(error) {
+  if (error) {
+    util.error('Error in sync-json: ' + error);
+  }
+}
+
+/**
+ * 7.1 The "Patch" sequential task
+ */
+gulp.task('patch', function(done) {
+  runSequence('patch:version', 'patch:manifest', done);
+});
+
+/**
+ * 7.2 Patch version from the package.json to the library package.json
+ */
+gulp.task('patch:version', function(done) {
+  syncJson('package.json',`${srcFolder}/package.json`, ['version'], syncJsonCallback, done);
+});
+
+/**
+ * 7.3 Patch other fields from the package.json to the library package.json
+ * to synchronize things like devDependencies that are runtime dependencies.
+ */
+const rootPkgJson = readJsonSync(`${rootFolder}/package.json`);
+gulp.task('patch:manifest', function (done) {
+  let copyFields = {
+    'author':       rootPkgJson.author,
+    'contributors': rootPkgJson.contributors,
+    'license':      rootPkgJson.license,
+    'description':  rootPkgJson.description,
+    'keywords':     rootPkgJson.keywords,
+    'peerDependencies': {
+      '@angular/core': rootPkgJson.devDependencies['@angular/core'],
+      '@angular/http': rootPkgJson.devDependencies['@angular/http'],
+      'rxjs':          rootPkgJson.devDependencies['rxjs'],
+      'zone.js':       rootPkgJson.devDependencies['zone.js']
+    }
+  };
+  syncJson(copyFields, `${srcFolder}/package.json`, syncJsonCallback, done);
+});
+
 /**
  * 8. Copy package.json from /src to /dist
  */
@@ -161,10 +203,14 @@ gulp.task('copy:manifest', function () {
 });
 
 /**
- * 9. Copy README.md from / to /dist
+ * 9. Copy README.md, license, etc. from / to /dist
  */
-gulp.task('copy:readme', function () {
-  return gulp.src([path.join(rootFolder, 'README.MD')])
+gulp.task('copy:meta', function () {
+  return gulp.src([
+      path.join(rootFolder, 'README.md'),
+      path.join(rootFolder, 'CONTRIBUTING.md'),
+      path.join(rootFolder, 'LICENSE')
+    ])
     .pipe(gulp.dest(distFolder));
 });
 
@@ -192,7 +238,7 @@ gulp.task('compile', function () {
     'rollup:umd',
     'copy:build',
     'copy:manifest',
-    'copy:readme',
+    'copy:meta',
     'clean:build',
     'clean:tmp',
     function (err) {
@@ -213,8 +259,7 @@ gulp.task('watch', function () {
 });
 
 gulp.task('clean', ['clean:dist', 'clean:tmp', 'clean:build']);
-
-gulp.task('build', ['clean', 'compile']);
+gulp.task('build', ['clean', 'patch', 'compile']);
 gulp.task('build:watch', ['build', 'watch']);
 gulp.task('default', ['build:watch']);
 

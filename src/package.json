@@ -1,6 +1,6 @@
 {
   "name": "angular-redhawk",
-  "version": "0.1.1",  
+  "version": "0.1.1",
   "repository": "https://github.com/GeonTech/angular-redhawk.git",
   "author": "Thomas Goodwin <btgoodwin@geontech.com>",
   "license": "GPL-3.0",
@@ -16,9 +16,10 @@
   "module": "angular-redhawk.js",
   "typings": "angular-redhawk.d.ts",
   "peerDependencies": {
-    "@angular/core": "^4.0.0",
-    "@angular/http": "^4.0.0",
-    "rxjs": "^5.1.0",
-    "zone.js": "^0.8.4"
-  }
+    "@angular/core": "^5.0.0",
+    "@angular/http": "^5.1.0",
+    "rxjs": "^5.5.2",
+    "zone.js": "^0.8.14"
+  },
+  "description": "Angular library for interfacing with REDHAWK SDR via Geon's fork of REST-python"
 }
