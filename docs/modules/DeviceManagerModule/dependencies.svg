@@ -30,7 +30,7 @@
 </g>
 <g id="clust3" class="cluster">
 <title>cluster_DeviceManagerModule_DeviceManagerDirective_providers</title>
-<polygon fill="none" stroke="#000000" points="170,-78 170,-130 470,-130 470,-78 170,-78"/>
+<polygon fill="none" stroke="#000000" points="348,-78 348,-130 418,-130 418,-78 348,-78"/>
 </g>
 <g id="clust4" class="cluster">
 <title>cluster_DeviceManagerModule_imports</title>
@@ -70,17 +70,17 @@
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M218,-252.1061C218,-252.1061 218,-270.991 218,-270.991"/>
 <polygon fill="#000000" stroke="#000000" points="214.5001,-270.9909 218,-280.991 221.5001,-270.991 214.5001,-270.9909"/>
 </g>
-<!-- deviceManagerServiceProvider.() -->
+<!-- () -->
 <g id="node3" class="node">
-<title>deviceManagerServiceProvider.()</title>
-<ellipse fill="#fdb462" stroke="#000000" cx="320" cy="-104" rx="141.7123" ry="18"/>
-<text text-anchor="middle" x="320" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">deviceManagerServiceProvider.()</text>
+<title>()</title>
+<ellipse fill="#fdb462" stroke="#000000" cx="383" cy="-104" rx="27" ry="18"/>
+<text text-anchor="middle" x="383" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">()</text>
 </g>
-<!-- deviceManagerServiceProvider.()&#45;&gt;DeviceManagerDirective -->
+<!-- ()&#45;&gt;DeviceManagerDirective -->
 <g id="edge2" class="edge">
-<title>deviceManagerServiceProvider.()&#45;&gt;DeviceManagerDirective</title>
-<path fill="none" stroke="#000000" d="M382.9349,-120.4022C382.9349,-120.4022 382.9349,-140.5366 382.9349,-140.5366"/>
-<polygon fill="#000000" stroke="#000000" points="379.435,-140.5366 382.9349,-150.5366 386.435,-140.5367 379.435,-140.5366"/>
+<title>()&#45;&gt;DeviceManagerDirective</title>
+<path fill="none" stroke="#000000" d="M383,-122.1061C383,-122.1061 383,-140.991 383,-140.991"/>
+<polygon fill="#000000" stroke="#000000" points="379.5001,-140.9909 383,-150.991 386.5001,-140.991 379.5001,-140.9909"/>
 </g>
 <!-- RestPythonModule -->
 <g id="node4" class="node">

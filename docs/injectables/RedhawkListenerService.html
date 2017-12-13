@@ -48,9 +48,15 @@
                                   <a href="../index.html" ><span class="fa fa-file-text-o"></span>README</a>
                                 </li>
                                 <li class="link">
-                                    <a href="./contributing.html"
-                                        >
+                                        <a href="../contributing.html"
+                                    >
                                         <span class="fa fa-file-text-o"></span>CONTRIBUTING
+                                    </a>
+                                </li>
+                                <li class="link">
+                                        <a href="../license.html"
+                                    >
+                                        <span class="fa fa-file-text-o"></span>LICENSE
                                     </a>
                                 </li>
                         </ul>
@@ -72,6 +78,9 @@
                             >
                                 <li class="link">
                                     <a href="../modules/AngularRedhawkModule.html" >AngularRedhawkModule</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../modules/AppModule.html" >AppModule</a>
                                 </li>
                                 <li class="link">
                                     <a href="../modules/ComponentModule.html" >ComponentModule</a>
@@ -124,6 +133,22 @@
                         </ul>
                     </li>
             
+                    <li class="chapter">
+                        <div class="simple menu-toggler" data-toggle="collapse"
+                                data-target="#xs-components-links"
+                            >
+                            <span class="fa fa-cogs"></span>
+                            <span>Components</span>
+                            <span class="fa fa-angle-down"></span>
+                        </div>
+                        <ul class="links collapse "
+                                id="xs-components-links"
+                            >
+                                <li class="link">
+                                    <a href="../components/AppComponent.html" >AppComponent</a>
+                                </li>
+                        </ul>
+                    </li>
             
                     <li class="chapter">
                         <div class="simple menu-toggler" data-toggle="collapse"
@@ -383,6 +408,7 @@
                         </ul>
                     </li>
             
+            
                     <li class="chapter">
                         <div class="simple menu-toggler" data-toggle="collapse"
                                 data-target="#xs-interfaces-links"
@@ -577,9 +603,15 @@
                                          <a href="../index.html" ><span class="fa fa-file-text-o"></span>README</a>
                                        </li>
                                        <li class="link">
-                                           <a href="./contributing.html"
-                                               >
+                                               <a href="../contributing.html"
+                                           >
                                                <span class="fa fa-file-text-o"></span>CONTRIBUTING
+                                           </a>
+                                       </li>
+                                       <li class="link">
+                                               <a href="../license.html"
+                                           >
+                                               <span class="fa fa-file-text-o"></span>LICENSE
                                            </a>
                                        </li>
                                </ul>
@@ -601,6 +633,9 @@
                    >
                                        <li class="link">
                                            <a href="../modules/AngularRedhawkModule.html" >AngularRedhawkModule</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../modules/AppModule.html" >AppModule</a>
                                        </li>
                                        <li class="link">
                                            <a href="../modules/ComponentModule.html" >ComponentModule</a>
@@ -653,6 +688,22 @@
                                </ul>
                            </li>
                    
+                           <li class="chapter">
+                               <div class="simple menu-toggler" data-toggle="collapse"
+                                       data-target="#components-links"
+                   >
+                                   <span class="fa fa-cogs"></span>
+                                   <span>Components</span>
+                                   <span class="fa fa-angle-down"></span>
+                               </div>
+                               <ul class="links collapse "
+                                       id="components-links"
+                   >
+                                       <li class="link">
+                                           <a href="../components/AppComponent.html" >AppComponent</a>
+                                       </li>
+                               </ul>
+                           </li>
                    
                            <li class="chapter">
                                <div class="simple menu-toggler" data-toggle="collapse"
@@ -912,6 +963,7 @@
                                </ul>
                            </li>
                    
+                   
                            <li class="chapter">
                                <div class="simple menu-toggler" data-toggle="collapse"
                                        data-target="#interfaces-links"
@@ -1097,7 +1149,7 @@
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="info">
+    <div class="tab-pane fade active in" id="c-info">
         <p class="comment">
             <h3>File</h3>
         </p>
@@ -1128,10 +1180,22 @@ added and removed to the naming service.</p>
                             <td class="col-md-4">
                                 <ul class="index-list">
                                     <li>
-                                        <span class="modifier">Public</span> <a href="#events$">events$</a>
+                                            <span class="modifier">Private</span>
+                                        <a href="#socketInterface">socketInterface</a>
                                     </li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <h6><b>Accessors</b></h6>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <ul class="index-list">
                                     <li>
-                                        <span class="modifier">Private</span> <a href="#socketInterface">socketInterface</a>
+                                        <a href="#events$">events$</a>
                                     </li>
                                 </ul>
                             </td>
@@ -1200,49 +1264,19 @@ added and removed to the naming service.</p>
                         <tbody>
                             <tr>
                                 <td class="col-md-4">
-                                    <a name="events$"></a>
-                                    <span class="name"><b><span class="modifier">Public</span> events$</b><a href="#events$"><span class="fa fa-link"></span></a></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <span class="modifier-icon fa fa-reset"></span><code>events$:     <code><a href="../classes/RedhawkEvent.html" target="_self" >Observable&lt;RedhawkEvent&gt;</a></code>
-            </code>
-                                </td>
-                            </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <i>Type : </i>    <code><a href="../classes/RedhawkEvent.html" target="_self" >Observable&lt;RedhawkEvent&gt;</a></code>
-            
-                                    </td>
-                                </tr>
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/sockets/redhawk-listener.service.ts:28</a></div>
-                                        </td>
-                                    </tr>
-            
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-description"><p>Observable event indicating which domains were added and removed as well as 
-            the current listing of Domains.</p>
-            </div>
-                                </td>
-                            </tr>
-            
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td class="col-md-4">
                                     <a name="socketInterface"></a>
-                                    <span class="name"><b><span class="modifier">Private</span> socketInterface</b><a href="#socketInterface"><span class="fa fa-link"></span></a></span>
+                                    <span class="name">
+                                        <b>
+                                            <span class="modifier">Private</span>
+                                        socketInterface
+                                        </b>
+                                        <a href="#socketInterface"><span class="fa fa-link"></span></a>
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <span class="modifier-icon fa fa-lock"></span><code>socketInterface:     <code><a href="../classes/RedhawkEvent.html" target="_self" >Subject&lt;RedhawkEvent&gt;</a></code>
+                                    <span class="modifier-icon fa fa-reset"></span><code>socketInterface:     <code><a href="../classes/RedhawkEvent.html" target="_self" >Subject&lt;RedhawkEvent&gt;</a></code>
             </code>
                                 </td>
                             </tr>
@@ -1268,10 +1302,50 @@ added and removed to the naming service.</p>
                         </tbody>
                     </table>
             </section>
+
+            <section>
+                <h3 id="accessors">
+                    Accessors
+                </h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <a name="events$"></a>
+                                    <span class="name"><b>events$</b><a href="#events$"><span class="fa fa-link"></span></a></span>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                    <span class="accessor"><b>get</b><code>events$()</code></span>
+                                </td>
+                            </tr>
+                                        <tr>
+                                            <td class="col-md-4">
+                                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/sockets/redhawk-listener.service.ts:28</a></div>
+                                            </td>
+                                        </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                            <div class="io-description"><p>Observable event indicating which domains were added and removed as well as 
+            the current listing of Domains.</p>
+            </div>
+            
+                                            <div class="io-description">
+                                                <b>Returns : </b>    <code><a href="../classes/RedhawkEvent.html" target="_self" >Observable&lt;RedhawkEvent&gt;</a></code>
+            
+                                            </div>
+                                    </td>
+                                </tr>
+            
+                        </tbody>
+                    </table>
+            </section>
     </div>
 
 
-    <div class="tab-pane fade tab-source-code" id="source">
+    <div class="tab-pane fade tab-source-code" id="c-source">
         <pre class="line-numbers"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 import { Observable } from &#x27;rxjs/Observable&#x27;;
 import { Subject } from &#x27;rxjs/Subject&#x27;;
@@ -1317,6 +1391,7 @@ export class RedhawkListenerService {
 </code></pre>
     </div>
 </div>
+
 
 
 

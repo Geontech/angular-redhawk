@@ -48,9 +48,15 @@
                                   <a href="../index.html" ><span class="fa fa-file-text-o"></span>README</a>
                                 </li>
                                 <li class="link">
-                                    <a href="./contributing.html"
-                                        >
+                                        <a href="../contributing.html"
+                                    >
                                         <span class="fa fa-file-text-o"></span>CONTRIBUTING
+                                    </a>
+                                </li>
+                                <li class="link">
+                                        <a href="../license.html"
+                                    >
+                                        <span class="fa fa-file-text-o"></span>LICENSE
                                     </a>
                                 </li>
                         </ul>
@@ -72,6 +78,9 @@
                             >
                                 <li class="link">
                                     <a href="../modules/AngularRedhawkModule.html" >AngularRedhawkModule</a>
+                                </li>
+                                <li class="link">
+                                    <a href="../modules/AppModule.html" >AppModule</a>
                                 </li>
                                 <li class="link">
                                     <a href="../modules/ComponentModule.html" >ComponentModule</a>
@@ -124,6 +133,22 @@
                         </ul>
                     </li>
             
+                    <li class="chapter">
+                        <div class="simple menu-toggler" data-toggle="collapse"
+                                data-target="#xs-components-links"
+                            >
+                            <span class="fa fa-cogs"></span>
+                            <span>Components</span>
+                            <span class="fa fa-angle-down"></span>
+                        </div>
+                        <ul class="links collapse "
+                                id="xs-components-links"
+                            >
+                                <li class="link">
+                                    <a href="../components/AppComponent.html" >AppComponent</a>
+                                </li>
+                        </ul>
+                    </li>
             
                     <li class="chapter">
                         <div class="simple menu-toggler" data-toggle="collapse"
@@ -383,6 +408,7 @@
                         </ul>
                     </li>
             
+            
                     <li class="chapter">
                         <div class="simple menu-toggler" data-toggle="collapse"
                                 data-target="#xs-interfaces-links"
@@ -577,9 +603,15 @@
                                          <a href="../index.html" ><span class="fa fa-file-text-o"></span>README</a>
                                        </li>
                                        <li class="link">
-                                           <a href="./contributing.html"
-                                               >
+                                               <a href="../contributing.html"
+                                           >
                                                <span class="fa fa-file-text-o"></span>CONTRIBUTING
+                                           </a>
+                                       </li>
+                                       <li class="link">
+                                               <a href="../license.html"
+                                           >
+                                               <span class="fa fa-file-text-o"></span>LICENSE
                                            </a>
                                        </li>
                                </ul>
@@ -601,6 +633,9 @@
                    >
                                        <li class="link">
                                            <a href="../modules/AngularRedhawkModule.html" >AngularRedhawkModule</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../modules/AppModule.html" >AppModule</a>
                                        </li>
                                        <li class="link">
                                            <a href="../modules/ComponentModule.html" >ComponentModule</a>
@@ -653,6 +688,22 @@
                                </ul>
                            </li>
                    
+                           <li class="chapter">
+                               <div class="simple menu-toggler" data-toggle="collapse"
+                                       data-target="#components-links"
+                   >
+                                   <span class="fa fa-cogs"></span>
+                                   <span>Components</span>
+                                   <span class="fa fa-angle-down"></span>
+                               </div>
+                               <ul class="links collapse "
+                                       id="components-links"
+                   >
+                                       <li class="link">
+                                           <a href="../components/AppComponent.html" >AppComponent</a>
+                                       </li>
+                               </ul>
+                           </li>
                    
                            <li class="chapter">
                                <div class="simple menu-toggler" data-toggle="collapse"
@@ -912,6 +963,7 @@
                                </ul>
                            </li>
                    
+                   
                            <li class="chapter">
                                <div class="simple menu-toggler" data-toggle="collapse"
                                        data-target="#interfaces-links"
@@ -1097,7 +1149,7 @@
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="info">
+    <div class="tab-pane fade active in" id="c-info">
         <p class="comment">
             <h3>File</h3>
         </p>
@@ -1128,22 +1180,26 @@ serves as methods for controlling it and its ports and properties.</p>
                             <td class="col-md-4">
                                 <ul class="index-list">
                                     <li>
-                                        <span class="modifier">Public</span> <a href="#allocate$">allocate$</a>
+                                            <span class="modifier">Public</span>
+                                        <a href="#allocate$">allocate$</a>
                                     </li>
                                     <li>
-                                        <span class="modifier">Public</span> <a href="#configure$">configure$</a>
+                                            <span class="modifier">Public</span>
+                                        <a href="#configure$">configure$</a>
                                     </li>
                                     <li>
-                                        <span class="modifier">Public</span> <a href="#deallocate$">deallocate$</a>
+                                            <span class="modifier">Public</span>
+                                        <a href="#deallocate$">deallocate$</a>
                                     </li>
                                     <li>
-                                        <span class="modifier">Private</span> <a href="#sendDevicePropertyCommand$">sendDevicePropertyCommand$</a>
+                                            <span class="modifier">Private</span>
+                                        <a href="#sendDevicePropertyCommand$">sendDevicePropertyCommand$</a>
                                     </li>
                                     <li>
-                                         <a href="#setBaseUrl">setBaseUrl</a>
+                                        <a href="#setBaseUrl">setBaseUrl</a>
                                     </li>
                                     <li>
-                                         <a href="#uniqueQuery$">uniqueQuery$</a>
+                                        <a href="#uniqueQuery$">uniqueQuery$</a>
                                     </li>
                                 </ul>
                             </td>
@@ -1158,7 +1214,7 @@ serves as methods for controlling it and its ports and properties.</p>
                         <tbody>
                             <tr>
                                 <td class="col-md-4">
-                                    <code>constructor(http: <a href="https://angular.io/docs/ts/latest/api/http/index/Http-class.html" target="_blank">Http</a>, restPython: <a href="../injectables/RestPythonService.html">RestPythonService</a>, dmService: <a href="../injectables/DeviceManagerService.html">DeviceManagerService</a>)</code>
+                                    <code>constructor(http: <a href="https://angular.io/api/http/Http" target="_blank">Http</a>, restPython: <a href="../injectables/RestPythonService.html">RestPythonService</a>, dmService: <a href="../injectables/DeviceManagerService.html">DeviceManagerService</a>)</code>
                                 </td>
                             </tr>
                                     <tr>
@@ -1186,7 +1242,7 @@ serves as methods for controlling it and its ports and properties.</p>
                                                             <tr>
                                                               <td>http</td>
                                                               <td>
-                                                                        <code><a href="https://angular.io/docs/ts/latest/api/http/index/Http-class.html" target="_blank" >Http</a></code>
+                                                                        <code><a href="https://angular.io/api/http/Http" target="_blank" >Http</a></code>
                                                               </td>
                                                               <td>
                                                               </td>
@@ -1232,7 +1288,13 @@ serves as methods for controlling it and its ports and properties.</p>
                             <tr>
                                 <td class="col-md-4">
                                     <a name="allocate$"></a>
-                                    <span class="name"><b><span class="modifier">Public</span> allocate$</b><a href="#allocate$"><span class="fa fa-link"></span></a></span>
+                                    <span class="name">
+                                        <b>
+                                            <span class="modifier">Public</span>
+                                        allocate$
+                                        </b>
+                                        <a href="#allocate$"><span class="fa fa-link"></span></a>
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
@@ -1294,7 +1356,7 @@ serves as methods for controlling it and its ports and properties.</p>
                                         <div>
                                         </div>
                                         <div class="io-description">
-                                            <b>Returns : </b>    <code>Observable&lt;&gt;</code>
+                                            <b>Returns : </b>    <code><a href="../interfaces/IDevicePropertyCommandResponse.html" target="_self" >Observable&lt;IDevicePropertyCommandResponse&gt;</a></code>
             
                                         </div>
                                             <div class="io-description">
@@ -1309,7 +1371,13 @@ serves as methods for controlling it and its ports and properties.</p>
                             <tr>
                                 <td class="col-md-4">
                                     <a name="configure$"></a>
-                                    <span class="name"><b><span class="modifier">Public</span> configure$</b><a href="#configure$"><span class="fa fa-link"></span></a></span>
+                                    <span class="name">
+                                        <b>
+                                            <span class="modifier">Public</span>
+                                        configure$
+                                        </b>
+                                        <a href="#configure$"><span class="fa fa-link"></span></a>
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
@@ -1371,7 +1439,7 @@ serves as methods for controlling it and its ports and properties.</p>
                                         <div>
                                         </div>
                                         <div class="io-description">
-                                            <b>Returns : </b>    <code>Observable&lt;&gt;</code>
+                                            <b>Returns : </b>    <code><a href="../interfaces/IDevicePropertyCommandResponse.html" target="_self" >Observable&lt;IDevicePropertyCommandResponse&gt;</a></code>
             
                                         </div>
                                             <div class="io-description">
@@ -1386,7 +1454,13 @@ serves as methods for controlling it and its ports and properties.</p>
                             <tr>
                                 <td class="col-md-4">
                                     <a name="deallocate$"></a>
-                                    <span class="name"><b><span class="modifier">Public</span> deallocate$</b><a href="#deallocate$"><span class="fa fa-link"></span></a></span>
+                                    <span class="name">
+                                        <b>
+                                            <span class="modifier">Public</span>
+                                        deallocate$
+                                        </b>
+                                        <a href="#deallocate$"><span class="fa fa-link"></span></a>
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
@@ -1448,7 +1522,7 @@ serves as methods for controlling it and its ports and properties.</p>
                                         <div>
                                         </div>
                                         <div class="io-description">
-                                            <b>Returns : </b>    <code>Observable&lt;&gt;</code>
+                                            <b>Returns : </b>    <code><a href="../interfaces/IDevicePropertyCommandResponse.html" target="_self" >Observable&lt;IDevicePropertyCommandResponse&gt;</a></code>
             
                                         </div>
                                             <div class="io-description">
@@ -1463,12 +1537,18 @@ serves as methods for controlling it and its ports and properties.</p>
                             <tr>
                                 <td class="col-md-4">
                                     <a name="sendDevicePropertyCommand$"></a>
-                                    <span class="name"><b><span class="modifier">Private</span> sendDevicePropertyCommand$</b><a href="#sendDevicePropertyCommand$"><span class="fa fa-link"></span></a></span>
+                                    <span class="name">
+                                        <b>
+                                            <span class="modifier">Private</span>
+                                        sendDevicePropertyCommand$
+                                        </b>
+                                        <a href="#sendDevicePropertyCommand$"><span class="fa fa-link"></span></a>
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="col-md-4">
-                                        <span class="modifier-icon fa fa-lock"></span>
+                                        <span class="modifier-icon fa fa-reset"></span>
                                     <code>sendDevicePropertyCommand$(command: <a href="../classes/PropertyCommand.html">DevicePropertyCommand</a>, responseDelayMs?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                                 </td>
                             </tr>
@@ -1524,7 +1604,7 @@ serves as methods for controlling it and its ports and properties.</p>
                                         <div>
                                         </div>
                                         <div class="io-description">
-                                            <b>Returns : </b>    <code>Observable&lt;&gt;</code>
+                                            <b>Returns : </b>    <code><a href="../interfaces/IDevicePropertyCommandResponse.html" target="_self" >Observable&lt;IDevicePropertyCommandResponse&gt;</a></code>
             
                                         </div>
                                             <div class="io-description">
@@ -1539,7 +1619,12 @@ serves as methods for controlling it and its ports and properties.</p>
                             <tr>
                                 <td class="col-md-4">
                                     <a name="setBaseUrl"></a>
-                                    <span class="name"><b> setBaseUrl</b><a href="#setBaseUrl"><span class="fa fa-link"></span></a></span>
+                                    <span class="name">
+                                        <b>
+                                        setBaseUrl
+                                        </b>
+                                        <a href="#setBaseUrl"><span class="fa fa-link"></span></a>
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
@@ -1603,7 +1688,12 @@ serves as methods for controlling it and its ports and properties.</p>
                             <tr>
                                 <td class="col-md-4">
                                     <a name="uniqueQuery$"></a>
-                                    <span class="name"><b> uniqueQuery$</b><a href="#uniqueQuery$"><span class="fa fa-link"></span></a></span>
+                                    <span class="name">
+                                        <b>
+                                        uniqueQuery$
+                                        </b>
+                                        <a href="#uniqueQuery$"><span class="fa fa-link"></span></a>
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
@@ -1626,7 +1716,7 @@ serves as methods for controlling it and its ports and properties.</p>
             </div>
             
                                         <div class="io-description">
-                                            <b>Returns : </b>    <code>Observable&lt;&gt;</code>
+                                            <b>Returns : </b>    <code><a href="../classes/Device.html" target="_self" >Observable&lt;Device&gt;</a></code>
             
                                         </div>
                                 </td>
@@ -1635,10 +1725,11 @@ serves as methods for controlling it and its ports and properties.</p>
                     </table>
             </section>
 
+
     </div>
 
 
-    <div class="tab-pane fade tab-source-code" id="source">
+    <div class="tab-pane fade tab-source-code" id="c-source">
         <pre class="line-numbers"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 import { Http }       from &#x27;@angular/http&#x27;;
 import { Observable } from &#x27;rxjs/Observable&#x27;;
@@ -1764,6 +1855,7 @@ export class DeviceService extends PortBearingService&lt;Device&gt; {
 </code></pre>
     </div>
 </div>
+
 
 
 

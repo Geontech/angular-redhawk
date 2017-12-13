@@ -30,7 +30,7 @@
 </g>
 <g id="clust3" class="cluster">
 <title>cluster_PortModule_PortDirective_providers</title>
-<polygon fill="none" stroke="#000000" points="524,-78 524,-130 736,-130 736,-78 524,-78"/>
+<polygon fill="none" stroke="#000000" points="647,-78 647,-130 717,-130 717,-78 647,-78"/>
 </g>
 <g id="clust5" class="cluster">
 <title>cluster_PortModule_imports</title>
@@ -94,17 +94,17 @@
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M369.0707,-252.1061C369.0707,-252.1061 369.0707,-270.991 369.0707,-270.991"/>
 <polygon fill="#000000" stroke="#000000" points="365.5707,-270.9909 369.0707,-280.991 372.5707,-270.991 365.5707,-270.9909"/>
 </g>
-<!-- portServiceProvider.() -->
+<!-- () -->
 <g id="node4" class="node">
-<title>portServiceProvider.()</title>
-<ellipse fill="#fdb462" stroke="#000000" cx="630" cy="-104" rx="97.7898" ry="18"/>
-<text text-anchor="middle" x="630" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">portServiceProvider.()</text>
+<title>()</title>
+<ellipse fill="#fdb462" stroke="#000000" cx="682" cy="-104" rx="27" ry="18"/>
+<text text-anchor="middle" x="682" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">()</text>
 </g>
-<!-- portServiceProvider.()&#45;&gt;PortDirective -->
+<!-- ()&#45;&gt;PortDirective -->
 <g id="edge2" class="edge">
-<title>portServiceProvider.()&#45;&gt;PortDirective</title>
-<path fill="none" stroke="#000000" d="M681.9683,-119.4041C681.9683,-119.4041 681.9683,-140.9397 681.9683,-140.9397"/>
-<polygon fill="#000000" stroke="#000000" points="678.4684,-140.9397 681.9683,-150.9397 685.4684,-140.9398 678.4684,-140.9397"/>
+<title>()&#45;&gt;PortDirective</title>
+<path fill="none" stroke="#000000" d="M682,-122.1061C682,-122.1061 682,-140.991 682,-140.991"/>
+<polygon fill="#000000" stroke="#000000" points="678.5001,-140.9909 682,-150.991 685.5001,-140.991 678.5001,-140.9909"/>
 </g>
 <!-- RestPythonModule -->
 <g id="node5" class="node">
