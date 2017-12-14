@@ -9,10 +9,10 @@
     "docs:build": "compodoc -p tsconfig.json -n angular-redhawk -d docs --hideGenerator",
     "docs:serve": "npm run docs:build -- -s",
     "docs:watch": "npm run docs:build -- -s -w",
-    "version": "npm run version:set && npm run version:nobak && npm run version:add",
-    "version:set": "sed -i .bak -E 's/(\"version\":[[:space:]]*\").+(\")/\\1'$npm_package_version'\\2/g' src/package.json",
-    "version:nobak": "rm src/package.json.bak",
-    "version:add": "git add src/package.json",
+    "version": "npm run sync:version && npm run sync:add",
+    "sync:version": "gulp patch:version",
+    "sync:manifest": "gulp patch:manifest",
+    "sync:add": "git add src/package.json",
     "dist": "cd dist && npm publish",
     "lint": "npm run lint:base",
     "lint:base": "tslint --type-check --project tsconfig.json src/**/*.ts",
@@ -28,7 +28,8 @@
   "contributors": [
     "Patrick Wolfram <pwolfram@geontech.com>",
     "Adam Heacock <aheacock@geontech.com>",
-    "Trevor Plumley <tplumley@geontech.com>"
+    "Trevor Plumley <tplumley@geontech.com>",
+    "Josh Schindehette <jschindehette@geontech.com>"
   ],
   "repository": "git://github.com/GeonTech/angular-redhawk.git",
   "dependencies": {},
@@ -66,6 +67,8 @@
     "rollup": "^0.49.3",
     "run-sequence": "^1.2.2",
     "rxjs": "^5.1.0",
+    "sync-json": "^1.0.2",
+    "systemjs": "^0.20.12",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
     "typescript": "~2.2.0",
