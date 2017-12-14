@@ -59,14 +59,19 @@ export class ComponentService extends PortBearingService<Component> {
     }
 
     /**
-     * Calls 'configure' on the Device and then pulls an update of the model.
-     * @param properties The properties to 'configure' on the Device
+     * Calls 'configure' on the Component and then pulls an update of the model.
+     * @param properties The properties to 'configure' on the Component
      * @param delayResponseMs The optional model update delay after sending the 
      * changes.
      */
-    configure(properties: PropertySet, delayResponseMs?: number): void {
+    configure$(properties: PropertySet, delayResponseMs?: number): Observable<any> {
         let command = new PropertyCommand(properties);
-        this.http.put(this.restPython.propertyUrl(this.baseUrl), command);
-        this.delayedUpdate(delayResponseMs || DEFAULT_DELAY_RESPONSE_MS);
+        return this.http
+            .put(this.restPython.propertyUrl(this.baseUrl), command)
+            .map(response => {
+                    this.delayedUpdate(delayResponseMs || DEFAULT_DELAY_RESPONSE_MS);
+                    return response; // This will be null/undefined/empty
+                })
+            .catch(this.handleError);
     }
 }
