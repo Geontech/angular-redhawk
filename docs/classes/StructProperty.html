@@ -1160,6 +1160,9 @@
                             <td class="col-md-4">
                                 <ul class="index-list">
                                     <li>
+                                         <a href="#asObject">asObject</a>
+                                    </li>
+                                    <li>
                                          <a href="#copy">copy</a>
                                     </li>
                                     <li>
@@ -1184,6 +1187,44 @@
                     <h3 id="methods">
                         Methods
                     </h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <a name="asObject"></a>
+                                    <span class="name"><b> asObject</b><a href="#asObject"><span class="fa fa-link"></span></a></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+            <code>asObject()</code>
+                                </td>
+                            </tr>
+            
+            
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/models/property/struct-property.ts:75</a></div>
+                                        </td>
+                                    </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description"><p>Convenience method for taking structures that have a &#39;value&#39; that is a list
+            of id-value pairs like StructProperty and turning them into a &#39;normal&#39; object
+            whose members are created using the de-namespaced &#39;id&#39;.  </p>
+            <p>For example, an id of TestMessage::something on a field results in an object
+            with a &#39;something&#39; member set to that field&#39;s value.</p>
+            </div>
+            
+                                        <div class="io-description">
+                                            <b>Returns : </b>    <code>T</code>
+            
+                                        </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <table class="table table-sm table-bordered">
                         <tbody>
                             <tr>
@@ -1530,6 +1571,24 @@ export class StructProperty extends Property implements ISerializable&lt;StructP
         const p &#x3D; new StructProperty().deserialize(this);
         p.kinds &#x3D; (this.kinds instanceof Array) ? this.kinds.slice() : this.kinds;
         return p;
+    }
+
+    /**
+     * Convenience method for taking structures that have a &#x27;value&#x27; that is a list
+     * of id-value pairs like StructProperty and turning them into a &#x27;normal&#x27; object
+     * whose members are created using the de-namespaced &#x27;id&#x27;.  
+     * 
+     * For example, an id of TestMessage::something on a field results in an object
+     * with a &#x27;something&#x27; member set to that field&#x27;s value.
+     * @return A populated Object from this message&#x27;s members.
+     */
+    asObject&lt;T&gt;(): T {
+        let obj &#x3D; {} as T;
+        for (let field of this.value) {
+            const id &#x3D; field.id.split(&#x27;::&#x27;).pop();
+            obj[id] &#x3D; field.value;
+        }
+        return obj;
     }
 }
 </code></pre>

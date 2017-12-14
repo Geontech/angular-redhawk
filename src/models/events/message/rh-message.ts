@@ -50,4 +50,22 @@ export class RhMessage implements ISerializable<RhMessage> {
         }
         return undefined;
     }
+
+    /**
+     * Convenience method for taking structures that have a 'value' that is a list
+     * of id-value pairs like RhMessage and turning them into a 'normal' object
+     * whose members are created using the de-namespaced 'id'.  
+     * 
+     * For example, an id of TestMessage::something on a field results in an object
+     * with a 'something' member set to that field's value.
+     * @return A populated Object from this message's members.
+     */
+    asObject<T>(): T {
+        let obj = {} as T;
+        for (let field of this.value) {
+            const id = field.id.split('::').pop();
+            obj[id] = field.value;
+        }
+        return obj;
+    }
 }
