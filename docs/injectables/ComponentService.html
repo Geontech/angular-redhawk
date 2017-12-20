@@ -53,6 +53,12 @@
                                         <span class="fa fa-file-text-o"></span>CONTRIBUTING
                                     </a>
                                 </li>
+                                <li class="link">
+                                    <a href="./license.html"
+                                        >
+                                        <span class="fa fa-file-text-o"></span>LICENSE
+                                    </a>
+                                </li>
                         </ul>
                     </li>
             
@@ -580,6 +586,12 @@
                                            <a href="./contributing.html"
                                                >
                                                <span class="fa fa-file-text-o"></span>CONTRIBUTING
+                                           </a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="./license.html"
+                                               >
+                                               <span class="fa fa-file-text-o"></span>LICENSE
                                            </a>
                                        </li>
                                </ul>
@@ -1128,7 +1140,7 @@ model in a REDHAWK system.</p>
                             <td class="col-md-4">
                                 <ul class="index-list">
                                     <li>
-                                         <a href="#configure">configure</a>
+                                         <a href="#configure$">configure$</a>
                                     </li>
                                     <li>
                                          <a href="#setBaseUrl">setBaseUrl</a>
@@ -1222,13 +1234,13 @@ model in a REDHAWK system.</p>
                         <tbody>
                             <tr>
                                 <td class="col-md-4">
-                                    <a name="configure"></a>
-                                    <span class="name"><b> configure</b><a href="#configure"><span class="fa fa-link"></span></a></span>
+                                    <a name="configure$"></a>
+                                    <span class="name"><b> configure$</b><a href="#configure$"><span class="fa fa-link"></span></a></span>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="col-md-4">
-            <code>configure(properties: <a href="../classes/Property.html">PropertySet</a>, delayResponseMs?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+            <code>configure$(properties: <a href="../classes/Property.html">PropertySet</a>, delayResponseMs?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                                 </td>
                             </tr>
             
@@ -1241,7 +1253,7 @@ model in a REDHAWK system.</p>
             
                             <tr>
                                 <td class="col-md-4">
-                                        <div class="io-description"><p>Calls &#39;configure&#39; on the Device and then pulls an update of the model.</p>
+                                        <div class="io-description"><p>Calls &#39;configure&#39; on the Component and then pulls an update of the model.</p>
             </div>
             
                                         <div class="io-description">
@@ -1263,7 +1275,7 @@ model in a REDHAWK system.</p>
                                                               </td>
                                                               <td>
                                                               </td>
-                                                              <td><p>The properties to &#39;configure&#39; on the Device</p>
+                                                              <td><p>The properties to &#39;configure&#39; on the Component</p>
             </td>
                                                             </tr>
                                                             <tr>
@@ -1284,7 +1296,7 @@ model in a REDHAWK system.</p>
                                         <div>
                                         </div>
                                         <div class="io-description">
-                                            <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                                            <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
             
                                         </div>
                                             <div class="io-description">
@@ -1460,15 +1472,20 @@ export class ComponentService extends PortBearingService&lt;Component&gt; {
     }
 
     /**
-     * Calls &#x27;configure&#x27; on the Device and then pulls an update of the model.
-     * @param properties The properties to &#x27;configure&#x27; on the Device
+     * Calls &#x27;configure&#x27; on the Component and then pulls an update of the model.
+     * @param properties The properties to &#x27;configure&#x27; on the Component
      * @param delayResponseMs The optional model update delay after sending the 
      * changes.
      */
-    configure(properties: PropertySet, delayResponseMs?: number): void {
+    configure$(properties: PropertySet, delayResponseMs?: number): Observable&lt;any&gt; {
         let command &#x3D; new PropertyCommand(properties);
-        this.http.put(this.restPython.propertyUrl(this.baseUrl), command);
-        this.delayedUpdate(delayResponseMs || DEFAULT_DELAY_RESPONSE_MS);
+        return this.http
+            .put(this.restPython.propertyUrl(this.baseUrl), command)
+            .map(response &#x3D;&gt; {
+                    this.delayedUpdate(delayResponseMs || DEFAULT_DELAY_RESPONSE_MS);
+                    return response; // This will be null/undefined/empty
+                })
+            .catch(this.handleError);
     }
 }
 </code></pre>
