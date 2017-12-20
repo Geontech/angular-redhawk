@@ -32,7 +32,20 @@ export function basicSocket(url: string, type?: WebSocketBinaryType): Subject<Me
     let observable = Observable.create(
         (obs: Observer<MessageEvent>) => {
             ws.binaryType = type;
-            ws.onmessage = obs.next.bind(obs);
+            ws.onmessage = (msg: MessageEvent) => {
+                if (msg.data instanceof ArrayBuffer) {
+                    obs.next(msg);
+                } else {
+                    const newMsg = new MessageEvent(
+                        msg.type, {
+                            data:   msg.data.replace(/(\s?)(Infinity|-Infinity|NaN)(\s?\,?)/g, '$1\"$2\"$3'),
+                            origin: msg.origin,
+                            source: msg.source,
+                            ports:  msg.ports
+                        });
+                    obs.next(newMsg);
+                }
+            };
             ws.onerror = obs.error.bind(obs);
             ws.onclose = obs.complete.bind(obs);
             ws.onopen = () => {
