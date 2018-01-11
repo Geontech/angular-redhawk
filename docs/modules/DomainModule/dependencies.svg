@@ -30,7 +30,7 @@
 </g>
 <g id="clust3" class="cluster">
 <title>cluster_DomainModule_DomainDirective_providers</title>
-<polygon fill="none" stroke="#000000" points="28,-78 28,-130 546,-130 546,-78 28,-78"/>
+<polygon fill="none" stroke="#000000" points="446,-78 446,-130 516,-130 516,-78 446,-78"/>
 </g>
 <g id="clust4" class="cluster">
 <title>cluster_DomainModule_imports</title>
@@ -59,7 +59,7 @@
 <polygon fill="#000000" stroke="#000000" points="332.1574,-230.5001 322.1573,-234 332.1573,-237.5001 332.1574,-230.5001"/>
 </g>
 <!-- DomainDirective  -->
-<g id="node8" class="node">
+<g id="node7" class="node">
 <title>DomainDirective </title>
 <polygon fill="#fb8072" stroke="#000000" points="328.1856,-317 211.8144,-317 211.8144,-281 328.1856,-281 328.1856,-317"/>
 <text text-anchor="middle" x="270" y="-294.8" font-family="Times,serif" font-size="14.00" fill="#000000">DomainDirective </text>
@@ -70,32 +70,26 @@
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M270,-252.1061C270,-252.1061 270,-270.991 270,-270.991"/>
 <polygon fill="#000000" stroke="#000000" points="266.5001,-270.9909 270,-280.991 273.5001,-270.991 266.5001,-270.9909"/>
 </g>
-<!-- odmListenerServiceProvider.() -->
+<!-- () -->
 <g id="node3" class="node">
-<title>odmListenerServiceProvider.()</title>
-<ellipse fill="#fdb462" stroke="#000000" cx="407" cy="-104" rx="130.7952" ry="18"/>
-<text text-anchor="middle" x="407" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">odmListenerServiceProvider.()</text>
+<title>()</title>
+<ellipse fill="#fdb462" stroke="#000000" cx="481" cy="-104" rx="27" ry="18"/>
+<text text-anchor="middle" x="481" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">()</text>
 </g>
-<!-- odmListenerServiceProvider.()&#45;&gt;DomainDirective -->
+<!-- ()&#45;&gt;DomainDirective -->
 <g id="edge2" class="edge">
-<title>odmListenerServiceProvider.()&#45;&gt;DomainDirective</title>
-<path fill="none" stroke="#000000" d="M499.8642,-116.8419C499.8642,-116.8419 499.8642,-140.5231 499.8642,-140.5231"/>
-<polygon fill="#000000" stroke="#000000" points="496.3643,-140.523 499.8642,-150.5231 503.3643,-140.5231 496.3643,-140.523"/>
+<title>()&#45;&gt;DomainDirective</title>
+<path fill="none" stroke="#000000" d="M472,-121.078C472,-121.078 472,-140.8993 472,-140.8993"/>
+<polygon fill="#000000" stroke="#000000" points="468.5001,-140.8992 472,-150.8993 475.5001,-140.8993 468.5001,-140.8992"/>
 </g>
-<!-- domainServiceProvider.() -->
-<g id="node4" class="node">
-<title>domainServiceProvider.()</title>
-<ellipse fill="#fdb462" stroke="#000000" cx="147" cy="-104" rx="111.1147" ry="18"/>
-<text text-anchor="middle" x="147" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">domainServiceProvider.()</text>
-</g>
-<!-- domainServiceProvider.()&#45;&gt;DomainDirective -->
+<!-- ()&#45;&gt;DomainDirective -->
 <g id="edge3" class="edge">
-<title>domainServiceProvider.()&#45;&gt;DomainDirective</title>
-<path fill="none" stroke="#000000" d="M201.9231,-119.7268C201.9231,-128.2263 201.9231,-137 201.9231,-137 201.9231,-137 462.1358,-137 462.1358,-137 462.1358,-137 462.1358,-140.7566 462.1358,-140.7566"/>
-<polygon fill="#000000" stroke="#000000" points="458.6359,-140.7566 462.1358,-150.7566 465.6359,-140.7566 458.6359,-140.7566"/>
+<title>()&#45;&gt;DomainDirective</title>
+<path fill="none" stroke="#000000" d="M490,-121.078C490,-121.078 490,-140.8993 490,-140.8993"/>
+<polygon fill="#000000" stroke="#000000" points="486.5001,-140.8992 490,-150.8993 493.5001,-140.8993 486.5001,-140.8992"/>
 </g>
 <!-- RestPythonModule -->
-<g id="node5" class="node">
+<g id="node4" class="node">
 <title>RestPythonModule</title>
 <polygon fill="#8dd3c7" stroke="#000000" points="400.1094,-187 397.1094,-191 376.1094,-191 373.1094,-187 275.8906,-187 275.8906,-151 400.1094,-151 400.1094,-187"/>
 <text text-anchor="middle" x="338" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">RestPythonModule</text>
@@ -107,7 +101,7 @@
 <polygon fill="#000000" stroke="#000000" points="295.6358,-205.9909 299.1357,-215.991 302.6358,-205.991 295.6358,-205.9909"/>
 </g>
 <!-- RedhawkModule -->
-<g id="node6" class="node">
+<g id="node5" class="node">
 <title>RedhawkModule</title>
 <polygon fill="#8dd3c7" stroke="#000000" points="258.423,-187 255.423,-191 234.423,-191 231.423,-187 145.577,-187 145.577,-151 258.423,-151 258.423,-187"/>
 <text text-anchor="middle" x="202" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">RedhawkModule</text>
@@ -119,7 +113,7 @@
 <polygon fill="#000000" stroke="#000000" points="234.4426,-205.9909 237.9425,-215.991 241.4426,-205.991 234.4426,-205.9909"/>
 </g>
 <!-- SocketsModule -->
-<g id="node7" class="node">
+<g id="node6" class="node">
 <title>SocketsModule</title>
 <polygon fill="#8dd3c7" stroke="#000000" points="127.5968,-187 124.5968,-191 103.5968,-191 100.5968,-187 24.4032,-187 24.4032,-151 127.5968,-151 127.5968,-187"/>
 <text text-anchor="middle" x="76" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">SocketsModule</text>

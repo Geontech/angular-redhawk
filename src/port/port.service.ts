@@ -57,9 +57,9 @@ export class PortService extends BaseService<Port> {
     constructor(
         protected http: Http,
         protected restPython: RestPythonService,
-        @Optional() private _wave: WaveformService,
-        @Optional() private _device: DeviceService,
-        @Optional() private _component: ComponentService
+        @Optional() _wave: WaveformService,
+        @Optional() _device: DeviceService,
+        @Optional() _component: ComponentService
     ) {
         super(http, restPython);
         this.modelUpdated(new Port());

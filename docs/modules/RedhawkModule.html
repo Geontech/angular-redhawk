@@ -48,14 +48,14 @@
                                   <a href="../index.html" ><span class="fa fa-file-text-o"></span>README</a>
                                 </li>
                                 <li class="link">
-                                    <a href="./contributing.html"
-                                        >
+                                        <a href="../contributing.html"
+                                    >
                                         <span class="fa fa-file-text-o"></span>CONTRIBUTING
                                     </a>
                                 </li>
                                 <li class="link">
-                                    <a href="./license.html"
-                                        >
+                                        <a href="../license.html"
+                                    >
                                         <span class="fa fa-file-text-o"></span>LICENSE
                                     </a>
                                 </li>
@@ -389,6 +389,7 @@
                         </ul>
                     </li>
             
+            
                     <li class="chapter">
                         <div class="simple menu-toggler" data-toggle="collapse"
                                 data-target="#xs-interfaces-links"
@@ -583,14 +584,14 @@
                                          <a href="../index.html" ><span class="fa fa-file-text-o"></span>README</a>
                                        </li>
                                        <li class="link">
-                                           <a href="./contributing.html"
-                                               >
+                                               <a href="../contributing.html"
+                                           >
                                                <span class="fa fa-file-text-o"></span>CONTRIBUTING
                                            </a>
                                        </li>
                                        <li class="link">
-                                           <a href="./license.html"
-                                               >
+                                               <a href="../license.html"
+                                           >
                                                <span class="fa fa-file-text-o"></span>LICENSE
                                            </a>
                                        </li>
@@ -924,6 +925,7 @@
                                </ul>
                            </li>
                    
+                   
                            <li class="chapter">
                                <div class="simple menu-toggler" data-toggle="collapse"
                                        data-target="#interfaces-links"
@@ -1094,7 +1096,7 @@
   <li>RedhawkModule</li>
 </ol>
 
-      <div class="text-center">
+      <div class="text-center module-graph-container">
           <div id="module-graph-svg">
               <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
@@ -1128,7 +1130,7 @@
 </g>
 <g id="clust3" class="cluster">
 <title>cluster_RedhawkModule_RedhawkDirective_providers</title>
-<polygon fill="none" stroke="#000000" points="205,-78 205,-130 451,-130 451,-78 205,-78"/>
+<polygon fill="none" stroke="#000000" points="348,-78 348,-130 418,-130 418,-78 348,-78"/>
 </g>
 <g id="clust4" class="cluster">
 <title>cluster_RedhawkModule_imports</title>
@@ -1168,17 +1170,17 @@
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M237,-252.1061C237,-252.1061 237,-270.991 237,-270.991"/>
 <polygon fill="#000000" stroke="#000000" points="233.5001,-270.9909 237,-280.991 240.5001,-270.991 233.5001,-270.9909"/>
 </g>
-<!-- redhawkServiceProvider.() -->
+<!-- () -->
 <g id="node3" class="node">
-<title>redhawkServiceProvider.()</title>
-<ellipse fill="#fdb462" stroke="#000000" cx="328" cy="-104" rx="115.1691" ry="18"/>
-<text text-anchor="middle" x="328" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">redhawkServiceProvider.()</text>
+<title>()</title>
+<ellipse fill="#fdb462" stroke="#000000" cx="383" cy="-104" rx="27" ry="18"/>
+<text text-anchor="middle" x="383" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">()</text>
 </g>
-<!-- redhawkServiceProvider.()&#45;&gt;RedhawkDirective -->
+<!-- ()&#45;&gt;RedhawkDirective -->
 <g id="edge2" class="edge">
-<title>redhawkServiceProvider.()&#45;&gt;RedhawkDirective</title>
-<path fill="none" stroke="#000000" d="M382.9284,-120.0674C382.9284,-120.0674 382.9284,-140.8237 382.9284,-140.8237"/>
-<polygon fill="#000000" stroke="#000000" points="379.4285,-140.8236 382.9284,-150.8237 386.4285,-140.8237 379.4285,-140.8236"/>
+<title>()&#45;&gt;RedhawkDirective</title>
+<path fill="none" stroke="#000000" d="M383,-122.1061C383,-122.1061 383,-140.991 383,-140.991"/>
+<polygon fill="#000000" stroke="#000000" points="379.5001,-140.9909 383,-150.991 386.5001,-140.991 379.5001,-140.9909"/>
 </g>
 <!-- RestPythonModule -->
 <g id="node4" class="node">
@@ -1208,6 +1210,7 @@
 </svg>
 
           </div>
+          <i id="fullscreen" class="fa fa-expand module-graph-fullscreen-btn" aria-hidden="true"></i>
           <div class="btn-group">
               <button id="zoom-in" class="btn btn-default btn-sm">Zoom in</button>
               <button id="reset" class="btn btn-default btn-sm">Reset</button>
@@ -1229,7 +1232,7 @@
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="info">
+    <div class="tab-pane fade active in" id="c-info">
 
         <p class="comment">
             <h3>File</h3>
@@ -1281,7 +1284,7 @@ REDHAWK System (in the general sense).</p>
     </div>
 
 
-    <div class="tab-pane fade tab-source-code" id="source">
+    <div class="tab-pane fade tab-source-code" id="c-source">
         <pre class="line-numbers"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
 import { HttpModule } from &#x27;@angular/http&#x27;;
 
@@ -1311,6 +1314,7 @@ export class RedhawkModule { /** */ }
 </code></pre>
     </div>
 </div>
+
 
 
 

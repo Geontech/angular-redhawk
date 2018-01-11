@@ -48,14 +48,14 @@
                                   <a href="../index.html" ><span class="fa fa-file-text-o"></span>README</a>
                                 </li>
                                 <li class="link">
-                                    <a href="./contributing.html"
-                                        >
+                                        <a href="../contributing.html"
+                                    >
                                         <span class="fa fa-file-text-o"></span>CONTRIBUTING
                                     </a>
                                 </li>
                                 <li class="link">
-                                    <a href="./license.html"
-                                        >
+                                        <a href="../license.html"
+                                    >
                                         <span class="fa fa-file-text-o"></span>LICENSE
                                     </a>
                                 </li>
@@ -389,6 +389,7 @@
                         </ul>
                     </li>
             
+            
                     <li class="chapter">
                         <div class="simple menu-toggler" data-toggle="collapse"
                                 data-target="#xs-interfaces-links"
@@ -583,14 +584,14 @@
                                          <a href="../index.html" ><span class="fa fa-file-text-o"></span>README</a>
                                        </li>
                                        <li class="link">
-                                           <a href="./contributing.html"
-                                               >
+                                               <a href="../contributing.html"
+                                           >
                                                <span class="fa fa-file-text-o"></span>CONTRIBUTING
                                            </a>
                                        </li>
                                        <li class="link">
-                                           <a href="./license.html"
-                                               >
+                                               <a href="../license.html"
+                                           >
                                                <span class="fa fa-file-text-o"></span>LICENSE
                                            </a>
                                        </li>
@@ -924,6 +925,7 @@
                                </ul>
                            </li>
                    
+                   
                            <li class="chapter">
                                <div class="simple menu-toggler" data-toggle="collapse"
                                        data-target="#interfaces-links"
@@ -1086,6 +1088,7 @@
                </div>
                <div class="content miscellaneous-functions">
                    <div class="content-data">
+
 
 
 
@@ -1272,17 +1275,70 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="basicSocket"></a>
-                            <span class="name"><b> basicSocket</b><a href="#basicSocket"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                basicSocket
+                                </b>
+                                <a href="#basicSocket"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>basicSocket(url: undefined, type: undefined)</code>
+    <code>basicSocket(url: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, type?: typeReference)</code>
                         </td>
                     </tr>
     
     
     
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>This is a factory that returns websocket instances in the form of Subjects.
+    The Subject <code>subscribe</code> and <code>unsubscribe</code> methods are bound to opening and
+    closing the socket, respectively.  When subscribing, map the output to the
+    type you expect.  Sometimes it&#39;s helpful to map this response into your own
+    local subject or observable, behaving as the buffer abstraction for your
+    design.  Use <code>next</code> to send data back through the socket.</p>
+    </div>
+    
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Type</td>
+                                                    <td>Optional</td>
+                                                    <td>Description</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                      <td>url</td>
+                                                      <td>
+                                                              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                      </td>
+                                                      <td>
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td>type</td>
+                                                      <td>
+                                                              <code>typeReference</code>
+                                                      </td>
+                                                      <td>
+                                                          true
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -1293,12 +1349,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="componentProvider"></a>
-                            <span class="name"><b> componentProvider</b><a href="#componentProvider"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                componentProvider
+                                </b>
+                                <a href="#componentProvider"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>componentProvider(token: undefined, waveform: undefined)</code>
+    <code>componentProvider(token: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, waveform: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                         </td>
                     </tr>
     
@@ -1325,6 +1386,7 @@
                                                     <tr>
                                                       <td>token</td>
                                                       <td>
+                                                              <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -1334,6 +1396,7 @@
                                                     <tr>
                                                       <td>waveform</td>
                                                       <td>
+                                                              <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -1354,12 +1417,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="deviceFactory"></a>
-                            <span class="name"><b> deviceFactory</b><a href="#deviceFactory"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                deviceFactory
+                                </b>
+                                <a href="#deviceFactory"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>deviceFactory(http: undefined, restPython: undefined, waveform: undefined)</code>
+    <code>deviceFactory(http: typeReference, restPython: typeReference, waveform: typeReference)</code>
                         </td>
                     </tr>
     
@@ -1385,6 +1453,7 @@
                                                     <tr>
                                                       <td>http</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -1394,6 +1463,7 @@
                                                     <tr>
                                                       <td>restPython</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -1401,13 +1471,13 @@
     </td>
                                                     </tr>
                                                     <tr>
-                                                      <td>waveformService</td>
+                                                      <td>waveform</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
-                                                      <td><p>The WaveformService for this component</p>
-    </td>
+                                                      <td></td>
                                                     </tr>
                                             </tbody>
                                         </table>
@@ -1426,7 +1496,12 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="componentServiceProvider"></a>
-                            <span class="name"><b> componentServiceProvider</b><a href="#componentServiceProvider"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                componentServiceProvider
+                                </b>
+                                <a href="#componentServiceProvider"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -1444,12 +1519,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="serviceSelect"></a>
-                            <span class="name"><b> serviceSelect</b><a href="#serviceSelect"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                serviceSelect
+                                </b>
+                                <a href="#serviceSelect"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>serviceSelect(service: undefined, http: undefined, restPython: undefined, waveform: undefined)</code>
+    <code>serviceSelect(service: typeReference, http: typeReference, restPython: typeReference, waveform: typeReference)</code>
                         </td>
                     </tr>
     
@@ -1475,6 +1555,7 @@
                                                     <tr>
                                                       <td>service</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -1484,6 +1565,7 @@
                                                     <tr>
                                                       <td>http</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -1493,6 +1575,7 @@
                                                     <tr>
                                                       <td>restPython</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -1500,13 +1583,13 @@
     </td>
                                                     </tr>
                                                     <tr>
-                                                      <td>waveformService</td>
+                                                      <td>waveform</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
-                                                      <td><p>The Waveform service that has this Component in it</p>
-    </td>
+                                                      <td></td>
                                                     </tr>
                                             </tbody>
                                         </table>
@@ -1525,12 +1608,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="configureIdmListenerService"></a>
-                            <span class="name"><b> configureIdmListenerService</b><a href="#configureIdmListenerService"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                configureIdmListenerService
+                                </b>
+                                <a href="#configureIdmListenerService"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>configureIdmListenerService(ecs: undefined)</code>
+    <code>configureIdmListenerService(ecs: typeReference)</code>
                         </td>
                     </tr>
     
@@ -1556,6 +1644,7 @@
                                                     <tr>
                                                       <td>ecs</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -1576,7 +1665,12 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="idmListenerServiceProvider"></a>
-                            <span class="name"><b> idmListenerServiceProvider</b><a href="#idmListenerServiceProvider"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                idmListenerServiceProvider
+                                </b>
+                                <a href="#idmListenerServiceProvider"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -1597,12 +1691,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="configureOdmListenerService"></a>
-                            <span class="name"><b> configureOdmListenerService</b><a href="#configureOdmListenerService"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                configureOdmListenerService
+                                </b>
+                                <a href="#configureOdmListenerService"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>configureOdmListenerService(ecs: undefined)</code>
+    <code>configureOdmListenerService(ecs: typeReference)</code>
                         </td>
                     </tr>
     
@@ -1628,6 +1727,7 @@
                                                     <tr>
                                                       <td>ecs</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -1648,7 +1748,12 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="odmListenerServiceProvider"></a>
-                            <span class="name"><b> odmListenerServiceProvider</b><a href="#odmListenerServiceProvider"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                odmListenerServiceProvider
+                                </b>
+                                <a href="#odmListenerServiceProvider"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -1669,17 +1774,57 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="deserializeDeviceManagerRefs"></a>
-                            <span class="name"><b> deserializeDeviceManagerRefs</b><a href="#deserializeDeviceManagerRefs"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                deserializeDeviceManagerRefs
+                                </b>
+                                <a href="#deserializeDeviceManagerRefs"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>deserializeDeviceManagerRefs(inputs: undefined)</code>
+    <code>deserializeDeviceManagerRefs(inputs?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                         </td>
                     </tr>
     
     
     
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Function for deserializing a list of device manager refs, typically used
+    by the Domain.</p>
+    </div>
+    
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Type</td>
+                                                    <td>Optional</td>
+                                                    <td>Description</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                      <td>inputs</td>
+                                                      <td>
+                                                              <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                      </td>
+                                                      <td>
+                                                          true
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -1690,12 +1835,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="deserializePort"></a>
-                            <span class="name"><b> deserializePort</b><a href="#deserializePort"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                deserializePort
+                                </b>
+                                <a href="#deserializePort"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>deserializePort(input: undefined)</code>
+    <code>deserializePort(input: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                         </td>
                     </tr>
     
@@ -1721,6 +1871,7 @@
                                                     <tr>
                                                       <td>input</td>
                                                       <td>
+                                                              <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -1741,12 +1892,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="deserializePorts"></a>
-                            <span class="name"><b> deserializePorts</b><a href="#deserializePorts"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                deserializePorts
+                                </b>
+                                <a href="#deserializePorts"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>deserializePorts(inputs: undefined)</code>
+    <code>deserializePorts(inputs?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                         </td>
                     </tr>
     
@@ -1770,13 +1926,14 @@
                                             </thead>
                                             <tbody>
                                                     <tr>
-                                                      <td>input</td>
+                                                      <td>inputs</td>
                                                       <td>
+                                                              <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                       </td>
                                                       <td>
+                                                          true
                                                       </td>
-                                                      <td><p>JSON Object representing a list of ports.</p>
-    </td>
+                                                      <td></td>
                                                     </tr>
                                             </tbody>
                                         </table>
@@ -1795,12 +1952,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="deserializeProperties"></a>
-                            <span class="name"><b> deserializeProperties</b><a href="#deserializeProperties"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                deserializeProperties
+                                </b>
+                                <a href="#deserializeProperties"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>deserializeProperties(inputs: undefined)</code>
+    <code>deserializeProperties(inputs: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                         </td>
                     </tr>
     
@@ -1826,6 +1988,7 @@
                                                     <tr>
                                                       <td>inputs</td>
                                                       <td>
+                                                              <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -1849,17 +2012,55 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="deserializeResourceRefs"></a>
-                            <span class="name"><b> deserializeResourceRefs</b><a href="#deserializeResourceRefs"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                deserializeResourceRefs
+                                </b>
+                                <a href="#deserializeResourceRefs"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>deserializeResourceRefs(inputs: undefined)</code>
+    <code>deserializeResourceRefs(inputs: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                         </td>
                     </tr>
     
     
     
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Utility function for deserializing a list of resource refs.</p>
+    </div>
+    
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Type</td>
+                                                    <td>Optional</td>
+                                                    <td>Description</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                      <td>inputs</td>
+                                                      <td>
+                                                              <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                      </td>
+                                                      <td>
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -1870,17 +2071,56 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="deserializeWaveformSADRefs"></a>
-                            <span class="name"><b> deserializeWaveformSADRefs</b><a href="#deserializeWaveformSADRefs"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                deserializeWaveformSADRefs
+                                </b>
+                                <a href="#deserializeWaveformSADRefs"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>deserializeWaveformSADRefs(inputs: undefined)</code>
+    <code>deserializeWaveformSADRefs(inputs?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                         </td>
                     </tr>
     
     
     
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Helper function to convert a JSON object into a list of Waveform SAD refs</p>
+    </div>
+    
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Type</td>
+                                                    <td>Optional</td>
+                                                    <td>Description</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                      <td>inputs</td>
+                                                      <td>
+                                                              <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                      </td>
+                                                      <td>
+                                                          true
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -1891,12 +2131,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="deviceFactory"></a>
-                            <span class="name"><b> deviceFactory</b><a href="#deviceFactory"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                deviceFactory
+                                </b>
+                                <a href="#deviceFactory"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>deviceFactory(http: undefined, restPython: undefined, deviceManager: undefined)</code>
+    <code>deviceFactory(http: typeReference, restPython: typeReference, deviceManager: typeReference)</code>
                         </td>
                     </tr>
     
@@ -1922,6 +2167,7 @@
                                                     <tr>
                                                       <td>http</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -1931,6 +2177,7 @@
                                                     <tr>
                                                       <td>restPython</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -1938,13 +2185,13 @@
     </td>
                                                     </tr>
                                                     <tr>
-                                                      <td>deviceManagerService</td>
+                                                      <td>deviceManager</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
-                                                      <td><p>The DeviceManagerService</p>
-    </td>
+                                                      <td></td>
                                                     </tr>
                                             </tbody>
                                         </table>
@@ -1960,12 +2207,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="deviceProvider"></a>
-                            <span class="name"><b> deviceProvider</b><a href="#deviceProvider"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                deviceProvider
+                                </b>
+                                <a href="#deviceProvider"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>deviceProvider(token: undefined, deviceManager: undefined)</code>
+    <code>deviceProvider(token: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, deviceManager: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                         </td>
                     </tr>
     
@@ -1992,6 +2244,7 @@
                                                     <tr>
                                                       <td>token</td>
                                                       <td>
+                                                              <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2001,6 +2254,7 @@
                                                     <tr>
                                                       <td>deviceManager</td>
                                                       <td>
+                                                              <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2024,12 +2278,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="deviceManagerFactory"></a>
-                            <span class="name"><b> deviceManagerFactory</b><a href="#deviceManagerFactory"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                deviceManagerFactory
+                                </b>
+                                <a href="#deviceManagerFactory"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>deviceManagerFactory(http: undefined, restPython: undefined, domain: undefined)</code>
+    <code>deviceManagerFactory(http: typeReference, restPython: typeReference, domain: typeReference)</code>
                         </td>
                     </tr>
     
@@ -2056,6 +2315,7 @@
                                                     <tr>
                                                       <td>http</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2065,6 +2325,7 @@
                                                     <tr>
                                                       <td>restPython</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2074,6 +2335,7 @@
                                                     <tr>
                                                       <td>domain</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2094,12 +2356,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="deviceManagerProvider"></a>
-                            <span class="name"><b> deviceManagerProvider</b><a href="#deviceManagerProvider"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                deviceManagerProvider
+                                </b>
+                                <a href="#deviceManagerProvider"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>deviceManagerProvider(token: undefined, domain: undefined)</code>
+    <code>deviceManagerProvider(token: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, domain: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                         </td>
                     </tr>
     
@@ -2126,6 +2393,7 @@
                                                     <tr>
                                                       <td>token</td>
                                                       <td>
+                                                              <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2135,6 +2403,7 @@
                                                     <tr>
                                                       <td>domain</td>
                                                       <td>
+                                                              <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2158,7 +2427,12 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="deviceManagerServiceProvider"></a>
-                            <span class="name"><b> deviceManagerServiceProvider</b><a href="#deviceManagerServiceProvider"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                deviceManagerServiceProvider
+                                </b>
+                                <a href="#deviceManagerServiceProvider"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -2176,12 +2450,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="serviceSelect"></a>
-                            <span class="name"><b> serviceSelect</b><a href="#serviceSelect"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                serviceSelect
+                                </b>
+                                <a href="#serviceSelect"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>serviceSelect(service: undefined, http: undefined, restPython: undefined, domain: undefined)</code>
+    <code>serviceSelect(service: typeReference, http: typeReference, restPython: typeReference, domain: typeReference)</code>
                         </td>
                     </tr>
     
@@ -2207,6 +2486,7 @@
                                                     <tr>
                                                       <td>service</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2216,6 +2496,7 @@
                                                     <tr>
                                                       <td>http</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2225,6 +2506,7 @@
                                                     <tr>
                                                       <td>restPython</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2234,6 +2516,7 @@
                                                     <tr>
                                                       <td>domain</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2257,7 +2540,12 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="deviceServiceProvider"></a>
-                            <span class="name"><b> deviceServiceProvider</b><a href="#deviceServiceProvider"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                deviceServiceProvider
+                                </b>
+                                <a href="#deviceServiceProvider"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -2275,12 +2563,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="serviceSelect"></a>
-                            <span class="name"><b> serviceSelect</b><a href="#serviceSelect"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                serviceSelect
+                                </b>
+                                <a href="#serviceSelect"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>serviceSelect(service: undefined, http: undefined, restPython: undefined, dm: undefined)</code>
+    <code>serviceSelect(service: typeReference, http: typeReference, restPython: typeReference, dm: typeReference)</code>
                         </td>
                     </tr>
     
@@ -2306,6 +2599,7 @@
                                                     <tr>
                                                       <td>service</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2315,6 +2609,7 @@
                                                     <tr>
                                                       <td>http</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2324,6 +2619,7 @@
                                                     <tr>
                                                       <td>restPython</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2333,6 +2629,7 @@
                                                     <tr>
                                                       <td>dm</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2356,12 +2653,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="domainFactory"></a>
-                            <span class="name"><b> domainFactory</b><a href="#domainFactory"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                domainFactory
+                                </b>
+                                <a href="#domainFactory"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>domainFactory(http: undefined, restPython: undefined, redhawk: undefined, odm: undefined)</code>
+    <code>domainFactory(http: typeReference, restPython: typeReference, redhawk: typeReference, odm: typeReference)</code>
                         </td>
                     </tr>
     
@@ -2387,6 +2689,7 @@
                                                     <tr>
                                                       <td>http</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2396,6 +2699,7 @@
                                                     <tr>
                                                       <td>restPython</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2405,6 +2709,7 @@
                                                     <tr>
                                                       <td>redhawk</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2414,6 +2719,7 @@
                                                     <tr>
                                                       <td>odm</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2434,12 +2740,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="domainProvider"></a>
-                            <span class="name"><b> domainProvider</b><a href="#domainProvider"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                domainProvider
+                                </b>
+                                <a href="#domainProvider"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>domainProvider(token: undefined)</code>
+    <code>domainProvider(token: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                         </td>
                     </tr>
     
@@ -2465,6 +2776,7 @@
                                                     <tr>
                                                       <td>token</td>
                                                       <td>
+                                                              <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2488,7 +2800,12 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="domainServiceProvider"></a>
-                            <span class="name"><b> domainServiceProvider</b><a href="#domainServiceProvider"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                domainServiceProvider
+                                </b>
+                                <a href="#domainServiceProvider"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -2506,12 +2823,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="serviceSelect"></a>
-                            <span class="name"><b> serviceSelect</b><a href="#serviceSelect"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                serviceSelect
+                                </b>
+                                <a href="#serviceSelect"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>serviceSelect(service: undefined, http: undefined, restPython: undefined, rh: undefined, odm: undefined)</code>
+    <code>serviceSelect(service: typeReference, http: typeReference, restPython: typeReference, rh: typeReference, odm: typeReference)</code>
                         </td>
                     </tr>
     
@@ -2537,6 +2859,7 @@
                                                     <tr>
                                                       <td>service</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2546,6 +2869,7 @@
                                                     <tr>
                                                       <td>http</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2555,6 +2879,7 @@
                                                     <tr>
                                                       <td>restPython</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2564,6 +2889,7 @@
                                                     <tr>
                                                       <td>rh</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2573,6 +2899,7 @@
                                                     <tr>
                                                       <td>odm</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2596,7 +2923,12 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="fileSystemServiceProvider"></a>
-                            <span class="name"><b> fileSystemServiceProvider</b><a href="#fileSystemServiceProvider"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                fileSystemServiceProvider
+                                </b>
+                                <a href="#fileSystemServiceProvider"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -2614,12 +2946,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="serviceSelect"></a>
-                            <span class="name"><b> serviceSelect</b><a href="#serviceSelect"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                serviceSelect
+                                </b>
+                                <a href="#serviceSelect"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>serviceSelect(service: undefined, http: undefined, restPython: undefined, domainService: undefined)</code>
+    <code>serviceSelect(service: typeReference, http: typeReference, restPython: typeReference, domainService: typeReference)</code>
                         </td>
                     </tr>
     
@@ -2645,6 +2982,7 @@
                                                     <tr>
                                                       <td>service</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2654,6 +2992,7 @@
                                                     <tr>
                                                       <td>http</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2663,6 +3002,7 @@
                                                     <tr>
                                                       <td>restPython</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2672,6 +3012,7 @@
                                                     <tr>
                                                       <td>domainService</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2695,17 +3036,53 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="fromString"></a>
-                            <span class="name"><b> fromString</b><a href="#fromString"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                fromString
+                                </b>
+                                <a href="#fromString"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>fromString(state: undefined)</code>
+    <code>fromString(state: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                         </td>
                     </tr>
     
     
     
+                    <tr>
+                        <td class="col-md-4">
+    
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Type</td>
+                                                    <td>Optional</td>
+                                                    <td>Description</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                      <td>state</td>
+                                                      <td>
+                                                              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                      </td>
+                                                      <td>
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -2716,17 +3093,55 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="fromString"></a>
-                            <span class="name"><b> fromString</b><a href="#fromString"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                fromString
+                                </b>
+                                <a href="#fromString"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>fromString(category: undefined)</code>
+    <code>fromString(category: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                         </td>
                     </tr>
     
     
     
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Internal helper function for converting to the enumeration value.</p>
+    </div>
+    
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Type</td>
+                                                    <td>Optional</td>
+                                                    <td>Description</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                      <td>category</td>
+                                                      <td>
+                                                              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                      </td>
+                                                      <td>
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -2737,17 +3152,53 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="fromString"></a>
-                            <span class="name"><b> fromString</b><a href="#fromString"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                fromString
+                                </b>
+                                <a href="#fromString"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>fromString(category: undefined)</code>
+    <code>fromString(category: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                         </td>
                     </tr>
     
     
     
+                    <tr>
+                        <td class="col-md-4">
+    
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Type</td>
+                                                    <td>Optional</td>
+                                                    <td>Description</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                      <td>category</td>
+                                                      <td>
+                                                              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                      </td>
+                                                      <td>
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -2758,17 +3209,53 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="fromString"></a>
-                            <span class="name"><b> fromString</b><a href="#fromString"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                fromString
+                                </b>
+                                <a href="#fromString"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>fromString(category: undefined)</code>
+    <code>fromString(category: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                         </td>
                     </tr>
     
     
     
+                    <tr>
+                        <td class="col-md-4">
+    
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Type</td>
+                                                    <td>Optional</td>
+                                                    <td>Description</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                      <td>category</td>
+                                                      <td>
+                                                              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                      </td>
+                                                      <td>
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -2779,17 +3266,53 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="fromString"></a>
-                            <span class="name"><b> fromString</b><a href="#fromString"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                fromString
+                                </b>
+                                <a href="#fromString"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>fromString(category: undefined)</code>
+    <code>fromString(category: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                         </td>
                     </tr>
     
     
     
+                    <tr>
+                        <td class="col-md-4">
+    
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Type</td>
+                                                    <td>Optional</td>
+                                                    <td>Description</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                      <td>category</td>
+                                                      <td>
+                                                              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                      </td>
+                                                      <td>
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -2800,17 +3323,55 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="fromString"></a>
-                            <span class="name"><b> fromString</b><a href="#fromString"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                fromString
+                                </b>
+                                <a href="#fromString"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>fromString(category: undefined)</code>
+    <code>fromString(category: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                         </td>
                     </tr>
     
     
     
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Helper function for converting StateChangeCategory to the enumeration</p>
+    </div>
+    
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Type</td>
+                                                    <td>Optional</td>
+                                                    <td>Description</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                      <td>category</td>
+                                                      <td>
+                                                              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                      </td>
+                                                      <td>
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -2821,17 +3382,57 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="isIdmEvent"></a>
-                            <span class="name"><b> isIdmEvent</b><a href="#isIdmEvent"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                isIdmEvent
+                                </b>
+                                <a href="#isIdmEvent"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>isIdmEvent(event: undefined)</code>
+    <code>isIdmEvent(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                         </td>
                     </tr>
     
     
     
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Typeguard simply for interface parity between the ODM and IDM event
+    interfaces.  Yes, this is logically obvious at this time since all ODM
+    events thus far in the API can inherit from OdmEvent.</p>
+    </div>
+    
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Type</td>
+                                                    <td>Optional</td>
+                                                    <td>Description</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                      <td>event</td>
+                                                      <td>
+                                                              <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                      </td>
+                                                      <td>
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -2842,7 +3443,12 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="portServiceProvider"></a>
-                            <span class="name"><b> portServiceProvider</b><a href="#portServiceProvider"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                portServiceProvider
+                                </b>
+                                <a href="#portServiceProvider"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -2860,12 +3466,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="serviceSelect"></a>
-                            <span class="name"><b> serviceSelect</b><a href="#serviceSelect"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                serviceSelect
+                                </b>
+                                <a href="#serviceSelect"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>serviceSelect(service: undefined, http: undefined, restPython: undefined, waveform: undefined, device: undefined, component: undefined)</code>
+    <code>serviceSelect(service: typeReference, http: typeReference, restPython: typeReference, waveform: typeReference, device: typeReference, component: typeReference)</code>
                         </td>
                     </tr>
     
@@ -2891,6 +3502,7 @@
                                                     <tr>
                                                       <td>service</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2900,6 +3512,7 @@
                                                     <tr>
                                                       <td>http</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2909,6 +3522,7 @@
                                                     <tr>
                                                       <td>restPython</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2918,6 +3532,7 @@
                                                     <tr>
                                                       <td>waveform</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2927,6 +3542,7 @@
                                                     <tr>
                                                       <td>device</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2936,6 +3552,7 @@
                                                     <tr>
                                                       <td>component</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -2959,12 +3576,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="provideSystemBuilderConfig"></a>
-                            <span class="name"><b> provideSystemBuilderConfig</b><a href="#provideSystemBuilderConfig"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                provideSystemBuilderConfig
+                                </b>
+                                <a href="#provideSystemBuilderConfig"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>provideSystemBuilderConfig(config: undefined)</code>
+    <code>provideSystemBuilderConfig(config: typeReference)</code>
                         </td>
                     </tr>
     
@@ -2992,6 +3614,7 @@
                                                     <tr>
                                                       <td>config</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -3015,7 +3638,12 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="redhawkServiceProvider"></a>
-                            <span class="name"><b> redhawkServiceProvider</b><a href="#redhawkServiceProvider"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                redhawkServiceProvider
+                                </b>
+                                <a href="#redhawkServiceProvider"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -3033,17 +3661,80 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="serviceSelect"></a>
-                            <span class="name"><b> serviceSelect</b><a href="#serviceSelect"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                serviceSelect
+                                </b>
+                                <a href="#serviceSelect"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>serviceSelect(service: undefined, http: undefined, restPython: undefined, rhls: undefined)</code>
+    <code>serviceSelect(service: typeReference, http: typeReference, restPython: typeReference, rhls: typeReference)</code>
                         </td>
                     </tr>
     
     
     
+                    <tr>
+                        <td class="col-md-4">
+    
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Type</td>
+                                                    <td>Optional</td>
+                                                    <td>Description</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                      <td>service</td>
+                                                      <td>
+                                                              <code>typeReference</code>
+                                                      </td>
+                                                      <td>
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td>http</td>
+                                                      <td>
+                                                              <code>typeReference</code>
+                                                      </td>
+                                                      <td>
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td>restPython</td>
+                                                      <td>
+                                                              <code>typeReference</code>
+                                                      </td>
+                                                      <td>
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td>rhls</td>
+                                                      <td>
+                                                              <code>typeReference</code>
+                                                      </td>
+                                                      <td>
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -3054,17 +3745,53 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="resolve"></a>
-                            <span class="name"><b> resolve</b><a href="#resolve"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                resolve
+                                </b>
+                                <a href="#resolve"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>resolve(dataType: undefined)</code>
+    <code>resolve(dataType: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                         </td>
                     </tr>
     
     
     
+                    <tr>
+                        <td class="col-md-4">
+    
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Type</td>
+                                                    <td>Optional</td>
+                                                    <td>Description</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                      <td>dataType</td>
+                                                      <td>
+                                                              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                      </td>
+                                                      <td>
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -3075,12 +3802,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="resolvePortDirection"></a>
-                            <span class="name"><b> resolvePortDirection</b><a href="#resolvePortDirection"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                resolvePortDirection
+                                </b>
+                                <a href="#resolvePortDirection"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>resolvePortDirection(val: undefined)</code>
+    <code>resolvePortDirection(val: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                         </td>
                     </tr>
     
@@ -3107,6 +3839,7 @@
                                                     <tr>
                                                       <td>val</td>
                                                       <td>
+                                                              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -3132,12 +3865,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="resolvePortIDLNameSpace"></a>
-                            <span class="name"><b> resolvePortIDLNameSpace</b><a href="#resolvePortIDLNameSpace"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                resolvePortIDLNameSpace
+                                </b>
+                                <a href="#resolvePortIDLNameSpace"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>resolvePortIDLNameSpace(val: undefined)</code>
+    <code>resolvePortIDLNameSpace(val: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                         </td>
                     </tr>
     
@@ -3163,6 +3901,7 @@
                                                     <tr>
                                                       <td>val</td>
                                                       <td>
+                                                              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -3186,17 +3925,57 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="resolvePortIDLType"></a>
-                            <span class="name"><b> resolvePortIDLType</b><a href="#resolvePortIDLType"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                resolvePortIDLType
+                                </b>
+                                <a href="#resolvePortIDLType"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>resolvePortIDLType(val: undefined)</code>
+    <code>resolvePortIDLType(val: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                         </td>
                     </tr>
     
     
     
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Deserialization function for Port IDL types received from the server.</p>
+    <p>End users should not need this method as it&#39;s used by PortIDL to ensure
+    the resulting enumeration maps to one of the above enumerations.</p>
+    </div>
+    
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Type</td>
+                                                    <td>Optional</td>
+                                                    <td>Description</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                      <td>val</td>
+                                                      <td>
+                                                              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                      </td>
+                                                      <td>
+                                                      </td>
+                                                      <td></td>
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
     </section>
@@ -3207,12 +3986,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="serviceSelect"></a>
-                            <span class="name"><b> serviceSelect</b><a href="#serviceSelect"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                serviceSelect
+                                </b>
+                                <a href="#serviceSelect"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>serviceSelect(service: undefined, http: undefined, restPython: undefined, domain: undefined)</code>
+    <code>serviceSelect(service: typeReference, http: typeReference, restPython: typeReference, domain: typeReference)</code>
                         </td>
                     </tr>
     
@@ -3238,6 +4022,7 @@
                                                     <tr>
                                                       <td>service</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -3247,6 +4032,7 @@
                                                     <tr>
                                                       <td>http</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -3256,6 +4042,7 @@
                                                     <tr>
                                                       <td>restPython</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -3263,13 +4050,13 @@
     </td>
                                                     </tr>
                                                     <tr>
-                                                      <td>domainService</td>
+                                                      <td>domain</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
-                                                      <td><p>The Domain service that can contains this Waveform</p>
-    </td>
+                                                      <td></td>
                                                     </tr>
                                             </tbody>
                                         </table>
@@ -3285,7 +4072,12 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="waveformServiceProvider"></a>
-                            <span class="name"><b> waveformServiceProvider</b><a href="#waveformServiceProvider"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                waveformServiceProvider
+                                </b>
+                                <a href="#waveformServiceProvider"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -3306,12 +4098,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="subsystemMatches"></a>
-                            <span class="name"><b> subsystemMatches</b><a href="#subsystemMatches"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                subsystemMatches
+                                </b>
+                                <a href="#subsystemMatches"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>subsystemMatches(id: undefined, name: undefined, subsys: undefined)</code>
+    <code>subsystemMatches(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, subsys: typeReference)</code>
                         </td>
                     </tr>
     
@@ -3337,6 +4134,7 @@
                                                     <tr>
                                                       <td>id</td>
                                                       <td>
+                                                              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -3346,6 +4144,7 @@
                                                     <tr>
                                                       <td>name</td>
                                                       <td>
+                                                              <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -3355,6 +4154,7 @@
                                                     <tr>
                                                       <td>subsys</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -3378,12 +4178,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="waveformFactory"></a>
-                            <span class="name"><b> waveformFactory</b><a href="#waveformFactory"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                waveformFactory
+                                </b>
+                                <a href="#waveformFactory"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>waveformFactory(http: undefined, restPython: undefined, domain: undefined)</code>
+    <code>waveformFactory(http: typeReference, restPython: typeReference, domain: typeReference)</code>
                         </td>
                     </tr>
     
@@ -3410,6 +4215,7 @@
                                                     <tr>
                                                       <td>http</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -3419,6 +4225,7 @@
                                                     <tr>
                                                       <td>restPython</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -3428,6 +4235,7 @@
                                                     <tr>
                                                       <td>domain</td>
                                                       <td>
+                                                              <code>typeReference</code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -3448,12 +4256,17 @@
                     <tr>
                         <td class="col-md-4">
                             <a name="waveformProvider"></a>
-                            <span class="name"><b> waveformProvider</b><a href="#waveformProvider"><span class="fa fa-link"></span></a></span>
+                            <span class="name">
+                                <b>
+                                waveformProvider
+                                </b>
+                                <a href="#waveformProvider"><span class="fa fa-link"></span></a>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-    <code>waveformProvider(token: undefined, domain: undefined)</code>
+    <code>waveformProvider(token: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, domain: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                         </td>
                     </tr>
     
@@ -3480,6 +4293,7 @@
                                                     <tr>
                                                       <td>token</td>
                                                       <td>
+                                                              <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                       </td>
                                                       <td>
                                                       </td>
@@ -3489,6 +4303,7 @@
                                                     <tr>
                                                       <td>domain</td>
                                                       <td>
+                                                              <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
                                                       </td>
                                                       <td>
                                                       </td>
