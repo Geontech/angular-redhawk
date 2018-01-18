@@ -184,6 +184,8 @@ gulp.task('patch:manifest', function (done) {
     'license':      rootPkgJson.license,
     'description':  rootPkgJson.description,
     'keywords':     rootPkgJson.keywords,
+    'repository':   rootPkgJson.repository,
+    'bugs':         rootPkgJson.bugs,
     'peerDependencies': {
       '@angular/core': rootPkgJson.devDependencies['@angular/core'],
       '@angular/http': rootPkgJson.devDependencies['@angular/http'],

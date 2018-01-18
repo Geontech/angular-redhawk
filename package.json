@@ -21,6 +21,10 @@
   },
   "author": "Thomas Goodwin <btgoodwin@geontech.com>",
   "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GeonTech/angular-redhawk.git"
+  },
   "keywords": [
     "angular",
     "redhawk-sdr"
@@ -71,7 +75,7 @@
     "systemjs": "^0.20.12",
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
-    "typescript": "~2.5.3",
+    "typescript": "^2.5.3",
     "zone.js": "^0.8.14"
   },
   "engines": {
