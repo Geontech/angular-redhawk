@@ -29,4 +29,12 @@ export class SimpleProperty extends SimpleCommon implements ISerializable<Simple
         let p = new SimpleProperty().deserialize(super.copy());
         return p;
     }
+
+    /**
+     * Update the value from the string vs. type off this property
+     * @param val The string value to convert based on the type
+     */
+    valueFromString(val: string) {
+        this.value = SimpleCommon.valueFromString(val, this.type);
+    }
 }

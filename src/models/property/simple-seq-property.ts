@@ -32,4 +32,16 @@ export class SimpleSeqProperty extends SimpleCommon implements ISerializable<Sim
         const p = new SimpleSeqProperty().deserialize(super.copy());
         return p;
     }
+
+    /**
+     * Update the value from the string representation
+     * @param vals Comma-spaced values to convert to this property's value
+     */
+    valueFromString(vals: string) {
+        this.value.length = 0;
+        const values = vals.trim().split(',');
+        for (const val of values) {
+            this.value.push(SimpleCommon.valueFromString(val, this.type));
+        }
+    }
 }
