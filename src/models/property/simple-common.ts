@@ -51,7 +51,6 @@ export class SimpleCommon extends Property {
         let p = new SimpleCommon().deserialize(this);
         p.kinds = (this.kinds instanceof Array) ? this.kinds.slice() : this.kinds;
         p.type = this.type;
-        p.scaType = this.scaType;
 
         // Copy the map if it exists
         if (this.enumerations !== undefined) {
