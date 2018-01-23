@@ -18,7 +18,11 @@ export class SimpleProperty extends SimpleCommon implements ISerializable<Simple
         this.scaType = input.scaType;
         this.type = input.type;
         this.enumerations = input.enumerations;
-        this.value = input.value;
+        if (!input.value) {
+            this.valueFromString('');
+        } else {
+            this.value = input.value;
+        }
         return this;
     }
 

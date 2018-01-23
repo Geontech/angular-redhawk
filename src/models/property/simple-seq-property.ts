@@ -45,9 +45,11 @@ export class SimpleSeqProperty extends SimpleCommon implements ISerializable<Sim
      */
     valueFromString(vals: string) {
         this.value.length = 0;
-        const values = vals.trim().split(',');
-        for (const val of values) {
-            this.value.push(SimpleCommon.valueFromString(val, this.type));
+        if (vals.length > 0) {
+            const values = vals.trim().split(',');
+            for (const val of values) {
+                this.value.push(SimpleCommon.valueFromString(val, this.type));
+            }
         }
     }
 }
