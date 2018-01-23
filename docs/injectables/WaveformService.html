@@ -1146,6 +1146,9 @@ access to its components, ports, and properties.</p>
                                         <a href="#comps$">comps$</a>
                                     </li>
                                     <li>
+                                        <a href="#configure$">configure$</a>
+                                    </li>
+                                    <li>
                                             <span class="modifier">Private</span>
                                         <a href="#controlCommand$">controlCommand$</a>
                                     </li>
@@ -1185,7 +1188,7 @@ access to its components, ports, and properties.</p>
                             </tr>
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/waveform/waveform.service.ts:22</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/waveform/waveform.service.ts:30</a></div>
                                         </td>
                                     </tr>
             
@@ -1273,7 +1276,7 @@ access to its components, ports, and properties.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/waveform/waveform.service.ts:61</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/waveform/waveform.service.ts:69</a></div>
                                         </td>
                                     </tr>
             
@@ -1327,6 +1330,87 @@ access to its components, ports, and properties.</p>
                         <tbody>
                             <tr>
                                 <td class="col-md-4">
+                                    <a name="configure$"></a>
+                                    <span class="name">
+                                        <b>
+                                        configure$
+                                        </b>
+                                        <a href="#configure$"><span class="fa fa-link"></span></a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+            <code>configure$(properties: <a href="../classes/Property.html">PropertySet</a>, delayResponseMs?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                                </td>
+                            </tr>
+            
+            
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <div class="io-line">Defined in <a href="" data-line="115" class="link-to-prism">src/waveform/waveform.service.ts:115</a></div>
+                                        </td>
+                                    </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description"><p>Calls &#39;configure&#39; on the Application and then pulls an update of the model.</p>
+            </div>
+            
+                                        <div class="io-description">
+                                                <b>Parameters :</b>
+                                                <table class="params">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>Name</td>
+                                                            <td>Type</td>
+                                                            <td>Optional</td>
+                                                            <td>Description</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                            <tr>
+                                                              <td>properties</td>
+                                                              <td>
+                                                                      <code><a href="../classes/Property.html" target="_self" >PropertySet</a></code>
+                                                              </td>
+                                                              <td>
+                                                              </td>
+                                                              <td><p>The properties to &#39;configure&#39; on the Application</p>
+            </td>
+                                                            </tr>
+                                                            <tr>
+                                                              <td>delayResponseMs</td>
+                                                              <td>
+                                                                      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                              </td>
+                                                              <td>
+                                                                  true
+                                                              </td>
+                                                              <td><p>The optional model update delay after sending the 
+            changes.</p>
+            </td>
+                                                            </tr>
+                                                    </tbody>
+                                                </table>
+                                        </div>
+                                        <div>
+                                        </div>
+                                        <div class="io-description">
+                                            <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
+            
+                                        </div>
+                                            <div class="io-description">
+                                                
+                                            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
                                     <a name="controlCommand$"></a>
                                     <span class="name">
                                         <b>
@@ -1347,7 +1431,7 @@ access to its components, ports, and properties.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="105" class="link-to-prism">src/waveform/waveform.service.ts:105</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="130" class="link-to-prism">src/waveform/waveform.service.ts:130</a></div>
                                         </td>
                                     </tr>
             
@@ -1418,7 +1502,7 @@ access to its components, ports, and properties.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">src/waveform/waveform.service.ts:94</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">src/waveform/waveform.service.ts:102</a></div>
                                         </td>
                                     </tr>
             
@@ -1457,7 +1541,7 @@ access to its components, ports, and properties.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/waveform/waveform.service.ts:43</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/waveform/waveform.service.ts:51</a></div>
                                         </td>
                                     </tr>
             
@@ -1528,7 +1612,7 @@ access to its components, ports, and properties.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/waveform/waveform.service.ts:78</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/waveform/waveform.service.ts:86</a></div>
                                         </td>
                                     </tr>
             
@@ -1569,7 +1653,7 @@ access to its components, ports, and properties.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/waveform/waveform.service.ts:86</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">src/waveform/waveform.service.ts:94</a></div>
                                         </td>
                                     </tr>
             
@@ -1608,7 +1692,7 @@ access to its components, ports, and properties.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/waveform/waveform.service.ts:51</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/waveform/waveform.service.ts:59</a></div>
                                         </td>
                                     </tr>
             
@@ -1640,15 +1724,23 @@ import &#x27;rxjs/add/operator/map&#x27;;
 import &#x27;rxjs/add/operator/catch&#x27;;
 
 // Model, base class, other external modules
-import { Waveform, Component, ResourceRefs } from &#x27;../models/index&#x27;;
+import { Waveform, Component, ResourceRefs, PropertySet } from &#x27;../models/index&#x27;;
 import { RestPythonService }                 from &#x27;../rest-python/rest-python.module&#x27;;
 import { PortBearingService }                from &#x27;../base/index&#x27;;
 import { DomainService }                     from &#x27;../domain/domain.module&#x27;;
+import { PropertyCommand }                   from &#x27;../property/property.module&#x27;;
 
 // C&amp;C interfaces
 import { IWaveformControlCommand }         from &#x27;./waveform-control-command&#x27;;
 import { IWaveformControlCommandResponse } from &#x27;./waveform-control-command-response&#x27;;
 import { IWaveformReleaseResponse }        from &#x27;./waveform-release-response&#x27;;
+
+/**
+ * The default delay in checking for a server response when using configure,
+ * allocate, or deallocate.
+ */
+let DEFAULT_DELAY_RESPONSE_MS &#x3D; 10000;
+
 /**
  * The Waveform Service provides access to the Waveform Model on the REST server as well as
  * access to its components, ports, and properties.
@@ -1730,6 +1822,23 @@ export class WaveformService extends PortBearingService&lt;Waveform&gt; {
         return this.http
             .delete(this.baseUrl)
             .map(response &#x3D;&gt; response.json() as IWaveformReleaseResponse)
+            .catch(this.handleError);
+    }
+
+    /**
+     * Calls &#x27;configure&#x27; on the Application and then pulls an update of the model.
+     * @param properties The properties to &#x27;configure&#x27; on the Application
+     * @param delayResponseMs The optional model update delay after sending the 
+     * changes.
+     */
+    configure$(properties: PropertySet, delayResponseMs?: number): Observable&lt;any&gt; {
+        let command &#x3D; new PropertyCommand(properties);
+        return this.http
+            .put(this.restPython.propertyUrl(this.baseUrl), command)
+            .map(response &#x3D;&gt; {
+                this.delayedUpdate(delayResponseMs || DEFAULT_DELAY_RESPONSE_MS);
+                return response; // This will be null/undefined/empty
+            })
             .catch(this.handleError);
     }
 

@@ -1172,6 +1172,10 @@ the ability to express values as enumerations</p>
                                     <li>
                                         <a href="#copy">copy</a>
                                     </li>
+                                    <li>
+                                            <span class="modifier">Static</span>
+                                        <a href="#valueFromString">valueFromString</a>
+                                    </li>
                                 </ul>
                             </td>
                         </tr>
@@ -1207,7 +1211,7 @@ the ability to express values as enumerations</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/models/property/simple-common.ts:16</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/models/property/simple-common.ts:50</a></div>
                                         </td>
                                     </tr>
             
@@ -1220,6 +1224,87 @@ the ability to express values as enumerations</p>
                                             <b>Returns : </b>    <code><a href="../classes/SimpleCommon.html" target="_self" >SimpleCommon</a></code>
             
                                         </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <a name="valueFromString"></a>
+                                    <span class="name">
+                                        <b>
+                                            <span class="modifier">Static</span>
+                                        valueFromString
+                                        </b>
+                                        <a href="#valueFromString"><span class="fa fa-link"></span></a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                        <span class="modifier-icon fa fa-reset"></span>
+                                    <code>valueFromString(val: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                                </td>
+                            </tr>
+            
+            
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/models/property/simple-common.ts:18</a></div>
+                                        </td>
+                                    </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description"><p>Common string-to-value (data)type conversion.</p>
+            </div>
+            
+                                        <div class="io-description">
+                                                <b>Parameters :</b>
+                                                <table class="params">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>Name</td>
+                                                            <td>Type</td>
+                                                            <td>Optional</td>
+                                                            <td>Description</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                            <tr>
+                                                              <td>val</td>
+                                                              <td>
+                                                                      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                              </td>
+                                                              <td>
+                                                              </td>
+                                                              <td><p>Value to convert (string)</p>
+            </td>
+                                                            </tr>
+                                                            <tr>
+                                                              <td>type</td>
+                                                              <td>
+                                                                      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                              </td>
+                                                              <td>
+                                                              </td>
+                                                              <td><p>Data type (string, long, ulong, etc.)</p>
+            </td>
+                                                            </tr>
+                                                    </tbody>
+                                                </table>
+                                        </div>
+                                        <div>
+                                        </div>
+                                        <div class="io-description">
+                                            <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+            
+                                        </div>
+                                            <div class="io-description">
+                                                
+                                            </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -1331,12 +1416,47 @@ export class SimpleCommon extends Property {
     enumerations: { [key: string]: string };
 
     /**
+     * Common string-to-value (data)type conversion.
+     * @param val Value to convert (string)
+     * @param type Data type (string, long, ulong, etc.)
+     */
+    static valueFromString(val: string, type: string): any {
+        let value: any &#x3D; val;
+        switch (type) {
+            case &#x27;long&#x27;:
+            case &#x27;ulong&#x27;:
+            case &#x27;longlong&#x27;:
+            case &#x27;ulonglong&#x27;:
+            case &#x27;short&#x27;:
+            case &#x27;ushort&#x27;:
+            case &#x27;octet&#x27;:
+            case &#x27;float&#x27;:
+            case &#x27;double&#x27;:
+                // Not a typo, converts to a number
+                value &#x3D; +val;
+                break;
+            case &#x27;boolean&#x27;:
+                value &#x3D; val.toLowerCase() &#x3D;&#x3D;&#x3D; &#x27;true&#x27; ? true : false;
+                break;
+            case &#x27;string&#x27;:
+            case &#x27;char&#x27;:
+                break;
+            default:
+                console.warn(&#x60;Unknown data type (${type}); treating as string.&#x60;);
+                value &#x3D; &#x27;&#x27; + val;
+                break;
+        }
+        return value;
+    }
+
+    /**
      * Create a copy of the property
      */
     copy(): SimpleCommon {
         let p &#x3D; new SimpleCommon().deserialize(this);
         p.kinds &#x3D; (this.kinds instanceof Array) ? this.kinds.slice() : this.kinds;
         p.type &#x3D; this.type;
+
         // Copy the map if it exists
         if (this.enumerations !&#x3D;&#x3D; undefined) {
             p.enumerations &#x3D; {};

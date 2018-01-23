@@ -1180,6 +1180,9 @@
                                     <li>
                                         <a href="#deserialize">deserialize</a>
                                     </li>
+                                    <li>
+                                        <a href="#valueFromString">valueFromString</a>
+                                    </li>
                                 </ul>
                             </td>
                         </tr>
@@ -1215,7 +1218,7 @@
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/models/property/simple-property.ts:28</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/models/property/simple-property.ts:32</a></div>
                                         </td>
                                     </tr>
             
@@ -1291,6 +1294,75 @@
                                         </div>
                                         <div class="io-description">
                                             <b>Returns : </b>    <code>this</code>
+            
+                                        </div>
+                                            <div class="io-description">
+                                                
+                                            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <a name="valueFromString"></a>
+                                    <span class="name">
+                                        <b>
+                                        valueFromString
+                                        </b>
+                                        <a href="#valueFromString"><span class="fa fa-link"></span></a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+            <code>valueFromString(val: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                                </td>
+                            </tr>
+            
+            
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/models/property/simple-property.ts:47</a></div>
+                                        </td>
+                                    </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description"><p>Update the value from the string vs. type off this property</p>
+            </div>
+            
+                                        <div class="io-description">
+                                                <b>Parameters :</b>
+                                                <table class="params">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>Name</td>
+                                                            <td>Type</td>
+                                                            <td>Optional</td>
+                                                            <td>Description</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                            <tr>
+                                                              <td>val</td>
+                                                              <td>
+                                                                      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                              </td>
+                                                              <td>
+                                                              </td>
+                                                              <td><p>The string value to convert based on the type</p>
+            </td>
+                                                            </tr>
+                                                    </tbody>
+                                                </table>
+                                        </div>
+                                        <div>
+                                        </div>
+                                        <div class="io-description">
+                                            <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
             
                                         </div>
                                             <div class="io-description">
@@ -1419,7 +1491,11 @@ export class SimpleProperty extends SimpleCommon implements ISerializable&lt;Sim
         this.scaType &#x3D; input.scaType;
         this.type &#x3D; input.type;
         this.enumerations &#x3D; input.enumerations;
-        this.value &#x3D; input.value;
+        if (!input.value) {
+            this.valueFromString(&#x27;&#x27;);
+        } else {
+            this.value &#x3D; input.value;
+        }
         return this;
     }
 
@@ -1427,8 +1503,22 @@ export class SimpleProperty extends SimpleCommon implements ISerializable&lt;Sim
      * Create a copy of the property.
      */
     copy(): SimpleProperty {
-        let p &#x3D; new SimpleProperty().deserialize(super.copy());
-        return p;
+        // SimpleCommon handles type, enumerations
+        // This creates an initial copy as the base class,
+        // merges this instance&#x27;s changes and then deserializes
+        // a copy as this class.
+        let p &#x3D; super.copy();
+        p.scaType &#x3D; this.scaType;
+        p.value &#x3D; this.value;
+        return new SimpleProperty().deserialize(p);
+    }
+
+    /**
+     * Update the value from the string vs. type off this property
+     * @param val The string value to convert based on the type
+     */
+    valueFromString(val: string) {
+        this.value &#x3D; SimpleCommon.valueFromString(val, this.type);
     }
 }
 </code></pre>

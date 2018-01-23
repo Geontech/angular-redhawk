@@ -1180,6 +1180,9 @@
                                     <li>
                                         <a href="#deserialize">deserialize</a>
                                     </li>
+                                    <li>
+                                        <a href="#valueFromString">valueFromString</a>
+                                    </li>
                                 </ul>
                             </td>
                         </tr>
@@ -1292,6 +1295,75 @@
                                         </div>
                                         <div class="io-description">
                                             <b>Returns : </b>    <code>this</code>
+            
+                                        </div>
+                                            <div class="io-description">
+                                                
+                                            </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <a name="valueFromString"></a>
+                                    <span class="name">
+                                        <b>
+                                        valueFromString
+                                        </b>
+                                        <a href="#valueFromString"><span class="fa fa-link"></span></a>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+            <code>valueFromString(vals: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                                </td>
+                            </tr>
+            
+            
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/models/property/simple-seq-property.ts:46</a></div>
+                                        </td>
+                                    </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description"><p>Update the value from the string representation</p>
+            </div>
+            
+                                        <div class="io-description">
+                                                <b>Parameters :</b>
+                                                <table class="params">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>Name</td>
+                                                            <td>Type</td>
+                                                            <td>Optional</td>
+                                                            <td>Description</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                            <tr>
+                                                              <td>vals</td>
+                                                              <td>
+                                                                      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                              </td>
+                                                              <td>
+                                                              </td>
+                                                              <td><p>Comma-spaced values to convert to this property&#39;s value</p>
+            </td>
+                                                            </tr>
+                                                    </tbody>
+                                                </table>
+                                        </div>
+                                        <div>
+                                        </div>
+                                        <div class="io-description">
+                                            <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
             
                                         </div>
                                             <div class="io-description">
@@ -1431,8 +1503,28 @@ export class SimpleSeqProperty extends SimpleCommon implements ISerializable&lt;
      * Create a copy of the property.
      */
     copy(): SimpleSeqProperty {
-        const p &#x3D; new SimpleSeqProperty().deserialize(super.copy());
-        return p;
+        // SimpleCommon handles type, enumerations
+        // This creates an initial copy as the base class,
+        // merges this instance&#x27;s changes and then deserializes
+        // a copy as this class.
+        const p &#x3D; super.copy();
+        p.scaType &#x3D; this.scaType;
+        p.value &#x3D; this.value.slice();
+        return new SimpleSeqProperty().deserialize(p);
+    }
+
+    /**
+     * Update the value from the string representation
+     * @param vals Comma-spaced values to convert to this property&#x27;s value
+     */
+    valueFromString(vals: string) {
+        this.value.length &#x3D; 0;
+        if (vals.length &gt; 0) {
+            const values &#x3D; vals.trim().split(&#x27;,&#x27;);
+            for (const val of values) {
+                this.value.push(SimpleCommon.valueFromString(val, this.type));
+            }
+        }
     }
 }
 </code></pre>
