@@ -5,15 +5,23 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 // Model, base class, other external modules
-import { Waveform, Component, ResourceRefs } from '../models/index';
+import { Waveform, Component, ResourceRefs, PropertySet } from '../models/index';
 import { RestPythonService }                 from '../rest-python/rest-python.module';
 import { PortBearingService }                from '../base/index';
 import { DomainService }                     from '../domain/domain.module';
+import { PropertyCommand }                   from '../property/property.module';
 
 // C&C interfaces
 import { IWaveformControlCommand }         from './waveform-control-command';
 import { IWaveformControlCommandResponse } from './waveform-control-command-response';
 import { IWaveformReleaseResponse }        from './waveform-release-response';
+
+/**
+ * The default delay in checking for a server response when using configure,
+ * allocate, or deallocate.
+ */
+let DEFAULT_DELAY_RESPONSE_MS = 10000;
+
 /**
  * The Waveform Service provides access to the Waveform Model on the REST server as well as
  * access to its components, ports, and properties.
@@ -95,6 +103,23 @@ export class WaveformService extends PortBearingService<Waveform> {
         return this.http
             .delete(this.baseUrl)
             .map(response => response.json() as IWaveformReleaseResponse)
+            .catch(this.handleError);
+    }
+
+    /**
+     * Calls 'configure' on the Application and then pulls an update of the model.
+     * @param properties The properties to 'configure' on the Application
+     * @param delayResponseMs The optional model update delay after sending the 
+     * changes.
+     */
+    configure$(properties: PropertySet, delayResponseMs?: number): Observable<any> {
+        let command = new PropertyCommand(properties);
+        return this.http
+            .put(this.restPython.propertyUrl(this.baseUrl), command)
+            .map(response => {
+                this.delayedUpdate(delayResponseMs || DEFAULT_DELAY_RESPONSE_MS);
+                return response; // This will be null/undefined/empty
+            })
             .catch(this.handleError);
     }
 

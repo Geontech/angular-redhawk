@@ -18,7 +18,11 @@ export class SimpleProperty extends SimpleCommon implements ISerializable<Simple
         this.scaType = input.scaType;
         this.type = input.type;
         this.enumerations = input.enumerations;
-        this.value = input.value;
+        if (!input.value) {
+            this.valueFromString('');
+        } else {
+            this.value = input.value;
+        }
         return this;
     }
 
@@ -26,7 +30,21 @@ export class SimpleProperty extends SimpleCommon implements ISerializable<Simple
      * Create a copy of the property.
      */
     copy(): SimpleProperty {
-        let p = new SimpleProperty().deserialize(super.copy());
-        return p;
+        // SimpleCommon handles type, enumerations
+        // This creates an initial copy as the base class,
+        // merges this instance's changes and then deserializes
+        // a copy as this class.
+        let p = super.copy();
+        p.scaType = this.scaType;
+        p.value = this.value;
+        return new SimpleProperty().deserialize(p);
+    }
+
+    /**
+     * Update the value from the string vs. type off this property
+     * @param val The string value to convert based on the type
+     */
+    valueFromString(val: string) {
+        this.value = SimpleCommon.valueFromString(val, this.type);
     }
 }
