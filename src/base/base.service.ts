@@ -5,6 +5,7 @@ import { Subscription }  from 'rxjs/Subscription';
 
 import 'rxjs/add/observable/throw';
 
+import { IServiceConfigured } from './service-configured';
 import { RestPythonService } from '../rest-python/rest-python.module';
 
 /**
@@ -25,7 +26,7 @@ export abstract class BaseService<T> {
      * Indicates the 'configured' state of the service.  This will be 'true' if
      * the URL is set.
      */
-    get configured$(): Observable<boolean> { return this._configured.asObservable(); }
+    get configured$(): Observable<IServiceConfigured> { return this._configured.asObservable(); }
 
     /** Unique ID of the server-side instance for this service */
     protected _uniqueId: string;
@@ -37,7 +38,7 @@ export abstract class BaseService<T> {
     protected _model: ReplaySubject<T>;
 
     /** Flag for whether or not this service is setup */
-    protected _configured: ReplaySubject<boolean>;
+    protected _configured: ReplaySubject<IServiceConfigured>;
 
     /** Internal updating flag */
     protected _updating: boolean;
@@ -76,8 +77,8 @@ export abstract class BaseService<T> {
      */
     constructor(protected http: Http, protected restPython: RestPythonService) {
         this._model = new ReplaySubject<T>();
-        this._configured = new ReplaySubject<boolean>();
-        this._configured.next(false);
+        this._configured = new ReplaySubject<IServiceConfigured>();
+        this._configured.next({ success: false, uriChanged: false });
         this._updating = false;
         this._rpChanged = this.restPython.changed$.subscribe(() => {
             // Ensures that when RP URL is changed, the service tries to 
@@ -92,17 +93,19 @@ export abstract class BaseService<T> {
      *
      * @param {Observable<T>} obj An optional model to make the "next" model
      *        subscribers will see.
+     * @param {boolean} uriChanged An optional flag indicating if this update
+     *        was because of a URI change (end point change)
      */
-    public update(obj?: Observable<T>) {
+    public update(obj?: Observable<T>, uriChanged = false) {
         this._updating = true;
         let inst: Observable<T> = obj || this.uniqueQuery$();
         inst.subscribe(
             o => {
                 this.modelUpdated(o);
-                this._configured.next(true);
+                this._configured.next({ success: true, uriChanged: uriChanged });
             },
             error => {
-                this._configured.next(false);
+                this._configured.next({ success: false, uriChanged: uriChanged });
             },
             () => {
                 this._updating = false;
@@ -139,11 +142,13 @@ export abstract class BaseService<T> {
      * which includes reconfiguring the base URL and retrieving a fresh copy
      * of the model for any subscribers to $model.
      * @param id The new Unique ID to set for reconfiguration.
+     * @param force Force a reconfiguration of the service (end point(s), etc.). 
      */
-    protected reconfigure(id: string) {
+    protected reconfigure(id: string, force = false) {
+        let changed: boolean = (id !== this._uniqueId || force);
         this._uniqueId = id;
         this.setBaseUrl(id);
-        this.update();
+        this.update(undefined, changed);
     }
 
     /**

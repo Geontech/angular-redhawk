@@ -183,11 +183,11 @@ export class DomainService extends BaseService<models.Domain> {
     }
 
     /** Common 'reconfigure' method to reconnect to the ODM listener when the uniqueID changes. */
-    protected reconfigure(id: string) {
+    protected reconfigure(id: string, force = false) {
         if (this._uniqueId) {
             this.odmListener.disconnect(this._uniqueId);
         }
-        super.reconfigure(id);
+        super.reconfigure(id, force);
         this.odmListener.connect(this.uniqueId);
     }
 }
