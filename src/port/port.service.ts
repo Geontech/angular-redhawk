@@ -44,6 +44,12 @@ export class PortService extends BaseService<Port> {
     /** Cached previous Unique ID for managing a change in the ref */
     private _previousUniqueId: string;
 
+    /** 
+     * Flag for tracking upstream URI changes that impact the port
+     * if its unique ID does not appear to change.
+     */
+    private _forceReconfigRef: boolean;
+
     /**
      * Constructor
      * **NOTE:** One of _wave, _device, or _component must be provided!
@@ -74,6 +80,14 @@ export class PortService extends BaseService<Port> {
         } else {
             console.error('Failed to provide a port bearing service');
         }
+        // If the parent service changed, reconfigure.
+        this.parent.configured$.subscribe(
+            (cstat) => {
+                if (cstat.uriChanged && cstat.success) {
+                    this._forceReconfigRef = true;
+                    this.reconfigure(this.uniqueId, cstat.uriChanged);
+                }
+            });
     }
 
     /**
@@ -110,7 +124,9 @@ export class PortService extends BaseService<Port> {
      * @param model The new Port model from the recent refresh
      */
     modelUpdated(model: Port) {
-        if (this._previousUniqueId !== this.uniqueId) {
+        if (this._previousUniqueId !== this.uniqueId || this._forceReconfigRef) {
+            this._forceReconfigRef = false;
+
             if (this._ref) {
                 this._ref.release();
                 this._ref = null;

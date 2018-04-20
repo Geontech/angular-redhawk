@@ -33,6 +33,14 @@ export class DeviceManagerService extends BaseService<DeviceManager> {
     ) {
         super(http, restPython);
         this.modelUpdated(new DeviceManager());
+
+        // If the domain service changed, reconfigure.
+        this.domainService.configured$.subscribe(
+            (cstat) => {
+                if (cstat.uriChanged && cstat.success) {
+                    this.reconfigure(this.uniqueId, cstat.uriChanged);
+                }
+            });
     }
 
     /**

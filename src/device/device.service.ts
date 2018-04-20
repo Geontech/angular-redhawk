@@ -41,6 +41,14 @@ export class DeviceService extends PortBearingService<Device> {
     ) {
         super(http, restPython);
         this.modelUpdated(new Device());
+
+        // If the dmService service changed, reconfigure.
+        this.dmService.configured$.subscribe(
+            (cstat) => {
+                if (cstat.uriChanged && cstat.success) {
+                    this.reconfigure(this.uniqueId, cstat.uriChanged);
+                }
+            });
     }
 
     /**

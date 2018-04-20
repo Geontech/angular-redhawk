@@ -33,6 +33,14 @@ export class FileSystemService extends BaseService<FileSystem> {
     ) {
         super(http, restPython);
         this.modelUpdated(new FileSystem());
+
+        // If the domain service changed, reconfigure.
+        this.domainService.configured$.subscribe(
+            (cstat) => {
+                if (cstat.uriChanged && cstat.success) {
+                    this.reconfigure(this.uniqueId, cstat.uriChanged);
+                }
+            });
     }
 
     /**

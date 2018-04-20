@@ -40,6 +40,14 @@ export class ComponentService extends PortBearingService<Component> {
     ) {
         super(http, restPython);
         this.modelUpdated(new Component());
+
+        // If the waveform service changed, reconfigure.
+        this.waveformService.configured$.subscribe(
+            (cstat) => {
+                if (cstat.uriChanged && cstat.success) {
+                    this.reconfigure(this.uniqueId, cstat.uriChanged);
+                }
+            });
     }
 
     /**

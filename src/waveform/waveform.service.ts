@@ -42,6 +42,14 @@ export class WaveformService extends PortBearingService<Waveform> {
     ) {
         super(http, restPython);
         this.modelUpdated(new Waveform());
+
+        // If the domain service changed, reconfigure.
+        this.domainService.configured$.subscribe(
+            (cstat) => {
+                if (cstat.uriChanged && cstat.success) {
+                    this.reconfigure(this.uniqueId, cstat.uriChanged);
+                }
+            });
     }
 
     /**
