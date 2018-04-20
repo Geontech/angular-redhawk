@@ -29,9 +29,9 @@ export class Resource extends ResourceRef implements ISerializable<Resource> {
      * @returns {prop.Property} The Property model (or undefined if invalid).
      */
     public property(id: string): prop.Property {
-        for (let prop of this.properties) {
-            if (prop.id === id) {
-                return prop;
+        for (let p of this.properties) {
+            if (p.id === id) {
+                return p;
             }
         }
         return undefined;
@@ -43,9 +43,9 @@ export class Resource extends ResourceRef implements ISerializable<Resource> {
      * @returns {port.Port} The Port model (or undefined if invalid)
      */
     public getPort(id: string): port.Port {
-        for (let port of this.ports) {
-            if (port.name === id) {
-                return port;
+        for (let p of this.ports) {
+            if (p.name === id) {
+                return p;
             }
         }
         return undefined;
