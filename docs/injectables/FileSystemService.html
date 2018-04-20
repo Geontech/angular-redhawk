@@ -438,6 +438,9 @@
                                     <a href="../interfaces/ISerializableFn.html" >ISerializableFn</a>
                                 </li>
                                 <li class="link">
+                                    <a href="../interfaces/IServiceConfigured.html" >IServiceConfigured</a>
+                                </li>
+                                <li class="link">
                                     <a href="../interfaces/ISimpleProperty.html" >ISimpleProperty</a>
                                 </li>
                                 <li class="link">
@@ -974,6 +977,9 @@
                                            <a href="../interfaces/ISerializableFn.html" >ISerializableFn</a>
                                        </li>
                                        <li class="link">
+                                           <a href="../interfaces/IServiceConfigured.html" >IServiceConfigured</a>
+                                       </li>
+                                       <li class="link">
                                            <a href="../interfaces/ISimpleProperty.html" >ISimpleProperty</a>
                                        </li>
                                        <li class="link">
@@ -1251,7 +1257,7 @@ The FileSystemService provides access to the Domain&#39;s File System.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/filesystem/file-system.service.ts:42</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/filesystem/file-system.service.ts:50</a></div>
                                         </td>
                                     </tr>
             
@@ -1320,7 +1326,7 @@ The FileSystemService provides access to the Domain&#39;s File System.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/filesystem/file-system.service.ts:50</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/filesystem/file-system.service.ts:58</a></div>
                                         </td>
                                     </tr>
             
@@ -1380,6 +1386,14 @@ export class FileSystemService extends BaseService&lt;FileSystem&gt; {
     ) {
         super(http, restPython);
         this.modelUpdated(new FileSystem());
+
+        // If the domain service changed, reconfigure.
+        this.domainService.configured$.subscribe(
+            (cstat) &#x3D;&gt; {
+                if (cstat.uriChanged &amp;&amp; cstat.success) {
+                    this.reconfigure(this.uniqueId, cstat.uriChanged);
+                }
+            });
     }
 
     /**

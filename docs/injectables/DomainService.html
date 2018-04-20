@@ -438,6 +438,9 @@
                                     <a href="../interfaces/ISerializableFn.html" >ISerializableFn</a>
                                 </li>
                                 <li class="link">
+                                    <a href="../interfaces/IServiceConfigured.html" >IServiceConfigured</a>
+                                </li>
+                                <li class="link">
                                     <a href="../interfaces/ISimpleProperty.html" >ISimpleProperty</a>
                                 </li>
                                 <li class="link">
@@ -972,6 +975,9 @@
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/ISerializableFn.html" >ISerializableFn</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../interfaces/IServiceConfigured.html" >IServiceConfigured</a>
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/ISimpleProperty.html" >ISimpleProperty</a>
@@ -1716,7 +1722,7 @@ changes to the Domain (applications coming and going, etc.).</p>
                             <tr>
                                 <td class="col-md-4">
                                         <span class="modifier-icon fa fa-reset"></span>
-                                    <code>reconfigure(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                                    <code>reconfigure(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, force: )</code>
                                 </td>
                             </tr>
             
@@ -1748,6 +1754,14 @@ changes to the Domain (applications coming and going, etc.).</p>
                                                               <td>id</td>
                                                               <td>
                                                                       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                              </td>
+                                                              <td>
+                                                              </td>
+                                                              <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                              <td>force</td>
+                                                              <td>
                                                               </td>
                                                               <td>
                                                               </td>
@@ -2070,11 +2084,11 @@ export class DomainService extends BaseService&lt;models.Domain&gt; {
     }
 
     /** Common &#x27;reconfigure&#x27; method to reconnect to the ODM listener when the uniqueID changes. */
-    protected reconfigure(id: string) {
+    protected reconfigure(id: string, force &#x3D; false) {
         if (this._uniqueId) {
             this.odmListener.disconnect(this._uniqueId);
         }
-        super.reconfigure(id);
+        super.reconfigure(id, force);
         this.odmListener.connect(this.uniqueId);
     }
 }

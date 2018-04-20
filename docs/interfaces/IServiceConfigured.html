@@ -161,7 +161,7 @@
                                     <a href="../directives/RedhawkDirective.html" >RedhawkDirective</a>
                                 </li>
                                 <li class="link">
-                                    <a href="../directives/SystemBuilderDirective.html"  data-type="entity-link" class="active" >SystemBuilderDirective</a>
+                                    <a href="../directives/SystemBuilderDirective.html" >SystemBuilderDirective</a>
                                 </li>
                                 <li class="link">
                                     <a href="../directives/WaveformDirective.html" >WaveformDirective</a>
@@ -438,7 +438,7 @@
                                     <a href="../interfaces/ISerializableFn.html" >ISerializableFn</a>
                                 </li>
                                 <li class="link">
-                                    <a href="../interfaces/IServiceConfigured.html" >IServiceConfigured</a>
+                                    <a href="../interfaces/IServiceConfigured.html"  data-type="entity-link" class="active" >IServiceConfigured</a>
                                 </li>
                                 <li class="link">
                                     <a href="../interfaces/ISimpleProperty.html" >ISimpleProperty</a>
@@ -700,7 +700,7 @@
                                            <a href="../directives/RedhawkDirective.html" >RedhawkDirective</a>
                                        </li>
                                        <li class="link">
-                                           <a href="../directives/SystemBuilderDirective.html"  data-type="entity-link" class="active" >SystemBuilderDirective</a>
+                                           <a href="../directives/SystemBuilderDirective.html" >SystemBuilderDirective</a>
                                        </li>
                                        <li class="link">
                                            <a href="../directives/WaveformDirective.html" >WaveformDirective</a>
@@ -977,7 +977,7 @@
                                            <a href="../interfaces/ISerializableFn.html" >ISerializableFn</a>
                                        </li>
                                        <li class="link">
-                                           <a href="../interfaces/IServiceConfigured.html" >IServiceConfigured</a>
+                                           <a href="../interfaces/IServiceConfigured.html"  data-type="entity-link" class="active" >IServiceConfigured</a>
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/ISimpleProperty.html" >ISimpleProperty</a>
@@ -1092,16 +1092,21 @@
                    
                    </nav>
                </div>
-               <div class="content directive">
+               <div class="content interface">
                    <div class="content-data">
 
 
 
 
 
+
+
+
+
+
 <ol class="breadcrumb">
-  <li>Directives</li>
-  <li>SystemBuilderDirective</li>
+  <li>Interfaces</li>
+  <li>IServiceConfigured</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -1113,7 +1118,6 @@
     <li>
         <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
     </li>
-
 </ul>
 
 <div class="tab-content">
@@ -1122,887 +1126,140 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/system-builder/system-builder.directive.ts</code>
+            <code>src/base/service-configured.ts</code>
         </p>
 
             <p class="comment">
                 <h3>Description</h3>
             </p>
             <p class="comment">
-                <p>This Directive must be instantiated once in your application where the &#39;provideSystemBuilderConfig&#39; was
-added to the providers.  This directive serves two purposes.  First, it is a nice visual queue in your 
-template that you&#39;re using the SystemBuilder.  Second, it acts as a background service for updating
-your services.  If you need to know whether your service is up or down, observe the &#39;configured$&#39;
-member.</p>
+                <p>This interface is for indicating the nature of a service&#39;s configuration
+updates (configured$ observable).</p>
 
             </p>
 
 
-
         <section>
-            <h3>Metadata</h3>
-            <table class="table table-sm table-hover">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
                 <tbody>
-
                     <tr>
-                        <td class="col-md-3">selector</td>
-                        <td class="col-md-9"><code>[arSystemBuilder]</code></td>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
                     </tr>
-
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#success">success</a>
+                                </li>
+                                <li>
+                                        <a href="#uriChanged">uriChanged</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </section>
 
-            <section>
-                <h3 id="index">Index</h3>
-                <table class="table table-sm table-bordered index-table">
-                    <tbody>
-                        <tr>
-                            <td class="col-md-4">
-                                <h6><b>Properties</b></h6>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <ul class="index-list">
-                                    <li>
-                                            <span class="modifier">Private</span>
-                                        <a href="#config">config</a>
-                                    </li>
-                                    <li>
-                                            <span class="modifier">Private</span>
-                                        <a href="#injector">injector</a>
-                                    </li>
-                                    <li>
-                                            <span class="modifier">Private</span>
-                                        <a href="#redhawk">redhawk</a>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <h6><b>Methods</b></h6>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <ul class="index-list">
-                                    <li>
-                                        <a href="#checkComponents">checkComponents</a>
-                                    </li>
-                                    <li>
-                                        <a href="#checkDeviceManagers">checkDeviceManagers</a>
-                                    </li>
-                                    <li>
-                                        <a href="#checkDevices">checkDevices</a>
-                                    </li>
-                                    <li>
-                                        <a href="#checkDomains">checkDomains</a>
-                                    </li>
-                                    <li>
-                                        <a href="#checkWaveforms">checkWaveforms</a>
-                                    </li>
-                                </ul>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section>
-                <h3 id="constructor">Constructor</h3>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td class="col-md-4">
-                                    <code>constructor(injector: <a href="https://angular.io/api/core/Injector" target="_blank">Injector</a>, redhawk: <a href="../injectables/RedhawkService.html">RedhawkService</a>, config: <a href="../interfaces/SystemBuilderConfig.html">SystemBuilderConfig</a>)</code>
-                                </td>
-                            </tr>
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/system-builder/system-builder.directive.ts:48</a></div>
-                                        </td>
-                                    </tr>
-            
-                            <tr>
-                                <td class="col-md-4">
-                                        <div class="io-description"><p>Constructor</p>
-            </div>
-                                        <div>
-                                                <b>Parameters :</b>
-                                                <table class="params">
-                                                    <thead>
-                                                        <tr>
-                                                            <td>Name</td>
-                                                            <td>Type</td>
-                                                            <td>Optional</td>
-                                                            <td>Description</td>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                            <tr>
-                                                              <td>injector</td>
-                                                              <td>
-                                                                        <code><a href="https://angular.io/api/core/Injector" target="_blank" >Injector</a></code>
-                                                              </td>
-                                                              <td>
-                                                              </td>
-                                                              <td><p>The parent injector for finding the pre-loaded services</p>
-            </td>
-                                                            </tr>
-                                                            <tr>
-                                                              <td>redhawk</td>
-                                                              <td>
-                                                                        <code><a href="../injectables/RedhawkService.html" target="_self" >RedhawkService</a></code>
-                                                              </td>
-                                                              <td>
-                                                              </td>
-                                                              <td><p>The REDHAWK Service for locating the entities related to the services</p>
-            </td>
-                                                            </tr>
-                                                            <tr>
-                                                              <td>config</td>
-                                                              <td>
-                                                                        <code><a href="../interfaces/SystemBuilderConfig.html" target="_self" >SystemBuilderConfig</a></code>
-                                                              </td>
-                                                              <td>
-                                                              </td>
-                                                              <td><p>The user&#39;s SystemBuilder configuration for this directive to manage</p>
-            </td>
-                                                            </tr>
-                                                    </tbody>
-                                                </table>
-                                        </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-            </section>
-
-
-
 
 
             <section>
-                
-                    <h3 id="methods">
-                        Methods
-                    </h3>
+                <h3 id="inputs">Properties</h3>
                     <table class="table table-sm table-bordered">
                         <tbody>
-                            <tr>
-                                <td class="col-md-4">
-                                    <a name="checkComponents"></a>
-                                    <span class="name">
-                                        <b>
-                                        checkComponents
-                                        </b>
-                                        <a href="#checkComponents"><span class="fa fa-link"></span></a>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-4">
-            <code>checkComponents(wave: <a href="../classes/Waveform.html">Waveform</a>, config: <a href="../interfaces/WaveformSubsystem.html">WaveformSubsystem</a>)</code>
-                                </td>
-                            </tr>
-            
-            
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="179" class="link-to-prism">src/system-builder/system-builder.directive.ts:179</a></div>
-                                        </td>
-                                    </tr>
-            
-                            <tr>
-                                <td class="col-md-4">
-                                        <div class="io-description"><p>This method checks the component configurations in the waveform&#39;s config
-            against the components listing in the waveform model (wave).</p>
-            </div>
-            
-                                        <div class="io-description">
-                                                <b>Parameters :</b>
-                                                <table class="params">
-                                                    <thead>
-                                                        <tr>
-                                                            <td>Name</td>
-                                                            <td>Type</td>
-                                                            <td>Optional</td>
-                                                            <td>Description</td>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                            <tr>
-                                                              <td>wave</td>
-                                                              <td>
-                                                                      <code><a href="../classes/Waveform.html" target="_self" >Waveform</a></code>
-                                                              </td>
-                                                              <td>
-                                                              </td>
-                                                              <td><p>The waveform model</p>
-            </td>
-                                                            </tr>
-                                                            <tr>
-                                                              <td>config</td>
-                                                              <td>
-                                                                      <code><a href="../interfaces/WaveformSubsystem.html" target="_self" >WaveformSubsystem</a></code>
-                                                              </td>
-                                                              <td>
-                                                              </td>
-                                                              <td><p>The waveform configuration related to the model</p>
-            </td>
-                                                            </tr>
-                                                    </tbody>
-                                                </table>
-                                        </div>
-                                        <div>
-                                        </div>
-                                        <div class="io-description">
-                                            <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-            
-                                        </div>
-                                            <div class="io-description">
-                                                
-                                            </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td class="col-md-4">
-                                    <a name="checkDeviceManagers"></a>
-                                    <span class="name">
-                                        <b>
-                                        checkDeviceManagers
-                                        </b>
-                                        <a href="#checkDeviceManagers"><span class="fa fa-link"></span></a>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-4">
-            <code>checkDeviceManagers(domain: <a href="../classes/Domain.html">Domain</a>)</code>
-                                </td>
-                            </tr>
-            
-            
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="105" class="link-to-prism">src/system-builder/system-builder.directive.ts:105</a></div>
-                                        </td>
-                                    </tr>
-            
-                            <tr>
-                                <td class="col-md-4">
-                                        <div class="io-description"><p>This method checks the device manager configurations against the updated
-            domain model and configures the services as needed.</p>
-            </div>
-            
-                                        <div class="io-description">
-                                                <b>Parameters :</b>
-                                                <table class="params">
-                                                    <thead>
-                                                        <tr>
-                                                            <td>Name</td>
-                                                            <td>Type</td>
-                                                            <td>Optional</td>
-                                                            <td>Description</td>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                            <tr>
-                                                              <td>domain</td>
-                                                              <td>
-                                                                      <code><a href="../classes/Domain.html" target="_self" >Domain</a></code>
-                                                              </td>
-                                                              <td>
-                                                              </td>
-                                                              <td><p>The domain model to check</p>
-            </td>
-                                                            </tr>
-                                                    </tbody>
-                                                </table>
-                                        </div>
-                                        <div>
-                                        </div>
-                                        <div class="io-description">
-                                            <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-            
-                                        </div>
-                                            <div class="io-description">
-                                                
-                                            </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td class="col-md-4">
-                                    <a name="checkDevices"></a>
-                                    <span class="name">
-                                        <b>
-                                        checkDevices
-                                        </b>
-                                        <a href="#checkDevices"><span class="fa fa-link"></span></a>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-4">
-            <code>checkDevices(dm: <a href="../classes/DeviceManager.html">DeviceManager</a>, config: <a href="../interfaces/Subsystem.html">DeviceManagerSubsystem</a>)</code>
-                                </td>
-                            </tr>
-            
-            
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="131" class="link-to-prism">src/system-builder/system-builder.directive.ts:131</a></div>
-                                        </td>
-                                    </tr>
-            
-                            <tr>
-                                <td class="col-md-4">
-                                        <div class="io-description"><p>This method checks the device configurations in the device manager&#39;s config
-            against the devices listing in the device manager model (dm).</p>
-            </div>
-            
-                                        <div class="io-description">
-                                                <b>Parameters :</b>
-                                                <table class="params">
-                                                    <thead>
-                                                        <tr>
-                                                            <td>Name</td>
-                                                            <td>Type</td>
-                                                            <td>Optional</td>
-                                                            <td>Description</td>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                            <tr>
-                                                              <td>dm</td>
-                                                              <td>
-                                                                      <code><a href="../classes/DeviceManager.html" target="_self" >DeviceManager</a></code>
-                                                              </td>
-                                                              <td>
-                                                              </td>
-                                                              <td><p>The device manager model</p>
-            </td>
-                                                            </tr>
-                                                            <tr>
-                                                              <td>config</td>
-                                                              <td>
-                                                                      <code><a href="../interfaces/Subsystem.html" target="_self" >DeviceManagerSubsystem</a></code>
-                                                              </td>
-                                                              <td>
-                                                              </td>
-                                                              <td><p>The device manager configuration related to this model.</p>
-            </td>
-                                                            </tr>
-                                                    </tbody>
-                                                </table>
-                                        </div>
-                                        <div>
-                                        </div>
-                                        <div class="io-description">
-                                            <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-            
-                                        </div>
-                                            <div class="io-description">
-                                                
-                                            </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td class="col-md-4">
-                                    <a name="checkDomains"></a>
-                                    <span class="name">
-                                        <b>
-                                        checkDomains
-                                        </b>
-                                        <a href="#checkDomains"><span class="fa fa-link"></span></a>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-4">
-            <code>checkDomains(rh: <a href="../classes/Redhawk.html">Redhawk</a>)</code>
-                                </td>
-                            </tr>
-            
-            
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/system-builder/system-builder.directive.ts:77</a></div>
-                                        </td>
-                                    </tr>
-            
-                            <tr>
-                                <td class="col-md-4">
-                                        <div class="io-description"><p>This method handles REDHAWK Model updates which indicate changes in the
-            domain listing.  If the DomainService in the config is already configured,
-            this method exits.  Otherwise, it tries to locate the specified domain
-            and configure the service.</p>
-            </div>
-            
-                                        <div class="io-description">
-                                                <b>Parameters :</b>
-                                                <table class="params">
-                                                    <thead>
-                                                        <tr>
-                                                            <td>Name</td>
-                                                            <td>Type</td>
-                                                            <td>Optional</td>
-                                                            <td>Description</td>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                            <tr>
-                                                              <td>rh</td>
-                                                              <td>
-                                                                      <code><a href="../classes/Redhawk.html" target="_self" >Redhawk</a></code>
-                                                              </td>
-                                                              <td>
-                                                              </td>
-                                                              <td><p>The REDHAWK model from the update.</p>
-            </td>
-                                                            </tr>
-                                                    </tbody>
-                                                </table>
-                                        </div>
-                                        <div>
-                                        </div>
-                                        <div class="io-description">
-                                            <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-            
-                                        </div>
-                                            <div class="io-description">
-                                                
-                                            </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td class="col-md-4">
-                                    <a name="checkWaveforms"></a>
-                                    <span class="name">
-                                        <b>
-                                        checkWaveforms
-                                        </b>
-                                        <a href="#checkWaveforms"><span class="fa fa-link"></span></a>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-4">
-            <code>checkWaveforms(domain: <a href="../classes/Domain.html">Domain</a>)</code>
-                                </td>
-                            </tr>
-            
-            
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="154" class="link-to-prism">src/system-builder/system-builder.directive.ts:154</a></div>
-                                        </td>
-                                    </tr>
-            
-                            <tr>
-                                <td class="col-md-4">
-                                        <div class="io-description"><p>This method checks the waveform configurations against the updated
-            domain model and configures the services as needed.</p>
-            </div>
-            
-                                        <div class="io-description">
-                                                <b>Parameters :</b>
-                                                <table class="params">
-                                                    <thead>
-                                                        <tr>
-                                                            <td>Name</td>
-                                                            <td>Type</td>
-                                                            <td>Optional</td>
-                                                            <td>Description</td>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                            <tr>
-                                                              <td>domain</td>
-                                                              <td>
-                                                                      <code><a href="../classes/Domain.html" target="_self" >Domain</a></code>
-                                                              </td>
-                                                              <td>
-                                                              </td>
-                                                              <td><p>The domain model to check</p>
-            </td>
-                                                            </tr>
-                                                    </tbody>
-                                                </table>
-                                        </div>
-                                        <div>
-                                        </div>
-                                        <div class="io-description">
-                                            <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-            
-                                        </div>
-                                            <div class="io-description">
-                                                
-                                            </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-            </section>
-
-            <section>
-                
-                    <h3 id="inputs">
-                        Properties
-                    </h3>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td class="col-md-4">
-                                    <a name="config"></a>
-                                    <span class="name">
-                                        <b>
-                                            <span class="modifier">Private</span>
-                                        config
-                                        </b>
-                                        <a href="#config"><span class="fa fa-link"></span></a>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <span class="modifier-icon fa fa-reset"></span><code>config:     <code><a href="../interfaces/SystemBuilderConfig.html" target="_self" >SystemBuilderConfig</a></code>
-            </code>
-                                </td>
-                            </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <i>Type : </i>    <code><a href="../interfaces/SystemBuilderConfig.html" target="_self" >SystemBuilderConfig</a></code>
-            
+                                        <a name="success"></a>
+                                        <span class="name"><b>success</b><a href="#success"><span class="fa fa-link"></span></a></span>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>success:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/system-builder/system-builder.directive.ts:46</a></div>
+                                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
                                         </td>
                                     </tr>
-            
+
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/base/service-configured.ts:7</a></div>
+                                        </td>
+                                    </tr>
+
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-description"><p>The SystemBuilder configuration being managed </p>
-            </div>
+                                    <div class="io-description"><p>TRUE if a model was successfully retrieved, FALSE otherwise </p>
+</div>
                                 </td>
                             </tr>
-            
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
                         <tbody>
-                            <tr>
-                                <td class="col-md-4">
-                                    <a name="injector"></a>
-                                    <span class="name">
-                                        <b>
-                                            <span class="modifier">Private</span>
-                                        injector
-                                        </b>
-                                        <a href="#injector"><span class="fa fa-link"></span></a>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <span class="modifier-icon fa fa-reset"></span><code>injector:     <code><a href="https://angular.io/api/core/Injector" target="_blank" >Injector</a></code>
-            </code>
-                                </td>
-                            </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <i>Type : </i>    <code><a href="https://angular.io/api/core/Injector" target="_blank" >Injector</a></code>
-            
+                                        <a name="uriChanged"></a>
+                                        <span class="name"><b>uriChanged</b><a href="#uriChanged"><span class="fa fa-link"></span></a></span>
                                     </td>
                                 </tr>
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/system-builder/system-builder.directive.ts:44</a></div>
-                                        </td>
-                                    </tr>
-            
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-description"><p>The Injector for fetching services </p>
-            </div>
-                                </td>
-                            </tr>
-            
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td class="col-md-4">
-                                    <a name="redhawk"></a>
-                                    <span class="name">
-                                        <b>
-                                            <span class="modifier">Private</span>
-                                        redhawk
-                                        </b>
-                                        <a href="#redhawk"><span class="fa fa-link"></span></a>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <span class="modifier-icon fa fa-reset"></span><code>redhawk:     <code><a href="../injectables/RedhawkService.html" target="_self" >RedhawkService</a></code>
-            </code>
-                                </td>
-                            </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <i>Type : </i>    <code><a href="../injectables/RedhawkService.html" target="_self" >RedhawkService</a></code>
-            
+                                        <code>uriChanged:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
                                     </td>
                                 </tr>
+
+
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/system-builder/system-builder.directive.ts:48</a></div>
+                                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
                                         </td>
                                     </tr>
-            
+
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/base/service-configured.ts:9</a></div>
+                                        </td>
+                                    </tr>
+
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-description"><p>The REDHAWK service used for model look-ups </p>
-            </div>
+                                    <div class="io-description"><p>TRUE if the change related to this reconfiguration was a URI (endpoint) change, FALSE otherwise </p>
+</div>
                                 </td>
                             </tr>
-            
                         </tbody>
                     </table>
             </section>
-
-
     </div>
 
 
     <div class="tab-pane fade tab-source-code" id="c-source">
-        <pre class="line-numbers"><code class="language-typescript">import { Directive, Inject, Injector } from &#x27;@angular/core&#x27;;
-import { RedhawkService } from &#x27;../redhawk/redhawk.module&#x27;;
-import { DomainService } from &#x27;../domain/domain.module&#x27;;
-import { DeviceService } from &#x27;../device/device.module&#x27;;
-import { DeviceManagerService } from &#x27;../devicemanager/device-manager.module&#x27;;
-import { WaveformService } from &#x27;../waveform/waveform.module&#x27;;
-import { ComponentService } from &#x27;../component/component.module&#x27;;
-
-import { Redhawk, Domain, DeviceManager, Waveform } from &#x27;../models/index&#x27;;
-
-import {
-  DeviceManagerSubsystem,
-  SYSTEM_BUILDER_CONFIG,
-  SystemBuilderConfig,
-  Subsystem
-} from &#x27;./config/index&#x27;;
-import { WaveformSubsystem } from &#x27;./config/waveform-subsystem&#x27;;
-
-/**
- * Checks the subsystem config to see if the ID and name are considered a match.
- * @param id ID to test against
- * @param name Name to test against
- * @param subsys Subsystem configuration to check
- */
-function subsystemMatches(id: string, name: string, subsys: Subsystem): boolean {
-  const idTest &#x3D; new RegExp(subsys.id);
-  const nameTest &#x3D; new RegExp(subsys.name);
-  return (idTest.test(id) &amp;&amp; nameTest.test(name));
-}
-
-/**
- * This Directive must be instantiated once in your application where the &#x27;provideSystemBuilderConfig&#x27; was
- * added to the providers.  This directive serves two purposes.  First, it is a nice visual queue in your 
- * template that you&#x27;re using the SystemBuilder.  Second, it acts as a background service for updating
- * your services.  If you need to know whether your service is up or down, observe the &#x27;configured$&#x27;
- * member.
- */
-@Directive({
-  selector: &#x27;[arSystemBuilder]&#x27;,
-  exportAs: &#x27;arSystemBuilder&#x27;
-})
-export class SystemBuilderDirective {
-  /** The Injector for fetching services */
-  private injector: Injector;
-  /** The SystemBuilder configuration being managed */
-  private config: SystemBuilderConfig;
-  /** The REDHAWK service used for model look-ups */
-  private redhawk: RedhawkService;
-
-  /**
-   * Constructor
-   * @param injector The parent injector for finding the pre-loaded services
-   * @param redhawk The REDHAWK Service for locating the entities related to the services
-   * @param config The user&#x27;s SystemBuilder configuration for this directive to manage
-   */
-  constructor(
-    injector: Injector,
-    redhawk: RedhawkService,
-    @Inject(SYSTEM_BUILDER_CONFIG) config: SystemBuilderConfig
-  ) {
-    this.injector &#x3D; injector;
-    this.redhawk &#x3D; redhawk;
-    this.config &#x3D; config;
-
-    // Listen for the domain to show up and handle it.
-    redhawk.model$.subscribe((rh) &#x3D;&gt; this.checkDomains(rh));
-  }
-
-  /**
-   * This method handles REDHAWK Model updates which indicate changes in the
-   * domain listing.  If the DomainService in the config is already configured,
-   * this method exits.  Otherwise, it tries to locate the specified domain
-   * and configure the service.
-   * 
-   * @param rh The REDHAWK model from the update.
-   */
-  checkDomains(rh: Redhawk) {
-    // Get the injected domain service.  If it&#x27;s not configured, the id will
-    // be undefined.
-    const domainService &#x3D; this.injector.get(this.config.domain.token) as DomainService;
-    if (domainService.uniqueId !&#x3D;&#x3D; undefined) {
-      return; // Already configured.
-    }
-
-    // Iterate over the domain names and pull the models to check the ID and name
-    // If a match is found, configure the domainService instance.
-    for (const domName of rh.domains) {
-      this.redhawk.attach$(domName).subscribe((d) &#x3D;&gt; {
-        if (subsystemMatches(d.id, d.name, this.config.domain)) {
-          domainService.uniqueId &#x3D; d.name; // &#x27;name&#x27; is not a mistake
-          domainService.model$.subscribe((domain) &#x3D;&gt; {
-            this.checkDeviceManagers(domain);
-            this.checkWaveforms(domain);
-          });
-        }
-      });
-    }
-  }
-
-  /**
-   * This method checks the device manager configurations against the updated
-   * domain model and configures the services as needed.
-   * @param domain The domain model to check
-   */
-  checkDeviceManagers(domain: Domain) {
-    if (this.config.domain.deviceManagers) {
-      for (const dmConfig of this.config.domain.deviceManagers) {
-        const dmService &#x3D; this.injector.get(dmConfig.token) as DeviceManagerService;
-        if (dmService.uniqueId !&#x3D;&#x3D; undefined) {
-          continue; // Skip, already configured.
-        } else {
-          // Cross-reference it against domain&#x27;s listing.
-          for (const dmRef of domain.deviceManagers) {
-            if (subsystemMatches(dmRef.id, dmRef.name, dmConfig)) {
-              dmService.uniqueId &#x3D; dmRef.id;
-              dmService.model$.subscribe((dm) &#x3D;&gt; this.checkDevices(dm, dmConfig));
-              break;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  /**
-   * This method checks the device configurations in the device manager&#x27;s config
-   * against the devices listing in the device manager model (dm).
-   * @param dm The device manager model
-   * @param config The device manager configuration related to this model.
-   */
-  checkDevices(dm: DeviceManager, config: DeviceManagerSubsystem) {
-    if (config.devices) {
-      for (const devConfig of config.devices) {
-        const deviceService &#x3D; this.injector.get(devConfig.token) as DeviceService;
-        if (deviceService.uniqueId !&#x3D;&#x3D; undefined) {
-          continue; // Skip, already configured.
-        } else {
-          // Cross-reference the config against the devices list
-          for (const devRef of dm.devices) {
-            if (subsystemMatches(devRef.id, devRef.name, devConfig)) {
-              deviceService.uniqueId &#x3D; devRef.id;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  /**
-   * This method checks the waveform configurations against the updated
-   * domain model and configures the services as needed.
-   * @param domain The domain model to check
-   */
-  checkWaveforms(domain: Domain) {
-    if (this.config.domain.waveforms) {
-      for (const waveConfig of this.config.domain.waveforms) {
-        const waveService &#x3D; this.injector.get(waveConfig.token) as WaveformService;
-        if (waveService.uniqueId !&#x3D;&#x3D; undefined) {
-          continue; // Skip, already configured.
-        } else {
-          // Cross-reference it against the domain&#x27;s listing.
-          for (const waveRef of domain.applications) {
-            if (subsystemMatches(waveRef.id, waveRef.name, waveConfig)) {
-              waveService.uniqueId &#x3D; waveRef.id;
-              waveService.model$.subscribe((wave) &#x3D;&gt; this.checkComponents(wave, waveConfig));
-            }
-          }
-        }
-      }
-    }
-  }
-
-  /**
-   * This method checks the component configurations in the waveform&#x27;s config
-   * against the components listing in the waveform model (wave).
-   * @param wave The waveform model
-   * @param config The waveform configuration related to the model
-   */
-  checkComponents(wave: Waveform, config: WaveformSubsystem) {
-    if (config.components) {
-      for (const compConfig of config.components) {
-        const compService &#x3D; this.injector.get(compConfig.token as ComponentService);
-        if (compService.uniqueId !&#x3D;&#x3D; undefined) {
-          continue; // Skip, already configured.
-        } else {
-          // Cross-reference the config against the components list
-          for (const compRef of wave.components) {
-            if (subsystemMatches(compRef.id, compRef.name, compConfig)) {
-              compService.uniqueId &#x3D; compRef.id;
-            }
-          }
-        }
-      }
-    }
-  }
+        <pre class="line-numbers"><code class="language-typescript">export interface IServiceConfigured {
+    /** TRUE if a model was successfully retrieved, FALSE otherwise */
+    success: boolean;
+    /** TRUE if the change related to this reconfiguration was a URI (endpoint) change, FALSE otherwise */
+    uriChanged: boolean;
 }
 </code></pre>
     </div>
-
 </div>
-
-
-
-
-
 
 
 

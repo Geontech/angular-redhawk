@@ -438,6 +438,9 @@
                                     <a href="../interfaces/ISerializableFn.html" >ISerializableFn</a>
                                 </li>
                                 <li class="link">
+                                    <a href="../interfaces/IServiceConfigured.html" >IServiceConfigured</a>
+                                </li>
+                                <li class="link">
                                     <a href="../interfaces/ISimpleProperty.html" >ISimpleProperty</a>
                                 </li>
                                 <li class="link">
@@ -974,6 +977,9 @@
                                            <a href="../interfaces/ISerializableFn.html" >ISerializableFn</a>
                                        </li>
                                        <li class="link">
+                                           <a href="../interfaces/IServiceConfigured.html" >IServiceConfigured</a>
+                                       </li>
+                                       <li class="link">
                                            <a href="../interfaces/ISimpleProperty.html" >ISimpleProperty</a>
                                        </li>
                                        <li class="link">
@@ -1269,7 +1275,7 @@ serves as methods for controlling it and its ports and properties.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/device/device.service.ts:82</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/device/device.service.ts:90</a></div>
                                         </td>
                                     </tr>
             
@@ -1352,7 +1358,7 @@ serves as methods for controlling it and its ports and properties.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/device/device.service.ts:68</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/device/device.service.ts:76</a></div>
                                         </td>
                                     </tr>
             
@@ -1435,7 +1441,7 @@ serves as methods for controlling it and its ports and properties.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">src/device/device.service.ts:96</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="104" class="link-to-prism">src/device/device.service.ts:104</a></div>
                                         </td>
                                     </tr>
             
@@ -1518,7 +1524,7 @@ serves as methods for controlling it and its ports and properties.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">src/device/device.service.ts:110</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="118" class="link-to-prism">src/device/device.service.ts:118</a></div>
                                         </td>
                                     </tr>
             
@@ -1598,7 +1604,7 @@ serves as methods for controlling it and its ports and properties.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/device/device.service.ts:50</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/device/device.service.ts:58</a></div>
                                         </td>
                                     </tr>
             
@@ -1667,7 +1673,7 @@ serves as methods for controlling it and its ports and properties.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/device/device.service.ts:58</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/device/device.service.ts:66</a></div>
                                         </td>
                                     </tr>
             
@@ -1735,6 +1741,14 @@ export class DeviceService extends PortBearingService&lt;Device&gt; {
     ) {
         super(http, restPython);
         this.modelUpdated(new Device());
+
+        // If the dmService service changed, reconfigure.
+        this.dmService.configured$.subscribe(
+            (cstat) &#x3D;&gt; {
+                if (cstat.uriChanged &amp;&amp; cstat.success) {
+                    this.reconfigure(this.uniqueId, cstat.uriChanged);
+                }
+            });
     }
 
     /**

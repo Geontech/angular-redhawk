@@ -438,6 +438,9 @@
                                     <a href="../interfaces/ISerializableFn.html" >ISerializableFn</a>
                                 </li>
                                 <li class="link">
+                                    <a href="../interfaces/IServiceConfigured.html" >IServiceConfigured</a>
+                                </li>
+                                <li class="link">
                                     <a href="../interfaces/ISimpleProperty.html" >ISimpleProperty</a>
                                 </li>
                                 <li class="link">
@@ -972,6 +975,9 @@
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/ISerializableFn.html" >ISerializableFn</a>
+                                       </li>
+                                       <li class="link">
+                                           <a href="../interfaces/IServiceConfigured.html" >IServiceConfigured</a>
                                        </li>
                                        <li class="link">
                                            <a href="../interfaces/ISimpleProperty.html" >ISimpleProperty</a>
@@ -1603,9 +1609,9 @@ export class Resource extends ResourceRef implements ISerializable&lt;Resource&g
      * @returns {prop.Property} The Property model (or undefined if invalid).
      */
     public property(id: string): prop.Property {
-        for (let prop of this.properties) {
-            if (prop.id &#x3D;&#x3D;&#x3D; id) {
-                return prop;
+        for (let p of this.properties) {
+            if (p.id &#x3D;&#x3D;&#x3D; id) {
+                return p;
             }
         }
         return undefined;
@@ -1617,9 +1623,9 @@ export class Resource extends ResourceRef implements ISerializable&lt;Resource&g
      * @returns {port.Port} The Port model (or undefined if invalid)
      */
     public getPort(id: string): port.Port {
-        for (let port of this.ports) {
-            if (port.name &#x3D;&#x3D;&#x3D; id) {
-                return port;
+        for (let p of this.ports) {
+            if (p.name &#x3D;&#x3D;&#x3D; id) {
+                return p;
             }
         }
         return undefined;
@@ -1633,7 +1639,8 @@ export class Resource extends ResourceRef implements ISerializable&lt;Resource&g
         this.properties &#x3D; prop.deserializeProperties(input.properties);
         return this;
     }
-}</code></pre>
+}
+</code></pre>
     </div>
 </div>
 

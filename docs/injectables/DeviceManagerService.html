@@ -438,6 +438,9 @@
                                     <a href="../interfaces/ISerializableFn.html" >ISerializableFn</a>
                                 </li>
                                 <li class="link">
+                                    <a href="../interfaces/IServiceConfigured.html" >IServiceConfigured</a>
+                                </li>
+                                <li class="link">
                                     <a href="../interfaces/ISimpleProperty.html" >ISimpleProperty</a>
                                 </li>
                                 <li class="link">
@@ -974,6 +977,9 @@
                                            <a href="../interfaces/ISerializableFn.html" >ISerializableFn</a>
                                        </li>
                                        <li class="link">
+                                           <a href="../interfaces/IServiceConfigured.html" >IServiceConfigured</a>
+                                       </li>
+                                       <li class="link">
                                            <a href="../interfaces/ISimpleProperty.html" >ISimpleProperty</a>
                                        </li>
                                        <li class="link">
@@ -1261,7 +1267,7 @@ as well as models of its devices and services.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/devicemanager/device-manager.service.ts:60</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/devicemanager/device-manager.service.ts:68</a></div>
                                         </td>
                                     </tr>
             
@@ -1334,7 +1340,7 @@ as well as models of its devices and services.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/devicemanager/device-manager.service.ts:71</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/devicemanager/device-manager.service.ts:79</a></div>
                                         </td>
                                     </tr>
             
@@ -1406,7 +1412,7 @@ as well as models of its devices and services.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/devicemanager/device-manager.service.ts:42</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/devicemanager/device-manager.service.ts:50</a></div>
                                         </td>
                                     </tr>
             
@@ -1475,7 +1481,7 @@ as well as models of its devices and services.</p>
             
                                     <tr>
                                         <td class="col-md-4">
-                                            <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/devicemanager/device-manager.service.ts:51</a></div>
+                                            <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/devicemanager/device-manager.service.ts:59</a></div>
                                         </td>
                                     </tr>
             
@@ -1541,6 +1547,14 @@ export class DeviceManagerService extends BaseService&lt;DeviceManager&gt; {
     ) {
         super(http, restPython);
         this.modelUpdated(new DeviceManager());
+
+        // If the domain service changed, reconfigure.
+        this.domainService.configured$.subscribe(
+            (cstat) &#x3D;&gt; {
+                if (cstat.uriChanged &amp;&amp; cstat.success) {
+                    this.reconfigure(this.uniqueId, cstat.uriChanged);
+                }
+            });
     }
 
     /**
