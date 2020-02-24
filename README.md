@@ -1,6 +1,6 @@
 # Angular REDHAWK
 
-The angular-redhawk library is a back-end interface to the REST and socket services of Geon's fork of REST-Python.  It provides minimal examples of very low-level interfaces to these services.  For higher-level interfaces, see the Angular-REDHAWK UIKit (angular-redhawk-uikit).
+The angular-redhawk library is a back-end interface to the REST and socket services of Geon's fork of REST-Python.  It provides minimal examples of very low-level interfaces to these services.
 
 This Angular library interfaces with the REST-Python server from Geon Technologies.  It provides two modules top-level, Support and UI Kit.  The former contains the high-level Components users can implement in their designs to facilitate easy access to the underlying Services.  It also contains the generic REST Model definitions that are returned by those Services.  The UI Kit contains re-usable UI Components that use those support module Component interfaces to view and manipulate the Models.
 
